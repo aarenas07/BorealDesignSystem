@@ -1,0 +1,20 @@
+// Mapeamos las variables CSS del theme.css a variables SASS para usarlas fácil
+// Referencia: Tabla "Colores Extended" de tu documentación
+
+// Warning
+$color-warning: var(--md-extended-color-warning-color);
+$color-on-warning: var(--md-extended-color-warning-on-color);
+$color-warning-container: var(--md-extended-color-warning-color-container);
+
+// Positive
+$color-positive: var(--md-extended-color-positive-color);
+$color-on-positive: var(--md-extended-color-positive-on-color);
+$color-positive-container: var(--md-extended-color-positive-color-container);
+
+// Measurement
+$color-measurement: var(--md-extended-color-measurement-color);
+$color-on-measurement: var(--md-extended-color-measurement-on-color);
+
+// Accent
+$color-accent: var(--md-extended-color-accent-color);
+$color-on-accent: var(--md-extended-color-accent-on-color);

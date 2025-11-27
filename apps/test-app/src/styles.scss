@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+// Importamos el sistema de diseño completo de la librería ui-kit
+// Esto incluye:
+// - Variables CSS del tema personalizado (--md-sys-color-*)
+// - Tema de Angular Material con mapeo de variables
+// - Estilos base y configuración global
+@use 'index' as ui;

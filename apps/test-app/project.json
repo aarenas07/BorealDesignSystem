@@ -21,7 +21,10 @@
             "input": "apps/test-app/public"
           }
         ],
-        "styles": ["apps/test-app/src/styles.scss"]
+        "styles": ["apps/test-app/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/ui-kit/src/lib/styles"]
+        }
       },
       "configurations": {
         "production": {

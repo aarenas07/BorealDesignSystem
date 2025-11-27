@@ -1,2 +1,149 @@
-<app-nx-welcome></app-nx-welcome>
-<router-outlet></router-outlet>
+<!-- <app-nx-welcome></app-nx-welcome>
+<router-outlet></router-outlet> -->
+<div style="padding: 50px; display: flex; gap: 10px">
+<button mat-button>Botón Texto</button>
+
+<button mat-flat-button color="primary">Botón Sólido</button>
+
+<lib-button variant="primary">Mi Botón Wrapper</lib-button>
+  <div></div>
+</div>
+
+<h2>TABLE</h2>
+<div class="user-management">
+  <header class="page-header">
+    <h1>Gestión de Usuarios</h1>
+    <button class="add-user-btn" (click)="addUser()">
+      <mat-icon>add</mat-icon>
+      Agregar Usuario
+    </button>
+  </header>
+
+  <lib-table
+    [columns]="tableColumns"
+    [actions]="tableActions"
+    [config]="tableConfig"
+    [data]="users"
+    [expandedRowTemplate]="expandedRowTemplate"
+    (sortChange)="onSort($event)"
+    (pageChange)="onPageChange($event)"
+    (selectionChange)="onSelectionChange($event)"
+    (actionClick)="onActionClick($event)"
+  >
+  </lib-table>
+
+  <!-- Custom Templates -->
+  <ng-template #avatarTemplate let-row>
+    <div class="user-avatar-cell">
+      @if (row.avatar) {
+      <img [src]="row.avatar" [alt]="row.name" class="avatar" />
+      } @else {
+      <div class="avatar-placeholder">{{ getInitials(row.name) }}</div>
+      }
+      <span>{{ row.name }}</span>
+    </div>
+  </ng-template>
+
+  <ng-template #statusTemplate let-row>
+    <mat-chip-set>
+      <mat-chip [highlighted]="true" [class]="'status-' + row.status">
+        <mat-icon [class]="'status-icon-' + row.status">
+          {{ getStatusIcon(row.status) }}
+        </mat-icon>
+        {{ getStatusLabel(row.status) }}
+      </mat-chip>
+    </mat-chip-set>
+  </ng-template>
+
+  <ng-template #roleTemplate let-row>
+    <mat-chip-set>
+      <mat-chip [class]="'role-' + row.role">
+        {{ getRoleLabel(row.role) }}
+      </mat-chip>
+    </mat-chip-set>
+  </ng-template>
+
+  <ng-template #salaryTemplate let-row>
+    <span class="salary-cell">
+      {{ row.salary | currency: 'USD':'symbol':'1.0-0' }}
+    </span>
+  </ng-template>
+
+  <ng-template #expandedRowTemplate let-row>
+    <div class="expanded-row-content">
+      <div class="expanded-header">
+        <mat-icon class="user-icon">person</mat-icon>
+        <h3>Detalles de {{ row.name }}</h3>
+      </div>
+
+      <div class="expanded-body">
+        <div class="expanded-section">
+          <h4>
+            <mat-icon>info</mat-icon>
+            Información Personal
+          </h4>
+          <div class="info-grid">
+            <div class="info-item">
+              <mat-icon>badge</mat-icon>
+              <div>
+                <label>ID</label>
+                <span>{{ row.id }}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <mat-icon>email</mat-icon>
+              <div>
+                <label>Email</label>
+                <span>{{ row.email }}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <mat-icon>business</mat-icon>
+              <div>
+                <label>Departamento</label>
+                <span>{{ row.department }}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <mat-icon>event</mat-icon>
+              <div>
+                <label>Fecha de Ingreso</label>
+                <span>{{ row.joinDate | date: 'longDate' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="expanded-section">
+          <h4>
+            <mat-icon>work</mat-icon>
+            Información Laboral
+          </h4>
+          <div class="info-grid">
+            <div class="info-item">
+              <mat-icon>work</mat-icon>
+              <div>
+                <label>Rol</label>
+                <span>{{ getRoleLabel(row.role) }}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <mat-icon>payments</mat-icon>
+              <div>
+                <label>Salario</label>
+                <span>{{ row.salary | currency }}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <mat-icon>analytics</mat-icon>
+              <div>
+                <label>Estado</label>
+                <span>{{ getStatusLabel(row.status) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

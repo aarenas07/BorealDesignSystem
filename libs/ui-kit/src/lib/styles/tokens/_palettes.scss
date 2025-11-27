@@ -1,0 +1,86 @@
+// libs/ui-kit/src/lib/styles/tokens/_palettes.scss
+
+// NOTA IMPORTANTE:
+// Angular Material M3 requiere EXACTAMENTE estas claves:
+// 0, 10, 20, 25, 30, 35, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100.
+// Si falta una, o si sobra alguna (como 5 o 15), fallará.
+
+// 1. Paleta Primaria
+$primary-palette: (
+  0: #000000,
+  10: #00201D,
+  20: #003733,
+  25: #00433E, // <--- Requerido
+  30: #00504A,
+  35: #005D56, // <--- Requerido
+  40: #006A62,
+  50: #0D857C,
+  60: #39A095,
+  70: #58BBB0,
+  80: #75D7CB,
+  90: #92F4E7,
+  95: #B3FFF4,
+  98: #E4FFFA, // <--- Requerido
+  99: #F2FFFC,
+  100: #FFFFFF
+);
+
+// 2. Paleta Secundaria
+$secondary-palette: (
+  0: #000000,
+  10: #0B1F1C,
+  20: #213431,
+  25: #2C3F3C, // <--- Requerido
+  30: #374A48,
+  35: #435653, // <--- Requerido
+  40: #4F625F,
+  50: #677B78,
+  60: #809591,
+  70: #9BB0AC,
+  80: #B6CBC7,
+  90: #D1E7E3,
+  95: #E0F5F1,
+  98: #E8FEFA, // <--- Requerido
+  99: #F2FFFC,
+  100: #FFFFFF
+);
+
+// 3. Paleta Terciaria
+$tertiary-palette: (
+  0: #000000,
+  10: #071D2E,
+  20: #1E3244,
+  25: #293D50, // <--- Requerido
+  30: #35495C,
+  35: #405468, // <--- Requerido
+  40: #4C6074,
+  50: #65798E,
+  60: #7E93A8,
+  70: #99ADC4,
+  80: #B4C9E0,
+  90: #D0E5FD,
+  95: #E8F2FF,
+  98: #F7F9FF, // <--- Requerido
+  99: #FCFCFF,
+  100: #FFFFFF
+);
+
+// 4. Error (Ajustado al estándar)
+$error-palette: (
+  0: #000000,
+  10: #410002,
+  20: #690005,
+  25: #800007,
+  30: #93000A,
+  35: #A60C12,
+  40: #BA1A1A,
+  50: #DE3730,
+  60: #FF5449,
+  70: #FF897D,
+  80: #FFB4AB,
+  90: #FFDAD6,
+  95: #FFEDE9,
+  98: #FFF8F6,
+  99: #FFFBFF,
+  100: #FFFFFF
+);

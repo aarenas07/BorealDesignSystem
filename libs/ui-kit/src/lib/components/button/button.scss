@@ -1,0 +1,35 @@
+@use '../styles/variables' as v; // Importamos nuestros helpers
+
+:host {
+  display: inline-block;
+
+  // --- VARIANTES NATIVAS (Material ya las maneja) ---
+  // Primary, Secondary, etc. usan las directivas de material directo.
+
+  // --- VARIANTES EXTENDED (SicofERP Custom) ---
+  
+  // Variante: Positive
+  &.variant-positive {
+    button {
+      // Usamos las variables CSS documentadas
+      background-color: v.$color-positive !important; 
+      color: v.$color-on-positive !important;
+      
+      &:hover {
+        filter: brightness(0.9); // Efecto hover simple
+      }
+    }
+  }
+
+  // Variante: Warning
+  &.variant-warning {
+    button {
+      background-color: v.$color-warning !important;
+      color: v.$color-on-warning !important;
+      
+      &:hover {
+        filter: brightness(0.9);
+      }
+    }
+  }
+}

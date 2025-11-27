@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import {
   ButtonComponent,
   TableAction,
@@ -24,7 +25,7 @@ interface User {
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ButtonComponent, TableComponent, MatChipsModule, MatIconModule], // Importas TU componente, no Material
+  imports: [CommonModule, ButtonComponent, TableComponent, MatChipsModule, MatIconModule, MatButtonModule], // Importas TU componente, no Material
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -133,7 +134,7 @@ export class AppComponent {
       joinDate: new Date('2023-07-22'),
       salary: 85000,
       department: 'IT',
-    },{
+    }, {
       id: 10,
       name: 'Luis Rodríguez',
       email: 'luis.rodriguez@empresa.com',
@@ -142,8 +143,8 @@ export class AppComponent {
       joinDate: new Date('2023-07-22'),
       salary: 85000,
       department: 'IT',
-    },{
-      id:11,
+    }, {
+      id: 11,
       name: 'Luis Rodríguez',
       email: 'luis.rodriguez@empresa.com',
       role: 'admin',
@@ -151,7 +152,7 @@ export class AppComponent {
       joinDate: new Date('2023-07-22'),
       salary: 85000,
       department: 'IT',
-    },{
+    }, {
       id: 12,
       name: 'Luis Rodríguez',
       email: 'luis.rodriguez@empresa.com',

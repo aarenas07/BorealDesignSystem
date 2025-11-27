@@ -1,7 +1,7 @@
-// 1. PRIMERO: Importamos las variables CSS del sistema de diseño personalizado
-// Esto define todas las variables --md-sys-color-* en :root
-@import './sicoferp-theme/theme.scss';
-
-// 2. SEGUNDO: Exponemos el tema SASS de Angular Material
-// Esto aplica el tema a los componentes y mapea las variables --mat-sys-* a --md-sys-color-*
+// 1. PRIMERO: Exponemos el tema SASS de Angular Material
+// Esto debe ir primero porque @forward debe estar antes que @import
 @forward 'theme';
+
+// 2. SEGUNDO: Usamos las variables CSS del sistema de diseño personalizado
+// Cambiamos @import por @use para evitar el error de @forward
+@use './sicoferp-theme/theme.scss';

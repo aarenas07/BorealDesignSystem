@@ -32,7 +32,10 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
     '[class.size-sm]': 'size() === "sm"',
     '[class.size-md]': 'size() === "md"',
     '[class.size-lg]': 'size() === "lg"',
-    '[class.full-width]': 'fullWidth()'
+    '[class.full-width]': 'fullWidth()',
+    '[class.variant-warning]': 'variant() === "warning"',
+    '[class.variant-positive]': 'variant() === "positive"',
+    '[class.variant-measurement]': 'variant() === "measurement"'
   },
   templateUrl: './button.html',
   styleUrls: ['./button.scss']

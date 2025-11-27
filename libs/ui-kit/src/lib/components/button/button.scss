@@ -1,35 +1,209 @@
-@use '../styles/variables' as v; // Importamos nuestros helpers
+// Componente Button - Estilos usando el Sistema de Diseño Personalizado
 
 :host {
   display: inline-block;
 
-  // --- VARIANTES NATIVAS (Material ya las maneja) ---
-  // Primary, Secondary, etc. usan las directivas de material directo.
+  // ============================================
+  // VARIANTES ESTÁNDAR DE MATERIAL DESIGN 3
+  // ============================================
+  // Nota: Angular Material ya aplica estos colores automáticamente
+  // si el tema está configurado correctamente. Estos estilos son
+  // para asegurar que se usen las variables correctas.
 
-  // --- VARIANTES EXTENDED (SicofERP Custom) ---
-  
-  // Variante: Positive
-  &.variant-positive {
-    button {
-      // Usamos las variables CSS documentadas
-      background-color: v.$color-positive !important; 
-      color: v.$color-on-positive !important;
-      
-      &:hover {
-        filter: brightness(0.9); // Efecto hover simple
-      }
+  // Variante: Primary (Filled Button)
+  button[color="primary"] {
+    background-color: var(--md-sys-color-primary) !important;
+    color: var(--md-sys-color-on-primary) !important;
+
+    &:hover:not([disabled]) {
+      background-color: var(--md-sys-color-primary-container) !important;
+      color: var(--md-sys-color-on-primary-container) !important;
+    }
+
+    &[disabled] {
+      opacity: 0.38;
     }
   }
 
-  // Variante: Warning
-  &.variant-warning {
+  // Variante: Warn/Danger (Error Button)
+  button[color="warn"] {
+    background-color: var(--md-sys-color-error) !important;
+    color: var(--md-sys-color-on-error) !important;
+
+    &:hover:not([disabled]) {
+      background-color: var(--md-sys-color-error-container) !important;
+      color: var(--md-sys-color-on-error-container) !important;
+    }
+  }
+
+  // Variante: Outline (Stroked Button)
+  button.mat-mdc-outlined-button {
+    border-color: var(--md-sys-color-outline) !important;
+    color: var(--md-sys-color-primary) !important;
+
+    &:hover:not([disabled]) {
+      background-color: var(--md-sys-color-primary-container) !important;
+      color: var(--md-sys-color-on-primary-container) !important;
+      border-color: var(--md-sys-color-primary) !important;
+    }
+  }
+
+  // Variante: Ghost (Text Button)
+  button.mat-mdc-button {
+    color: var(--md-sys-color-primary) !important;
+
+    &:hover:not([disabled]) {
+      background-color: var(--md-sys-color-primary-container) !important;
+      color: var(--md-sys-color-on-primary-container) !important;
+    }
+  }
+
+  // ============================================
+  // COLORES EXTENDIDOS PERSONALIZADOS
+  // ============================================
+  // Estos son colores adicionales del sistema de diseño
+  // que no están en Material Design estándar
+
+  // Variante: Warning (Amarillo/Ámbar)
+  &.variant-warning button {
+    background-color: var(--md-extended-color-warning-color) !important;
+    color: var(--md-extended-color-warning-on-color) !important;
+
+    &:hover:not([disabled]) {
+      background-color: var(--md-extended-color-warning-color-container) !important;
+      color: var(--md-extended-color-warning-on-color-container) !important;
+    }
+
+    &[disabled] {
+      opacity: 0.38;
+    }
+  }
+
+  // Variante: Positive (Verde)
+  &.variant-positive button {
+    background-color: var(--md-extended-color-positive-color) !important;
+    color: var(--md-extended-color-positive-on-color) !important;
+
+    &:hover:not([disabled]) {
+      background-color: var(--md-extended-color-positive-color-container) !important;
+      color: var(--md-extended-color-positive-on-color-container) !important;
+    }
+
+    &[disabled] {
+      opacity: 0.38;
+    }
+  }
+
+  // Variante: Measurement (Magenta/Rosa)
+  &.variant-measurement button {
+    background-color: var(--md-extended-color-measurement-color) !important;
+    color: var(--md-extended-color-measurement-on-color) !important;
+
+    &:hover:not([disabled]) {
+      background-color: var(--md-extended-color-measurement-color-container) !important;
+      color: var(--md-extended-color-measurement-on-color-container) !important;
+    }
+
+    &[disabled] {
+      opacity: 0.38;
+    }
+  }
+
+  // ============================================
+  // TAMAÑOS
+  // ============================================
+
+  &.size-sm button {
+    height: 32px;
+    padding: 0 12px;
+    font-size: 13px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &.size-md button {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &.size-lg button {
+    height: 48px;
+    padding: 0 24px;
+    font-size: 16px;
+
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  // ============================================
+  // ANCHO COMPLETO
+  // ============================================
+
+  &.full-width {
+    display: block;
+    width: 100%;
+
     button {
-      background-color: v.$color-warning !important;
-      color: v.$color-on-warning !important;
-      
-      &:hover {
-        filter: brightness(0.9);
-      }
+      width: 100%;
+    }
+  }
+
+  // ============================================
+  // CONTENIDO DEL BOTÓN
+  // ============================================
+
+  .content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+
+    mat-spinner {
+      margin-right: 4px;
+    }
+
+    mat-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    span {
+      line-height: 1;
+    }
+  }
+
+  // ============================================
+  // ESTADOS
+  // ============================================
+
+  button {
+    transition: all 0.2s ease-in-out;
+    border-radius: 8px; // Esquinas redondeadas según MD3
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: none; // Sin mayúsculas automáticas
+
+    &:active:not([disabled]) {
+      transform: scale(0.98);
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
     }
   }
 }

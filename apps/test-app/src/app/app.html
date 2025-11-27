@@ -1,13 +1,86 @@
-<!-- <app-nx-welcome></app-nx-welcome>
-<router-outlet></router-outlet> -->
-<div style="padding: 50px; display: flex; gap: 10px">
-<button mat-button>Botón Texto</button>
+<!-- Button Showcase - Sistema de Diseño Personalizado -->
+<div style="padding: 40px; background: var(--md-sys-color-surface); min-height: 100vh;">
+  <h1 style="color: var(--md-sys-color-on-surface); margin-bottom: 32px;">
+    Sistema de Diseño - Showcase de Botones
+  </h1>
 
-<button mat-flat-button color="primary">Botón Sólido</button>
+  <!-- Variantes Estándar -->
+  <section style="margin-bottom: 40px;">
+    <h2 style="color: var(--md-sys-color-on-surface); margin-bottom: 16px;">
+      Variantes Estándar de Material Design 3
+    </h2>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+      <lib-button variant="primary">Primary</lib-button>
+      <lib-button variant="danger">Danger</lib-button>
+      <lib-button variant="outline">Outline</lib-button>
+      <lib-button variant="ghost">Ghost</lib-button>
+    </div>
+  </section>
 
-<lib-button variant="primary">Mi Botón Wrapper</lib-button>
-  <div></div>
+  <!-- Colores Extendidos Personalizados -->
+  <section style="margin-bottom: 40px;">
+    <h2 style="color: var(--md-sys-color-on-surface); margin-bottom: 16px;">
+      Colores Extendidos Personalizados
+    </h2>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+      <lib-button variant="warning">Warning</lib-button>
+      <lib-button variant="positive">Positive</lib-button>
+      <lib-button variant="measurement">Measurement</lib-button>
+    </div>
+  </section>
+
+  <!-- Con Iconos -->
+  <section style="margin-bottom: 40px;">
+    <h2 style="color: var(--md-sys-color-on-surface); margin-bottom: 16px;">
+      Botones con Iconos
+    </h2>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+      <lib-button variant="primary" icon="save">Guardar</lib-button>
+      <lib-button variant="danger" icon="delete">Eliminar</lib-button>
+      <lib-button variant="positive" icon="check_circle">Aprobar</lib-button>
+      <lib-button variant="warning" icon="warning">Advertencia</lib-button>
+    </div>
+  </section>
+
+  <!-- Tamaños -->
+  <section style="margin-bottom: 40px;">
+    <h2 style="color: var(--md-sys-color-on-surface); margin-bottom: 16px;">
+      Tamaños
+    </h2>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+      <lib-button variant="primary" size="sm">Pequeño</lib-button>
+      <lib-button variant="primary" size="md">Mediano</lib-button>
+      <lib-button variant="primary" size="lg">Grande</lib-button>
+    </div>
+  </section>
+
+  <!-- Estados -->
+  <section style="margin-bottom: 40px;">
+    <h2 style="color: var(--md-sys-color-on-surface); margin-bottom: 16px;">
+      Estados
+    </h2>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+      <lib-button variant="primary">Normal</lib-button>
+      <lib-button variant="primary" [disabled]="true">Deshabilitado</lib-button>
+      <lib-button variant="primary" [loading]="true">Cargando</lib-button>
+    </div>
+  </section>
+
+  <!-- Botones Nativos de Angular Material (para comparación) -->
+  <section style="margin-bottom: 40px;">
+    <h2 style="color: var(--md-sys-color-on-surface); margin-bottom: 16px;">
+      Botones Nativos de Angular Material (Comparación)
+    </h2>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+      <button mat-flat-button color="primary">Primary Nativo</button>
+      <button mat-flat-button color="warn">Warn Nativo</button>
+      <button mat-stroked-button color="primary">Outline Nativo</button>
+      <button mat-button color="primary">Text Nativo</button>
+    </div>
+  </section>
 </div>
+
+<!-- Tabla de Usuarios (Original) -->
 
 <h2>TABLE</h2>
 <div class="user-management">

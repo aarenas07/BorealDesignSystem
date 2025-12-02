@@ -10,16 +10,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-// 1. Tipos Estrictos (Validación de TS)
+// Tipos para las variantes de Angular Material
 export type ButtonVariant =
-  | 'primary'
-  | 'secondary'
-  | 'outline'
-  | 'ghost'
-  | 'danger'
-  | 'warning'
-  | 'positive'
-  | 'measurement';
+  | 'text'      // mat-button
+  | 'elevated'  // mat-raised-button
+  | 'filled'    // mat-flat-button
+  | 'tonal'     // mat-flat-button con estilos especiales
+  | 'outlined'  // mat-stroked-button
+  | 'icon';     // mat-icon-button
+
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 @Component({
@@ -33,9 +32,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
     '[class.size-md]': 'size() === "md"',
     '[class.size-lg]': 'size() === "lg"',
     '[class.full-width]': 'fullWidth()',
-    '[class.variant-warning]': 'variant() === "warning"',
-    '[class.variant-positive]': 'variant() === "positive"',
-    '[class.variant-measurement]': 'variant() === "measurement"'
+    '[class.variant-icon]': 'variant() === "icon"'
   },
   templateUrl: './button.html',
   styleUrls: ['./button.scss']
@@ -43,15 +40,14 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 export class ButtonComponent {
 
   label = input<string>('');
-  variant = input<ButtonVariant>('primary');
+  variant = input<ButtonVariant>('filled');
+
   size = input<ButtonSize>('md');
   icon = input<string | null>(null);
-
 
   disabled = input<boolean>(false);
   loading = input<boolean>(false);
   fullWidth = input<boolean>(false);
-
 
   action = output<MouseEvent>();
 

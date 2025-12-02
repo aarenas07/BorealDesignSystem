@@ -1,50 +1,71 @@
 @switch (variant()) {
-  
-  @case ('primary') {
-    <button mat-flat-button [color]="'primary'" [disabled]="isDisabled()" (click)="handleClick($event)">
-      <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
-    </button>
-  }
 
-  @case ('danger') {
-    <button mat-flat-button color="warn" [disabled]="isDisabled()" (click)="handleClick($event)">
-      <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
-    </button>
-  }
+@case ('text') {
+<button mat-button [disabled]="isDisabled()" (click)="handleClick($event)">
+  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</button>
+}
 
-  @case ('outline') {
-    <button mat-stroked-button color="primary" [disabled]="isDisabled()" (click)="handleClick($event)">
-      <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
-    </button>
-  }
+@case ('elevated') {
+<button mat-button="elevated" [disabled]="isDisabled()" (click)="handleClick($event)">
+  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</button>
+}
 
-  @case ('ghost') {
-    <button mat-button color="primary" [disabled]="isDisabled()" (click)="handleClick($event)">
-      <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
-    </button>
-  }
+@case ('filled') {
+<button mat-button="filled" [disabled]="isDisabled()" (click)="handleClick($event)">
+  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</button>
+}
 
-  @default {
-    <button mat-stroked-button [disabled]="isDisabled()" (click)="handleClick($event)">
-      <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
-    </button>
-  }
+@case ('tonal') {
+<button mat-button="tonal" [disabled]="isDisabled()" (click)="handleClick($event)">
+  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</button>
+}
+
+@case ('outlined') {
+<button mat-button="outlined" [disabled]="isDisabled()" (click)="handleClick($event)">
+  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</button>
+}
+
+@case ('icon') {
+<button mat-button="icon" [disabled]="isDisabled()" (click)="handleClick($event)">
+  <ng-container *ngTemplateOutlet="iconOnlyTpl"></ng-container>
+</button>
+}
+
+@default {
+<button mat-button="filled" [disabled]="isDisabled()" (click)="handleClick($event)">
+  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</button>
+}
 }
 
 <ng-template #contentTpl>
   <div class="content-wrapper">
-    
+
     @if (loading()) {
-      <mat-spinner diameter="20" mode="indeterminate"></mat-spinner>
-    } 
+    <mat-spinner diameter="20" mode="indeterminate"></mat-spinner>
+    }
     @else if (icon()) {
-      <mat-icon>{{ icon() }}</mat-icon>
+    <mat-icon>{{ icon() }}</mat-icon>
     }
 
     <span>
       @if(label()) { {{ label() }} }
       <ng-content></ng-content>
     </span>
-    
+
   </div>
+</ng-template>
+
+<ng-template #iconOnlyTpl>
+  @if (loading()) {
+  <mat-spinner diameter="20" mode="indeterminate"></mat-spinner>
+  }
+  @else if (icon()) {
+  <mat-icon>{{ icon() }}</mat-icon>
+  }
 </ng-template>

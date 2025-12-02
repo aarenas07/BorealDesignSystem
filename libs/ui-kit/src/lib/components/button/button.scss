@@ -1,111 +1,44 @@
-// Componente Button - Estilos usando el Sistema de Diseño Personalizado
+// Componente Button - Estilos usando Angular Material Design 3
 
 :host {
   display: inline-block;
 
   // ============================================
-  // VARIANTES ESTÁNDAR DE MATERIAL DESIGN 3
+  // VARIANTE TONAL (Material Design 3)
   // ============================================
-  // Nota: Angular Material ya aplica estos colores automáticamente
-  // si el tema está configurado correctamente. Estos estilos son
-  // para asegurar que se usen las variables correctas.
-
-  // Variante: Primary (Filled Button)
-  button[color="primary"] {
-    background-color: var(--md-sys-color-primary) !important;
-    color: var(--md-sys-color-on-primary) !important;
+  // La variante tonal usa colores del container en lugar del color principal
+  
+  button.tonal-button {
+    background-color: var(--md-sys-color-secondary-container) !important;
+    color: var(--md-sys-color-on-secondary-container) !important;
 
     &:hover:not([disabled]) {
-      background-color: var(--md-sys-color-primary-container) !important;
-      color: var(--md-sys-color-on-primary-container) !important;
+      background-color: var(--md-sys-color-secondary) !important;
+      color: var(--md-sys-color-on-secondary) !important;
     }
 
     &[disabled] {
       opacity: 0.38;
     }
-  }
 
-  // Variante: Warn/Danger (Error Button)
-  button[color="warn"] {
-    background-color: var(--md-sys-color-error) !important;
-    color: var(--md-sys-color-on-error) !important;
+    &[color="accent"] {
+      background-color: var(--md-sys-color-tertiary-container) !important;
+      color: var(--md-sys-color-on-tertiary-container) !important;
 
-    &:hover:not([disabled]) {
+      &:hover:not([disabled]) {
+        background-color: var(--md-sys-color-tertiary) !important;
+        color: var(--md-sys-color-on-tertiary) !important;
+      }
+    }
+
+    &[color="warn"] {
       background-color: var(--md-sys-color-error-container) !important;
       color: var(--md-sys-color-on-error-container) !important;
-    }
-  }
 
-  // Variante: Outline (Stroked Button)
-  button.mat-mdc-outlined-button {
-    border-color: var(--md-sys-color-outline) !important;
-    color: var(--md-sys-color-primary) !important;
-
-    &:hover:not([disabled]) {
-      background-color: var(--md-sys-color-primary-container) !important;
-      color: var(--md-sys-color-on-primary-container) !important;
-      border-color: var(--md-sys-color-primary) !important;
-    }
-  }
-
-  // Variante: Ghost (Text Button)
-  button.mat-mdc-button {
-    color: var(--md-sys-color-primary) !important;
-
-    &:hover:not([disabled]) {
-      background-color: var(--md-sys-color-primary-container) !important;
-      color: var(--md-sys-color-on-primary-container) !important;
-    }
-  }
-
-  // ============================================
-  // COLORES EXTENDIDOS PERSONALIZADOS
-  // ============================================
-  // Estos son colores adicionales del sistema de diseño
-  // que no están en Material Design estándar
-
-  // Variante: Warning (Amarillo/Ámbar)
-  &.variant-warning button {
-    background-color: var(--md-extended-color-warning-color) !important;
-    color: var(--md-extended-color-warning-on-color) !important;
-
-    &:hover:not([disabled]) {
-      background-color: var(--md-extended-color-warning-color-container) !important;
-      color: var(--md-extended-color-warning-on-color-container) !important;
-    }
-
-    &[disabled] {
-      opacity: 0.38;
-    }
-  }
-
-  // Variante: Positive (Verde)
-  &.variant-positive button {
-    background-color: var(--md-extended-color-positive-color) !important;
-    color: var(--md-extended-color-positive-on-color) !important;
-
-    &:hover:not([disabled]) {
-      background-color: var(--md-extended-color-positive-color-container) !important;
-      color: var(--md-extended-color-positive-on-color-container) !important;
-    }
-
-    &[disabled] {
-      opacity: 0.38;
-    }
-  }
-
-  // Variante: Measurement (Magenta/Rosa)
-  &.variant-measurement button {
-    background-color: var(--md-extended-color-measurement-color) !important;
-    color: var(--md-extended-color-measurement-on-color) !important;
-
-    &:hover:not([disabled]) {
-      background-color: var(--md-extended-color-measurement-color-container) !important;
-      color: var(--md-extended-color-measurement-on-color-container) !important;
-    }
-
-    &[disabled] {
-      opacity: 0.38;
+      &:hover:not([disabled]) {
+        background-color: var(--md-sys-color-error) !important;
+        color: var(--md-sys-color-on-error) !important;
+      }
     }
   }
 
@@ -147,6 +80,25 @@
       width: 24px;
       height: 24px;
     }
+  }
+
+  // Tamaños para botones de solo icono
+  &.variant-icon.size-sm button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+  }
+
+  &.variant-icon.size-md button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+
+  &.variant-icon.size-lg button {
+    width: 48px;
+    height: 48px;
+    padding: 0;
   }
 
   // ============================================

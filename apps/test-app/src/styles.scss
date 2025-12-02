@@ -1,6 +1,109 @@
-// Importamos el sistema de diseño completo de la librería ui-kit
-// Esto incluye:
-// - Variables CSS del tema personalizado (--md-sys-color-*)
-// - Tema de Angular Material con mapeo de variables
-// - Estilos base y configuración global
-@use 'index' as ui;
+/* Import Angular Material styles using the @use rule */
+@use '@angular/material' as mat;
+@use 'sicof-theme';
+
+/* Set the height of the html and body elements to 100% */
+html,
+body {
+  height: 100%;
+}
+
+/* Define base styles for the body element */
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/*
+ * Define styles for the html element:
+ * - Apply a color scheme that supports both light and dark modes.
+ * - Include Angular Material theme configuration with custom color, typography, and density settings.
+ */
+html {
+  color-scheme: light dark;
+
+  /* Apply Angular Material theme with custom settings */
+  @include mat.theme((color: mat.$violet-palette,
+      /* Use violet color palette */
+      typography: Roboto,
+      /* Set typography to Roboto */
+      density: 0
+      /* Set density to 0 for default spacing */
+    ));
+
+  /* Define styles for light theme */
+  &.theme-light {
+    color-scheme: light;
+  }
+
+  /* Define styles for dark theme */
+  &.theme-dark {
+    color-scheme: dark;
+  }
+
+  /* Custom Sicof Themes */
+  &.sicof-theme-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$light-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-light-medium-contrast {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$light-medium-contrast-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-light-high-contrast {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$light-high-contrast-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-dark {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$dark-scheme);
+    color-scheme: dark;
+  }
+
+  &.sicof-theme-dark-medium-contrast {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$dark-medium-contrast-scheme);
+    color-scheme: dark;
+  }
+
+  &.sicof-theme-dark-high-contrast {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$dark-high-contrast-scheme);
+    color-scheme: dark;
+  }
+
+  &.sicof-theme-red-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$red-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-orange-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$orange-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-yellow-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$yellow-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-green-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$green-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-blue-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$blue-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-chartreuse-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$chartreuse-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-cyan-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$cyan-lt-scheme);
+    color-scheme: light;
+  }
+}

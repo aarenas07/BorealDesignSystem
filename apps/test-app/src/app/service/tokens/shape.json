@@ -1,0 +1,49 @@
+{
+  "Corner": {
+    "Extra-small": {
+      "value": 4,
+      "type": "number",
+      "prefix": "shape"
+    },
+    "Small": {
+      "value": 8,
+      "type": "number",
+      "prefix": "shape"
+    },
+    "Medium": {
+      "value": 12,
+      "type": "number",
+      "prefix": "shape"
+    },
+    "Large": {
+      "value": 16,
+      "type": "number",
+      "prefix": "shape"
+    },
+    "Large-increased": {
+      "value": 20,
+      "type": "number",
+      "prefix": "shape"
+    },
+    "Extra-large": {
+      "value": 28,
+      "type": "number",
+      "prefix": "shape"
+    },
+    "Extra-large-increased": {
+      "value": 32,
+      "type": "number",
+      "prefix": "shape"
+    },
+    "Extra-extra-large": {
+      "value": 48,
+      "type": "number",
+      "prefix": "shape"
+    },
+    "Full": {
+      "value": 1000,
+      "type": "number",
+      "prefix": "shape"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "baseline": {
+    "Static": {
+      "Font": {
+        "Brand": {
+          "value": "Roboto",
+          "type": "fontFamily",
+          "prefix": "font_theme"
+        },
+        "Plain": {
+          "value": "Roboto",
+          "type": "fontFamily",
+          "prefix": "font_theme"
+        }
+      },
+      "Weight": {
+        "Regular": {
+          "value": "Regular",
+          "type": "fontFamily",
+          "prefix": "font_theme"
+        },
+        "Medium": {
+          "value": "Medium",
+          "type": "fontFamily",
+          "prefix": "font_theme"
+        },
+        "Bold": {
+          "value": "SemiBold",
+          "type": "fontFamily",
+          "prefix": "font_theme"
+        }
+      }
+    },
+    "Tracking": {
+      "Small": {
+        "value": 0.1,
+        "type": "number",
+        "prefix": "font_theme"
+      }
+    }
+  },
+  "wireframe": {
+    "Static": {
+      "Font": {
+        "Brand": {
+          "value": "Flow Circular",
+          "type": "fontFamily",
+          "prefix": "font_theme"
+        },
+        "Plain": {
+          "value": "Flow Circular",
+          "type": "fontFamily",
+          "prefix": "font_theme"
+        }
+      },
+      "Weight": {
+        "Regular": {
+          "value": "Regular",
+          "type": "fontFamily",
+          "prefix": "font_theme"
+        },
+        "Medium": {
+          "value": "Regular",
+          "type": "fontFamily",
+          "prefix": "font_theme"
+        },
+        "Bold": {
+          "value": "Regular",
+          "type": "fontFamily",
+          "prefix": "font_theme"
+        }
+      }
+    }
+  }
+}

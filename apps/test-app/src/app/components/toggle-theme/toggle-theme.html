@@ -1,0 +1,6 @@
+<mat-button-toggle-group name="themeToggle" aria-label="Toggle color theme" [value]="themeService.currentTheme()?.id"
+    (change)="themeChange($event)">
+    @for (theme of themes; track theme.id) {
+    <mat-button-toggle [value]="theme.id">{{ theme.name }}</mat-button-toggle>
+    }
+</mat-button-toggle-group>

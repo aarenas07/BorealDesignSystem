@@ -1,0 +1,454 @@
+{
+  "Static": {
+    "Display Large": {
+      "Font": {
+        "value": "{Static.Font.Brand}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Regular}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 57,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 64,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Tracking": {
+        "value": -0.25,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Display Medium": {
+      "Font": {
+        "value": "{Static.Font.Brand}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Regular}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 45,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 52,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Display Small": {
+      "Font": {
+        "value": "{Static.Font.Brand}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Regular}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 36,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 44,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Headline Large": {
+      "Font": {
+        "value": "{Static.Font.Brand}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Regular}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 32,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 40,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Headline Medium": {
+      "Font": {
+        "value": "{Static.Font.Brand}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Regular}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 28,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 36,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Headline Small": {
+      "Font": {
+        "value": "{Static.Font.Brand}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Regular}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 24,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 32,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Title Large": {
+      "Font": {
+        "value": "{Static.Font.Brand}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Regular}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 22,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 28,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Title Medium": {
+      "Font": {
+        "value": "{Static.Font.Plain}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Bold}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 16,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 24,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Tracking": {
+        "value": 0.15,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Title Small": {
+      "Font": {
+        "value": "{Static.Font.Plain}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Bold}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 14,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 20,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Tracking": {
+        "value": 0.1,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Label Large": {
+      "Font": {
+        "value": "{Static.Font.Plain}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Bold}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 14,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 20,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Tracking": {
+        "value": 0.1,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Label Medium": {
+      "Font": {
+        "value": "{Static.Font.Plain}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Bold}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 12,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 16,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Tracking": {
+        "value": 0.5,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Label Small": {
+      "Font": {
+        "value": "{Static.Font.Plain}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Bold}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 11,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 16,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Tracking": {
+        "value": 0.5,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Body Large": {
+      "Font": {
+        "value": "{Static.Font.Plain}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Regular}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 16,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 24,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Tracking": {
+        "value": 0.5,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Body Medium": {
+      "Font": {
+        "value": "{Static.Font.Plain}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Regular}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 14,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 20,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Tracking": {
+        "value": 0.25,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    },
+    "Body Small": {
+      "Font": {
+        "value": "{Static.Font.Plain}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight": {
+        "value": "{Static.Weight.Regular}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Weight-emphasized": {
+        "value": "{Static.Weight.Medium}",
+        "type": "fontFamily",
+        "prefix": "typescale"
+      },
+      "Size": {
+        "value": 12,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Line Height": {
+        "value": 16,
+        "type": "number",
+        "prefix": "typescale"
+      },
+      "Tracking": {
+        "value": 0.4,
+        "type": "number",
+        "prefix": "typescale"
+      }
+    }
+  }
+}

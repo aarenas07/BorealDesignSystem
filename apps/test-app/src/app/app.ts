@@ -40,11 +40,12 @@ import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { Observable, map, startWith } from 'rxjs';
 import {
   ButtonComponent,
+  FormFieldComponent,
   TableAction,
   TableColumn,
   TableComponent,
   TableConfig,
-} from '@organizacion/ui-kit'; // Importación limpia
+} from '@organizacion/ui-kit';
 
 interface User {
   id: number;
@@ -100,7 +101,8 @@ interface User {
     MatTreeModule,
     ThemeToggleComponent,
     TableComponent,
-    ButtonComponent
+    ButtonComponent,
+    FormFieldComponent
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -121,6 +123,7 @@ interface User {
       padding: 24px;
       box-sizing: border-box;
       display:flex;
+      flex-direction: column;
       gap: 24px;
       align-items: start;
     }
@@ -162,6 +165,7 @@ export class App {
   private _snackBar = inject(MatSnackBar);
   private _bottomSheet = inject(MatBottomSheet);
   private _dialog = inject(MatDialog);
+  nameValue = ""
 
   // Autocomplete
   myControl = new FormControl('');
@@ -228,9 +232,6 @@ export class App {
   formatLabel(value: number): string {
     return `${value}`;
   }
-
-
-
 
   save() {
     console.log('Guardando...');
@@ -378,9 +379,37 @@ export class App {
     stickyHeader: true,
   };
 
+  // Server-side Table Demo
+  serverUsers: User[] = [];
+  totalServerRecords = 100;
+  serverTableConfig: TableConfig = {
+    selectable: true,
+    expandable: false,
+    showGlobalFilter: true,
+    mode: 'server-side',
+    filterDebounceMs: 500,
+    pageSizeOptions: [5, 10, 20],
+    defaultPageSize: 5
+  };
+
+  // Virtual Scroll Table Demo
+  virtualUsers: User[] = [];
+  virtualTableConfig: TableConfig = {
+    selectable: true,
+    expandable: false,
+    showGlobalFilter: true,
+    virtualScroll: true,
+    density: 'compact',
+    stickyHeader: true
+  };
+
   ngOnInit() {
     this.setupTableColumns();
     this.setupTableActions();
+
+    // Initialize demos
+    this.generateVirtualData();
+    this.onServerDataRequest({ page: 0, pageSize: 5 });
   }
 
   ngAfterViewInit() {
@@ -604,4 +633,53 @@ export class App {
     return labels[role];
   }
 
+  // New Demo Methods
+  onServerDataRequest(event: { page: number; pageSize: number; sort?: any; filter?: string }) {
+    console.log('Server data requested:', event);
+    // Simulate API call
+    setTimeout(() => {
+      const startIndex = event.page * event.pageSize;
+      const endIndex = startIndex + event.pageSize;
+
+      // Filter logic (simulated server-side)
+      let filteredData = [...this.users, ...this.users, ...this.users]; // Multiply data for demo
+      if (event.filter) {
+        filteredData = filteredData.filter(u =>
+          u.name.toLowerCase().includes(event.filter!.toLowerCase()) ||
+          u.email.toLowerCase().includes(event.filter!.toLowerCase())
+        );
+      }
+
+      // Sort logic (simulated server-side)
+      if (event.sort && event.sort.active && event.sort.direction !== '') {
+        filteredData.sort((a: any, b: any) => {
+          const isAsc = event.sort!.direction === 'asc';
+          return (a[event.sort!.active] < b[event.sort!.active] ? -1 : 1) * (isAsc ? 1 : -1);
+        });
+      }
+
+      this.totalServerRecords = filteredData.length;
+      this.serverUsers = filteredData.slice(startIndex, endIndex);
+    }, 500);
+  }
+
+  generateVirtualData() {
+    const data: User[] = [];
+    const roles = ['admin', 'developer', 'designer', 'manager'];
+    const statuses = ['active', 'inactive', 'pending'];
+
+    for (let i = 0; i < 1000; i++) {
+      data.push({
+        id: i + 100,
+        name: `User ${i}`,
+        email: `user${i}@example.com`,
+        role: roles[Math.floor(Math.random() * roles.length)],
+        status: statuses[Math.floor(Math.random() * statuses.length)],
+        joinDate: new Date(),
+        salary: 50000 + Math.floor(Math.random() * 50000),
+        department: 'Engineering'
+      });
+    }
+    this.virtualUsers = data;
+  }
 }

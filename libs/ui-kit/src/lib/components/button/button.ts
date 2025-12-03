@@ -15,7 +15,6 @@ export type ButtonVariant =
   | 'text'      // mat-button
   | 'elevated'  // mat-raised-button
   | 'filled'    // mat-flat-button
-  | 'tonal'     // mat-flat-button con estilos especiales
   | 'outlined'  // mat-stroked-button
   | 'icon';     // mat-icon-button
 

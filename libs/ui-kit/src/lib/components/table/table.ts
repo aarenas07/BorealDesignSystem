@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, OnInit, TemplateRef, signal, computed } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, OnInit, TemplateRef, signal, computed, DestroyRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
@@ -11,8 +11,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FormsModule } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 // ==================== INTERFACES ====================
 
@@ -51,6 +55,11 @@ export interface TableConfig {
   stickyHeader?: boolean;
   density?: 'comfortable' | 'compact' | 'spacious';
   zebraStriping?: boolean;
+
+  // New Critical Features
+  mode?: 'client-side' | 'server-side';
+  virtualScroll?: boolean;
+  filterDebounceMs?: number;
 }
 
 export interface TableState<T = any> {
@@ -58,6 +67,8 @@ export interface TableState<T = any> {
   error: string | null;
   data: T[];
   totalRecords: number;
+  currentPage?: number;
+  pageSize?: number;
 }
 
 // ==================== COMPONENT ====================
@@ -77,19 +88,20 @@ export interface TableState<T = any> {
     MatMenuModule,
     MatInputModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ScrollingModule
   ],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({ 
-        height: '0px', 
+      state('collapsed', style({
+        height: '0px',
         minHeight: '0',
         opacity: '0',
         overflow: 'hidden',
         visibility: 'hidden'
       })),
-      state('expanded', style({ 
-        height: '*', 
+      state('expanded', style({
+        height: '*',
         opacity: '1',
         overflow: 'visible',
         visibility: 'visible'
@@ -113,7 +125,7 @@ export interface TableState<T = any> {
           <mat-label>Buscar en toda la tabla</mat-label>
           <input matInput 
                  [(ngModel)]="globalFilterValue" 
-                 (ngModelChange)="applyGlobalFilter($event)"
+                 (ngModelChange)="onFilterChange($event)"
                  placeholder="Filtrar...">
           <mat-icon matPrefix>search</mat-icon>
           @if (globalFilterValue) {
@@ -164,13 +176,37 @@ export interface TableState<T = any> {
       <!-- Table -->
       @if (!state().loading && !state().error && state().data.length > 0) {
         <div class="table-wrapper" [class.sticky-header]="config.stickyHeader">
-          <table mat-table 
-                 [dataSource]="dataSource" 
-                 matSort 
-                 (matSortChange)="onSortChange($event)"
-                 [class.zebra-striping]="config.zebraStriping"
-                 multiTemplateDataRows>
+          
+          <!-- Virtual Scroll Viewport -->
+          @if (config.virtualScroll) {
+            <cdk-virtual-scroll-viewport itemSize="48" class="virtual-viewport">
+              <table mat-table 
+                     [dataSource]="dataSource" 
+                     matSort 
+                     (matSortChange)="onSortChange($event)"
+                     [class.zebra-striping]="config.zebraStriping"
+                     multiTemplateDataRows>
+                
+                <!-- Content Projection for Columns -->
+                <ng-container *ngTemplateOutlet="tableContent"></ng-container>
+              </table>
+            </cdk-virtual-scroll-viewport>
+          } @else {
+            <!-- Standard Table -->
+            <table mat-table 
+                   [dataSource]="dataSource" 
+                   matSort 
+                   (matSortChange)="onSortChange($event)"
+                   [class.zebra-striping]="config.zebraStriping"
+                   multiTemplateDataRows>
+              
+              <!-- Content Projection for Columns -->
+              <ng-container *ngTemplateOutlet="tableContent"></ng-container>
+            </table>
+          }
 
+          <!-- Shared Table Content Template -->
+          <ng-template #tableContent>
             <!-- Checkbox Column -->
             @if (config.selectable) {
               <ng-container matColumnDef="select">
@@ -300,7 +336,7 @@ export interface TableState<T = any> {
                   class="detail-row"
                   [class.detail-row-visible]="expandedRow === row"></tr>
             }
-          </table>
+          </ng-template>
         </div>
 
         <!-- Paginator -->
@@ -355,6 +391,15 @@ export interface TableState<T = any> {
       &.sticky-header {
         max-height: 600px;
         overflow-y: auto;
+      }
+    }
+
+    .virtual-viewport {
+      height: 600px;
+      width: 100%;
+      
+      table {
+        width: 100%;
       }
     }
 
@@ -479,12 +524,21 @@ export class TableComponent<T = any> implements OnInit {
   @Input() actions: TableAction<T>[] = [];
   @Input() config: TableConfig = {};
   @Input() expandedRowTemplate?: TemplateRef<any>;
+
+  // New input for server-side pagination
+  @Input() totalRecords?: number;
+
   @Input() set data(value: T[]) {
-    this.state.set({
-      ...this.state(),
+    this.state.update(s => ({
+      ...s,
       data: value,
-      totalRecords: value.length
-    });
+      // Only update totalRecords from data length if not provided explicitly
+      // and if we are in client-side mode
+      totalRecords: this.totalRecords ?? (this.config.mode === 'server-side' ? s.totalRecords : value.length)
+    }));
+
+    // Update dataSource
+    this.dataSource.data = value;
   }
 
   @Output() sortChange = new EventEmitter<Sort>();
@@ -492,6 +546,15 @@ export class TableComponent<T = any> implements OnInit {
   @Output() selectionChange = new EventEmitter<T[]>();
   @Output() rowClick = new EventEmitter<T>();
   @Output() actionClick = new EventEmitter<{ action: TableAction<T>, row: T }>();
+
+  // New outputs
+  @Output() dataRequest = new EventEmitter<{
+    page: number;
+    pageSize: number;
+    sort?: Sort;
+    filter?: string;
+  }>();
+  @Output() filterChange = new EventEmitter<string>();
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -501,6 +564,9 @@ export class TableComponent<T = any> implements OnInit {
   expandedRow: T | null = null;
   globalFilterValue = '';
 
+  private filterSubject = new Subject<string>();
+  private destroyRef = inject(DestroyRef);
+
   state = signal<TableState<T>>({
     loading: false,
     error: null,
@@ -508,7 +574,7 @@ export class TableComponent<T = any> implements OnInit {
     totalRecords: 0
   });
 
-  visibleColumns = computed(() => 
+  visibleColumns = computed(() =>
     this.columns.filter(col => !col.hidden)
   );
 
@@ -523,8 +589,27 @@ export class TableComponent<T = any> implements OnInit {
 
   ngOnInit() {
     this.dataSource.data = this.state().data;
-    this.selection.changed.subscribe(() => {
-      this.selectionChange.emit(this.selection.selected);
+
+    // Fix memory leak with takeUntilDestroyed
+    this.selection.changed
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.selectionChange.emit(this.selection.selected);
+      });
+
+    // Setup filter debounce
+    this.filterSubject.pipe(
+      debounceTime(this.config.filterDebounceMs || 300),
+      distinctUntilChanged(),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(filterValue => {
+      this.applyFilterLogic(filterValue);
+      this.filterChange.emit(filterValue);
+
+      // If server-side, emit data request
+      if (this.config.mode === 'server-side') {
+        this.emitDataRequest();
+      }
     });
   }
 
@@ -535,25 +620,51 @@ export class TableComponent<T = any> implements OnInit {
 
   // ==================== FILTERING ====================
 
+  onFilterChange(value: string) {
+    this.filterSubject.next(value);
+  }
+
   applyGlobalFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // Legacy method support, now delegates to subject
+    this.onFilterChange(filterValue);
+  }
+
+  private applyFilterLogic(filterValue: string) {
+    if (this.config.mode !== 'server-side') {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
   }
 
   clearGlobalFilter() {
     this.globalFilterValue = '';
-    this.dataSource.filter = '';
+    this.onFilterChange('');
   }
 
   // ==================== SORTING ====================
 
   onSortChange(sort: Sort) {
     this.sortChange.emit(sort);
+    if (this.config.mode === 'server-side') {
+      this.emitDataRequest();
+    }
   }
 
   // ==================== PAGINATION ====================
 
   onPageChange(event: PageEvent) {
     this.pageChange.emit(event);
+    if (this.config.mode === 'server-side') {
+      this.emitDataRequest();
+    }
+  }
+
+  private emitDataRequest() {
+    this.dataRequest.emit({
+      page: this.paginator ? this.paginator.pageIndex : 0,
+      pageSize: this.paginator ? this.paginator.pageSize : (this.config.defaultPageSize || 10),
+      sort: this.sort,
+      filter: this.globalFilterValue
+    });
   }
 
   // ==================== SELECTION ====================
@@ -598,7 +709,7 @@ export class TableComponent<T = any> implements OnInit {
   // ==================== ACTIONS ====================
 
   getVisibleActions(row: T): TableAction<T>[] {
-    return this.actions.filter(action => 
+    return this.actions.filter(action =>
       !action.visible || action.visible(row)
     );
   }
@@ -644,7 +755,7 @@ export class TableComponent<T = any> implements OnInit {
     this.state.update(s => ({
       ...s,
       data,
-      totalRecords: totalRecords || data.length,
+      totalRecords: totalRecords || (this.config.mode === 'server-side' ? s.totalRecords : data.length),
       loading: false,
       error: null
     }));

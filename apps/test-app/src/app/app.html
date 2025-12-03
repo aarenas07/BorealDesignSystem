@@ -5,9 +5,140 @@
 
 <main class="app-content">
 
-  <lib-button label="Button" variant="text" size="md" (action)="handleAction($event)"></lib-button>
-  <lib-button label="Button" variant="elevated" size="md" (action)="handleAction($event)"></lib-button>
-  <lib-button label="Button" variant="filled" size="md" (action)="handleAction($event)"></lib-button>
-  <lib-button label="Button" variant="outlined" size="md" (action)="handleAction($event)"></lib-button>
+  <!-- Buttons Section -->
+  <section class="component-section">
+    <h2>Buttons</h2>
+    <div class="demo-row">
+      <lib-button label="Text" variant="text" size="md" (action)="handleAction($event)"></lib-button>
+      <lib-button label="Elevated" variant="elevated" size="md" (action)="handleAction($event)"></lib-button>
+      <lib-button label="Filled" variant="filled" size="md" (action)="handleAction($event)"></lib-button>
+      <lib-button label="Outlined" variant="outlined" size="md" (action)="handleAction($event)"></lib-button>
+      <lib-button label="Icon" variant="icon" icon="favorite" size="md" (action)="handleAction($event)"></lib-button>
+    </div>
+  </section>
+
+  <!-- Form Fields Section -->
+  <section class="component-section">
+    <h2>Form Fields - Validación Automática</h2>
+
+    <div class="demo-row">
+      <!-- Basic Text Field -->
+      <lib-form-field label="Nombre" [(value)]="nameValue">
+      </lib-form-field>
+    </div>
+
+    <div class="demo-row">
+      <!-- Email with automatic validation -->
+      <lib-form-field label="Email (requerido)" type="email" prefixIcon="email" [required]="true" [(value)]="nameValue">
+      </lib-form-field>
+    </div>
+
+    <div class="demo-row">
+      <!-- Password with minlength validation -->
+      <lib-form-field label="Contraseña (mínimo 8 caracteres)" type="password" [required]="true" [minlength]="8"
+        suffixIcon="lock" [(value)]="nameValue">
+      </lib-form-field>
+    </div>
+
+    <div class="demo-row">
+      <!-- Search with Hint -->
+      <lib-form-field label="Buscar" type="search" prefixIcon="search" hint="Escribe al menos 3 caracteres"
+        [minlength]="3" [(value)]="nameValue">
+      </lib-form-field>
+    </div>
+
+    <div class="demo-row">
+      <!-- Phone Number with pattern -->
+      <lib-form-field label="Teléfono" type="tel" prefixIcon="phone" hint="Formato: +57 XXX XXX XXXX"
+        [(value)]="nameValue">
+      </lib-form-field>
+    </div>
+
+    <div class="demo-row">
+      <!-- Number with min/max validation -->
+      <lib-form-field label="Edad (18-100)" type="number" [required]="true" [min]="18" [max]="100"
+        [(value)]="nameValue">
+      </lib-form-field>
+    </div>
+
+    <div class="demo-row">
+      <!-- Date Field -->
+      <lib-form-field label="Fecha de nacimiento" type="date" [required]="true" [(value)]="nameValue">
+      </lib-form-field>
+    </div>
+
+    <div class="demo-row">
+      <!-- Required Field -->
+      <lib-form-field label="Campo requerido" [required]="true" [(value)]="nameValue">
+      </lib-form-field>
+    </div>
+
+    <div class="demo-row">
+      <!-- Disabled Field -->
+      <lib-form-field label="Campo deshabilitado" [disabled]="true" value="Valor">
+      </lib-form-field>
+    </div>
+
+    <div class="demo-row">
+      <!-- Field with Custom Error -->
+      <lib-form-field label="Email con error personalizado" type="email" prefixIcon="email" customError="Email inválido"
+        [(value)]="nameValue">
+      </lib-form-field>
+    </div>
+
+  </section>
+
+  <!-- Tables Section -->
+  <section class="component-section">
+    <h2>Tables</h2>
+
+    <h3>Client-Side Table (Sort, Filter, Pagination)</h3>
+    <lib-table [data]="users" [columns]="tableColumns" [actions]="tableActions" [config]="tableConfig"
+      (sortChange)="onSort($event)" (pageChange)="onPageChange($event)" (selectionChange)="onSelectionChange($event)"
+      (actionClick)="onActionClick($event)">
+    </lib-table>
+
+    <h3>Server-Side Table (Simulated Delay)</h3>
+    <lib-table [data]="serverUsers" [totalRecords]="totalServerRecords" [columns]="tableColumns"
+      [actions]="tableActions" [config]="serverTableConfig" (dataRequest)="onServerDataRequest($event)"
+      (actionClick)="onActionClick($event)">
+    </lib-table>
+
+    <h3>Virtual Scroll Table (1000 records)</h3>
+    <lib-table [data]="virtualUsers" [columns]="tableColumns" [actions]="tableActions" [config]="virtualTableConfig"
+      (actionClick)="onActionClick($event)">
+    </lib-table>
+  </section>
 
 </main>
+
+<!-- Templates for Table Columns -->
+<ng-template #avatarTemplate let-row>
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <div
+      style="width: 32px; height: 32px; border-radius: 50%; background: #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500;">
+      {{ getInitials(row.name) }}
+    </div>
+    <span>{{ row.name }}</span>
+  </div>
+</ng-template>
+
+<ng-template #roleTemplate let-row>
+  <span style="padding: 4px 8px; border-radius: 16px; background: #e3f2fd; color: #1976d2; font-size: 12px;">
+    {{ getRoleLabel(row.role) }}
+  </span>
+</ng-template>
+
+<ng-template #statusTemplate let-row>
+  <div style="display: flex; align-items: center; gap: 4px;">
+    <mat-icon [style.color]="row.status === 'active' ? 'green' : row.status === 'inactive' ? 'red' : 'orange'"
+      style="font-size: 18px; width: 18px; height: 18px;">
+      {{ getStatusIcon(row.status) }}
+    </mat-icon>
+    <span>{{ getStatusLabel(row.status) }}</span>
+  </div>
+</ng-template>
+
+<ng-template #salaryTemplate let-row>
+  <!--  <span style="font-family: monospace;">{{ row.salary | currency }}</span> -->
+</ng-template>

@@ -7,37 +7,31 @@
 }
 
 @case ('elevated') {
-<button mat-button="elevated" [disabled]="isDisabled()" (click)="handleClick($event)">
+<button mat-raised-button [disabled]="isDisabled()" (click)="handleClick($event)">
   <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
 </button>
 }
 
 @case ('filled') {
-<button mat-button="filled" [disabled]="isDisabled()" (click)="handleClick($event)">
-  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
-</button>
-}
-
-@case ('tonal') {
-<button mat-button="tonal" [disabled]="isDisabled()" (click)="handleClick($event)">
+<button mat-flat-button [disabled]="isDisabled()" (click)="handleClick($event)">
   <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
 </button>
 }
 
 @case ('outlined') {
-<button mat-button="outlined" [disabled]="isDisabled()" (click)="handleClick($event)">
+<button mat-stroked-button [disabled]="isDisabled()" (click)="handleClick($event)">
   <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
 </button>
 }
 
 @case ('icon') {
-<button mat-button="icon" [disabled]="isDisabled()" (click)="handleClick($event)">
+<button mat-icon-button [disabled]="isDisabled()" (click)="handleClick($event)">
   <ng-container *ngTemplateOutlet="iconOnlyTpl"></ng-container>
 </button>
 }
 
 @default {
-<button mat-button="filled" [disabled]="isDisabled()" (click)="handleClick($event)">
+<button mat-flat-button [disabled]="isDisabled()" (click)="handleClick($event)">
   <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
 </button>
 }

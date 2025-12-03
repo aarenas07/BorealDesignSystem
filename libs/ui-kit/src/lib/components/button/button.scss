@@ -4,45 +4,6 @@
   display: inline-block;
 
   // ============================================
-  // VARIANTE TONAL (Material Design 3)
-  // ============================================
-  // La variante tonal usa colores del container en lugar del color principal
-  
-  button.tonal-button {
-    background-color: var(--md-sys-color-secondary-container) !important;
-    color: var(--md-sys-color-on-secondary-container) !important;
-
-    &:hover:not([disabled]) {
-      background-color: var(--md-sys-color-secondary) !important;
-      color: var(--md-sys-color-on-secondary) !important;
-    }
-
-    &[disabled] {
-      opacity: 0.38;
-    }
-
-    &[color="accent"] {
-      background-color: var(--md-sys-color-tertiary-container) !important;
-      color: var(--md-sys-color-on-tertiary-container) !important;
-
-      &:hover:not([disabled]) {
-        background-color: var(--md-sys-color-tertiary) !important;
-        color: var(--md-sys-color-on-tertiary) !important;
-      }
-    }
-
-    &[color="warn"] {
-      background-color: var(--md-sys-color-error-container) !important;
-      color: var(--md-sys-color-on-error-container) !important;
-
-      &:hover:not([disabled]) {
-        background-color: var(--md-sys-color-error) !important;
-        color: var(--md-sys-color-on-error) !important;
-      }
-    }
-  }
-
-  // ============================================
   // TAMAÑOS
   // ============================================
 

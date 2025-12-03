@@ -1,0 +1,27 @@
+<mat-form-field [appearance]="appearance()" [class.full-width]="fullWidth()">
+
+    @if (label()) {
+    <mat-label>{{ label() }}</mat-label>
+    }
+
+    @if (prefixIcon()) {
+    <mat-icon matPrefix>{{ prefixIcon() }}</mat-icon>
+    }
+
+    <input matInput [formControl]="formControl" [type]="type()" [readonly]="readonly()" [autocomplete]="autocomplete()"
+        [attr.maxlength]="maxlength()" [attr.minlength]="minlength()" [attr.min]="min()" [attr.max]="max()"
+        [attr.step]="step()" [attr.pattern]="pattern()">
+
+    @if (suffixIcon()) {
+    <mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
+    }
+
+    @if (hint() && !errorMessage()) {
+    <mat-hint>{{ hint() }}</mat-hint>
+    }
+
+    @if (errorMessage()) {
+    <mat-error>{{ errorMessage() }}</mat-error>
+    }
+
+</mat-form-field>

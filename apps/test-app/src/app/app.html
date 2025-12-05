@@ -256,6 +256,23 @@
     </div>
   </section>
 
-  
+  <section class="component-section">
+    <lib-side-bar 
+      [sidebarData]="[
+        {
+          title: 'Main Menu',
+          items: [
+            { id: '1', label: 'Home', icon: 'home', route: '/' },
+            { id: '2', label: 'Settings', icon: 'settings', route: '/settings' },
+            { id: '3', label: 'Help', icon: 'help', url: 'https://example.com/help' }
+          ]
+        }
+      ]"
+      [userAvatar]="'https://example.com/avatar.png'"
+      [userName]="'John Doe'"
+      [quickActions]="quickActions"
+      (itemSelected)="onSidebarItemSelected($event)"
+    ></lib-side-bar>
+  </section>
 
 </main>

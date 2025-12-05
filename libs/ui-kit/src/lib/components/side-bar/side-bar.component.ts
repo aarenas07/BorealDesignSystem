@@ -6,7 +6,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 // import { CommandItem } from 'design-system';
 import { SidebarStateService } from './services/sidebar-state.service';
 // import { CommandMenuComponent } from '../command-menu/command-menu.component';
@@ -37,7 +37,7 @@ export interface CommandMenuConfig {
 }
 
 @Component({
-  selector: 'app-side-bar',
+  selector: 'lib-side-bar',
   // imports: [CommandMenuComponent],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
@@ -62,7 +62,7 @@ export class SideBarComponent {
 
   constructor(
     private elementRef: ElementRef, 
-    private router: Router,
+    // private router: Router,
     private sidebarStateService: SidebarStateService // Inyecta el service
   ) {}
 
@@ -117,7 +117,7 @@ export class SideBarComponent {
       item.action();
     }
     if (item.route) {
-      this.router.navigate([item.route]);
+      // this.router.navigate([item.route]);
       console.log('Redirecting to route:', item.route);
     }
     if (item.url) {

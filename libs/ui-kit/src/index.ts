@@ -4,3 +4,4 @@ export * from './lib/components/form-field/form-field';
 
 
 export * from './lib/components/table/table';
+export * from './lib/components/side-bar/side-bar.component';

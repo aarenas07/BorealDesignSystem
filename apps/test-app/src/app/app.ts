@@ -46,6 +46,7 @@ import {
   TableComponent,
   TableConfig,
   CardComponent,
+  SideBarComponent
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -103,7 +104,8 @@ interface User {
     TableComponent,
     ButtonComponent,
     CardComponent,
-    FormFieldComponent
+    FormFieldComponent,
+    SideBarComponent
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -401,6 +403,11 @@ export class App {
     stickyHeader: true
   };
 
+  quickActions = [
+    { label: 'Action 1', action: () => console.log('Action 1 clicked') },
+    { label: 'Action 2', action: () => console.log('Action 2 clicked') }
+  ];
+
   ngOnInit() {
     this.setupTableColumns();
     this.setupTableActions();
@@ -664,5 +671,9 @@ export class App {
       });
     }
     this.virtualUsers = data;
+  }
+
+  onSidebarItemSelected(event: any) {
+    console.log('Sidebar item selected:', event);
   }
 }

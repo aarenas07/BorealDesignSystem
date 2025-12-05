@@ -204,9 +204,11 @@ export class App {
   ];
 
   // Side Sheet
+  isSideSheetOpenLevel = false;
   isSideSheetOpenOne = false;
   isSideSheetOpenTwo = false;
   isSideSheetOpenThree = false;
+  isSideSheetOpenFour = false;
 
   constructor() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -671,6 +673,14 @@ export class App {
     this.virtualUsers = data;
   }
 
+  openSideSheetLevel() {
+    this.isSideSheetOpenLevel = true;
+  }
+
+  closeSideSheetLevel() {
+    this.isSideSheetOpenLevel = false;
+  }
+
   openSideSheetOne() {
     this.isSideSheetOpenOne = true;
   }
@@ -693,5 +703,13 @@ export class App {
 
   closeSideSheetThree() {
     this.isSideSheetOpenThree = false;
+  }
+
+  openSideSheetFour() {
+    this.isSideSheetOpenFour = true;
+  }
+
+  closeSideSheetFour() {
+    this.isSideSheetOpenFour = false;
   }
 }

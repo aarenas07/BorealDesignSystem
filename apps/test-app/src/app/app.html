@@ -248,16 +248,22 @@
   <section class="component-section">
     <h2>Side Sheets</h2>
     <div class="demo-row">
+      <!-- Side Sheets Multi-level -->
+      <lib-button label="Side Sheet Modal Multi-level" variant="filled" size="md" (action)="openSideSheetLevel()"></lib-button>
+
       <!-- Side Sheets One -->
-      <lib-button label="Abrir Side Sheet (start)" variant="filled" size="md" (action)="openSideSheetOne()"></lib-button>
+      <lib-button label="Side Sheet Modal (start)" variant="filled" size="md" (action)="openSideSheetOne()"></lib-button>
 
       <!-- Side Sheets Two-->
-      <lib-button label="Abrir Side Sheet (end)" variant="filled" size="md" (action)="openSideSheetThree()"></lib-button>
+      <lib-button label="Side Sheet Modal (end)" variant="filled" size="md" (action)="openSideSheetThree()"></lib-button>
+
+      <!-- Side Sheets Four-->
+      <lib-button label="Side Sheet standard (start)" variant="filled" size="md" (action)="openSideSheetFour()"></lib-button>
     </div>
   </section>
 
-  <!-- Side Sheets One -->
-  <lib-side-sheets position="start" [(open)]="isSideSheetOpenOne" [modal]="true" [header]="'Title 1'" size="lg">
+  <!-- Side Sheets Multi-level -->
+  <lib-side-sheets position="start" [(open)]="isSideSheetOpenLevel" [modal]="true" [header]="'Multi-level'" size="lg">
     <div>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
@@ -278,9 +284,32 @@
     <section class="component-section">
       <h2>Multi-level</h2>
       <div class="demo-row">
-        <lib-button label="Abrir Side Sheet (end)" variant="filled" size="md" (action)="openSideSheetTwo()"></lib-button>
+        <lib-button label="Side Sheet (start)" variant="filled" size="md" (action)="openSideSheetTwo()"></lib-button>
       </div>
     </section>
+
+    <ng-template #actionsTemplate>
+      <lib-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetLevel()"></lib-button>
+    </ng-template>
+  </lib-side-sheets>
+
+  <!-- Side Sheets One -->
+  <lib-side-sheets position="start" [(open)]="isSideSheetOpenOne" [modal]="true" [header]="'Title 1'">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
+        Similique aut ratione facilis voluptas nostrum?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
 
     <ng-template #actionsTemplate>
       <lib-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetOne()"></lib-button>
@@ -303,7 +332,7 @@
   </lib-side-sheets>
 
   <!-- Side Sheets Three-->
-  <lib-side-sheets position="end" [(open)]="isSideSheetOpenThree" [modal]="true" [header]="'Title 3'" size="sm">
+  <lib-side-sheets position="end" [(open)]="isSideSheetOpenThree" [modal]="true" [header]="'Title 3'">
     <div>
       <p>
         Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
@@ -343,6 +372,25 @@
     <ng-template #actionsTemplate>
       <lib-button label="Aceptar" (action)="closeSideSheetThree()"></lib-button>
       <lib-button label="Cancelar" variant="outlined" (action)="closeSideSheetThree()"></lib-button>
+    </ng-template>
+  </lib-side-sheets>
+
+  <!-- Side Sheets Three-->
+  <lib-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
+
+    <ng-template #actionsTemplate>
+      <lib-button label="Aceptar" (action)="closeSideSheetFour()"></lib-button>
+      <lib-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></lib-button>
     </ng-template>
   </lib-side-sheets>
 </main>

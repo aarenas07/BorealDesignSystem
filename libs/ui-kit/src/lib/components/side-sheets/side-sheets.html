@@ -1,1 +1,36 @@
-<p>side-sheets works!</p>
+@if (isOpen() && modal) {
+<div
+  class="sheet-backdrop"
+  (click)="onBackdropClick()"
+  aria-hidden="true"
+></div>
+}
+
+<aside
+  class="side-sheet"
+  [class.open]="isOpen()"
+  [class.position-start]="position === 'start'"
+  [class.position-end]="position === 'end'"
+  role="dialog"
+  [attr.aria-modal]="modal"
+  aria-label="Side sheet"
+  tabindex="-1"
+>
+  <header class="sheet-header">
+    @if (header) {
+    <ng-container>{{ header }}</ng-container>
+    }
+    <button class="close-btn" aria-label="Cerrar" (click)="close()">
+      <!-- usa lib-button o mat-icon según prefieras -->
+      <span class="material-icons">close</span>
+    </button>
+  </header>
+
+  <section class="sheet-content">
+    <ng-content></ng-content>
+  </section>
+
+  <footer class="sheet-actions">
+    <ng-container *ngTemplateOutlet="actionsTemplate"></ng-container>
+  </footer>
+</aside>

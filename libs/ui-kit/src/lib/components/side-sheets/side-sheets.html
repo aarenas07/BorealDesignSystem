@@ -1,26 +1,31 @@
-@if (open && modal) {
+@if (open() && modal()) {
 <div
   class="sheet-backdrop"
-  (click)="onBackdropClick()"
   aria-hidden="true"
+  (click)="onBackdropClick()"
 ></div>
 }
 
 <aside
   class="side-sheet"
-  [class.open]="open"
-  [class.position-start]="position === 'start'"
-  [class.position-end]="position === 'end'"
-  [attr.aria-modal]="modal"
+  [class.open]="open()"
+  [class.position-start]="position() === 'start'"
+  [class.position-end]="position() === 'end'"
+  [class.size-sm]="size() === 'sm'"
+  [class.size-md]="size() === 'md'"
+  [class.size-lg]="size() === 'lg'"
+  [class.size-full]="fullWidth()"
+  [class.modal]="modal()"
+  [attr.aria-modal]="modal()"
   aria-label="Side sheet"
   role="dialog"
   tabindex="-1"
 >
   <header class="sheet-header">
-    @if (header) {
-    <h2>{{ header }}</h2>
+    @if (header()) {
+    <h2>{{ header() }}</h2>
     }
-    <a class="close-btn" aria-label="Cerrar" (click)="close()">
+    <a class="sheet-close-btn" aria-label="Cerrar" (click)="close()">
       <span class="material-icons">close</span>
     </a>
   </header>

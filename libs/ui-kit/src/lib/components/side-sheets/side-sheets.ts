@@ -10,7 +10,12 @@ import {
   TemplateRef,
   ChangeDetectionStrategy,
   ViewChild,
+  model,
+  input,
 } from '@angular/core';
+
+export type SideSheetPosition = 'start' | 'end';
+export type SideSheetSize = 'sm' | 'md' | 'lg';
 
 @Component({
   selector: 'lib-side-sheets',
@@ -21,14 +26,15 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideSheetsComponent {
-  @Input() open = false;
-  @Input() position: 'start' | 'end' = 'end';
-  @Input() size: 'sm' | 'md' | 'lg' | 'full' = 'md';
-  @Input() modal = true;
-  @Input() closeOnBackdropClick = true;
-  @Input() header?: string | TemplateRef<any>;
-  @Input() actions?: TemplateRef<any>;
+  open = model<boolean>(false);
+  position = input<SideSheetPosition>('end');
+  size = input<SideSheetSize>('md');
+  fullWidth = input<boolean>(false);
+  modal = input<boolean>(true);
+  closeOnBackdropClick = input<boolean>(true);
+  header = input<string>('');
 
+  @Input() actions?: TemplateRef<any>;
   @Output() openChange = new EventEmitter<boolean>();
   @Output() closed = new EventEmitter<void>();
   @ViewChild('actionsTemplate', { static: false })
@@ -43,7 +49,7 @@ export class SideSheetsComponent {
   ) {}
 
   ngOnChanges() {
-    if (this.open) {
+    if (this.open()) {
       this.activateTrap();
     } else {
       this.destroyTrap();
@@ -66,19 +72,21 @@ export class SideSheetsComponent {
   }
 
   close() {
-    this.open = false;
+    this.open.set(false);
     this.openChange.emit(false);
     this.closed.emit();
   }
 
   onBackdropClick() {
-    if (this.closeOnBackdropClick) this.close();
+    if (this.closeOnBackdropClick()) this.close();
   }
 
   @HostListener('document:keydown', ['$event'])
   onEscape(event: KeyboardEvent) {
-    if (this.open) {
-      this.close();
+    if (event.code === 'Escape') {
+      if (this.open()) {
+        this.close();
+      }
     }
   }
 }

@@ -21,49 +21,68 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-    font-size: 20px;
+    padding: 1.5rem 1rem;
 
     h2 {
       font-size: 1.5rem;
       font-weight: 400;
-      color: var(--mat-sys-secondary);
+      color: var(--mat-sys-primary);
+      margin: 0;
     }
 
-    .close-btn {
-      color: var(--mat-sys-secondary);
+    .sheet-close-btn {
+      color: var(--mat-sys-primary);
+      margin-left: auto;
+      cursor: pointer;
     }
   }
 
   .sheet-content {
     height: 100%;
     overflow-y: scroll;
+    padding: 1rem;
   }
 
   &.position-start {
     left: 0;
     transform: translateX(-100%);
   }
+
   &.position-end {
     right: 0;
     transform: translateX(100%);
   }
+
   &.open.position-end {
     transform: translateX(0);
+
+    &.modal {
+      border-top-left-radius: 1rem;
+      border-bottom-left-radius: 1rem;
+    }
   }
+
   &.open.position-start {
     transform: translateX(0);
+
+    &.modal {
+      border-top-right-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+    }
   }
 
   &.size-sm {
     width: 320px;
   }
+
   &.size-md {
     width: 480px;
   }
+
   &.size-lg {
     width: 640px;
   }
+
   &.size-full {
     width: 100%;
   }

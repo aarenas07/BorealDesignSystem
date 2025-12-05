@@ -1,14 +1,13 @@
 // libs/ui-kit/.storybook/storybook-styles.scss
 
-// 1. Cargar el CSS del tema SicofERP
-@import '../src/lib/styles/sicoferp-theme/theme.css';
-
 // 2. Configurar Material
 @use '@angular/material' as mat;
 
+// 1. Cargar el CSS del tema SicofERP
+@import '../src/lib/styles/sicoferp-theme/theme.scss';
+
 html {
   @include mat.core();
-  @include mat.system-classes();
 }
 
 // 3. Simular el fondo de la app

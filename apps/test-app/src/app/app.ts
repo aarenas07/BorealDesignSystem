@@ -214,9 +214,20 @@ export class App {
 
   //breadcrumb
   items = signal<MenuItem[]>([
-    { label: 'Library', icon: 'home', routerLink: '/' },
-    { label: 'Data', icon: 'home', routerLink: '/' },
-    { label: 'Item', icon: 'home', routerLink: '/', active: true },
+    { label: 'Library', routerLink: '/' },
+    { label: 'Data', routerLink: '/' },
+    { label: 'Item', routerLink: '/', active: true },
+  ]);
+  itemsIcons = signal<MenuItem[]>([
+    { label: 'Users', icon: 'user', routerLink: '/' },
+    { label: 'User', icon: 'lists', routerLink: '/' },
+    { label: 'View', routerLink: '/', active: true },
+  ]);
+
+  itemsLinks = signal<MenuItem[]>([
+    { label: 'Page 1', icon: 'user', link: 'https://www.google.com/' },
+    { label: 'Page 2', icon: 'lists', link: 'https://www.google.com/' },
+    { label: 'Page 3', active: true },
   ]);
 
   constructor() {

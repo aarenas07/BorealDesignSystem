@@ -11,19 +11,18 @@
   [class.open]="open"
   [class.position-start]="position === 'start'"
   [class.position-end]="position === 'end'"
-  role="dialog"
   [attr.aria-modal]="modal"
   aria-label="Side sheet"
+  role="dialog"
   tabindex="-1"
 >
   <header class="sheet-header">
     @if (header) {
-    <ng-container>{{ header }}</ng-container>
+    <h2>{{ header }}</h2>
     }
-    <button class="close-btn" aria-label="Cerrar" (click)="close()">
-      <!-- usa lib-button o mat-icon según prefieras -->
+    <a class="close-btn" aria-label="Cerrar" (click)="close()">
       <span class="material-icons">close</span>
-    </button>
+    </a>
   </header>
 
   <section class="sheet-content">

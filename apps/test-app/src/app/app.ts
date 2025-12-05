@@ -3,7 +3,10 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
-import { MatBottomSheetModule, MatBottomSheet } from '@angular/material/bottom-sheet';
+import {
+  MatBottomSheetModule,
+  MatBottomSheet,
+} from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -46,6 +49,7 @@ import {
   TableComponent,
   TableConfig,
   CardComponent,
+  SideSheetsComponent,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -103,7 +107,7 @@ interface User {
     TableComponent,
     ButtonComponent,
     CardComponent,
-    FormFieldComponent
+    SideSheetsComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -166,7 +170,7 @@ export class App {
   private _snackBar = inject(MatSnackBar);
   private _bottomSheet = inject(MatBottomSheet);
   private _dialog = inject(MatDialog);
-  nameValue = ""
+  nameValue = '';
 
   // Autocomplete
   myControl = new FormControl('');
@@ -202,16 +206,21 @@ export class App {
     { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
   ];
 
+  // Side Sheet
+  isSideSheetOpen = false;
+
   constructor() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '')),
+      map((value) => this._filter(value || ''))
     );
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.options.filter((option) =>
+      option.toLowerCase().includes(filterValue)
+    );
   }
 
   openSnackBar() {
@@ -222,12 +231,16 @@ export class App {
 
   openBottomSheet() {
     // Just a dummy open for demo, normally would pass a component
-    this._snackBar.open('Bottom sheet opened (simulated)', undefined, { duration: 2000 });
+    this._snackBar.open('Bottom sheet opened (simulated)', undefined, {
+      duration: 2000,
+    });
   }
 
   openDialog() {
     // Just a dummy open for demo
-    this._snackBar.open('Dialog opened (simulated)', undefined, { duration: 2000 });
+    this._snackBar.open('Dialog opened (simulated)', undefined, {
+      duration: 2000,
+    });
   }
 
   formatLabel(value: number): string {
@@ -337,7 +350,8 @@ export class App {
       joinDate: new Date('2023-07-22'),
       salary: 85000,
       department: 'IT',
-    }, {
+    },
+    {
       id: 10,
       name: 'Luis Rodríguez',
       email: 'luis.rodriguez@empresa.com',
@@ -346,7 +360,8 @@ export class App {
       joinDate: new Date('2023-07-22'),
       salary: 85000,
       department: 'IT',
-    }, {
+    },
+    {
       id: 11,
       name: 'Luis Rodríguez',
       email: 'luis.rodriguez@empresa.com',
@@ -355,7 +370,8 @@ export class App {
       joinDate: new Date('2023-07-22'),
       salary: 85000,
       department: 'IT',
-    }, {
+    },
+    {
       id: 12,
       name: 'Luis Rodríguez',
       email: 'luis.rodriguez@empresa.com',
@@ -364,7 +380,7 @@ export class App {
       joinDate: new Date('2023-07-22'),
       salary: 85000,
       department: 'IT',
-    }
+    },
   ];
 
   tableColumns: TableColumn<User>[] = [];
@@ -388,7 +404,7 @@ export class App {
     expandable: false,
     showGlobalFilter: true,
     pageSizeOptions: [5, 10, 20],
-    defaultPageSize: 5
+    defaultPageSize: 5,
   };
 
   // Virtual Scroll Table Demo
@@ -398,7 +414,7 @@ export class App {
     expandable: false,
     showGlobalFilter: true,
     density: 'compact',
-    stickyHeader: true
+    stickyHeader: true,
   };
 
   ngOnInit() {
@@ -537,8 +553,13 @@ export class App {
   onSelectionChange(selectedUsers: User[]) {
     console.log('Selected users:', selectedUsers);
   }
-  onActionClick(event: { action: TableAction<User>, row: User }) {
-    console.log('Action clicked:', event.action.label, 'on user:', event.row.name);
+  onActionClick(event: { action: TableAction<User>; row: User }) {
+    console.log(
+      'Action clicked:',
+      event.action.label,
+      'on user:',
+      event.row.name
+    );
   }
 
   addUser() {
@@ -578,7 +599,6 @@ export class App {
     }
   }
 
-
   getInitials(name: string): string {
     return name
       .split(' ')
@@ -616,26 +636,33 @@ export class App {
     return labels[role];
   }
 
-
-  onServerDataRequest(event: { page: number; pageSize: number; sort?: any; filter?: string }) {
+  onServerDataRequest(event: {
+    page: number;
+    pageSize: number;
+    sort?: any;
+    filter?: string;
+  }) {
     console.log('Server data requested:', event);
     setTimeout(() => {
       const startIndex = event.page * event.pageSize;
       const endIndex = startIndex + event.pageSize;
 
-
       let filteredData = [...this.users, ...this.users, ...this.users];
       if (event.filter) {
-        filteredData = filteredData.filter(u =>
-          u.name.toLowerCase().includes(event.filter!.toLowerCase()) ||
-          u.email.toLowerCase().includes(event.filter!.toLowerCase())
+        filteredData = filteredData.filter(
+          (u) =>
+            u.name.toLowerCase().includes(event.filter!.toLowerCase()) ||
+            u.email.toLowerCase().includes(event.filter!.toLowerCase())
         );
       }
 
       if (event.sort && event.sort.active && event.sort.direction !== '') {
         filteredData.sort((a: any, b: any) => {
           const isAsc = event.sort!.direction === 'asc';
-          return (a[event.sort!.active] < b[event.sort!.active] ? -1 : 1) * (isAsc ? 1 : -1);
+          return (
+            (a[event.sort!.active] < b[event.sort!.active] ? -1 : 1) *
+            (isAsc ? 1 : -1)
+          );
         });
       }
 
@@ -643,8 +670,6 @@ export class App {
       this.serverUsers = filteredData.slice(startIndex, endIndex);
     }, 500);
   }
-
-
 
   generateVirtualData() {
     const data: User[] = [];
@@ -660,9 +685,17 @@ export class App {
         status: statuses[Math.floor(Math.random() * statuses.length)],
         joinDate: new Date(),
         salary: 50000 + Math.floor(Math.random() * 50000),
-        department: 'Engineering'
+        department: 'Engineering',
       });
     }
     this.virtualUsers = data;
+  }
+
+  openSideSheet() {
+    this.isSideSheetOpen = true;
+  }
+
+  closeSideSheet() {
+    this.isSideSheetOpen = false;
   }
 }

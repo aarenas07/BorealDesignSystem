@@ -1,4 +1,5 @@
-.user-management {
+.app-content {
+  .user-management {
     padding: 24px;
     max-width: 1400px;
     margin: 0 auto;
@@ -18,8 +19,6 @@
     }
   }
 
-
-
   /* Avatar Cell */
   .user-avatar-cell {
     display: flex;
@@ -27,7 +26,8 @@
     gap: 12px;
   }
 
-  .avatar, .avatar-placeholder {
+  .avatar,
+  .avatar-placeholder {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -60,9 +60,15 @@
     color: #ef6c00 !important;
   }
 
-  .status-icon-active { color: #2e7d32; }
-  .status-icon-inactive { color: #c62828; }
-  .status-icon-pending { color: #ef6c00; }
+  .status-icon-active {
+    color: #2e7d32;
+  }
+  .status-icon-inactive {
+    color: #c62828;
+  }
+  .status-icon-pending {
+    color: #ef6c00;
+  }
 
   /* Role Chips */
   .role-admin {
@@ -212,3 +218,4 @@
       gap: 4px;
     }
   }
+}

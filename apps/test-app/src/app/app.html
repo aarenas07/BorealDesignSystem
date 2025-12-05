@@ -8,37 +8,11 @@
   <section class="component-section">
     <h2>Buttons</h2>
     <div class="demo-row">
-      <lib-button
-        label="Text"
-        variant="text"
-        size="md"
-        (action)="handleAction($event)"
-      ></lib-button>
-      <lib-button
-        label="Elevated"
-        variant="elevated"
-        size="md"
-        (action)="handleAction($event)"
-      ></lib-button>
-      <lib-button
-        label="Filled"
-        variant="filled"
-        size="md"
-        (action)="handleAction($event)"
-      ></lib-button>
-      <lib-button
-        label="Outlined"
-        variant="outlined"
-        size="md"
-        (action)="handleAction($event)"
-      ></lib-button>
-      <lib-button
-        label="Icon"
-        variant="icon"
-        icon="favorite"
-        size="md"
-        (action)="handleAction($event)"
-      ></lib-button>
+      <lib-button label="Text" variant="text" size="md" (action)="handleAction($event)"></lib-button>
+      <lib-button label="Elevated" variant="elevated" size="md" (action)="handleAction($event)"></lib-button>
+      <lib-button label="Filled" variant="filled" size="md" (action)="handleAction($event)"></lib-button>
+      <lib-button label="Outlined" variant="outlined" size="md" (action)="handleAction($event)"></lib-button>
+      <lib-button label="Icon" variant="icon" icon="favorite" size="md" (action)="handleAction($event)"></lib-button>
     </div>
   </section>
 
@@ -47,24 +21,12 @@
     <h2>Cards - Componente Personalizado</h2>
 
     <h3>Variantes de Elevación</h3>
-    <div
-      style="
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 16px;
-        margin-bottom: 24px;
-      "
-    >
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
       <lib-card elevation="flat" size="md">
         <mat-card-title card-title>Card Flat</mat-card-title>
-        <mat-card-subtitle card-subtitle
-          >Sin sombra, con borde sutil</mat-card-subtitle
-        >
+        <mat-card-subtitle card-subtitle>Sin sombra, con borde sutil</mat-card-subtitle>
         <div card-content>
-          <p>
-            Esta card tiene elevación "flat" - perfecta para interfaces
-            minimalistas.
-          </p>
+          <p>Esta card tiene elevación "flat" - perfecta para interfaces minimalistas.</p>
         </div>
         <div card-actions>
           <button mat-button>VER MÁS</button>
@@ -75,10 +37,7 @@
         <mat-card-title card-title>Card Raised</mat-card-title>
         <mat-card-subtitle card-subtitle>Con sombra elevada</mat-card-subtitle>
         <div card-content>
-          <p>
-            Esta card tiene elevación "raised" - da sensación de profundidad y
-            jerarquía.
-          </p>
+          <p>Esta card tiene elevación "raised" - da sensación de profundidad y jerarquía.</p>
         </div>
         <div card-actions>
           <button mat-button>VER MÁS</button>
@@ -87,14 +46,9 @@
 
       <lib-card elevation="outlined" size="md">
         <mat-card-title card-title>Card Outlined</mat-card-title>
-        <mat-card-subtitle card-subtitle
-          >Con borde prominente</mat-card-subtitle
-        >
+        <mat-card-subtitle card-subtitle>Con borde prominente</mat-card-subtitle>
         <div card-content>
-          <p>
-            Esta card tiene elevación "outlined" - ideal para destacar sin
-            sombras.
-          </p>
+          <p>Esta card tiene elevación "outlined" - ideal para destacar sin sombras.</p>
         </div>
         <div card-actions>
           <button mat-button>VER MÁS</button>
@@ -103,14 +57,7 @@
     </div>
 
     <h3>Variantes de Tamaño</h3>
-    <div
-      style="
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 16px;
-        margin-bottom: 24px;
-      "
-    >
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px">
       <lib-card elevation="raised" size="sm">
         <mat-card-title card-title>Card Pequeña</mat-card-title>
         <div card-content>
@@ -143,24 +90,12 @@
     </div>
 
     <h3>Card Clickeable</h3>
-    <div
-      style="
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 16px;
-        margin-bottom: 24px;
-      "
-    >
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
       <lib-card elevation="raised" size="md" [clickable]="true">
         <mat-card-title card-title>Card Interactiva</mat-card-title>
-        <mat-card-subtitle card-subtitle
-          >Pasa el mouse para ver el efecto</mat-card-subtitle
-        >
+        <mat-card-subtitle card-subtitle>Pasa el mouse para ver el efecto</mat-card-subtitle>
         <div card-content>
-          <p>
-            Esta card es clickeable y tiene efectos hover. Ideal para navegación
-            o selección.
-          </p>
+          <p>Esta card es clickeable y tiene efectos hover. Ideal para navegación o selección.</p>
         </div>
       </lib-card>
 
@@ -181,13 +116,7 @@
       <div class="user-management">
         <header class="page-header">
           <h1>Gestión de Usuarios</h1>
-          <lib-button
-            icon="add"
-            label="Agregar Usuario"
-            variant="filled"
-            size="md"
-            (action)="addUser()"
-          ></lib-button>
+          <lib-button icon="add" label="Agregar Usuario" variant="filled" size="md" (action)="addUser()"></lib-button>
         </header>
 
         <lib-table
@@ -218,9 +147,7 @@
         <ng-template #statusTemplate let-row>
           <mat-chip-set>
             <mat-chip [highlighted]="true" [class]="'status-' + row.status">
-              <mat-icon [class]="'status-icon-' + row.status">
-                {{ getStatusIcon(row.status) }}
-              </mat-icon>
+              <mat-icon [class]="'status-icon-' + row.status"> {{ getStatusIcon(row.status) }} </mat-icon>
               {{ getStatusLabel(row.status) }}
             </mat-chip>
           </mat-chip-set>
@@ -228,9 +155,7 @@
 
         <ng-template #roleTemplate let-row>
           <mat-chip-set>
-            <mat-chip [class]="'role-' + row.role">
-              {{ getRoleLabel(row.role) }}
-            </mat-chip>
+            <mat-chip [class]="'role-' + row.role"> {{ getRoleLabel(row.role) }} </mat-chip>
           </mat-chip-set>
         </ng-template>
 
@@ -323,173 +248,101 @@
   <section class="component-section">
     <h2>Side Sheets</h2>
     <div class="demo-row">
-      <lib-button
-        label="Abrir Side Sheet"
-        variant="filled"
-        size="md"
-        (action)="openSideSheet()"
-      ></lib-button>
-      <lib-side-sheets
-        position="end"
-        [(open)]="isSideSheetOpen"
-        [modal]="true"
-        [header]="'Title '"
-      >
-        <div>
-          <p>
-            Este es el contenido del side sheet. Puedes agregar cualquier
-            contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Obcaecati tenetur a eos atque ea earum quod maiores,
-            exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
-            Similique aut ratione facilis voluptas nostrum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            doloribus quos cumque placeat fugit ea adipisci debitis quas ut
-            perferendis iure totam, ipsa, atque quod voluptate natus quisquam,
-            alias repudiandae.
-          </p>
-          <p>
-            Este es el contenido del side sheet. Puedes agregar cualquier
-            contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Obcaecati tenetur a eos atque ea earum quod maiores,
-            exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
-            Similique aut ratione facilis voluptas nostrum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            doloribus quos cumque placeat fugit ea adipisci debitis quas ut
-            perferendis iure totam, ipsa, atque quod voluptate natus quisquam,
-            alias repudiandae.
-          </p>
-          <p>
-            Este es el contenido del side sheet. Puedes agregar cualquier
-            contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Obcaecati tenetur a eos atque ea earum quod maiores,
-            exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
-            Similique aut ratione facilis voluptas nostrum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            doloribus quos cumque placeat fugit ea adipisci debitis quas ut
-            perferendis iure totam, ipsa, atque quod voluptate natus quisquam,
-            alias repudiandae.
-          </p>
-          <p>
-            Este es el contenido del side sheet. Puedes agregar cualquier
-            contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Obcaecati tenetur a eos atque ea earum quod maiores,
-            exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
-            Similique aut ratione facilis voluptas nostrum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            doloribus quos cumque placeat fugit ea adipisci debitis quas ut
-            perferendis iure totam, ipsa, atque quod voluptate natus quisquam,
-            alias repudiandae.
-          </p>
-          <p>
-            Este es el contenido del side sheet. Puedes agregar cualquier
-            contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Obcaecati tenetur a eos atque ea earum quod maiores,
-            exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
-            Similique aut ratione facilis voluptas nostrum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            doloribus quos cumque placeat fugit ea adipisci debitis quas ut
-            perferendis iure totam, ipsa, atque quod voluptate natus quisquam,
-            alias repudiandae.
-          </p>
-          <p>
-            Este es el contenido del side sheet. Puedes agregar cualquier
-            contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Obcaecati tenetur a eos atque ea earum quod maiores,
-            exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
-            Similique aut ratione facilis voluptas nostrum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            doloribus quos cumque placeat fugit ea adipisci debitis quas ut
-            perferendis iure totam, ipsa, atque quod voluptate natus quisquam,
-            alias repudiandae.
-          </p>
-          <p>
-            Este es el contenido del side sheet. Puedes agregar cualquier
-            contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Obcaecati tenetur a eos atque ea earum quod maiores,
-            exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
-            Similique aut ratione facilis voluptas nostrum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            doloribus quos cumque placeat fugit ea adipisci debitis quas ut
-            perferendis iure totam, ipsa, atque quod voluptate natus quisquam,
-            alias repudiandae.
-          </p>
-          <p>
-            Este es el contenido del side sheet. Puedes agregar cualquier
-            contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Obcaecati tenetur a eos atque ea earum quod maiores,
-            exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
-            Similique aut ratione facilis voluptas nostrum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            doloribus quos cumque placeat fugit ea adipisci debitis quas ut
-            perferendis iure totam, ipsa, atque quod voluptate natus quisquam,
-            alias repudiandae.
-          </p>
-          <p>
-            Este es el contenido del side sheet. Puedes agregar cualquier
-            contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Obcaecati tenetur a eos atque ea earum quod maiores,
-            exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
-            Similique aut ratione facilis voluptas nostrum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            doloribus quos cumque placeat fugit ea adipisci debitis quas ut
-            perferendis iure totam, ipsa, atque quod voluptate natus quisquam,
-            alias repudiandae.
-          </p>
-          <p>
-            Este es el contenido del side sheet. Puedes agregar cualquier
-            contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Obcaecati tenetur a eos atque ea earum quod maiores,
-            exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
-            Similique aut ratione facilis voluptas nostrum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            doloribus quos cumque placeat fugit ea adipisci debitis quas ut
-            perferendis iure totam, ipsa, atque quod voluptate natus quisquam,
-            alias repudiandae.
-          </p>
-          <p>
-            Este es el contenido del side sheet. Puedes agregar cualquier
-            contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Obcaecati tenetur a eos atque ea earum quod maiores,
-            exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
-            Similique aut ratione facilis voluptas nostrum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            doloribus quos cumque placeat fugit ea adipisci debitis quas ut
-            perferendis iure totam, ipsa, atque quod voluptate natus quisquam,
-            alias repudiandae.
-          </p>
-        </div>
+      <!-- Side Sheets One -->
+      <lib-button label="Abrir Side Sheet (start)" variant="filled" size="md" (action)="openSideSheetOne()"></lib-button>
 
-        <ng-template #actionsTemplate>
-          <lib-button
-            label="Cerrar"
-            variant="outlined"
-            size="md"
-            (action)="closeSideSheet()"
-          ></lib-button>
-        </ng-template>
-      </lib-side-sheets>
+      <!-- Side Sheets Two-->
+      <lib-button label="Abrir Side Sheet (end)" variant="filled" size="md" (action)="openSideSheetThree()"></lib-button>
     </div>
   </section>
+
+  <!-- Side Sheets One -->
+  <lib-side-sheets position="start" [(open)]="isSideSheetOpenOne" [modal]="true" [header]="'Title 1'" size="lg">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
+        Similique aut ratione facilis voluptas nostrum?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
+
+    <!-- Side Sheets Multi-level -->
+    <section class="component-section">
+      <h2>Multi-level</h2>
+      <div class="demo-row">
+        <lib-button label="Abrir Side Sheet (end)" variant="filled" size="md" (action)="openSideSheetTwo()"></lib-button>
+      </div>
+    </section>
+
+    <ng-template #actionsTemplate>
+      <lib-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetOne()"></lib-button>
+    </ng-template>
+  </lib-side-sheets>
+
+  <!-- Side Sheets Two-->
+  <lib-side-sheets position="start" [(open)]="isSideSheetOpenTwo" [modal]="true" [header]="'Title 2'">
+    <div>
+      <p>
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
+        Similique aut ratione facilis voluptas nostrum?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
+  </lib-side-sheets>
+
+  <!-- Side Sheets Three-->
+  <lib-side-sheets position="end" [(open)]="isSideSheetOpenThree" [modal]="true" [header]="'Title 3'" size="sm">
+    <div>
+      <p>
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
+        Similique aut ratione facilis voluptas nostrum?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
+
+    <ng-template #actionsTemplate>
+      <lib-button label="Aceptar" (action)="closeSideSheetThree()"></lib-button>
+      <lib-button label="Cancelar" variant="outlined" (action)="closeSideSheetThree()"></lib-button>
+    </ng-template>
+  </lib-side-sheets>
 </main>

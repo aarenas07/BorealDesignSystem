@@ -3,10 +3,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
-import {
-  MatBottomSheetModule,
-  MatBottomSheet,
-} from '@angular/material/bottom-sheet';
+import { MatBottomSheetModule, MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -207,20 +204,20 @@ export class App {
   ];
 
   // Side Sheet
-  isSideSheetOpen = false;
+  isSideSheetOpenOne = false;
+  isSideSheetOpenTwo = false;
+  isSideSheetOpenThree = false;
 
   constructor() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filter(value || ''))
+      map(value => this._filter(value || ''))
     );
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter((option) =>
-      option.toLowerCase().includes(filterValue)
-    );
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   openSnackBar() {
@@ -502,42 +499,42 @@ export class App {
         label: 'Editar',
         tooltip: 'Editar usuario',
         color: 'primary',
-        onClick: (user) => this.editUser(user),
+        onClick: user => this.editUser(user),
       },
       {
         icon: 'visibility',
         label: 'Ver Detalles',
         tooltip: 'Ver detalles completos',
-        onClick: (user) => this.viewUser(user),
+        onClick: user => this.viewUser(user),
       },
       {
         icon: 'block',
         label: 'Desactivar',
         tooltip: 'Desactivar usuario',
         color: 'warn',
-        visible: (user) => user.status === 'active',
-        onClick: (user) => this.deactivateUser(user),
+        visible: user => user.status === 'active',
+        onClick: user => this.deactivateUser(user),
       },
       {
         icon: 'check_circle',
         label: 'Activar',
         tooltip: 'Activar usuario',
-        visible: (user) => user.status !== 'active',
-        onClick: (user) => this.activateUser(user),
+        visible: user => user.status !== 'active',
+        onClick: user => this.activateUser(user),
       },
       {
         icon: 'send',
         label: 'Enviar Email',
         tooltip: 'Enviar correo',
-        onClick: (user) => this.sendEmail(user),
+        onClick: user => this.sendEmail(user),
       },
       {
         icon: 'delete',
         label: 'Eliminar',
         tooltip: 'Eliminar usuario',
         color: 'warn',
-        disabled: (user) => user.role === 'admin',
-        onClick: (user) => this.deleteUser(user),
+        disabled: user => user.role === 'admin',
+        onClick: user => this.deleteUser(user),
       },
     ];
   }
@@ -554,12 +551,7 @@ export class App {
     console.log('Selected users:', selectedUsers);
   }
   onActionClick(event: { action: TableAction<User>; row: User }) {
-    console.log(
-      'Action clicked:',
-      event.action.label,
-      'on user:',
-      event.row.name
-    );
+    console.log('Action clicked:', event.action.label, 'on user:', event.row.name);
   }
 
   addUser() {
@@ -591,10 +583,8 @@ export class App {
   }
 
   deleteUser(user: User) {
-    if (
-      confirm(`¿Eliminar a ${user.name}? Esta acción no se puede deshacer.`)
-    ) {
-      this.users = this.users.filter((u) => u.id !== user.id);
+    if (confirm(`¿Eliminar a ${user.name}? Esta acción no se puede deshacer.`)) {
+      this.users = this.users.filter(u => u.id !== user.id);
       console.log('User deleted:', user);
     }
   }
@@ -602,7 +592,7 @@ export class App {
   getInitials(name: string): string {
     return name
       .split(' ')
-      .map((n) => n[0])
+      .map(n => n[0])
       .join('')
       .toUpperCase()
       .substring(0, 2);
@@ -636,12 +626,7 @@ export class App {
     return labels[role];
   }
 
-  onServerDataRequest(event: {
-    page: number;
-    pageSize: number;
-    sort?: any;
-    filter?: string;
-  }) {
+  onServerDataRequest(event: { page: number; pageSize: number; sort?: any; filter?: string }) {
     console.log('Server data requested:', event);
     setTimeout(() => {
       const startIndex = event.page * event.pageSize;
@@ -650,19 +635,14 @@ export class App {
       let filteredData = [...this.users, ...this.users, ...this.users];
       if (event.filter) {
         filteredData = filteredData.filter(
-          (u) =>
-            u.name.toLowerCase().includes(event.filter!.toLowerCase()) ||
-            u.email.toLowerCase().includes(event.filter!.toLowerCase())
+          u => u.name.toLowerCase().includes(event.filter!.toLowerCase()) || u.email.toLowerCase().includes(event.filter!.toLowerCase())
         );
       }
 
       if (event.sort && event.sort.active && event.sort.direction !== '') {
         filteredData.sort((a: any, b: any) => {
           const isAsc = event.sort!.direction === 'asc';
-          return (
-            (a[event.sort!.active] < b[event.sort!.active] ? -1 : 1) *
-            (isAsc ? 1 : -1)
-          );
+          return (a[event.sort!.active] < b[event.sort!.active] ? -1 : 1) * (isAsc ? 1 : -1);
         });
       }
 
@@ -691,11 +671,27 @@ export class App {
     this.virtualUsers = data;
   }
 
-  openSideSheet() {
-    this.isSideSheetOpen = true;
+  openSideSheetOne() {
+    this.isSideSheetOpenOne = true;
   }
 
-  closeSideSheet() {
-    this.isSideSheetOpen = false;
+  closeSideSheetOne() {
+    this.isSideSheetOpenOne = false;
+  }
+
+  openSideSheetTwo() {
+    this.isSideSheetOpenTwo = true;
+  }
+
+  closeSideSheetTwo() {
+    this.isSideSheetOpenTwo = false;
+  }
+
+  openSideSheetThree() {
+    this.isSideSheetOpenThree = true;
+  }
+
+  closeSideSheetThree() {
+    this.isSideSheetOpenThree = false;
   }
 }

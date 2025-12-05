@@ -1,9 +1,5 @@
 @if (open() && modal()) {
-<div
-  class="sheet-backdrop"
-  aria-hidden="true"
-  (click)="onBackdropClick()"
-></div>
+<div class="sheet-backdrop" aria-hidden="true" (click)="onBackdropClick()"></div>
 }
 
 <aside
@@ -33,8 +29,9 @@
   <section class="sheet-content">
     <ng-content></ng-content>
   </section>
-
+  @if (actionsTemplate) {
   <footer class="sheet-actions">
     <ng-container *ngTemplateOutlet="actionsTemplate"></ng-container>
   </footer>
+  }
 </aside>

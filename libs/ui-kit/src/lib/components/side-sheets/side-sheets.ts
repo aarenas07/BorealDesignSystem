@@ -2,16 +2,15 @@ import { CommonModule } from '@angular/common';
 import { FocusTrapFactory, FocusTrap } from '@angular/cdk/a11y';
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter,
   ElementRef,
   HostListener,
   TemplateRef,
   ChangeDetectionStrategy,
-  ViewChild,
   model,
   input,
+  output,
+  inject,
+  ContentChild,
 } from '@angular/core';
 
 export type SideSheetPosition = 'start' | 'end';
@@ -27,26 +26,23 @@ export type SideSheetSize = 'sm' | 'md' | 'lg';
 })
 export class SideSheetsComponent {
   open = model<boolean>(false);
+  modal = input<boolean>(true);
+  fullWidth = input<boolean>(false);
+  closeOnBackdropClick = input<boolean>(true);
   position = input<SideSheetPosition>('end');
   size = input<SideSheetSize>('md');
-  fullWidth = input<boolean>(false);
-  modal = input<boolean>(true);
-  closeOnBackdropClick = input<boolean>(true);
   header = input<string>('');
+  openChange = output<boolean>();
+  closed = output<void>();
 
-  @Input() actions?: TemplateRef<any>;
-  @Output() openChange = new EventEmitter<boolean>();
-  @Output() closed = new EventEmitter<void>();
-  @ViewChild('actionsTemplate', { static: false })
+  @ContentChild('actionsTemplate', { static: false })
   actionsTemplate!: TemplateRef<any>;
 
   private focusTrap?: FocusTrap;
   private previouslyFocused?: Element | null;
 
-  constructor(
-    private el: ElementRef,
-    private focusTrapFactory: FocusTrapFactory
-  ) {}
+  private readonly el: ElementRef = inject(ElementRef);
+  private readonly focusTrapFactory: FocusTrapFactory = inject(FocusTrapFactory);
 
   ngOnChanges() {
     if (this.open()) {
@@ -58,9 +54,7 @@ export class SideSheetsComponent {
 
   activateTrap() {
     this.previouslyFocused = document.activeElement;
-    this.focusTrap = this.focusTrapFactory.create(
-      this.el.nativeElement.querySelector('.side-sheet')
-    );
+    this.focusTrap = this.focusTrapFactory.create(this.el.nativeElement.querySelector('.side-sheet'));
     this.focusTrap.focusInitialElement();
   }
 

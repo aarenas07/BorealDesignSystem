@@ -97,13 +97,18 @@ export class SideBarComponent {
     this.cdr.detectChanges(); // Forzar detección de cambios
   }
 
-  // Nuevo método para alternar expandido/encogido
-  toggleExpand() {
-    this.isExpanded = !this.isExpanded;
-    // Si se expande manualmente, desanclar el sidebar
-    if (!this.isExpanded) {
-      this.isPinned = false;
+  // Expande el sidebar solo mientras se hace hover en el botón
+  onExpandButtonHover() {
+    if (!this.isPinned) {
+      this.isExpanded = true;
+      this.updateSidebarState();
     }
+  }
+
+  // Cuando se presiona el botón, fija/desfija el sidebar
+  toggleExpand() {
+    this.isPinned = !this.isPinned;
+    this.isExpanded = this.isPinned;
     this.updateSidebarState();
   }
 

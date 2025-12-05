@@ -2,11 +2,14 @@
   <!-- Botón SIEMPRE visible, alineado al contenedor del sidebar -->
   <button
     class="sidebar-expand-toggle"
+    (mouseenter)="onExpandButtonHover()"
+    (mouseleave)="onMouseLeave()"
     (click)="toggleExpand()"
     [attr.aria-label]="isExpanded ? 'Encoger sidebar' : 'Expandir sidebar'"
+    style="position: absolute; top: 12px; right: 12px; z-index: 2;"
   >
     <span class="material-symbols-rounded">
-      {{ isExpanded ? ' left_panel_close ' : ' left_panel_close ' }}
+      {{ isExpanded ? ' left_panel_open' : ' left_panel_close' }}
     </span>
   </button>
 

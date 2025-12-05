@@ -9,6 +9,7 @@ import {
   HostListener,
   TemplateRef,
   ChangeDetectionStrategy,
+  ViewChild,
 } from '@angular/core';
 
 @Component({
@@ -30,6 +31,8 @@ export class SideSheetsComponent {
 
   @Output() openChange = new EventEmitter<boolean>();
   @Output() closed = new EventEmitter<void>();
+  @ViewChild('actionsTemplate', { static: false })
+  actionsTemplate!: TemplateRef<any>;
 
   private focusTrap?: FocusTrap;
   private previouslyFocused?: Element | null;

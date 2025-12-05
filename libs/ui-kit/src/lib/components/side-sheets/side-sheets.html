@@ -1,4 +1,4 @@
-@if (isOpen() && modal) {
+@if (open && modal) {
 <div
   class="sheet-backdrop"
   (click)="onBackdropClick()"
@@ -8,7 +8,7 @@
 
 <aside
   class="side-sheet"
-  [class.open]="isOpen()"
+  [class.open]="open"
   [class.position-start]="position === 'start'"
   [class.position-end]="position === 'end'"
   role="dialog"

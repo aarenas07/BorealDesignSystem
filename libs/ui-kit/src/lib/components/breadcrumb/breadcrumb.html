@@ -1,0 +1,55 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    @if(home()){
+    <li class="breadcrumb-item">
+      @if (home()?.link) {
+      <a [href]="home()?.link" target="_blank" class="breadcrumb-item-link">
+        @if (home()?.icon) {
+        <mat-icon>{{ home()?.icon }}</mat-icon>
+        }
+        <span>{{home()?.label}}</span>
+      </a>
+      } @else if (home()?.routerLink) {
+      <a [routerLink]="home()?.routerLink" class="breadcrumb-item-link">
+        @if (home()?.icon) {
+        <mat-icon>{{ home()?.icon }}</mat-icon>
+        }
+        <span>{{home()?.label}}</span>
+      </a>
+      }
+    </li>
+    } @for (item of items(); track $index) { @if (item.active) {
+    <li [class]="{ 'breadcrumb-item': true, 'active': item.active}">
+      @if (item.icon) {
+      <mat-icon>{{ item.icon }}</mat-icon>
+      }
+      <span>{{item.label}}</span>
+    </li>
+    }@else {
+    <li class="breadcrumb-item">
+      @if (item.link) {
+      <a [href]="item.link" target="_blank" class="breadcrumb-item-link">
+        @if (item.icon) {
+        <mat-icon>{{ item.icon }}</mat-icon>
+        }
+        <span>{{item.label}}</span>
+      </a>
+      } @else if (item.routerLink) {
+      <a [routerLink]="item.routerLink" class="breadcrumb-item-link">
+        @if (item.icon) {
+        <mat-icon>{{ item.icon }}</mat-icon>
+        }
+        <span>{{item.label}}</span>
+      </a>
+      }@else {
+      <span>
+        @if (item.icon) {
+        <mat-icon>{{ item.icon }}</mat-icon>
+        }
+        <span>{{item.label}}</span>
+      </span>
+      }
+    </li>
+    } }
+  </ol>
+</nav>

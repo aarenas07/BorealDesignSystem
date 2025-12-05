@@ -1,6 +1,6 @@
-import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
+
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule, MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -40,13 +40,14 @@ import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { Observable, map, startWith } from 'rxjs';
 import {
   ButtonComponent,
-  FormFieldComponent,
   TableAction,
   TableColumn,
   TableComponent,
   TableConfig,
   CardComponent,
   SideSheetsComponent,
+  BreadcrumbComponent,
+  MenuItem,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -105,6 +106,7 @@ interface User {
     ButtonComponent,
     CardComponent,
     SideSheetsComponent,
+    BreadcrumbComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -209,6 +211,13 @@ export class App {
   isSideSheetOpenTwo = false;
   isSideSheetOpenThree = false;
   isSideSheetOpenFour = false;
+
+  //breadcrumb
+  items = signal<MenuItem[]>([
+    { label: 'Library', icon: 'home', routerLink: '/' },
+    { label: 'Data', icon: 'home', routerLink: '/' },
+    { label: 'Item', icon: 'home', routerLink: '/', active: true },
+  ]);
 
   constructor() {
     this.filteredOptions = this.myControl.valueChanges.pipe(

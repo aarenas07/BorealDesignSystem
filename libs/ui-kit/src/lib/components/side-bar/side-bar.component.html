@@ -10,14 +10,14 @@
   <div class="sidebar-header">
     <div class="user-section">
       @if (isExpanded || isPinned) {
-      <div class="user-avatar">{{ userAvatar }}</div>
-      <span class="user-name">{{ userName }}</span>
+        <div class="user-avatar">{{ userAvatar }}</div>
+        <span class="user-name">{{ userName }}</span>
       }
 
       <button
         class="pin-button"
         [class.pinned]="isPinned"
-        (click)="isExpanded ? togglePin() : toggleSidebar()"
+        (click)="togglePin()"
       >
         <span class="material-symbols-rounded left-panel">
           {{ isExpanded ? 'left_panel_close' : 'menu' }}
@@ -27,9 +27,9 @@
 
     <!-- Search Bar -->
     @if (isExpanded || isPinned) {
-    <div class="search-section">
-      <!-- TODO: COMMAND COMPONENT -->
-    </div>
+      <div class="search-section">
+        <!-- TODO: COMMAND COMPONENT -->
+      </div>
     }
   </div>
 
@@ -43,76 +43,92 @@
       >
       </lib-ada-command-menu> -->
     </div>
-  <div class="quick-actions">
-    <div
-      *ngFor="let action of quickActions"
-      class="action-item"
-      (click)="onQuickActionClick(action.action)"
-    >
-      {{ action.label }}
-    </div>
-  </div>
-  <div>
-    <div class="section-title">
-      <span class="material-symbols-rounded"> keyboard_arrow_down </span>
-      Favoritos
-    </div>
-  </div>
-  }
-  
-  <div class="sidebar-content">
-    @for (section of sidebarData; track $index) { 
-    @if (section.title && (isExpanded || isPinned)) {
-    <div class="section-title" (click)="toggleSection(section)">
-      <span
-        [class.collapsed]="section.isCollapsed"
-        class="material-symbols-rounded"
-      >
-        keyboard_arrow_down
-      </span>
-      {{ section.title }}
-    </div>
-    }
-
-    <!-- Section Items -->
-    <div class="section-items" [class.collapsed]="section.isCollapsed">
-      @for (item of section.items; track item.id) {
-      <div class="sidebar-item" [class.has-children]="item.children?.length">
-        <!-- Main Item -->
+    <div class="quick-actions">
+      @for (action of quickActions; track action.label) {
         <div
-          class="item-content"
-          [class.expanded]="item.isExpanded"
-          (click)="item.url ? onItemClick(item) : toggleItem(item)"
+          class="action-item"
+          (click)="onQuickActionClick(action.action)"
         >
-          <span *ngIf="item.icon" class="item-icon">{{ item.icon }}</span>
-          <span *ngIf="isExpanded || isPinned" class="item-label">{{ item.label }}</span>
-          <span
-            *ngIf="item.children?.length && (isExpanded || isPinned)"
-            class="material-symbols-rounded expand-arrow"
-            [class.rotated]="item.isExpanded"
-          >
-            keyboard_arrow_right
-          </span>
+          {{ action.label }}
         </div>
-
-        <!-- Children Items -->
-        <div
-          *ngIf="item.children?.length && item.isExpanded && (isExpanded || isPinned)"
-          class="children-items"
-        >
-          <div
-            *ngFor="let child of item.children; trackBy: trackById"
-            class="childs-container"
-          >
-            <div class="child-item" (click)="onItemClick(child)">
-              <span *ngIf="child.icon" class="child-icon">{{ child.icon }}</span>
-              {{ child.label }}
-            </div>
-          </div>
-        </div>
-      </div>
       }
     </div>
+    <div>
+      <div class="section-title">
+        <span class="material-symbols-rounded"> keyboard_arrow_down </span>
+        Favoritos
+      </div>
+    </div>
+  }
+
+  <div class="sidebar-content">
+    @for (section of sidebarData; track $index) {
+      @if (section.title && (isExpanded || isPinned)) {
+        <div class="section-title" (click)="toggleSection(section)">
+          <span
+            [class.collapsed]="section.isCollapsed"
+            class="material-symbols-rounded"
+          >
+            keyboard_arrow_down
+          </span>
+          {{ section.title }}
+        </div>
+      }
+
+      <!-- Section Items -->
+      <div class="section-items" [class.collapsed]="section.isCollapsed">
+        @for (item of section.items; track item.id) {
+          <div class="sidebar-item" [class.has-children]="item.children?.length">
+            <!-- Main Item -->
+            <div
+              class="item-content"
+              [class.expanded]="item.isExpanded"
+              (click)="item.url ? onItemClick(item) : toggleItem(item)"
+            >
+              @if (item.icon) {
+                <span class="item-icon">{{ item.icon }}</span>
+              }
+              @if (isExpanded || isPinned) {
+                <span class="item-label">{{ item.label }}</span>
+              }
+              @if (item.children?.length && (isExpanded || isPinned)) {
+                <span
+                  class="material-symbols-rounded expand-arrow"
+                  [class.rotated]="item.isExpanded"
+                >
+                  keyboard_arrow_right
+                </span>
+              }
+            </div>
+
+            <!-- Children Items -->
+            @if (item.children?.length && item.isExpanded && (isExpanded || isPinned)) {
+              <div class="children-items">
+                @for (child of item.children; track $index) {
+                  <div class="childs-container">
+                    <div class="child-item" (click)="onItemClick(child)">
+                      @if (child.icon) {
+                        <span class="child-icon">{{ child.icon }}</span>
+                      }
+                      {{ child.label }}
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
     }
   </div>
 </div>
+
+<!-- Always visible button -->
+<button
+  class="sidebar-toggle-button"
+  @if (!isExpanded && !isPinned)
+  (mouseenter)="onMouseEnter()"
+  (click)="togglePin()"
+>
+  <span class="material-symbols-rounded">menu</span>
+</button>

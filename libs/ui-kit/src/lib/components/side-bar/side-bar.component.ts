@@ -6,10 +6,10 @@ import {
   Input,
   Output,
 } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { CommandItem } from 'design-system';
+import { CommonModule } from '@angular/common'; // Importar CommonModule
 import { SidebarStateService } from './services/sidebar-state.service';
-// import { CommandMenuComponent } from '../command-menu/command-menu.component';
+import { ChangeDetectorRef } from '@angular/core';
+
 export interface SidebarItem {
   id: string;
   label: string;
@@ -38,7 +38,8 @@ export interface CommandMenuConfig {
 
 @Component({
   selector: 'lib-side-bar',
-  // imports: [CommandMenuComponent],
+  standalone: true, // Hacer el componente standalone
+  imports: [CommonModule], // Agregar CommonModule aquí
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
 })
@@ -61,14 +62,15 @@ export class SideBarComponent {
   isPinned = false;
 
   constructor(
-    private elementRef: ElementRef, 
-    // private router: Router,
-    private sidebarStateService: SidebarStateService // Inyecta el service
+    private elementRef: ElementRef,
+    private sidebarStateService: SidebarStateService,
+    private cdr: ChangeDetectorRef // Inyectar ChangeDetectorRef
   ) {}
 
   onMouseEnter() {
-    if (!this.isPinned && !this.isExpanded) {
+    if (!this.isPinned) {
       this.isExpanded = true;
+      console.log('Sidebar expanded on hover'); // Log para depuración
       this.updateSidebarState();
     }
   }
@@ -76,29 +78,23 @@ export class SideBarComponent {
   onMouseLeave() {
     if (!this.isPinned) {
       this.isExpanded = false;
+      console.log('Sidebar collapsed on mouse leave'); // Log para depuración
       this.updateSidebarState();
     }
   }
 
   togglePin() {
     this.isPinned = !this.isPinned;
-    if (this.isPinned) {
-      this.isExpanded = true;
-    }
+    this.isExpanded = this.isPinned; // Asegurar que el sidebar se expanda si está fijado
+    console.log('Sidebar pinned:', this.isPinned); // Log para depuración
     this.updateSidebarState();
   }
 
-  toggleSidebar() {
-    if (!this.isPinned && !this.isExpanded) {
-      this.isExpanded = true;
-      this.updateSidebarState();
-    }
-  }
-
-  // Método nuevo para notificar cambios
   private updateSidebarState() {
     const isClosed = !this.isExpanded && !this.isPinned;
+    console.log('Sidebar state updated. isClosed:', isClosed); // Log para depuración
     this.sidebarStateService.setSidebarClosed(isClosed);
+    this.cdr.detectChanges(); // Forzar detección de cambios
   }
 
   // ... resto de métodos sin cambios

@@ -268,3 +268,28 @@ align-self: stretch;
 .sidebar-container:not(.expanded):not(.pinned) .item-icon {
   margin: 0;
 }
+
+.sidebar-toggle-button {
+  position: absolute;
+  top: 16px;
+  left: 8px;
+  width: 40px;
+  height: 40px;
+  background: var(--sds-color-background-default-secondary);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  .material-symbols-rounded {
+    font-size: 24px;
+    color: var(--sds-color-icon-default-secondary);
+  }
+
+  &:hover {
+    background: var(--sds-color-background-default-secondary-hover);
+  }
+}

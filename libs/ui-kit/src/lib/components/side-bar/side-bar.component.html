@@ -1,3 +1,15 @@
+<!-- Botón SIEMPRE visible para expandir/encoger, fuera del sidebar-container -->
+<button
+  class="sidebar-expand-toggle"
+  (click)="toggleExpand()"
+  [attr.aria-label]="isExpanded ? 'Encoger sidebar' : 'Expandir sidebar'"
+  style="position: fixed; top: 16px; left: 16px; z-index: 1000;"
+>
+  <span class="material-symbols-rounded">
+    {{ isExpanded ? 'chevron_left' : 'chevron_right' }}
+  </span>
+</button>
+
 <div
   class="sidebar-container"
   [class.expanded]="isExpanded || isPinned"
@@ -20,7 +32,7 @@
         (click)="togglePin()"
       >
         <span class="material-symbols-rounded left-panel">
-          {{ isExpanded ? 'left_panel_close' : 'menu' }}
+          {{ isPinned ? 'lock' : 'lock_open' }}
         </span>
       </button>
     </div>
@@ -122,13 +134,3 @@
     }
   </div>
 </div>
-
-<!-- Always visible button -->
-<button
-  class="sidebar-toggle-button"
-  @if (!isExpanded && !isPinned)
-  (mouseenter)="onMouseEnter()"
-  (click)="togglePin()"
->
-  <span class="material-symbols-rounded">menu</span>
-</button>

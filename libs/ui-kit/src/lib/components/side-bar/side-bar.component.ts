@@ -97,6 +97,16 @@ export class SideBarComponent {
     this.cdr.detectChanges(); // Forzar detección de cambios
   }
 
+  // Nuevo método para alternar expandido/encogido
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded;
+    // Si se expande manualmente, desanclar el sidebar
+    if (!this.isExpanded) {
+      this.isPinned = false;
+    }
+    this.updateSidebarState();
+  }
+
   // ... resto de métodos sin cambios
   // handleAdminAction(event: CommandItem): void {
   //   const route = event.options[0].route;

@@ -17,10 +17,10 @@
       <button
         class="pin-button"
         [class.pinned]="isPinned"
-        (click)="togglePin()"
+        (click)="isExpanded ? togglePin() : toggleSidebar()"
       >
         <span class="material-symbols-rounded left-panel">
-          left_panel_close
+          {{ isExpanded ? 'left_panel_close' : 'menu' }}
         </span>
       </button>
     </div>

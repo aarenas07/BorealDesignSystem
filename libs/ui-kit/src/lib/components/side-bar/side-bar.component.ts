@@ -57,7 +57,7 @@ export class SideBarComponent {
   ]; // Default quick actions
   @Output() itemSelected = new EventEmitter<SidebarItem>();
 
-  isExpanded = false;
+  isExpanded = true;
   isPinned = false;
 
   constructor(
@@ -67,7 +67,7 @@ export class SideBarComponent {
   ) {}
 
   onMouseEnter() {
-    if (!this.isPinned) {
+    if (!this.isPinned && !this.isExpanded) {
       this.isExpanded = true;
       this.updateSidebarState();
     }
@@ -86,6 +86,13 @@ export class SideBarComponent {
       this.isExpanded = true;
     }
     this.updateSidebarState();
+  }
+
+  toggleSidebar() {
+    if (!this.isPinned && !this.isExpanded) {
+      this.isExpanded = true;
+      this.updateSidebarState();
+    }
   }
 
   // Método nuevo para notificar cambios

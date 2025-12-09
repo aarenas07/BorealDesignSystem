@@ -3,8 +3,8 @@
   top: 0;
   height: 100vh;
   width: 60px;
-  background: var(--primary-98); // Usar color de la paleta primaria para fondo
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); // transición suave
+  background: var(--mat-sys-surface-container-highest); 
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
   overflow: hidden;
   z-index: 1000;
 }
@@ -15,9 +15,9 @@
   display: flex;
   padding-top: 5px;
   left: 4rem;
-  background: var(--primary-98); 
-  border: 1px solid var(--secondary-90); 
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); // transición suave
+  background: var(--mat-sys-surface-container-highest); 
+  border: 1px solid var(--mat-sys-outline-variant); 
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
 
   .sidebar-header {
     padding: 8px;
@@ -41,24 +41,23 @@
 .sidebar-container.expanded,
 .sidebar-container.pinned {
   width: 280px;
-  background: var(--primary-99); // Fondo expandido/pinned
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); // transición suave
+  background: var(--mat-sys-surface-container); 
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
 }
 
-// Evitar solapamiento de clases
 .sidebar-container.expanded.closed,
 .sidebar-container.pinned.closed {
   width: 280px !important;
-  background: var(--primary-99);
+  background: var(--mat-sys-surface-container);
 }
 
 .sidebar-header {
   padding: 16px 12px var(--sds-size-space-600); ;
-  background: var(--primary-98); // Fondo header
+  background: var(--mat-sys-surface-container-highest); 
 }
 
 .left-panel {
-  color: var(--secondary-40); // Icono usando paleta secundaria
+  color: var(--mat-sys-secondary); 
 }
 
 .user-section {
@@ -76,8 +75,8 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  color: var(--primary-10);
-  background: var(--tertiary-90); // Fondo avatar usando terciaria
+  color: var(--mat-sys-on-surface-variant);
+  background: var(--mat-sys-tertiary-container); 
   font-family: var(--sds-typography-subheading-font-family);
   font-size: var(--sds-typography-subheading-size-medium);
   font-style: normal;
@@ -86,7 +85,7 @@
 }
 
 .user-name {
-  color: var(--primary-20); // Texto nombre usando primaria
+  color: var(--mat-sys-on-surface); 
   font-family: var(--sds-typography-subheading-font-family);
   font-size: var(--sds-typography-subheading-size-medium);
   font-style: normal;
@@ -102,16 +101,16 @@
   padding: 4px;
   border-radius: 4px;
   transition: background 0.2s;
-  color: var(--secondary-40);
+  color: var(--mat-sys-secondary);
 }
 
 .pin-button:hover {
-  background: var(--primary-95);
+  background: var(--mat-sys-surface-container-high);
 }
 
 .search-section {
   position: relative;
-  background: var(--primary-99);
+  background: var(--mat-sys-surface-container);
 }
 
 .command-menu-container {
@@ -121,16 +120,16 @@
   align-items: center;
   gap: 8px;
   align-self: stretch;
-  background: var(--primary-99);
+  background: var(--mat-sys-surface-container);
 }
 
 .quick-actions {
   padding: 16px 12px;
-  border-bottom: 1px solid var(--secondary-80);
+  border-bottom: 1px solid var(--mat-sys-outline);
 }
 
 .quick-action-item {
-  color: var(--sds-color-text-default-secondary);
+  color: var(--mat-sys-on-surface-variant);
   font-family: var(--sds-typography-body-font-family);
   align-items: center;
   flex-direction: row;
@@ -144,7 +143,7 @@
 
 .action-item {
   padding: 8px 12px;
-  color: var(--primary-20);
+  color: var(--mat-sys-on-surface);
   font-family: var(--sds-typography-body-font-family);
   font-size: var(--sds-typography-body-size-medium);
   font-style: normal;
@@ -154,14 +153,14 @@
 }
 
 .action-item:hover {
-  background: var(--primary-95);
+  background: var(--mat-sys-surface-container-high);
 }
 
 .sidebar-content {
   padding: 16px 0;
   overflow-y: auto;
   height: calc(100vh - 200px);
-  background: var(--primary-99);
+  background: var(--mat-sys-surface-container);
 }
 
 .section-title {
@@ -169,7 +168,7 @@
   flex-direction: row;
   align-items: center;
   padding: 6px 16px;
-  color: var(--secondary-40);
+  color: var(--mat-sys-secondary);
   font-family: var(--sds-typography-body-font-family);
   font-size: var(--sds-typography-body-size-small);
   font-style: normal;
@@ -201,17 +200,17 @@
   align-items: center;
   padding: 10px 16px;
   transition: background 0.2s;
-  color: var(--primary-20);
+  color: var(--mat-sys-on-surface);
   font-family: var(--sds-typography-body-font-family);
   font-size: var(
     --sds-typography-body-size-medium
-  ); /* más grande que section-title */
+  ); 
   font-weight: var(--sds-typography-body-font-weight-regular);
   cursor: pointer;
 }
 
 .item-content:hover {
-  background: var(--primary-95);
+  background: var(--mat-sys-surface-container-high);
   border-radius: 4px;
 }
 
@@ -220,13 +219,13 @@
   font-size: 16px;
   width: 20px;
   text-align: center;
-  color: var(--secondary-40);
+  color: var(--mat-sys-secondary);
 }
 
 .expand-arrow {
   margin-left: auto;
   transition: transform 0.2s;
-  color: var(--secondary-40);
+  color: var(--mat-sys-secondary);
 }
 
 .expand-arrow.rotated {
@@ -244,25 +243,24 @@
 .child-item {
   padding: 8px 16px 8px 8px;
   cursor: pointer;
-  color: var(--primary-20);
-  border-left: 2px solid var(--secondary-70);
+  color: var(--mat-sys-on-surface);
+  border-left: 2px solid var(--mat-sys-outline);
 
-  /* Body Base */
   font-family: var(--sds-typography-body-font-family);
   font-size: var(--sds-typography-body-size-medium);
   font-style: normal;
   font-weight: var(--sds-typography-body-font-weight-regular);
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   transition: background 0.2s;
 }
 
 .child-item:hover {
-  background: var(--primary-95);
+  background: var(--mat-sys-surface-container-high);
 }
 
 .child-icon {
   margin-right: 8px;
-  color: var(--secondary-40);
+  color: var(--mat-sys-secondary);
 }
 
 @keyframes slideDown {
@@ -276,7 +274,6 @@
   }
 }
 
-/* Collapsed state - only icons visible */
 .sidebar-container:not(.expanded):not(.pinned) .item-content {
   justify-content: center;
   padding: 12px;
@@ -292,7 +289,7 @@
   left: 8px;
   width: 40px;
   height: 40px;
-  background: var(--sds-color-background-default-secondary);
+  background: var(--mat-sys-surface-container-low);
   border: none;
   border-radius: 50%;
   display: flex;
@@ -303,10 +300,10 @@
 
   .material-symbols-rounded {
     font-size: 24px;
-    color: var(--sds-color-icon-default-secondary);
+    color: var(--mat-sys-on-surface-variant);
   }
 
   &:hover {
-    background: var(--sds-color-background-default-secondary-hover);
+    background: var(--mat-sys-surface-container-lowest);
   }
 }

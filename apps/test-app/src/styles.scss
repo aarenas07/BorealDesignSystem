@@ -1,6 +1,7 @@
 /* Import Angular Material styles using the @use rule */
 @use '@angular/material' as mat;
-@use 'sicof-theme';
+@use '../../../libs/ui-kit/src/lib/styles/styles.scss' as sicof-theme;
+
 
 /* Set the height of the html and body elements to 100% */
 html,

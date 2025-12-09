@@ -2,8 +2,14 @@ import { effect, Injectable, signal } from '@angular/core';
 
 /**
  * Type representing the possible theme identifiers.
+ * - 'sys': System Default theme.
+ * - 'light': Light theme.
+ * - 'dark': Dark theme.
  */
 export type TThemeId =
+    'sys' |
+    'light' |
+    'dark' |
     'sicof-light' |
     'sicof-light-medium' |
     'sicof-light-high' |
@@ -127,15 +133,6 @@ export class ThemeService {
     readonly currentTheme = this._currentTheme.asReadonly();
 
     /**
-     * Constructor that initializes the theme service.
-     * Automatically sets the theme to the default theme on instantiation.
-     */
-    constructor() {
-        // Initialize theme to default on service creation
-        this._currentTheme.set(this._getDefaultTheme());
-    }
-
-    /**
      * Getter for the default theme.
      * @returns The default theme object.
      */
@@ -178,11 +175,11 @@ export class ThemeService {
 
     /**
      * Retrieves the default theme based on the value stored in localStorage.
-     * Falls back to the 'sicof-light' theme if no valid theme is found.
+     * Falls back to the 'System Default' theme if no valid theme is found.
      * @returns The default theme object.
      */
     private _getDefaultTheme(): ITheme {
-        const themeId = (localStorage.getItem(this.localStorageKey) as TThemeId) ?? 'sicof-light';
+        const themeId = (localStorage.getItem(this.localStorageKey) as TThemeId) ?? 'sys';
         return ThemeService.themes.find(theme => theme.id === themeId) || ThemeService.themes[0];
     }
 }

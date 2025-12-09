@@ -1,0 +1,37 @@
+<div class="rail">
+  <div class="icon-container">
+    @for (section of railSections; track section.key; let isLast = $last) {
+      <div [class]="getSectionCssClass(section)">
+        @for (item of section.items; track item.id) {
+          <app-tooltip 
+            [position]="effectiveTooltipPosition" 
+            [content]="item.label" 
+            [type]="getSectionTooltipType(section)">
+            @if (itemTemplate) {
+              <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, section: section }"></ng-container>
+            } @else {
+              <div
+                class="nav-item"
+                [class.active]="item.isActive"
+                (click)="onItemClick(item)"
+              >
+                @if (item.icon) {
+                  <span class="material-symbols-rounded nav-icon">
+                    {{ item.icon }}
+                  </span>
+                }
+                @if (item.badge && item.badge > 0) {
+                  <span class="nav-badge">{{ item.badge }}</span>
+                }
+              </div>
+            }
+          </app-tooltip>
+        }
+      </div>
+      
+      @if (section.showSeparator && !isLast) {
+        <div class="nav-separator"></div>
+      }
+    }
+  </div>
+</div>

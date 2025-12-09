@@ -46,8 +46,11 @@ import {
   TableComponent,
   TableConfig,
   CardComponent,
-  SideBarComponent
+  SideBarComponent,
+  RailComponent,
+  RailConfig, 
 } from '@organizacion/ui-kit';
+
 
 interface User {
   id: number;
@@ -105,7 +108,8 @@ interface User {
     ButtonComponent,
     CardComponent,
     FormFieldComponent,
-    SideBarComponent
+    SideBarComponent,
+    RailComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -676,4 +680,23 @@ export class App {
   onSidebarItemSelected(event: any) {
     console.log('Sidebar item selected:', event);
   }
+
+  railConfig: RailConfig = {
+    sections: [
+      {
+        key: 'main',
+        items: [
+          { label: 'Home', icon: 'home', id: 'home' },
+          { label: 'Profile', icon: 'person', id: 'profile' },
+          { label: 'Settings', icon: 'settings', id: 'settings' },
+          { label: 'Messages', icon: 'message', id: 'messages' },
+          { label: 'Notifications', icon: 'notifications', id: 'notifications' },
+        ],
+        tooltipType: 'dark',
+        cssClass: 'main-items-container',
+        showSeparator: false,
+      }
+    ],
+    tooltipPosition: 'right'
+  };
 }

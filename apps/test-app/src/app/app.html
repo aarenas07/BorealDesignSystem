@@ -393,4 +393,23 @@
       <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></bds-button>
     </ng-template>
   </bds-side-sheets>
+
+  <!-- Breadcrumb Section -->
+  <section class="component-section">
+    <h2>Breadcrumb Home</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [home]="{label: 'Home', routerLink: '/', icon: 'home'}" [items]="items()"> </bds-breadcrumb>
+    </div>
+    <h2>Breadcrumb</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [items]="itemsIcons()"> </bds-breadcrumb>
+    </div>
+    <h2>Breadcrumb Links</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [items]="itemsLinks()"> </bds-breadcrumb>
+    </div>
+  </section>
 </main>

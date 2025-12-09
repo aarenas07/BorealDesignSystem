@@ -1,5 +1,6 @@
-import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
+import { Component, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -12,13 +13,14 @@ import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { Observable, map, startWith } from 'rxjs';
 import {
   ButtonComponent,
-  FormFieldComponent,
   TableAction,
   TableColumn,
   TableComponent,
   TableConfig,
   CardComponent,
   SideSheetsComponent,
+  BreadcrumbComponent,
+  MenuItem,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -52,6 +54,7 @@ interface User {
     ButtonComponent,
     CardComponent,
     SideSheetsComponent,
+    BreadcrumbComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -100,6 +103,24 @@ export class App {
   isSideSheetOpenTwo = false;
   isSideSheetOpenThree = false;
   isSideSheetOpenFour = false;
+
+  //breadcrumb
+  items = signal<MenuItem[]>([
+    { label: 'Library', routerLink: '/' },
+    { label: 'Data', routerLink: '/' },
+    { label: 'Item', routerLink: '/', active: true },
+  ]);
+  itemsIcons = signal<MenuItem[]>([
+    { label: 'Users', icon: 'user', routerLink: '/' },
+    { label: 'User', icon: 'lists', routerLink: '/' },
+    { label: 'View', routerLink: '/', active: true },
+  ]);
+
+  itemsLinks = signal<MenuItem[]>([
+    { label: 'Page 1', icon: 'user', link: 'https://www.google.com/' },
+    { label: 'Page 2', icon: 'lists', link: 'https://www.google.com/' },
+    { label: 'Page 3', active: true },
+  ]);
 
   constructor() {
     this.filteredOptions = this.myControl.valueChanges.pipe(

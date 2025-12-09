@@ -17,7 +17,7 @@ export type SideSheetPosition = 'start' | 'end';
 export type SideSheetSize = 'sm' | 'md' | 'lg';
 
 @Component({
-  selector: 'lib-side-sheets',
+  selector: 'bds-side-sheets',
   standalone: true,
   templateUrl: './side-sheets.html',
   styleUrls: ['./side-sheets.scss'],

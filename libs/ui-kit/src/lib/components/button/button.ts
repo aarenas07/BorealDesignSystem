@@ -21,7 +21,7 @@ export type ButtonVariant =
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 @Component({
-  selector: 'lib-button',
+  selector: 'bds-button',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
   changeDetection: ChangeDetectionStrategy.OnPush,

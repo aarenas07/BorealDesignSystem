@@ -8,11 +8,11 @@
   <section class="component-section">
     <h2>Buttons</h2>
     <div class="demo-row">
-      <lib-button label="Text" variant="text" size="md" (action)="handleAction($event)"></lib-button>
-      <lib-button label="Elevated" variant="elevated" size="md" (action)="handleAction($event)"></lib-button>
-      <lib-button label="Filled" variant="filled" size="md" (action)="handleAction($event)"></lib-button>
-      <lib-button label="Outlined" variant="outlined" size="md" (action)="handleAction($event)"></lib-button>
-      <lib-button label="Icon" variant="icon" icon="favorite" size="md" (action)="handleAction($event)"></lib-button>
+      <bds-button label="Text" variant="text" size="md" (action)="handleAction($event)"></bds-button>
+      <bds-button label="Elevated" variant="elevated" size="md" (action)="handleAction($event)"></bds-button>
+      <bds-button label="Filled" variant="filled" size="md" (action)="handleAction($event)"></bds-button>
+      <bds-button label="Outlined" variant="outlined" size="md" (action)="handleAction($event)"></bds-button>
+      <bds-button label="Icon" variant="icon" icon="favorite" size="md" (action)="handleAction($event)"></bds-button>
     </div>
   </section>
 
@@ -22,7 +22,7 @@
 
     <h3>Variantes de Elevación</h3>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
-      <lib-card elevation="flat" size="md">
+      <bds-card elevation="flat" size="md">
         <mat-card-title card-title>Card Flat</mat-card-title>
         <mat-card-subtitle card-subtitle>Sin sombra, con borde sutil</mat-card-subtitle>
         <div card-content>
@@ -31,9 +31,9 @@
         <div card-actions>
           <button mat-button>VER MÁS</button>
         </div>
-      </lib-card>
+      </bds-card>
 
-      <lib-card elevation="raised" size="md">
+      <bds-card elevation="raised" size="md">
         <mat-card-title card-title>Card Raised</mat-card-title>
         <mat-card-subtitle card-subtitle>Con sombra elevada</mat-card-subtitle>
         <div card-content>
@@ -42,9 +42,9 @@
         <div card-actions>
           <button mat-button>VER MÁS</button>
         </div>
-      </lib-card>
+      </bds-card>
 
-      <lib-card elevation="outlined" size="md">
+      <bds-card elevation="outlined" size="md">
         <mat-card-title card-title>Card Outlined</mat-card-title>
         <mat-card-subtitle card-subtitle>Con borde prominente</mat-card-subtitle>
         <div card-content>
@@ -53,12 +53,12 @@
         <div card-actions>
           <button mat-button>VER MÁS</button>
         </div>
-      </lib-card>
+      </bds-card>
     </div>
 
     <h3>Variantes de Tamaño</h3>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px">
-      <lib-card elevation="raised" size="sm">
+      <bds-card elevation="raised" size="sm">
         <mat-card-title card-title>Card Pequeña</mat-card-title>
         <div card-content>
           <p>Tamaño compacto (sm)</p>
@@ -66,9 +66,9 @@
         <div card-actions>
           <button mat-button>ACCIÓN</button>
         </div>
-      </lib-card>
+      </bds-card>
 
-      <lib-card elevation="raised" size="md">
+      <bds-card elevation="raised" size="md">
         <mat-card-title card-title>Card Mediana</mat-card-title>
         <div card-content>
           <p>Tamaño estándar (md)</p>
@@ -76,9 +76,9 @@
         <div card-actions>
           <button mat-button>ACCIÓN</button>
         </div>
-      </lib-card>
+      </bds-card>
 
-      <lib-card elevation="raised" size="lg">
+      <bds-card elevation="raised" size="lg">
         <mat-card-title card-title>Card Grande</mat-card-title>
         <div card-content>
           <p>Tamaño espacioso (lg)</p>
@@ -86,26 +86,26 @@
         <div card-actions>
           <button mat-button>ACCIÓN</button>
         </div>
-      </lib-card>
+      </bds-card>
     </div>
 
     <h3>Card Clickeable</h3>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
-      <lib-card elevation="raised" size="md" [clickable]="true">
+      <bds-card elevation="raised" size="md" [clickable]="true">
         <mat-card-title card-title>Card Interactiva</mat-card-title>
         <mat-card-subtitle card-subtitle>Pasa el mouse para ver el efecto</mat-card-subtitle>
         <div card-content>
           <p>Esta card es clickeable y tiene efectos hover. Ideal para navegación o selección.</p>
         </div>
-      </lib-card>
+      </bds-card>
 
-      <lib-card elevation="outlined" size="md" [clickable]="true">
+      <bds-card elevation="outlined" size="md" [clickable]="true">
         <mat-card-title card-title>Otra Card Clickeable</mat-card-title>
         <mat-card-subtitle card-subtitle>Con borde outlined</mat-card-subtitle>
         <div card-content>
           <p>Combina diferentes estilos con la funcionalidad clickeable.</p>
         </div>
-      </lib-card>
+      </bds-card>
     </div>
   </section>
 
@@ -116,10 +116,10 @@
       <div class="user-management">
         <header class="page-header">
           <h1>Gestión de Usuarios</h1>
-          <lib-button icon="add" label="Agregar Usuario" variant="filled" size="md" (action)="addUser()"></lib-button>
+          <bds-button icon="add" label="Agregar Usuario" variant="filled" size="md" (action)="addUser()"></bds-button>
         </header>
 
-        <lib-table
+        <bds-table
           [columns]="tableColumns"
           [actions]="tableActions"
           [config]="tableConfig"
@@ -130,7 +130,7 @@
           (selectionChange)="onSelectionChange($event)"
           (actionClick)="onActionClick($event)"
         >
-        </lib-table>
+        </bds-table>
 
         <!-- Custom Templates -->
         <ng-template #avatarTemplate let-row>
@@ -249,21 +249,21 @@
     <h2>Side Sheets</h2>
     <div class="demo-row">
       <!-- Side Sheets Multi-level -->
-      <lib-button label="Side Sheet Modal Multi-level" variant="filled" size="md" (action)="openSideSheetLevel()"></lib-button>
+      <bds-button label="Side Sheet Modal Multi-level" variant="filled" size="md" (action)="openSideSheetLevel()"></bds-button>
 
       <!-- Side Sheets One -->
-      <lib-button label="Side Sheet Modal (start)" variant="filled" size="md" (action)="openSideSheetOne()"></lib-button>
+      <bds-button label="Side Sheet Modal (start)" variant="filled" size="md" (action)="openSideSheetOne()"></bds-button>
 
       <!-- Side Sheets Two-->
-      <lib-button label="Side Sheet Modal (end)" variant="filled" size="md" (action)="openSideSheetThree()"></lib-button>
+      <bds-button label="Side Sheet Modal (end)" variant="filled" size="md" (action)="openSideSheetThree()"></bds-button>
 
       <!-- Side Sheets Four-->
-      <lib-button label="Side Sheet standard (start)" variant="filled" size="md" (action)="openSideSheetFour()"></lib-button>
+      <bds-button label="Side Sheet standard (start)" variant="filled" size="md" (action)="openSideSheetFour()"></bds-button>
     </div>
   </section>
 
   <!-- Side Sheets Multi-level -->
-  <lib-side-sheets position="start" [(open)]="isSideSheetOpenLevel" [modal]="true" [header]="'Multi-level'" size="lg">
+  <bds-side-sheets position="start" [(open)]="isSideSheetOpenLevel" [modal]="true" [header]="'Multi-level'" size="lg">
     <div>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
@@ -284,17 +284,17 @@
     <section class="component-section">
       <h2>Multi-level</h2>
       <div class="demo-row">
-        <lib-button label="Side Sheet (start)" variant="filled" size="md" (action)="openSideSheetTwo()"></lib-button>
+        <bds-button label="Side Sheet (start)" variant="filled" size="md" (action)="openSideSheetTwo()"></bds-button>
       </div>
     </section>
 
     <ng-template #actionsTemplate>
-      <lib-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetLevel()"></lib-button>
+      <bds-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetLevel()"></bds-button>
     </ng-template>
-  </lib-side-sheets>
+  </bds-side-sheets>
 
   <!-- Side Sheets One -->
-  <lib-side-sheets position="start" [(open)]="isSideSheetOpenOne" [modal]="true" [header]="'Title 1'">
+  <bds-side-sheets position="start" [(open)]="isSideSheetOpenOne" [modal]="true" [header]="'Title 1'">
     <div>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
@@ -312,12 +312,12 @@
     </div>
 
     <ng-template #actionsTemplate>
-      <lib-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetOne()"></lib-button>
+      <bds-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetOne()"></bds-button>
     </ng-template>
-  </lib-side-sheets>
+  </bds-side-sheets>
 
   <!-- Side Sheets Two-->
-  <lib-side-sheets position="start" [(open)]="isSideSheetOpenTwo" [modal]="true" [header]="'Title 2'">
+  <bds-side-sheets position="start" [(open)]="isSideSheetOpenTwo" [modal]="true" [header]="'Title 2'">
     <div>
       <p>
         Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
@@ -329,10 +329,10 @@
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
     </div>
-  </lib-side-sheets>
+  </bds-side-sheets>
 
   <!-- Side Sheets Three-->
-  <lib-side-sheets position="end" [(open)]="isSideSheetOpenThree" [modal]="true" [header]="'Title 3'">
+  <bds-side-sheets position="end" [(open)]="isSideSheetOpenThree" [modal]="true" [header]="'Title 3'">
     <div>
       <p>
         Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
@@ -370,13 +370,13 @@
     </div>
 
     <ng-template #actionsTemplate>
-      <lib-button label="Aceptar" (action)="closeSideSheetThree()"></lib-button>
-      <lib-button label="Cancelar" variant="outlined" (action)="closeSideSheetThree()"></lib-button>
+      <bds-button label="Aceptar" (action)="closeSideSheetThree()"></bds-button>
+      <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetThree()"></bds-button>
     </ng-template>
-  </lib-side-sheets>
+  </bds-side-sheets>
 
   <!-- Side Sheets Three-->
-  <lib-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
+  <bds-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
     <div>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
@@ -389,8 +389,8 @@
     </div>
 
     <ng-template #actionsTemplate>
-      <lib-button label="Aceptar" (action)="closeSideSheetFour()"></lib-button>
-      <lib-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></lib-button>
+      <bds-button label="Aceptar" (action)="closeSideSheetFour()"></bds-button>
+      <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></bds-button>
     </ng-template>
-  </lib-side-sheets>
+  </bds-side-sheets>
 </main>

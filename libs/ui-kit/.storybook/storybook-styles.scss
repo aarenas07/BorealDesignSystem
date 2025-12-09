@@ -1,16 +1,67 @@
-// libs/ui-kit/.storybook/storybook-styles.scss
-
 // 2. Configurar Material
 @use '@angular/material' as mat;
 
 // 1. Cargar el CSS del tema SicofERP
 @import '../src/lib/styles/sicoferp-theme/theme.scss';
 
+// 3. Mapeo de variables (md-sys-color-* -> mat-sys-*)
+// Angular Material components generally use --mat-sys-* but Material Theme Builder generates --md-sys-color-*
+$tokens: (
+  'primary',
+  'on-primary',
+  'primary-container',
+  'on-primary-container',
+  'secondary',
+  'on-secondary',
+  'secondary-container',
+  'on-secondary-container',
+  'tertiary',
+  'on-tertiary',
+  'tertiary-container',
+  'on-tertiary-container',
+  'error',
+  'on-error',
+  'error-container',
+  'on-error-container',
+  'background',
+  'on-background',
+  'surface',
+  'on-surface',
+  'surface-variant',
+  'on-surface-variant',
+  'outline',
+  'outline-variant',
+  'shadow',
+  'scrim',
+  'inverse-surface',
+  'inverse-on-surface',
+  'inverse-primary',
+  'surface-dim',
+  'surface-bright',
+  'surface-container-lowest',
+  'surface-container-low',
+  'surface-container',
+  'surface-container-high',
+  'surface-container-highest'
+);
+
+:root {
+  @each $token in $tokens {
+    --mat-sys-#{$token}: var(--md-sys-color-#{$token});
+  }
+
+  // State layer opacities (Material 3 defaults)
+  --mat-sys-hover-state-layer-opacity: 0.08;
+  --mat-sys-focus-state-layer-opacity: 0.12;
+  --mat-sys-pressed-state-layer-opacity: 0.12;
+  --mat-sys-dragged-state-layer-opacity: 0.16;
+}
+
 html {
   @include mat.core();
 }
 
-// 3. Simular el fondo de la app
+// 4. Simular el fondo de la app
 body {
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);

@@ -412,23 +412,24 @@
 </bds-side-sheets>
 
 <!-- Side Sheets Three-->
-<bds-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
-  <div>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-  </div>
+<main>
+  <bds-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
 
-  <ng-template #actionsTemplate>
-    <bds-button label="Aceptar" (action)="closeSideSheetFour()"></bds-button>
-    <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></bds-button>
-  </ng-template>
-</bds-side-sheets>
+    <ng-template #actionsTemplate>
+      <bds-button label="Aceptar" (action)="closeSideSheetFour()"></bds-button>
+      <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></bds-button>
+    </ng-template>
+  </bds-side-sheets>
 </main>

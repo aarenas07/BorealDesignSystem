@@ -399,9 +399,14 @@
     <h2>Breadcrumb Home</h2>
     <div class="demo-row">
       <!-- Breadcrumb  -->
-      <bds-breadcrumb [home]="{label: 'Home', routerLink: '/', icon: 'home'}" [items]="items()"> </bds-breadcrumb>
+      <bds-breadcrumb [home]="{icon: 'home', label: 'Inicio', routerLink: '/'}"> </bds-breadcrumb>
     </div>
-    <h2>Breadcrumb</h2>
+    <h2>Breadcrumb Home / Items</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [home]="{icon: 'home', label: 'Inicio', routerLink: '/'}" [items]="items()"> </bds-breadcrumb>
+    </div>
+    <h2>Breadcrumb Items (Icons)</h2>
     <div class="demo-row">
       <!-- Breadcrumb  -->
       <bds-breadcrumb [items]="itemsIcons()"> </bds-breadcrumb>

@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 
 export interface MenuItem {
@@ -12,7 +12,7 @@ export interface MenuItem {
 
 @Component({
   selector: 'bds-breadcrumb',
-  imports: [RouterLink, MatIcon],
+  imports: [RouterModule, MatIcon],
   templateUrl: './breadcrumb.html',
   styleUrl: './breadcrumb.scss',
 })

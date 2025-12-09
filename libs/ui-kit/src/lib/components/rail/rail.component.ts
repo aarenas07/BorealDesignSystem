@@ -27,9 +27,9 @@ export interface RailConfig {
 }
 
 @Component({
-  selector: 'lib-rail',
+  selector: 'bds-rail',
   // imports: [TooltipComponent],
-  standalone: true, 
+  standalone: true,
   templateUrl: './rail.component.html',
   styleUrl: './rail.component.scss',
   schemas: [
@@ -37,7 +37,7 @@ export interface RailConfig {
   ]
 })
 export class RailComponent {
-  
+
   @Input() config: RailConfig = { sections: [] };
   @Input() items: any = null; // Para retrocompatibilidad
 
@@ -52,7 +52,7 @@ export class RailComponent {
 
   // Permite pasar un template personalizado para los ítems
   @Input() itemTemplate: TemplateRef<any> | undefined;
-  
+
   @Output() itemClick = new EventEmitter<RailItem>();
 
   get railSections(): RailSection[] {
@@ -84,10 +84,10 @@ export class RailComponent {
 
   private convertLegacyFormat(items: any[]): RailSection[] {
     const sections: RailSection[] = [];
-    
+
     if (items[0]) {
       const data = items[0];
-      
+
       const sectionMappings = [
         { key: 'principalItems', tooltipType: 'dark' as const, cssClass: 'principal-items-container' },
         { key: 'modulesItems', tooltipType: 'dark' as const, cssClass: 'modules-items-container' },
@@ -107,7 +107,7 @@ export class RailComponent {
         }
       });
     }
-    
+
     return sections;
   }
 }

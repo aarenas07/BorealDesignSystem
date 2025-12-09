@@ -37,7 +37,7 @@ export interface CommandMenuConfig {
 }
 
 @Component({
-  selector: 'lib-side-bar',
+  selector: 'bds-side-bar',
   standalone: true, // Hacer el componente standalone
   imports: [CommonModule], // Agregar CommonModule aquí
   templateUrl: './side-bar.component.html',
@@ -51,8 +51,8 @@ export class SideBarComponent {
     shortcut: 'Ctrl + K',
     placeholder: 'Buscar...'
   };
-  @Input() userAvatar: string = ''; 
-  @Input() userName: string = ''; 
+  @Input() userAvatar: string = '';
+  @Input() userName: string = '';
   @Input() quickActions: { label: string; action?: () => void }[] = [
     { label: '+ ' },
   ]; // Default quick actions
@@ -66,7 +66,7 @@ export class SideBarComponent {
     private elementRef: ElementRef,
     private sidebarStateService: SidebarStateService,
     private cdr: ChangeDetectorRef // Inyectar ChangeDetectorRef
-  ) {}
+  ) { }
 
   onMouseEnter() {
     console.log('[Sidebar] onMouseEnter', { isPinned: this.isPinned, isExpanded: this.isExpanded });

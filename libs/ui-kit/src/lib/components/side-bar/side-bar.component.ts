@@ -60,6 +60,7 @@ export class SideBarComponent {
 
   isExpanded = true;
   isPinned = false;
+  hoveringExpandButton = false; // Nueva bandera
 
   constructor(
     private elementRef: ElementRef,
@@ -68,47 +69,55 @@ export class SideBarComponent {
   ) {}
 
   onMouseEnter() {
-    if (!this.isPinned) {
+    console.log('[Sidebar] onMouseEnter', { isPinned: this.isPinned, isExpanded: this.isExpanded });
+    if (!this.isPinned && !this.isExpanded && !this.hoveringExpandButton) {
       this.isExpanded = true;
-      console.log('Sidebar expanded on hover'); // Log para depuración
       this.updateSidebarState();
     }
   }
 
   onMouseLeave() {
-    if (!this.isPinned) {
+    console.log('[Sidebar] onMouseLeave', { isPinned: this.isPinned, isExpanded: this.isExpanded });
+    if (!this.isPinned && this.isExpanded && !this.hoveringExpandButton) {
       this.isExpanded = false;
-      console.log('Sidebar collapsed on mouse leave'); // Log para depuración
       this.updateSidebarState();
     }
   }
 
   togglePin() {
     this.isPinned = !this.isPinned;
-    this.isExpanded = this.isPinned; // Asegurar que el sidebar se expanda si está fijado
-    console.log('Sidebar pinned:', this.isPinned); // Log para depuración
+    this.isExpanded = this.isPinned;
+    console.log('[Sidebar] togglePin', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     this.updateSidebarState();
   }
 
   private updateSidebarState() {
     const isClosed = !this.isExpanded && !this.isPinned;
-    console.log('Sidebar state updated. isClosed:', isClosed); // Log para depuración
+    console.log('[Sidebar] updateSidebarState', { isClosed, isExpanded: this.isExpanded, isPinned: this.isPinned });
     this.sidebarStateService.setSidebarClosed(isClosed);
-    this.cdr.detectChanges(); // Forzar detección de cambios
+    this.cdr.detectChanges();
   }
 
   // Expande el sidebar solo mientras se hace hover en el botón
   onExpandButtonHover() {
-    if (!this.isPinned) {
+    this.hoveringExpandButton = true;
+    console.log('[Sidebar] onExpandButtonHover', { isPinned: this.isPinned, isExpanded: this.isExpanded });
+    if (!this.isPinned && !this.isExpanded) {
       this.isExpanded = true;
       this.updateSidebarState();
     }
+  }
+
+  onExpandButtonLeave() {
+    this.hoveringExpandButton = false;
+    // No colapsar aquí, dejar que el contenedor maneje el mouseleave
   }
 
   // Cuando se presiona el botón, fija/desfija el sidebar
   toggleExpand() {
     this.isPinned = !this.isPinned;
     this.isExpanded = this.isPinned;
+    console.log('[Sidebar] toggleExpand', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     this.updateSidebarState();
   }
 

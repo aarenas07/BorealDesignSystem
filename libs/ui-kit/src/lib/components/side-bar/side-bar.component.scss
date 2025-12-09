@@ -3,8 +3,8 @@
   top: 0;
   height: 100vh;
   width: 60px;
-  background: var(--sds-color-background-brand-tertiary);
-  transition: width 0.3s ease;
+  background: var(--primary-98); // Usar color de la paleta primaria para fondo
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); // transición suave
   overflow: hidden;
   z-index: 1000;
 }
@@ -13,11 +13,11 @@
   height: 56px;
   width: 45px;
   display: flex;
-  position: absolute;
   padding-top: 5px;
   left: 4rem;
-  background: var(--sds-color-background-brand-tertiary);
-  border: transparent;
+  background: var(--primary-98); 
+  border: 1px solid var(--secondary-90); 
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); // transición suave
 
   .sidebar-header {
     padding: 8px;
@@ -41,14 +41,24 @@
 .sidebar-container.expanded,
 .sidebar-container.pinned {
   width: 280px;
+  background: var(--primary-99); // Fondo expandido/pinned
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); // transición suave
+}
+
+// Evitar solapamiento de clases
+.sidebar-container.expanded.closed,
+.sidebar-container.pinned.closed {
+  width: 280px !important;
+  background: var(--primary-99);
 }
 
 .sidebar-header {
   padding: 16px 12px var(--sds-size-space-600); ;
+  background: var(--primary-98); // Fondo header
 }
 
 .left-panel {
-  color: var(--sds-color-icon-default-secondary);
+  color: var(--secondary-40); // Icono usando paleta secundaria
 }
 
 .user-section {
@@ -66,17 +76,17 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  color: var(--sds-color-text-default-default);
+  color: var(--primary-10);
+  background: var(--tertiary-90); // Fondo avatar usando terciaria
   font-family: var(--sds-typography-subheading-font-family);
   font-size: var(--sds-typography-subheading-size-medium);
   font-style: normal;
   font-weight: var(--sds-typography-subheading-font-weight-strong);
   border-radius: var(--sds-size-radius-200);
-  background: var(--sds-color-background-warning-default);
 }
 
 .user-name {
-  color: var(--sds-color-text-default-default);
+  color: var(--primary-20); // Texto nombre usando primaria
   font-family: var(--sds-typography-subheading-font-family);
   font-size: var(--sds-typography-subheading-size-medium);
   font-style: normal;
@@ -92,28 +102,31 @@
   padding: 4px;
   border-radius: 4px;
   transition: background 0.2s;
+  color: var(--secondary-40);
 }
 
 .pin-button:hover {
-  background: var(--sds-color-background-default-secondary-hover);
+  background: var(--primary-95);
 }
 
 .search-section {
   position: relative;
+  background: var(--primary-99);
 }
 
-.command-menu-container{
+.command-menu-container {
   display: flex;
-padding: 0 var(--sds-size-space-300);
-flex-direction: column;
-align-items: center;
-gap: 8px;
-align-self: stretch;
+  padding: 0 var(--sds-size-space-300);
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  background: var(--primary-99);
 }
 
 .quick-actions {
   padding: 16px 12px;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid var(--secondary-80);
 }
 
 .quick-action-item {
@@ -131,7 +144,7 @@ align-self: stretch;
 
 .action-item {
   padding: 8px 12px;
-  color: var(--sds-color-text-default-default);
+  color: var(--primary-20);
   font-family: var(--sds-typography-body-font-family);
   font-size: var(--sds-typography-body-size-medium);
   font-style: normal;
@@ -141,13 +154,14 @@ align-self: stretch;
 }
 
 .action-item:hover {
-  background: #f8f9fa;
+  background: var(--primary-95);
 }
 
 .sidebar-content {
   padding: 16px 0;
   overflow-y: auto;
   height: calc(100vh - 200px);
+  background: var(--primary-99);
 }
 
 .section-title {
@@ -155,7 +169,7 @@ align-self: stretch;
   flex-direction: row;
   align-items: center;
   padding: 6px 16px;
-  color: var(--sds-color-text-default-secondary);
+  color: var(--secondary-40);
   font-family: var(--sds-typography-body-font-family);
   font-size: var(--sds-typography-body-size-small);
   font-style: normal;
@@ -187,7 +201,7 @@ align-self: stretch;
   align-items: center;
   padding: 10px 16px;
   transition: background 0.2s;
-  color: var(--sds-color-text-default-default); /* más fuerte que el section */
+  color: var(--primary-20);
   font-family: var(--sds-typography-body-font-family);
   font-size: var(
     --sds-typography-body-size-medium
@@ -197,7 +211,7 @@ align-self: stretch;
 }
 
 .item-content:hover {
-  background: #f8f9fa;
+  background: var(--primary-95);
   border-radius: 4px;
 }
 
@@ -206,11 +220,13 @@ align-self: stretch;
   font-size: 16px;
   width: 20px;
   text-align: center;
+  color: var(--secondary-40);
 }
 
 .expand-arrow {
   margin-left: auto;
   transition: transform 0.2s;
+  color: var(--secondary-40);
 }
 
 .expand-arrow.rotated {
@@ -228,10 +244,10 @@ align-self: stretch;
 .child-item {
   padding: 8px 16px 8px 8px;
   cursor: pointer;
-  color: var(--sds-color-text-default-default);
+  color: var(--primary-20);
+  border-left: 2px solid var(--secondary-70);
 
   /* Body Base */
-  border-left: 2px solid var(--sds-color-border-default-default);
   font-family: var(--sds-typography-body-font-family);
   font-size: var(--sds-typography-body-size-medium);
   font-style: normal;
@@ -241,11 +257,12 @@ align-self: stretch;
 }
 
 .child-item:hover {
-  background: #e9ecef;
+  background: var(--primary-95);
 }
 
 .child-icon {
   margin-right: 8px;
+  color: var(--secondary-40);
 }
 
 @keyframes slideDown {

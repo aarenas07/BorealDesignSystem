@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TableComponent } from './table';
+import { SideSheetsComponent } from './side-sheets';
 
-describe('Table', () => {
-  let component: TableComponent;
-  let fixture: ComponentFixture<TableComponent>;
+describe('SideSheetsComponent', () => {
+  let component: SideSheetsComponent;
+  let fixture: ComponentFixture<SideSheetsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableComponent]
+      imports: [SideSheetsComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TableComponent);
+    fixture = TestBed.createComponent(SideSheetsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

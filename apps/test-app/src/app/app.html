@@ -240,7 +240,7 @@
   </section>
 
   <section class="component-section">
-    <lib-side-bar [sidebarData]="[
+    <bds-side-bar [sidebarData]="[
         {
           title: 'Main Menu',
           items: [
@@ -250,11 +250,11 @@
           ]
         }
       ]" [userAvatar]="'a'" [userName]="'John Doe'" [quickActions]="quickActions"
-      (itemSelected)="onSidebarItemSelected($event)"></lib-side-bar>
+      (itemSelected)="onSidebarItemSelected($event)"></bds-side-bar>
   </section>
 
   <section class="component-section">
-    <lib-rail [config]="railConfig"></lib-rail>
+    <bds-rail [config]="railConfig"></bds-rail>
   </section>
 
 </main>
@@ -412,24 +412,23 @@
 </bds-side-sheets>
 
 <!-- Side Sheets Three-->
-<main>
-  <bds-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
-    <div>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
-        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
-        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-      </p>
-    </div>
+<bds-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
+  <div>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+  </div>
 
-    <ng-template #actionsTemplate>
-      <bds-button label="Aceptar" (action)="closeSideSheetFour()"></bds-button>
-      <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></bds-button>
-    </ng-template>
-  </bds-side-sheets>
+  <ng-template #actionsTemplate>
+    <bds-button label="Aceptar" (action)="closeSideSheetFour()"></bds-button>
+    <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></bds-button>
+  </ng-template>
+</bds-side-sheets>
 </main>

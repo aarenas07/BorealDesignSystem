@@ -1,40 +1,12 @@
 import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatBottomSheetModule, MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { MatSortModule } from '@angular/material/sort';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatTableModule } from '@angular/material/table';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatTreeModule } from '@angular/material/tree';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { Observable, map, startWith } from 'rxjs';
@@ -65,107 +37,27 @@ interface User {
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatBadgeModule,
-    MatBottomSheetModule,
+
+
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatGridListModule,
-    MatIconModule,
+
+
     MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSlideToggleModule,
-    MatSliderModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatStepperModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatTreeModule,
+    MatIconModule,
+    MatChipsModule,
     ThemeToggleComponent,
     TableComponent,
     ButtonComponent,
     CardComponent,
-    FormFieldComponent
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
-  styles: `
-    .app-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 24px;
-      box-sizing: border-box;
-      background-color: var(--mat-sys-surface-container);
-      color: var(--mat-sys-on-surface);
-      margin-bottom: 24px;
-    }
-
-    .app-content {
-      padding: 24px;
-      box-sizing: border-box;
-      display:flex;
-      flex-direction: column;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .component-section {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      padding: 16px;
-      border-radius: 8px;
-      background-color: var(--mat-sys-surface);
-      border: 1px solid var(--mat-sys-outline-variant);
-    }
-
-    .component-section h2 {
-      margin-top: 0;
-      color: var(--mat-sys-primary);
-      border-bottom: 1px solid var(--mat-sys-outline-variant);
-      padding-bottom: 8px;
-    }
-
-    .demo-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .full-width {
-      width: 100%;
-    }
-    
-    mat-form-field {
-        width: 100%;
-    }
-  `,
+  styleUrl: './app.scss'
 })
 export class App {
-  private _snackBar = inject(MatSnackBar);
-  private _bottomSheet = inject(MatBottomSheet);
-  private _dialog = inject(MatDialog);
   nameValue = ""
 
   // Autocomplete
@@ -214,21 +106,7 @@ export class App {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  openSnackBar() {
-    this._snackBar.open('Pizza party!!', 'Splash', {
-      duration: 2000,
-    });
-  }
 
-  openBottomSheet() {
-    // Just a dummy open for demo, normally would pass a component
-    this._snackBar.open('Bottom sheet opened (simulated)', undefined, { duration: 2000 });
-  }
-
-  openDialog() {
-    // Just a dummy open for demo
-    this._snackBar.open('Dialog opened (simulated)', undefined, { duration: 2000 });
-  }
 
   formatLabel(value: number): string {
     return `${value}`;

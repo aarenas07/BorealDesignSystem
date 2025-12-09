@@ -18,8 +18,12 @@ import {
   TableComponent,
   TableConfig,
   CardComponent,
+  SideBarComponent,
+  RailComponent,
+  RailConfig,
   SideSheetsComponent,
 } from '@organizacion/ui-kit';
+
 
 interface User {
   id: number;
@@ -51,6 +55,9 @@ interface User {
     TableComponent,
     ButtonComponent,
     CardComponent,
+    FormFieldComponent,
+    SideBarComponent,
+    RailComponent,
     SideSheetsComponent,
   ],
   providers: [provideNativeDateAdapter()],
@@ -286,6 +293,11 @@ export class App {
     density: 'compact',
     stickyHeader: true,
   };
+
+  quickActions = [
+    { label: 'Action 1', action: () => console.log('Action 1 clicked') },
+    { label: 'Action 2', action: () => console.log('Action 2 clicked') }
+  ];
 
   ngOnInit() {
     this.setupTableColumns();
@@ -544,6 +556,28 @@ export class App {
     this.virtualUsers = data;
   }
 
+  onSidebarItemSelected(event: any) {
+    console.log('Sidebar item selected:', event);
+  }
+
+  railConfig: RailConfig = {
+    sections: [
+      {
+        key: 'main',
+        items: [
+          { label: 'Home', icon: 'home', id: 'home' },
+          { label: 'Profile', icon: 'person', id: 'profile' },
+          { label: 'Settings', icon: 'settings', id: 'settings' },
+          { label: 'Messages', icon: 'message', id: 'messages' },
+          { label: 'Notifications', icon: 'notifications', id: 'notifications' },
+        ],
+        tooltipType: 'dark',
+        cssClass: 'main-items-container',
+        showSeparator: false,
+      }
+    ],
+    tooltipPosition: 'right'
+  };
   openSideSheetLevel() {
     this.isSideSheetOpenLevel = true;
   }

@@ -22,6 +22,7 @@ import {
   RailComponent,
   RailConfig,
   SideSheetsComponent,
+  AlertComponent,
 } from '@organizacion/ui-kit';
 
 
@@ -42,12 +43,10 @@ interface User {
   imports: [
     FormsModule,
     ReactiveFormsModule,
-
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
-
     MatInputModule,
     MatIconModule,
     MatChipsModule,
@@ -59,6 +58,7 @@ interface User {
     SideBarComponent,
     RailComponent,
     SideSheetsComponent,
+    AlertComponent
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',

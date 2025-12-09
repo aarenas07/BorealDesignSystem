@@ -240,7 +240,7 @@
   </section>
 
   <section class="component-section">
-    <lib-side-bar [sidebarData]="[
+    <bds-side-bar [sidebarData]="[
         {
           title: 'Main Menu',
           items: [
@@ -250,7 +250,11 @@
           ]
         }
       ]" [userAvatar]="'a'" [userName]="'John Doe'" [quickActions]="quickActions"
-      (itemSelected)="onSidebarItemSelected($event)"></lib-side-bar>
+      (itemSelected)="onSidebarItemSelected($event)"></bds-side-bar>
+  </section>
+
+  <section class="component-section">
+    <bds-rail [config]="railConfig"></bds-rail>
   </section>
 
 </main>

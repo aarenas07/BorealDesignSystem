@@ -19,8 +19,11 @@ import {
   TableConfig,
   CardComponent,
   SideBarComponent,
+  RailComponent,
+  RailConfig,
   SideSheetsComponent,
 } from '@organizacion/ui-kit';
+
 
 interface User {
   id: number;
@@ -54,6 +57,7 @@ interface User {
     CardComponent,
     FormFieldComponent,
     SideBarComponent,
+    RailComponent,
     SideSheetsComponent,
   ],
   providers: [provideNativeDateAdapter()],
@@ -555,6 +559,25 @@ export class App {
   onSidebarItemSelected(event: any) {
     console.log('Sidebar item selected:', event);
   }
+
+  railConfig: RailConfig = {
+    sections: [
+      {
+        key: 'main',
+        items: [
+          { label: 'Home', icon: 'home', id: 'home' },
+          { label: 'Profile', icon: 'person', id: 'profile' },
+          { label: 'Settings', icon: 'settings', id: 'settings' },
+          { label: 'Messages', icon: 'message', id: 'messages' },
+          { label: 'Notifications', icon: 'notifications', id: 'notifications' },
+        ],
+        tooltipType: 'dark',
+        cssClass: 'main-items-container',
+        showSeparator: false,
+      }
+    ],
+    tooltipPosition: 'right'
+  };
   openSideSheetLevel() {
     this.isSideSheetOpenLevel = true;
   }

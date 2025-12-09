@@ -60,8 +60,6 @@ export interface TableState<T = any> {
   totalRecords: number;
 }
 
-
-
 @Component({
   selector: 'bds-table',
   standalone: true,
@@ -77,26 +75,30 @@ export interface TableState<T = any> {
     MatMenuModule,
     MatInputModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({
-        height: '0px',
-        minHeight: '0',
-        opacity: '0',
-        overflow: 'hidden',
-        visibility: 'hidden'
-      })),
-      state('expanded', style({
-        height: '*',
-        opacity: '1',
-        overflow: 'visible',
-        visibility: 'visible'
-      })),
-      transition('expanded <=> collapsed', [
-        animate('300ms cubic-bezier(0.4, 0.0, 0.2, 1)')
-      ]),
+      state(
+        'collapsed',
+        style({
+          height: '0px',
+          minHeight: '0',
+          opacity: '0',
+          overflow: 'hidden',
+          visibility: 'hidden',
+        })
+      ),
+      state(
+        'expanded',
+        style({
+          height: '*',
+          opacity: '1',
+          overflow: 'visible',
+          visibility: 'visible',
+        })
+      ),
+      transition('expanded <=> collapsed', [animate('300ms cubic-bezier(0.4, 0.0, 0.2, 1)')]),
     ]),
     trigger('rotateIcon', [
       state('collapsed', style({ transform: 'rotate(0deg)' })),
@@ -105,7 +107,7 @@ export interface TableState<T = any> {
     ]),
   ],
   templateUrl: './table.html',
-  styleUrls: ['./table.scss']
+  styleUrls: ['./table.scss'],
 })
 export class TableComponent<T = any> implements OnInit {
   @Input() columns: TableColumn<T>[] = [];
@@ -116,7 +118,7 @@ export class TableComponent<T = any> implements OnInit {
     this.state.set({
       ...this.state(),
       data: value,
-      totalRecords: value.length
+      totalRecords: value.length,
     });
   }
 
@@ -124,7 +126,7 @@ export class TableComponent<T = any> implements OnInit {
   @Output() pageChange = new EventEmitter<PageEvent>();
   @Output() selectionChange = new EventEmitter<T[]>();
   @Output() rowClick = new EventEmitter<T>();
-  @Output() actionClick = new EventEmitter<{ action: TableAction<T>, row: T }>();
+  @Output() actionClick = new EventEmitter<{ action: TableAction<T>; row: T }>();
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -138,12 +140,10 @@ export class TableComponent<T = any> implements OnInit {
     loading: false,
     error: null,
     data: [],
-    totalRecords: 0
+    totalRecords: 0,
   });
 
-  visibleColumns = computed(() =>
-    this.columns.filter(col => !col.hidden)
-  );
+  visibleColumns = computed(() => this.columns.filter(col => !col.hidden));
 
   displayedColumns = computed(() => {
     const cols: string[] = [];
@@ -166,8 +166,6 @@ export class TableComponent<T = any> implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-
-
   applyGlobalFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -177,12 +175,9 @@ export class TableComponent<T = any> implements OnInit {
     this.dataSource.filter = '';
   }
 
-
-
   onSortChange(sort: Sort) {
     this.sortChange.emit(sort);
   }
-
 
   onPageChange(event: PageEvent) {
     this.pageChange.emit(event);
@@ -206,7 +201,6 @@ export class TableComponent<T = any> implements OnInit {
     this.selection.clear();
   }
 
-
   toggleExpandRow(row: T) {
     this.expandedRow = this.expandedRow === row ? null : row;
     if (this.expandedRow) {
@@ -224,12 +218,8 @@ export class TableComponent<T = any> implements OnInit {
     // Se puede usar para lógica post-animación si es necesario
   }
 
-
-
   getVisibleActions(row: T): TableAction<T>[] {
-    return this.actions.filter(action =>
-      !action.visible || action.visible(row)
-    );
+    return this.actions.filter(action => !action.visible || action.visible(row));
   }
 
   isActionDisabled(action: TableAction<T>, row: T): boolean {
@@ -241,8 +231,6 @@ export class TableComponent<T = any> implements OnInit {
     action.onClick(row);
     this.actionClick.emit({ action, row });
   }
-
-
 
   formatCellValue(value: any, dataType?: ColumnDataType): string {
     if (value === null || value === undefined) return '-';
@@ -259,8 +247,6 @@ export class TableComponent<T = any> implements OnInit {
     }
   }
 
-
-
   setLoading(loading: boolean) {
     this.state.update(s => ({ ...s, loading }));
   }
@@ -275,7 +261,7 @@ export class TableComponent<T = any> implements OnInit {
       data,
       totalRecords: totalRecords || data.length,
       loading: false,
-      error: null
+      error: null,
     }));
     this.dataSource.data = data;
   }

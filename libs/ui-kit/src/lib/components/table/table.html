@@ -1,179 +1,204 @@
 <div class="generic-table-container" [attr.data-density]="config.density || 'comfortable'">
+  <!-- Global Filter -->
+  @if (config.showGlobalFilter) {
+  <div class="table-toolbar">
+    <mat-form-field appearance="outline" class="global-filter">
+      <mat-label>Buscar en toda la tabla</mat-label>
+      <input matInput [(ngModel)]="globalFilterValue" (ngModelChange)="applyGlobalFilter($event)" placeholder="Filtrar..." />
+      <mat-icon matPrefix>search</mat-icon>
+      @if (globalFilterValue) {
+      <button matSuffix mat-icon-button (click)="clearGlobalFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+    </mat-form-field>
 
-    <!-- Global Filter -->
-    <div class="table-toolbar" *ngIf="config.showGlobalFilter">
-        <mat-form-field appearance="outline" class="global-filter">
-            <mat-label>Buscar en toda la tabla</mat-label>
-            <input matInput [(ngModel)]="globalFilterValue" (ngModelChange)="applyGlobalFilter($event)"
-                placeholder="Filtrar...">
-            <mat-icon matPrefix>search</mat-icon>
-            @if (globalFilterValue) {
-            <button matSuffix mat-icon-button (click)="clearGlobalFilter()">
-                <mat-icon>close</mat-icon>
+    <!-- Selection Info -->
+    @if (config.selectable && selection.hasValue()) {
+    <div class="selection-info">
+      <span>{{ selection.selected.length }} seleccionado(s)</span>
+      <button mat-button (click)="clearSelection()">
+        <mat-icon>clear</mat-icon>
+        Limpiar selección
+      </button>
+    </div>
+    }
+  </div>
+  }
+
+  <!-- Loading State -->
+  @if (state().loading) {
+  <div class="loading-state">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Cargando datos...</p>
+  </div>
+  }
+
+  <!-- Error State -->
+  @if (state().error && !state().loading) {
+  <div class="error-state">
+    <mat-icon>error_outline</mat-icon>
+    <h3>Error al cargar datos</h3>
+    <p>{{ state().error }}</p>
+  </div>
+  }
+
+  <!-- Empty State -->
+  @if (!state().loading && !state().error && state().data.length === 0) {
+  <div class="empty-state">
+    <mat-icon>inbox</mat-icon>
+    <h3>No hay datos disponibles</h3>
+    <p>No se encontraron registros para mostrar</p>
+  </div>
+  }
+
+  <!-- Table -->
+  @if (!state().loading && !state().error && state().data.length > 0) {
+  <div class="table-wrapper" [class.sticky-header]="config.stickyHeader">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      (matSortChange)="onSortChange($event)"
+      [class.zebra-striping]="config.zebraStriping"
+      multiTemplateDataRows
+    >
+      <!-- Checkbox Column -->
+      @if (config.selectable) {
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            (change)="$event ? toggleAllRows() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            color="primary"
+          >
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)"
+            color="primary"
+          >
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      }
+
+      <!-- Expand Icon Column -->
+      @if (config.expandable && expandedRowTemplate) {
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef style="width: 48px"></th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="toggleExpandRow(row); $event.stopPropagation()" [attr.aria-label]="'Expandir fila'">
+            <mat-icon [@rotateIcon]="expandedRow === row ? 'expanded' : 'collapsed'"> expand_more </mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      }
+
+      <!-- Data Columns -->
+      @for (column of visibleColumns(); track column.key) {
+      <ng-container [matColumnDef]="column.key">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [mat-sort-header]="column.sortable !== false ? column.key : ''"
+          [disabled]="column.sortable === false"
+          [style.width]="column.width"
+          [class.sticky-column]="column.sticky"
+        >
+          {{ column.label }}
+        </th>
+        <td mat-cell *matCellDef="let row" [style.width]="column.width" [class.sticky-column]="column.sticky">
+          @if (column.cellTemplate) {
+          <ng-container *ngTemplateOutlet="column.cellTemplate; context: { $implicit: row, column: column }"> </ng-container>
+          } @else { {{ formatCellValue(row[column.key], column.dataType) }} }
+        </td>
+      </ng-container>
+      }
+
+      <!-- Actions Column -->
+      @if (actions.length > 0) {
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="actions-column">Acciones</th>
+        <td mat-cell *matCellDef="let row" class="actions-column">
+          <div class="action-buttons">
+            @for (action of getVisibleActions(row).slice(0, 3); track action.label) {
+            <button
+              mat-icon-button
+              [color]="action.color || 'primary'"
+              [disabled]="isActionDisabled(action, row)"
+              (click)="onActionClick(action, row, $event)"
+            >
+              <mat-icon>{{ action.icon }}</mat-icon>
             </button>
-            }
-        </mat-form-field>
-
-        <!-- Selection Info -->
-        @if (config.selectable && selection.hasValue()) {
-        <div class="selection-info">
-            <span>{{ selection.selected.length }} seleccionado(s)</span>
-            <button mat-button (click)="clearSelection()">
-                <mat-icon>clear</mat-icon>
-                Limpiar selección
+            } @if (getVisibleActions(row).length > 3) {
+            <button mat-icon-button [matMenuTriggerFor]="moreMenu">
+              <mat-icon>more_vert</mat-icon>
             </button>
-        </div>
-        }
-    </div>
-
-    <!-- Loading State -->
-    @if (state().loading) {
-    <div class="loading-state">
-        <mat-spinner diameter="50"></mat-spinner>
-        <p>Cargando datos...</p>
-    </div>
-    }
-
-    <!-- Error State -->
-    @if (state().error && !state().loading) {
-    <div class="error-state">
-        <mat-icon>error_outline</mat-icon>
-        <h3>Error al cargar datos</h3>
-        <p>{{ state().error }}</p>
-    </div>
-    }
-
-    <!-- Empty State -->
-    @if (!state().loading && !state().error && state().data.length === 0) {
-    <div class="empty-state">
-        <mat-icon>inbox</mat-icon>
-        <h3>No hay datos disponibles</h3>
-        <p>No se encontraron registros para mostrar</p>
-    </div>
-    }
-
-    <!-- Table -->
-    @if (!state().loading && !state().error && state().data.length > 0) {
-    <div class="table-wrapper" [class.sticky-header]="config.stickyHeader">
-        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange($event)"
-            [class.zebra-striping]="config.zebraStriping" multiTemplateDataRows>
-
-            <!-- Checkbox Column -->
-            @if (config.selectable) {
-            <ng-container matColumnDef="select">
-                <th mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
-                    </mat-checkbox>
-                </th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                        [checked]="selection.isSelected(row)" color="primary">
-                    </mat-checkbox>
-                </td>
-            </ng-container>
+            <mat-menu #moreMenu="matMenu">
+              @for (action of getVisibleActions(row).slice(3); track action.label) {
+              <button mat-menu-item [disabled]="isActionDisabled(action, row)" (click)="onActionClick(action, row, $event)">
+                <mat-icon>{{ action.icon }}</mat-icon>
+                <span>{{ action.label }}</span>
+              </button>
+              }
+            </mat-menu>
             }
+          </div>
+        </td>
+      </ng-container>
+      }
 
-            <!-- Expand Icon Column -->
-            @if (config.expandable && expandedRowTemplate) {
-            <ng-container matColumnDef="expand">
-                <th mat-header-cell *matHeaderCellDef style="width: 48px;"></th>
-                <td mat-cell *matCellDef="let row">
-                    <button mat-icon-button (click)="toggleExpandRow(row); $event.stopPropagation()"
-                        [attr.aria-label]="'Expandir fila'">
-                        <mat-icon [@rotateIcon]="expandedRow === row ? 'expanded' : 'collapsed'">
-                            expand_more
-                        </mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-            }
+      <!-- Expandable Row -->
+      @if (config.expandable && expandedRowTemplate) {
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns().length">
+          <div
+            class="row-detail"
+            [@detailExpand]="row === expandedRow ? 'expanded' : 'collapsed'"
+            (@detailExpand.done)="onAnimationDone($event, row)"
+          >
+            <div class="row-detail-inner">
+              <ng-container *ngTemplateOutlet="expandedRowTemplate; context: { $implicit: row }"> </ng-container>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      }
 
-            <!-- Data Columns -->
-            @for (column of visibleColumns(); track column.key) {
-            <ng-container [matColumnDef]="column.key">
-                <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.sortable !== false ? column.key : ''"
-                    [disabled]="column.sortable === false" [style.width]="column.width"
-                    [class.sticky-column]="column.sticky">
-                    {{ column.label }}
-                </th>
-                <td mat-cell *matCellDef="let row" [style.width]="column.width" [class.sticky-column]="column.sticky">
+      <tr mat-header-row *matHeaderRowDef="displayedColumns(); sticky: config.stickyHeader"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns();"
+        [class.expanded-row]="expandedRow === row && config.expandable"
+        [class.clickable-row]="config.expandable"
+        (click)="onRowClick(row)"
+      ></tr>
 
-                    @if (column.cellTemplate) {
-                    <ng-container *ngTemplateOutlet="column.cellTemplate; context: { $implicit: row, column: column }">
-                    </ng-container>
-                    } @else {
-                    {{ formatCellValue(row[column.key], column.dataType) }}
-                    }
-                </td>
-            </ng-container>
-            }
+      @if (config.expandable && expandedRowTemplate) {
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="detail-row"
+        [class.detail-row-visible]="expandedRow === row"
+      ></tr>
+      }
+    </table>
+  </div>
 
-            <!-- Actions Column -->
-            @if (actions.length > 0) {
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef class="actions-column">Acciones</th>
-                <td mat-cell *matCellDef="let row" class="actions-column">
-                    <div class="action-buttons">
-                        @for (action of getVisibleActions(row).slice(0, 3); track action.label) {
-                        <button mat-icon-button [color]="action.color || 'primary'"
-                            [disabled]="isActionDisabled(action, row)" (click)="onActionClick(action, row, $event)">
-                            <mat-icon>{{ action.icon }}</mat-icon>
-                        </button>
-                        }
-
-                        @if (getVisibleActions(row).length > 3) {
-                        <button mat-icon-button [matMenuTriggerFor]="moreMenu">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #moreMenu="matMenu">
-                            @for (action of getVisibleActions(row).slice(3); track action.label) {
-                            <button mat-menu-item [disabled]="isActionDisabled(action, row)"
-                                (click)="onActionClick(action, row, $event)">
-                                <mat-icon>{{ action.icon }}</mat-icon>
-                                <span>{{ action.label }}</span>
-                            </button>
-                            }
-                        </mat-menu>
-                        }
-                    </div>
-                </td>
-            </ng-container>
-            }
-
-            <!-- Expandable Row -->
-            @if (config.expandable && expandedRowTemplate) {
-            <ng-container matColumnDef="expandedDetail">
-                <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns().length">
-                    <div class="row-detail" [@detailExpand]="row === expandedRow ? 'expanded' : 'collapsed'"
-                        (@detailExpand.done)="onAnimationDone($event, row)">
-                        <div class="row-detail-inner">
-                            <ng-container *ngTemplateOutlet="expandedRowTemplate; context: { $implicit: row }">
-                            </ng-container>
-                        </div>
-                    </div>
-                </td>
-            </ng-container>
-            }
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns(); sticky: config.stickyHeader"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns();"
-                [class.expanded-row]="expandedRow === row && config.expandable"
-                [class.clickable-row]="config.expandable" (click)="onRowClick(row)">
-            </tr>
-
-            @if (config.expandable && expandedRowTemplate) {
-            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"
-                [class.detail-row-visible]="expandedRow === row"></tr>
-            }
-        </table>
-    </div>
-
-    <!-- Paginator -->
-    <mat-paginator [length]="state().totalRecords" [pageSize]="config.defaultPageSize || 10"
-        [pageSizeOptions]="config.pageSizeOptions || [5, 10, 25, 50, 100]" [showFirstLastButtons]="true"
-        (page)="onPageChange($event)" aria-label="Seleccionar página">
-    </mat-paginator>
-    }
+  <!-- Paginator -->
+  <mat-paginator
+    [length]="state().totalRecords"
+    [pageSize]="config.defaultPageSize || 10"
+    [pageSizeOptions]="config.pageSizeOptions || [5, 10, 25, 50, 100]"
+    [showFirstLastButtons]="true"
+    (page)="onPageChange($event)"
+    aria-label="Seleccionar página"
+  >
+  </mat-paginator>
+  }
 </div>

@@ -43,8 +43,26 @@
 
   .sheet-content {
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding: 1rem;
+  }
+
+  .sheet-content::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .sheet-content::-webkit-scrollbar-track {
+    background: #ccc;
+    border-radius: 5px;
+  }
+
+  .sheet-content::-webkit-scrollbar-thumb {
+    background: var(--mat-sys-secondary);
+    border-radius: 5px;
+  }
+
+  .sheet-content::-webkit-scrollbar-thumb:hover {
+    background: var(--mat-sys-primary);
   }
 
   .sheet-actions {

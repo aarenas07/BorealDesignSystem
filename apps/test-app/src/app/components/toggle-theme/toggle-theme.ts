@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from '@angular/material/button-toggle';
-import { ITheme, ThemeService } from '../../service/theme.service';
+import { ITheme, ThemeService } from '@organizacion/ui-kit';
+
+
 
 
 @Component({

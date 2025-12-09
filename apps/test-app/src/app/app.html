@@ -4,16 +4,15 @@
 <app-theme-toggle />
 
 <main class="app-content">
-
   <!-- Buttons Section -->
   <section class="component-section">
     <h2>Buttons</h2>
     <div class="demo-row">
-      <lib-button label="Text" variant="text" size="md" (action)="handleAction($event)"></lib-button>
-      <lib-button label="Elevated" variant="elevated" size="md" (action)="handleAction($event)"></lib-button>
-      <lib-button label="Filled" variant="filled" size="md" (action)="handleAction($event)"></lib-button>
-      <lib-button label="Outlined" variant="outlined" size="md" (action)="handleAction($event)"></lib-button>
-      <lib-button label="Icon" variant="icon" icon="favorite" size="md" (action)="handleAction($event)"></lib-button>
+      <bds-button label="Text" variant="text" size="md" (action)="handleAction($event)"></bds-button>
+      <bds-button label="Elevated" variant="elevated" size="md" (action)="handleAction($event)"></bds-button>
+      <bds-button label="Filled" variant="filled" size="md" (action)="handleAction($event)"></bds-button>
+      <bds-button label="Outlined" variant="outlined" size="md" (action)="handleAction($event)"></bds-button>
+      <bds-button label="Icon" variant="icon" icon="favorite" size="md" (action)="handleAction($event)"></bds-button>
     </div>
   </section>
 
@@ -23,9 +22,8 @@
 
     <h3>Variantes de Elevación</h3>
     <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px;">
-
-      <lib-card elevation="flat" size="md">
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
+      <bds-card elevation="flat" size="md">
         <mat-card-title card-title>Card Flat</mat-card-title>
         <mat-card-subtitle card-subtitle>Sin sombra, con borde sutil</mat-card-subtitle>
         <div card-content>
@@ -34,9 +32,9 @@
         <div card-actions>
           <button mat-button>VER MÁS</button>
         </div>
-      </lib-card>
+      </bds-card>
 
-      <lib-card elevation="raised" size="md">
+      <bds-card elevation="raised" size="md">
         <mat-card-title card-title>Card Raised</mat-card-title>
         <mat-card-subtitle card-subtitle>Con sombra elevada</mat-card-subtitle>
         <div card-content>
@@ -45,9 +43,9 @@
         <div card-actions>
           <button mat-button>VER MÁS</button>
         </div>
-      </lib-card>
+      </bds-card>
 
-      <lib-card elevation="outlined" size="md">
+      <bds-card elevation="outlined" size="md">
         <mat-card-title card-title>Card Outlined</mat-card-title>
         <mat-card-subtitle card-subtitle>Con borde prominente</mat-card-subtitle>
         <div card-content>
@@ -56,15 +54,13 @@
         <div card-actions>
           <button mat-button>VER MÁS</button>
         </div>
-      </lib-card>
-
+      </bds-card>
     </div>
 
     <h3>Variantes de Tamaño</h3>
     <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px;">
-
-      <lib-card elevation="raised" size="sm">
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px">
+      <bds-card elevation="raised" size="sm">
         <mat-card-title card-title>Card Pequeña</mat-card-title>
         <div card-content>
           <p>Tamaño compacto (sm)</p>
@@ -72,9 +68,9 @@
         <div card-actions>
           <button mat-button>ACCIÓN</button>
         </div>
-      </lib-card>
+      </bds-card>
 
-      <lib-card elevation="raised" size="md">
+      <bds-card elevation="raised" size="md">
         <mat-card-title card-title>Card Mediana</mat-card-title>
         <div card-content>
           <p>Tamaño estándar (md)</p>
@@ -82,9 +78,9 @@
         <div card-actions>
           <button mat-button>ACCIÓN</button>
         </div>
-      </lib-card>
+      </bds-card>
 
-      <lib-card elevation="raised" size="lg">
+      <bds-card elevation="raised" size="lg">
         <mat-card-title card-title>Card Grande</mat-card-title>
         <div card-content>
           <p>Tamaño espacioso (lg)</p>
@@ -92,33 +88,28 @@
         <div card-actions>
           <button mat-button>ACCIÓN</button>
         </div>
-      </lib-card>
-
+      </bds-card>
     </div>
-
 
     <h3>Card Clickeable</h3>
     <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px;">
-
-      <lib-card elevation="raised" size="md" [clickable]="true">
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
+      <bds-card elevation="raised" size="md" [clickable]="true">
         <mat-card-title card-title>Card Interactiva</mat-card-title>
         <mat-card-subtitle card-subtitle>Pasa el mouse para ver el efecto</mat-card-subtitle>
         <div card-content>
           <p>Esta card es clickeable y tiene efectos hover. Ideal para navegación o selección.</p>
         </div>
-      </lib-card>
+      </bds-card>
 
-      <lib-card elevation="outlined" size="md" [clickable]="true">
+      <bds-card elevation="outlined" size="md" [clickable]="true">
         <mat-card-title card-title>Otra Card Clickeable</mat-card-title>
         <mat-card-subtitle card-subtitle>Con borde outlined</mat-card-subtitle>
         <div card-content>
           <p>Combina diferentes estilos con la funcionalidad clickeable.</p>
         </div>
-      </lib-card>
-
+      </bds-card>
     </div>
-
   </section>
 
   <!-- Table Section -->
@@ -128,23 +119,21 @@
       <div class="user-management">
         <header class="page-header">
           <h1>Gestión de Usuarios</h1>
-          <lib-button icon="add" label="Agregar Usuario" variant="filled" size="md" (action)="addUser()"></lib-button>
+          <bds-button icon="add" label="Agregar Usuario" variant="filled" size="md" (action)="addUser()"></bds-button>
         </header>
 
-        <lib-table [columns]="tableColumns" [actions]="tableActions" [config]="tableConfig" [data]="users"
+        <bds-table [columns]="tableColumns" [actions]="tableActions" [config]="tableConfig" [data]="users"
           [expandedRowTemplate]="expandedRowTemplate" (sortChange)="onSort($event)" (pageChange)="onPageChange($event)"
           (selectionChange)="onSelectionChange($event)" (actionClick)="onActionClick($event)">
-        </lib-table>
+        </bds-table>
 
         <!-- Custom Templates -->
         <ng-template #avatarTemplate let-row>
           <div class="user-avatar-cell">
             @if (row.avatar) {
-            <img [src]="row.avatar" [alt]="row.name" class="avatar">
+            <img [src]="row.avatar" [alt]="row.name" class="avatar" />
             } @else {
-            <div class="avatar-placeholder">
-              {{ getInitials(row.name) }}
-            </div>
+            <div class="avatar-placeholder">{{ getInitials(row.name) }}</div>
             }
             <span>{{ row.name }}</span>
           </div>
@@ -153,9 +142,7 @@
         <ng-template #statusTemplate let-row>
           <mat-chip-set>
             <mat-chip [highlighted]="true" [class]="'status-' + row.status">
-              <mat-icon [class]="'status-icon-' + row.status">
-                {{ getStatusIcon(row.status) }}
-              </mat-icon>
+              <mat-icon [class]="'status-icon-' + row.status"> {{ getStatusIcon(row.status) }} </mat-icon>
               {{ getStatusLabel(row.status) }}
             </mat-chip>
           </mat-chip-set>
@@ -163,16 +150,12 @@
 
         <ng-template #roleTemplate let-row>
           <mat-chip-set>
-            <mat-chip [class]="'role-' + row.role">
-              {{ getRoleLabel(row.role) }}
-            </mat-chip>
+            <mat-chip [class]="'role-' + row.role"> {{ getRoleLabel(row.role) }} </mat-chip>
           </mat-chip-set>
         </ng-template>
 
         <ng-template #salaryTemplate let-row>
-          <span class="salary-cell">
-            {{ row.salary }}
-          </span>
+          <span class="salary-cell"> {{ row.salary }} </span>
         </ng-template>
 
         <ng-template #expandedRowTemplate let-row>
@@ -256,4 +239,197 @@
     </div>
   </section>
 
+  <section class="component-section">
+    <lib-side-bar [sidebarData]="[
+        {
+          title: 'Main Menu',
+          items: [
+            { id: '1', label: 'Home', icon: 'home', route: '/' },
+            { id: '2', label: 'Settings', icon: 'settings', route: '/settings' },
+            { id: '3', label: 'Help', icon: 'help', url: '' }
+          ]
+        }
+      ]" [userAvatar]="'a'" [userName]="'John Doe'" [quickActions]="quickActions"
+      (itemSelected)="onSidebarItemSelected($event)"></lib-side-bar>
+  </section>
+
+  <section class="component-section">
+    <lib-rail [config]="railConfig"></lib-rail>
+  </section>
+
+</main>
+<!-- Side Sheets Section -->
+<section class="component-section">
+  <h2>Side Sheets</h2>
+  <div class="demo-row">
+    <!-- Side Sheets Multi-level -->
+    <bds-button label="Side Sheet Modal Multi-level" variant="filled" size="md"
+      (action)="openSideSheetLevel()"></bds-button>
+
+    <!-- Side Sheets One -->
+    <bds-button label="Side Sheet Modal (start)" variant="filled" size="md" (action)="openSideSheetOne()"></bds-button>
+
+    <!-- Side Sheets Two-->
+    <bds-button label="Side Sheet Modal (end)" variant="filled" size="md" (action)="openSideSheetThree()"></bds-button>
+
+    <!-- Side Sheets Four-->
+    <bds-button label="Side Sheet standard (start)" variant="filled" size="md"
+      (action)="openSideSheetFour()"></bds-button>
+  </div>
+</section>
+
+<!-- Side Sheets Multi-level -->
+<bds-side-sheets position="start" [(open)]="isSideSheetOpenLevel" [modal]="true" [header]="'Multi-level'" size="lg">
+  <div>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+    <p>
+      Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+      consectetur adipisicing
+      elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis
+      dignissimos!
+      Similique aut ratione facilis voluptas nostrum?
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+  </div>
+
+  <!-- Side Sheets Multi-level -->
+  <section class="component-section">
+    <h2>Multi-level</h2>
+    <div class="demo-row">
+      <bds-button label="Side Sheet (start)" variant="filled" size="md" (action)="openSideSheetTwo()"></bds-button>
+    </div>
+  </section>
+
+  <ng-template #actionsTemplate>
+    <bds-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetLevel()"></bds-button>
+  </ng-template>
+</bds-side-sheets>
+
+<!-- Side Sheets One -->
+<bds-side-sheets position="start" [(open)]="isSideSheetOpenOne" [modal]="true" [header]="'Title 1'">
+  <div>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+    <p>
+      Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+      consectetur adipisicing
+      elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis
+      dignissimos!
+      Similique aut ratione facilis voluptas nostrum?
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+  </div>
+
+  <ng-template #actionsTemplate>
+    <bds-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetOne()"></bds-button>
+  </ng-template>
+</bds-side-sheets>
+
+<!-- Side Sheets Two-->
+<bds-side-sheets position="start" [(open)]="isSideSheetOpenTwo" [modal]="true" [header]="'Title 2'">
+  <div>
+    <p>
+      Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+      consectetur adipisicing
+      elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis
+      dignissimos!
+      Similique aut ratione facilis voluptas nostrum?
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+  </div>
+</bds-side-sheets>
+
+<!-- Side Sheets Three-->
+<bds-side-sheets position="end" [(open)]="isSideSheetOpenThree" [modal]="true" [header]="'Title 3'">
+  <div>
+    <p>
+      Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+      consectetur adipisicing
+      elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis
+      dignissimos!
+      Similique aut ratione facilis voluptas nostrum?
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+      debitis quas ut
+      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+    </p>
+  </div>
+
+  <ng-template #actionsTemplate>
+    <bds-button label="Aceptar" (action)="closeSideSheetThree()"></bds-button>
+    <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetThree()"></bds-button>
+  </ng-template>
+</bds-side-sheets>
+
+<!-- Side Sheets Three-->
+<main>
+  <bds-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
+
+    <ng-template #actionsTemplate>
+      <bds-button label="Aceptar" (action)="closeSideSheetFour()"></bds-button>
+      <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></bds-button>
+    </ng-template>
+  </bds-side-sheets>
 </main>

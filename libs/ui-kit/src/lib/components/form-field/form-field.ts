@@ -29,7 +29,7 @@ export type FormFieldType =
     | 'datetime-local';
 
 @Component({
-    selector: 'lib-form-field',
+    selector: 'bds-form-field',
     standalone: true,
     imports: [
         CommonModule,

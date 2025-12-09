@@ -63,7 +63,7 @@ export interface TableState<T = any> {
 
 
 @Component({
-  selector: 'lib-table',
+  selector: 'bds-table',
   standalone: true,
   imports: [
     CommonModule,

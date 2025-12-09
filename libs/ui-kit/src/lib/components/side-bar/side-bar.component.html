@@ -9,7 +9,7 @@
     style="position: absolute; top: 12px; right: 12px; z-index: 2;"
   >
     <span class="material-symbols-rounded">
-      {{ isExpanded ? ' left_panel_open' : ' left_panel_close' }}
+      {{ isExpanded ? 'left_panel_open' : 'left_panel_close' }}
     </span>
   </button>
 
@@ -75,7 +75,7 @@
       </div>
       <div>
         <div class="section-title">
-          <span class="material-symbols-rounded"> keyboard_arrow_down </span>
+          <span class="material-symbols-rounded">keyboard_arrow_down</span>
           Favoritos
         </div>
       </div>
@@ -106,7 +106,7 @@
                 (click)="item.url ? onItemClick(item) : toggleItem(item)"
               >
                 @if (item.icon) {
-                  <span class="item-icon">{{ item.icon }}</span>
+                  <span class="item-icon material-symbols-rounded">{{ item.icon }}</span>
                 }
                 @if (isExpanded || isPinned) {
                   <span class="item-label">{{ item.label }}</span>
@@ -128,7 +128,7 @@
                     <div class="childs-container">
                       <div class="child-item" (click)="onItemClick(child)">
                         @if (child.icon) {
-                          <span class="child-icon">{{ child.icon }}</span>
+                          <span class="child-icon material-symbols-rounded">{{ child.icon }}</span>
                         }
                         {{ child.label }}
                       </div>

@@ -60,10 +60,10 @@ export interface TableState<T = any> {
   totalRecords: number;
 }
 
-// ==================== COMPONENT ====================
+
 
 @Component({
-  selector: 'lib-table',
+  selector: 'bds-table',
   standalone: true,
   imports: [
     CommonModule,
@@ -166,7 +166,7 @@ export class TableComponent<T = any> implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // ==================== FILTERING ====================
+
 
   applyGlobalFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -177,19 +177,16 @@ export class TableComponent<T = any> implements OnInit {
     this.dataSource.filter = '';
   }
 
-  // ==================== SORTING ====================
+
 
   onSortChange(sort: Sort) {
     this.sortChange.emit(sort);
   }
 
-  // ==================== PAGINATION ====================
 
   onPageChange(event: PageEvent) {
     this.pageChange.emit(event);
   }
-
-  // ==================== SELECTION ====================
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -209,7 +206,6 @@ export class TableComponent<T = any> implements OnInit {
     this.selection.clear();
   }
 
-  // ==================== EXPANDABLE ====================
 
   toggleExpandRow(row: T) {
     this.expandedRow = this.expandedRow === row ? null : row;
@@ -228,7 +224,7 @@ export class TableComponent<T = any> implements OnInit {
     // Se puede usar para lógica post-animación si es necesario
   }
 
-  // ==================== ACTIONS ====================
+
 
   getVisibleActions(row: T): TableAction<T>[] {
     return this.actions.filter(action =>
@@ -246,7 +242,7 @@ export class TableComponent<T = any> implements OnInit {
     this.actionClick.emit({ action, row });
   }
 
-  // ==================== UTILITIES ====================
+
 
   formatCellValue(value: any, dataType?: ColumnDataType): string {
     if (value === null || value === undefined) return '-';
@@ -263,7 +259,7 @@ export class TableComponent<T = any> implements OnInit {
     }
   }
 
-  // ==================== PUBLIC METHODS ====================
+
 
   setLoading(loading: boolean) {
     this.state.update(s => ({ ...s, loading }));

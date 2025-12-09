@@ -17,7 +17,7 @@ export type CardElevation =
 export type CardSize = 'sm' | 'md' | 'lg';
 
 @Component({
-    selector: 'lib-card',
+    selector: 'bds-card',
     standalone: true,
     imports: [CommonModule, MatCardModule],
     changeDetection: ChangeDetectionStrategy.OnPush,

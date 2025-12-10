@@ -78,10 +78,7 @@ export interface TableState<T = any> {
     MatInputModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
-<<<<<<< HEAD
     FormFieldComponent
-=======
->>>>>>> 17a796e1d6bd7c5c9b21c93051bfb896964887b2
   ],
   animations: [
     trigger('detailExpand', [

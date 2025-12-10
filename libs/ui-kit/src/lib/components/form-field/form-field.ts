@@ -25,10 +25,6 @@ export type FormFieldType = 'text' | 'email' | 'password' | 'number' | 'tel' | '
     MatButtonModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'bds-form-field',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 
   host: {
     '[class.full-width]': 'fullWidth()',
@@ -49,7 +45,6 @@ export class FormFieldComponent {
   disabled = input<boolean>(false);
   required = input<boolean>(false);
   readonly = input<boolean>(false);
-
 
   // Mensajes
   hint = input<string>('');

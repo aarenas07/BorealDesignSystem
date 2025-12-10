@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, Input, Output, EventEmitter, TemplateRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 // Renombrar SidebarItem a RailItem
@@ -28,16 +29,13 @@ export interface RailConfig {
 
 @Component({
   selector: 'bds-rail',
-  // imports: [TooltipComponent],
+  imports: [NgTemplateOutlet],
   standalone: true,
   templateUrl: './rail.component.html',
   styleUrl: './rail.component.scss',
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class RailComponent {
-
   @Input() config: RailConfig = { sections: [] };
   @Input() items: any = null; // Para retrocompatibilidad
 
@@ -92,7 +90,7 @@ export class RailComponent {
         { key: 'principalItems', tooltipType: 'dark' as const, cssClass: 'principal-items-container' },
         { key: 'modulesItems', tooltipType: 'dark' as const, cssClass: 'modules-items-container' },
         { key: 'aditionalItems', tooltipType: 'error' as const, cssClass: 'additional-items-container' },
-        { key: 'additionalItems', tooltipType: 'error' as const, cssClass: 'additional-items-container' }
+        { key: 'additionalItems', tooltipType: 'error' as const, cssClass: 'additional-items-container' },
       ];
 
       sectionMappings.forEach((mapping, index) => {
@@ -102,7 +100,7 @@ export class RailComponent {
             items: data[mapping.key],
             tooltipType: mapping.tooltipType,
             cssClass: mapping.cssClass,
-            showSeparator: index < sectionMappings.length - 1
+            showSeparator: index < sectionMappings.length - 1,
           });
         }
       });

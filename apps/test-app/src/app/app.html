@@ -91,6 +91,26 @@
       </bds-card>
     </div>
 
+    <<<<<<< HEAD=======<h3>Card Clickeable</h3>
+      <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
+        <bds-card elevation="raised" size="md" [clickable]="true">
+          <mat-card-title card-title>Card Interactiva</mat-card-title>
+          <mat-card-subtitle card-subtitle>Pasa el mouse para ver el efecto</mat-card-subtitle>
+          <div card-content>
+            <p>Esta card es clickeable y tiene efectos hover. Ideal para navegación o selección.</p>
+          </div>
+        </bds-card>
+
+        <bds-card elevation="outlined" size="md" [clickable]="true">
+          <mat-card-title card-title>Otra Card Clickeable</mat-card-title>
+          <mat-card-subtitle card-subtitle>Con borde outlined</mat-card-subtitle>
+          <div card-content>
+            <p>Combina diferentes estilos con la funcionalidad clickeable.</p>
+          </div>
+        </bds-card>
+      </div>
+      >>>>>>> 17a796e1d6bd7c5c9b21c93051bfb896964887b2
   </section>
 
   <!-- Table Section -->
@@ -238,184 +258,216 @@
     <bds-rail [config]="railConfig"></bds-rail>
   </section>
 
-</main>
-<!-- Side Sheets Section -->
-<section class="component-section">
-  <h2>Side Sheets</h2>
-  <div class="demo-row">
-    <!-- Side Sheets Multi-level -->
-    <bds-button label="Side Sheet Modal Multi-level" variant="filled" size="md"
-      (action)="openSideSheetLevel()"></bds-button>
-
-    <!-- Side Sheets One -->
-    <bds-button label="Side Sheet Modal (start)" variant="filled" size="md" (action)="openSideSheetOne()"></bds-button>
-
-    <!-- Side Sheets Two-->
-    <bds-button label="Side Sheet Modal (end)" variant="filled" size="md" (action)="openSideSheetThree()"></bds-button>
-
-    <!-- Side Sheets Four-->
-    <bds-button label="Side Sheet standard (start)" variant="filled" size="md"
-      (action)="openSideSheetFour()"></bds-button>
-  </div>
-</section>
-
-<!-- Side Sheets Multi-level -->
-<bds-side-sheets position="start" [(open)]="isSideSheetOpenLevel" [modal]="true" [header]="'Multi-level'" size="lg">
-  <div>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-    <p>
-      Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
-      consectetur adipisicing
-      elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis
-      dignissimos!
-      Similique aut ratione facilis voluptas nostrum?
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-  </div>
-
-  <!-- Side Sheets Multi-level -->
+  <!-- Side Sheets Section -->
   <section class="component-section">
-    <h2>Multi-level</h2>
+    <h2>Side Sheets</h2>
     <div class="demo-row">
-      <bds-button label="Side Sheet (start)" variant="filled" size="md" (action)="openSideSheetTwo()"></bds-button>
+      <!-- Side Sheets Multi-level -->
+      <bds-button label="Side Sheet Modal Multi-level" variant="filled" size="md"
+        (action)="openSideSheetLevel()"></bds-button>
+
+      <!-- Side Sheets One -->
+      <bds-button label="Side Sheet Modal (start)" variant="filled" size="md"
+        (action)="openSideSheetOne()"></bds-button>
+
+      <!-- Side Sheets Two-->
+      <bds-button label="Side Sheet Modal (end)" variant="filled" size="md"
+        (action)="openSideSheetThree()"></bds-button>
+
+      <!-- Side Sheets Four-->
+      <bds-button label="Side Sheet standard (start)" variant="filled" size="md"
+        (action)="openSideSheetFour()"></bds-button>
     </div>
   </section>
 
-  <ng-template #actionsTemplate>
-    <bds-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetLevel()"></bds-button>
-  </ng-template>
-</bds-side-sheets>
+  <!-- Side Sheets Multi-level -->
+  <bds-side-sheets position="start" [(open)]="isSideSheetOpenLevel" [modal]="true" [header]="'Multi-level'" size="lg">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+        consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
+        quis dignissimos!
+        Similique aut ratione facilis voluptas nostrum?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
 
-<!-- Side Sheets One -->
-<bds-side-sheets position="start" [(open)]="isSideSheetOpenOne" [modal]="true" [header]="'Title 1'">
-  <div>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-    <p>
-      Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
-      consectetur adipisicing
-      elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis
-      dignissimos!
-      Similique aut ratione facilis voluptas nostrum?
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-  </div>
+    <!-- Side Sheets Multi-level -->
+    <section class="component-section">
+      <h2>Multi-level</h2>
+      <div class="demo-row">
+        <bds-button label="Side Sheet (start)" variant="filled" size="md" (action)="openSideSheetTwo()"></bds-button>
+      </div>
+    </section>
 
-  <ng-template #actionsTemplate>
-    <bds-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetOne()"></bds-button>
-  </ng-template>
-</bds-side-sheets>
+    <ng-template #actionsTemplate>
+      <bds-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetLevel()"></bds-button>
+    </ng-template>
+  </bds-side-sheets>
 
-<!-- Side Sheets Two-->
-<bds-side-sheets position="start" [(open)]="isSideSheetOpenTwo" [modal]="true" [header]="'Title 2'">
-  <div>
-    <p>
-      Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
-      consectetur adipisicing
-      elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis
-      dignissimos!
-      Similique aut ratione facilis voluptas nostrum?
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-  </div>
-</bds-side-sheets>
+  <!-- Side Sheets One -->
+  <bds-side-sheets position="start" [(open)]="isSideSheetOpenOne" [modal]="true" [header]="'Title 1'">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+        consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
+        quis dignissimos!
+        Similique aut ratione facilis voluptas nostrum?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
 
-<!-- Side Sheets Three-->
-<bds-side-sheets position="end" [(open)]="isSideSheetOpenThree" [modal]="true" [header]="'Title 3'">
-  <div>
-    <p>
-      Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
-      consectetur adipisicing
-      elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis
-      dignissimos!
-      Similique aut ratione facilis voluptas nostrum?
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-  </div>
+    <ng-template #actionsTemplate>
+      <bds-button label="Cerrar" variant="outlined" size="md" (action)="closeSideSheetOne()"></bds-button>
+    </ng-template>
+  </bds-side-sheets>
 
+  <!-- Side Sheets Two-->
+  <bds-side-sheets position="start" [(open)]="isSideSheetOpenTwo" [modal]="true" [header]="'Title 2'">
+    <div>
+      <p>
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+        consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
+        quis dignissimos!
+        Similique aut ratione facilis voluptas nostrum?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
+  </bds-side-sheets>
+
+  <!-- Side Sheets Three-->
+  <bds-side-sheets position="end" [(open)]="isSideSheetOpenThree" [modal]="true" [header]="'Title 3'">
+    <div>
+      <p>
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+        consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
+        quis dignissimos!
+        Similique aut ratione facilis voluptas nostrum?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
+
+    <ng-template #actionsTemplate>
+      <bds-button label="Aceptar" (action)="closeSideSheetFour()"></bds-button>
+      <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></bds-button>
+    </ng-template>
+  </bds-side-sheets>
+
+  <section class="component-section">
+    <bds-alert variant="info" title="Información" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="success" title="Información" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="warning" title="Información" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="error" title="Información" message="Este es un alerta de información."></bds-alert>
+  </section>
   <ng-template #actionsTemplate>
     <bds-button label="Aceptar" (action)="closeSideSheetThree()"></bds-button>
     <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetThree()"></bds-button>
   </ng-template>
-</bds-side-sheets>
+  </bds-side-sheets>
 
-<!-- Side Sheets Three-->
-<bds-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
-  <div>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-      debitis quas ut
-      perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
-    </p>
-  </div>
+  <!-- Side Sheets Three-->
 
-  <ng-template #actionsTemplate>
-    <bds-button label="Aceptar" (action)="closeSideSheetFour()"></bds-button>
-    <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></bds-button>
-  </ng-template>
-</bds-side-sheets>
+  <bds-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
+        perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
+      </p>
+    </div>
 
-<section class="component-section">
-  <bds-alert variant="info" title="Información" message="Este es un alerta de información."></bds-alert>
-  <bds-alert variant="success" title="Información" message="Este es un alerta de información."></bds-alert>
-  <bds-alert variant="warning" title="Información" message="Este es un alerta de información."></bds-alert>
-  <bds-alert variant="error" title="Información" message="Este es un alerta de información."></bds-alert>
-</section>
+    <ng-template #actionsTemplate>
+      <bds-button label="Aceptar" (action)="closeSideSheetFour()"></bds-button>
+      <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></bds-button>
+    </ng-template>
+  </bds-side-sheets>
+
+  <!-- Breadcrumb Section -->
+  <section class="component-section">
+    <h2>Breadcrumb Home</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [home]="{icon: 'home', label: 'Inicio', routerLink: '/'}"> </bds-breadcrumb>
+    </div>
+    <h2>Breadcrumb Home / Items</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [home]="{icon: 'home', label: 'Inicio', routerLink: '/'}" [items]="items()"> </bds-breadcrumb>
+    </div>
+    <h2>Breadcrumb Items (Icons)</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [items]="itemsIcons()"> </bds-breadcrumb>
+    </div>
+    <h2>Breadcrumb Links</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [items]="itemsLinks()"> </bds-breadcrumb>
+    </div>
+  </section>
+</main>

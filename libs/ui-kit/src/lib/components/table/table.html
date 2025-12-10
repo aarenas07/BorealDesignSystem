@@ -1,7 +1,6 @@
 <div class="generic-table-container" [attr.data-density]="config.density || 'comfortable'">
   <!-- Global Filter -->
-  @if (config.showGlobalFilter) {
-  <div class="table-toolbar">
+  <div class="table-toolbar" *ngIf="config.showGlobalFilter">
     <bds-form-field
       class="global-filter"
       [label]="'Buscar en toda la tabla'"
@@ -23,7 +22,6 @@
     </div>
     }
   </div>
-  }
 
   <!-- Loading State -->
   @if (state().loading) {

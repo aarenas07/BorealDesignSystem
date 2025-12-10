@@ -155,7 +155,7 @@ export const LoadingState: Story = {
   render: args => ({
     props: args,
     template: `
-      <lib-table [columns]="columns" [data]="data" [config]="config"></lib-table>
+      <bds-table [columns]="columns" [data]="data" [config]="config"></bds-table>
     `,
   }),
   args: {
@@ -185,8 +185,8 @@ export const WithExpandableRows: Story = {
   render: args => ({
     props: args,
     template: `
-            <lib-table [columns]="columns" [data]="data" [config]="config" [expandedRowTemplate]="detailTemplate">
-            </lib-table>
+            <bds-table [columns]="columns" [data]="data" [config]="config" [expandedRowTemplate]="detailTemplate">
+            </bds-table>
             <ng-template #detailTemplate let-row>
                 <div style="padding: 16px; background: var(--mat-sys-surface-container); border-radius: 4px;">
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">

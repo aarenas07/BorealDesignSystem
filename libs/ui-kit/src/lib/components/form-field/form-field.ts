@@ -4,6 +4,7 @@ import { FormControl, ReactiveFormsModule, Validators, ValidatorFn } from '@angu
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 // Tipos para las apariencias de Angular Material Form Field
 export type FormFieldAppearance = 'fill' | 'outline';
@@ -14,7 +15,15 @@ export type FormFieldType = 'text' | 'email' | 'password' | 'number' | 'tel' | '
 @Component({
   selector: 'bds-form-field',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 
   host: {

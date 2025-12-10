@@ -5,25 +5,40 @@
   <mat-icon matPrefix>{{ prefixIcon() }}</mat-icon>
   }
 
-  <input
-    matInput
-    [formControl]="formControl"
-    [type]="type()"
-    [readonly]="readonly()"
-    [autocomplete]="autocomplete()"
-    [attr.maxlength]="maxlength()"
-    [attr.minlength]="minlength()"
-    [attr.min]="min()"
-    [attr.max]="max()"
-    [attr.step]="step()"
-    [attr.pattern]="pattern()"
-  />
+  <input matInput [formControl]="formControl" [type]="type()" [readonly]="readonly()" [autocomplete]="autocomplete()"
+    [attr.maxlength]="maxlength()" [attr.minlength]="minlength()" [attr.min]="min()" [attr.max]="max()"
+    [attr.step]="step()" [attr.pattern]="pattern()" />
 
-  @if (suffixIcon()) {
-  <mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
-  } @if (hint() && !errorMessage()) {
+  @if (prefixIcon()) {
+  <mat-icon class="material-symbols-rounded" matPrefix>{{ prefixIcon() }}</mat-icon>
+  }
+
+  <input matInput [formControl]="formControl" [type]="type()" [readonly]="readonly()" [autocomplete]="autocomplete()"
+    [attr.maxlength]="maxlength()" [attr.minlength]="minlength()" [attr.min]="min()" [attr.max]="max()"
+    [attr.step]="step()" [attr.pattern]="pattern()">
+
+  @if (clearable() && value()) {
+  <button mat-icon-button matSuffix (click)="clear($event)">
+    <mat-icon class="material-symbols-rounded">close</mat-icon>
+  </button>
+  } @else if (suffixIcon()) {
+  <mat-icon class="material-symbols-rounded" matSuffix>{{ suffixIcon() }}</mat-icon>
+  }
+
+  @if (hint() && !errorMessage()) {
   <mat-hint>{{ hint() }}</mat-hint>
-  } @if (errorMessage()) {
+  }
+
+  @if (errorMessage()) {
   <mat-error>{{ errorMessage() }}</mat-error>
   }
+
+</mat-form-field>
+@if (suffixIcon()) {
+<mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
+} @if (hint() && !errorMessage()) {
+<mat-hint>{{ hint() }}</mat-hint>
+} @if (errorMessage()) {
+<mat-error>{{ errorMessage() }}</mat-error>
+}
 </mat-form-field>

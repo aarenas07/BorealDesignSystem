@@ -11,3 +11,4 @@ export * from './lib/components/side-sheets/side-sheets';
 export * from './lib/components/breadcrumb/breadcrumb';
 export * from './lib/components/table/table';
 export * from './lib/services/theme.service';
+export * from './lib/components/alert';

@@ -22,6 +22,7 @@ import {
   RailComponent,
   RailConfig,
   SideSheetsComponent,
+  AlertComponent,
   BreadcrumbComponent,
   MenuItem,
 } from '@organizacion/ui-kit';
@@ -43,12 +44,10 @@ interface User {
   imports: [
     FormsModule,
     ReactiveFormsModule,
-
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
-
     MatInputModule,
     MatIconModule,
     MatChipsModule,
@@ -59,6 +58,7 @@ interface User {
     SideBarComponent,
     RailComponent,
     SideSheetsComponent,
+    AlertComponent,
     BreadcrumbComponent,
   ],
   providers: [provideNativeDateAdapter()],
@@ -285,7 +285,7 @@ export class App {
   tableConfig: TableConfig = {
     selectable: false,
     expandable: true,
-    showGlobalFilter: false,
+    showGlobalFilter: true,
     zebraStriping: true,
     density: 'compact',
     pageSizeOptions: [5, 10, 25, 50],

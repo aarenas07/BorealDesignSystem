@@ -126,6 +126,34 @@ export const WithActions: Story = {
   },
 };
 
+export const WithActionsDisabled: Story = {
+  args: {
+    columns: basicColumns,
+    data: mockData,
+    actions: [
+      {
+        icon: 'edit',
+        label: 'Editar',
+        color: 'primary',
+        onClick: row => alert(`Editando a ${row.name}`),
+      },
+      {
+        icon: 'delete',
+        label: 'Eliminar',
+        color: 'warn',
+        onClick: row => alert(`Eliminando a ${row.name}`),
+      },
+      {
+        icon: 'send',
+        label: 'Enviar Email',
+        tooltip: 'Enviar correo',
+        disabled: row => row.role === 'Admin',
+        onClick: row => alert(`Enviando email a ${row.email}`),
+      },
+    ],
+  },
+};
+
 export const DetailedConfiguration: Story = {
   args: {
     columns: [

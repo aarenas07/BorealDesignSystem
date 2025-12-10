@@ -2,24 +2,6 @@
   @if (label()) {
   <mat-label>{{ label() }}</mat-label>
   } @if (prefixIcon()) {
-  <mat-icon matPrefix>{{ prefixIcon() }}</mat-icon>
-  }
-
-  <input
-    matInput
-    [formControl]="formControl"
-    [type]="type()"
-    [readonly]="readonly()"
-    [autocomplete]="autocomplete()"
-    [attr.maxlength]="maxlength()"
-    [attr.minlength]="minlength()"
-    [attr.min]="min()"
-    [attr.max]="max()"
-    [attr.step]="step()"
-    [attr.pattern]="pattern()"
-  />
-
-  @if (prefixIcon()) {
   <mat-icon class="material-symbols-rounded" matPrefix>{{ prefixIcon() }}</mat-icon>
   }
 

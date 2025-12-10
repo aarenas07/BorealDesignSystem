@@ -147,6 +147,12 @@ export class FormFieldComponent {
     });
   }
 
+  clear(event: Event) {
+    event.stopPropagation();
+    this.value.set('');
+    this.formControl.setValue('');
+  }
+
   private updateValidators(): void {
     const validators: ValidatorFn[] = [];
 
@@ -159,6 +165,9 @@ export class FormFieldComponent {
     if (this.type() === 'email') {
       validators.push(Validators.email);
     }
+
+
+
 
     // MinLength validator
     if (this.minlength() !== null) {

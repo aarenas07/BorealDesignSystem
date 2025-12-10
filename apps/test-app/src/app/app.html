@@ -89,7 +89,6 @@
       </bds-card>
     </div>
 
-    <<<<<<< HEAD=======
     <h3>Card Clickeable</h3>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
       <bds-card elevation="raised" size="md" [clickable]="true">
@@ -108,7 +107,6 @@
         </div>
       </bds-card>
     </div>
-    >>>>>>> 17a796e1d6bd7c5c9b21c93051bfb896964887b2
   </section>
 
   <!-- Table Section -->
@@ -400,19 +398,7 @@
     </ng-template>
   </bds-side-sheets>
 
-  <section class="component-section">
-    <bds-alert variant="info" title="Información" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="success" title="Información" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="warning" title="Información" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="error" title="Información" message="Este es un alerta de información."></bds-alert>
-  </section>
-  <ng-template #actionsTemplate>
-    <bds-button label="Aceptar" (action)="closeSideSheetThree()"></bds-button>
-    <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetThree()"></bds-button>
-  </ng-template>
-
-  <!-- Side Sheets Three-->
-
+  <!-- Side Sheets Four-->
   <bds-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
     <div>
       <p>
@@ -453,5 +439,12 @@
       <!-- Breadcrumb  -->
       <bds-breadcrumb [items]="itemsLinks()"> </bds-breadcrumb>
     </div>
+  </section>
+
+  <section class="component-section">
+    <bds-alert variant="info" title="Información" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="success" title="Información" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="warning" title="Información" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="error" title="Información" message="Este es un alerta de información."></bds-alert>
   </section>
 </main>

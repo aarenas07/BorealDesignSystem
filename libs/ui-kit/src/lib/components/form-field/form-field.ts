@@ -15,15 +15,7 @@ export type FormFieldType = 'text' | 'email' | 'password' | 'number' | 'tel' | '
 @Component({
   selector: 'bds-form-field',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatInputModule, MatIconModule, MatButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 
   host: {
@@ -45,6 +37,7 @@ export class FormFieldComponent {
   disabled = input<boolean>(false);
   required = input<boolean>(false);
   readonly = input<boolean>(false);
+  clearable = input<boolean>(false);
 
   // Mensajes
   hint = input<string>('');
@@ -165,9 +158,6 @@ export class FormFieldComponent {
     if (this.type() === 'email') {
       validators.push(Validators.email);
     }
-
-
-
 
     // MinLength validator
     if (this.minlength() !== null) {

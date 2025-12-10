@@ -64,7 +64,7 @@ export const WithRouterlinks: Story = {
   },
 };
 
-export const WithHome: Story = {
+export const WithoutHome: Story = {
   args: {
     home: undefined,
     items: [

@@ -1,92 +1,92 @@
 // Componente Form Field - Estilos usando Angular Material Design 3
 
 :host {
-    display: inline-block;
+  display: inline-block;
 
-    // ============================================
-    // ANCHO COMPLETO
-    // ============================================
+  // ============================================
+  // ANCHO COMPLETO
+  // ============================================
 
-    &.full-width {
-        display: block;
-        width: 100%;
-
-        mat-form-field {
-            width: 100%;
-        }
-    }
-
-    // ============================================
-    // FORM FIELD BASE
-    // ============================================
+  &.full-width {
+    display: block;
+    width: 100%;
 
     mat-form-field {
-        // Transiciones suaves
-        transition: all 0.2s ease-in-out;
+      width: 100%;
+    }
+  }
 
-        // Iconos prefix/suffix
-        mat-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--mat-sys-on-surface-variant);
-            transition: color 0.2s ease-in-out;
-        }
+  // ============================================
+  // FORM FIELD BASE
+  // ============================================
 
-        // Cuando el campo tiene foco, los iconos toman el color primario
-        &.mat-focused mat-icon {
-            color: var(--mat-sys-primary);
-        }
+  mat-form-field {
+    // Transiciones suaves
+    transition: all 0.2s ease-in-out;
 
-        // Cuando hay error, los iconos toman el color de error
-        &.mat-form-field-invalid mat-icon {
-            color: var(--mat-sys-error);
-        }
+    // Iconos prefix/suffix
+    mat-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--mat-sys-on-surface-variant);
+      transition: color 0.2s ease-in-out;
     }
 
-    // ============================================
-    // ESTADOS
-    // ============================================
-
-    &.is-disabled {
-        mat-form-field {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+    // Cuando el campo tiene foco, los iconos toman el color primario
+    &.mat-focused mat-icon {
+      color: var(--mat-sys-primary);
     }
 
-    // ============================================
-    // PERSONALIZACIÓN DE INPUTS
-    // ============================================
+    // Cuando hay error, los iconos toman el color de error
+    &.mat-form-field-invalid mat-icon {
+      color: var(--mat-sys-error);
+    }
+  }
 
-    input {
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: 0.25px;
+  // ============================================
+  // ESTADOS
+  // ============================================
 
-        &::placeholder {
-            color: var(--mat-sys-on-surface-variant);
-            opacity: 0.6;
-        }
+  &.is-disabled {
+    mat-form-field {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
 
-        // Remover estilos de autofill del navegador
-        &:-webkit-autofill {
-            -webkit-box-shadow: 0 0 0 1000px var(--mat-sys-surface-container) inset;
-            -webkit-text-fill-color: var(--mat-sys-on-surface);
-        }
+  // ============================================
+  // PERSONALIZACIÓN DE INPUTS
+  // ============================================
+
+  input {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.25px;
+
+    &::placeholder {
+      color: var(--mat-sys-on-surface-variant);
+      opacity: 0.6;
     }
 
-    // ============================================
-    // HINTS Y ERRORS
-    // ============================================
-
-    mat-hint {
-        font-size: 12px;
-        color: var(--mat-sys-on-surface-variant);
+    // Remover estilos de autofill del navegador
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px var(--mat-sys-surface-container) inset;
+      -webkit-text-fill-color: var(--mat-sys-on-surface);
     }
+  }
 
-    mat-error {
-        font-size: 12px;
-        font-weight: 500;
-    }
+  // ============================================
+  // HINTS Y ERRORS
+  // ============================================
+
+  mat-hint {
+    font-size: 12px;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  mat-error {
+    font-size: 12px;
+    font-weight: 500;
+  }
 }

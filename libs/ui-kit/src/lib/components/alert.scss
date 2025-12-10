@@ -1,62 +1,18 @@
 
 // Definición de variables por defecto y estructura base
 .alert {
-  // Variables CSS locales (Scope local)
-  --alert-bg: #f3f4f6;
-  --alert-text: #1f2937;
-  --alert-text-muted: #4b5563;
-  --alert-icon-color: #6b7280;
-  --btn-primary-bg: #374151;
-  --btn-primary-text: #ffffff;
-  --btn-hover-bg: #111827;
 
   display: flex;
   align-items: flex-start;
   padding: 16px;
   border-radius: 8px;
   gap: 12px;
-  background-color: var(--alert-bg);
-  color: var(--alert-text);
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
   font-family: system-ui, -apple-system, sans-serif;
   margin-bottom: 16px; // Separación si hay varias alertas
 
-  // --- VARIANTES DE COLOR ---
-  
-  &--info {
-    --alert-bg: #ecfdf5;      /* Fondo Teal muy suave */
-    --alert-text: #0f766e;    /* Texto oscuro */
-    --alert-text-muted: #386a66; 
-    --alert-icon-color: #0d9488;
-    --btn-primary-bg: #0f766e; /* Botón sólido */
-    --btn-hover-bg: #115e59;
-  }
-
-  &--success {
-    --alert-bg: #f0fdf4;      /* Fondo Verde suave */
-    --alert-text: #14532d;    /* Verde bosque */
-    --alert-text-muted: #3f624e;
-    --alert-icon-color: #16a34a;
-    --btn-primary-bg: #15803d;
-    --btn-hover-bg: #14532d;
-  }
-
-  &--warning {
-    --alert-bg: #fffbeb;      /* Fondo Amarillo/Ocre suave */
-    --alert-text: #78350f;    /* Café/Dorado oscuro */
-    --alert-text-muted: #92400e;
-    --alert-icon-color: #d97706;
-    --btn-primary-bg: #92400e; /* Botón Ocre sólido */ // Ajustado para parecerse a la foto
-    --btn-hover-bg: #78350f;
-  }
-
-  &--error {
-    --alert-bg: #fef2f2;      /* Fondo Rojo suave */
-    --alert-text: #7f1d1d;    /* Rojo oscuro */
-    --alert-text-muted: #991b1b;
-    --alert-icon-color: #dc2626;
-    --btn-primary-bg: #b91c1c;
-    --btn-hover-bg: #991b1b;
-  }
+ 
 
   // --- ELEMENTOS HIJOS ---
 
@@ -68,7 +24,7 @@
   &__icon {
     width: 24px;
     height: 24px;
-    color: var(--alert-icon-color);
+    color: var(--mat-sys-on-surface);
     background-color: rgba(255, 255, 255, 0.6); // Círculo blanco semitransparente detrás del icono
     border-radius: 50%;
     padding: 2px; // Espacio interno para que parezca un icono en circulo
@@ -98,7 +54,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--alert-text-muted);
+    color: var(--mat-sys-on-surface);
     padding: 4px;
     margin: -4px -4px 0 0; // Ajuste fino de posición
     border-radius: 4px;

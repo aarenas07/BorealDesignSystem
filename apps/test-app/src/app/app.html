@@ -91,25 +91,6 @@
       </bds-card>
     </div>
 
-    <h3>Card Clickeable</h3>
-    <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
-      <bds-card elevation="raised" size="md" [clickable]="true">
-        <mat-card-title card-title>Card Interactiva</mat-card-title>
-        <mat-card-subtitle card-subtitle>Pasa el mouse para ver el efecto</mat-card-subtitle>
-        <div card-content>
-          <p>Esta card es clickeable y tiene efectos hover. Ideal para navegación o selección.</p>
-        </div>
-      </bds-card>
-
-      <bds-card elevation="outlined" size="md" [clickable]="true">
-        <mat-card-title card-title>Otra Card Clickeable</mat-card-title>
-        <mat-card-subtitle card-subtitle>Con borde outlined</mat-card-subtitle>
-        <div card-content>
-          <p>Combina diferentes estilos con la funcionalidad clickeable.</p>
-        </div>
-      </bds-card>
-    </div>
   </section>
 
   <!-- Table Section -->
@@ -431,8 +412,10 @@
     <bds-button label="Cancelar" variant="outlined" (action)="closeSideSheetFour()"></bds-button>
   </ng-template>
 </bds-side-sheets>
-</main>
 
 <section class="component-section">
   <bds-alert variant="info" title="Información" message="Este es un alerta de información."></bds-alert>
+  <bds-alert variant="success" title="Información" message="Este es un alerta de información."></bds-alert>
+  <bds-alert variant="warning" title="Información" message="Este es un alerta de información."></bds-alert>
+  <bds-alert variant="error" title="Información" message="Este es un alerta de información."></bds-alert>
 </section>

@@ -11,6 +11,7 @@ import { FormControl, ReactiveFormsModule, Validators, ValidatorFn } from '@angu
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 // Tipos para las apariencias de Angular Material Form Field
 export type FormFieldAppearance = 'fill' | 'outline';
@@ -36,7 +37,9 @@ export type FormFieldType =
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
-        MatIconModule
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
 
@@ -60,6 +63,7 @@ export class FormFieldComponent {
     disabled = input<boolean>(false);
     required = input<boolean>(false);
     readonly = input<boolean>(false);
+    clearable = input<boolean>(false);
 
     // Mensajes
     hint = input<string>('');
@@ -203,5 +207,11 @@ export class FormFieldComponent {
         // Aplicar validadores
         this.formControl.setValidators(validators);
         this.formControl.updateValueAndValidity();
+    }
+
+    clear(event: Event) {
+        event.stopPropagation();
+        this.value.set('');
+        this.formControl.setValue('');
     }
 }

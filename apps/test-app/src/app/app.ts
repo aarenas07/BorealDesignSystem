@@ -265,7 +265,7 @@ export class App {
   tableConfig: TableConfig = {
     selectable: false,
     expandable: true,
-    showGlobalFilter: false,
+    showGlobalFilter: true,
     zebraStriping: true,
     density: 'compact',
     pageSizeOptions: [5, 10, 25, 50],

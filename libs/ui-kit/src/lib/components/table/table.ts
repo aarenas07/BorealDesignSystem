@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, OnInit, TemplateRef, signal, computed } from '@angular/core';
+import { FormFieldComponent } from '../form-field/form-field';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
@@ -13,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormsModule } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+
 
 // ==================== INTERFACES ====================
 
@@ -77,7 +79,8 @@ export interface TableState<T = any> {
     MatMenuModule,
     MatInputModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FormFieldComponent
   ],
   animations: [
     trigger('detailExpand', [

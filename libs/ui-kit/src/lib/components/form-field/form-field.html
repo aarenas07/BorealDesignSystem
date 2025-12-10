@@ -5,15 +5,19 @@
     }
 
     @if (prefixIcon()) {
-    <mat-icon matPrefix>{{ prefixIcon() }}</mat-icon>
+    <mat-icon class="material-symbols-rounded" matPrefix>{{ prefixIcon() }}</mat-icon>
     }
 
     <input matInput [formControl]="formControl" [type]="type()" [readonly]="readonly()" [autocomplete]="autocomplete()"
         [attr.maxlength]="maxlength()" [attr.minlength]="minlength()" [attr.min]="min()" [attr.max]="max()"
         [attr.step]="step()" [attr.pattern]="pattern()">
 
-    @if (suffixIcon()) {
-    <mat-icon matSuffix>{{ suffixIcon() }}</mat-icon>
+    @if (clearable() && value()) {
+    <button mat-icon-button matSuffix (click)="clear($event)">
+        <mat-icon class="material-symbols-rounded">close</mat-icon>
+    </button>
+    } @else if (suffixIcon()) {
+    <mat-icon class="material-symbols-rounded" matSuffix>{{ suffixIcon() }}</mat-icon>
     }
 
     @if (hint() && !errorMessage()) {

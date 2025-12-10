@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../button/button';
 
 const meta: Meta<TableComponent> = {
   title: 'Atomos/Table',
@@ -33,6 +34,7 @@ const meta: Meta<TableComponent> = {
         MatInputModule,
         MatFormFieldModule,
         MatProgressSpinnerModule,
+        ButtonComponent,
       ],
     }),
   ],
@@ -183,7 +185,10 @@ export const LoadingState: Story = {
   render: args => ({
     props: args,
     template: `
-      <bds-table [columns]="columns" [data]="data" [config]="config"></bds-table>
+        <bds-button label="Simular loading" (action)="table.setLoading(true)"></bds-button>
+        <bds-button label="Cargar datos" (action)="table.updateData([])"></bds-button>
+
+        <bds-table #table [columns]="columns" [data]="data" [config]="config"></bds-table>
     `,
   }),
   args: {

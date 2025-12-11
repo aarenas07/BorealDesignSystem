@@ -115,6 +115,7 @@ export interface TableState<T = any> {
 })
 export class TableComponent<T = any> implements OnInit {
   @Input() columns: TableColumn<T>[] = [];
+  @Input() actions: TableAction<T>[] = [];
   @Input() config: TableConfig = {};
   @Input() expandedRowTemplate?: TemplateRef<any>;
   @Input() set data(value: T[]) {
@@ -124,7 +125,6 @@ export class TableComponent<T = any> implements OnInit {
       totalRecords: value.length,
     });
   }
-  @Input() actions: TableAction<T>[] = [];
   @Output() sortChange = new EventEmitter<Sort>();
   @Output() pageChange = new EventEmitter<PageEvent>();
   @Output() selectionChange = new EventEmitter<T[]>();

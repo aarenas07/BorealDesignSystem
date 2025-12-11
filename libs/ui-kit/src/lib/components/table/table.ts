@@ -14,7 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormsModule } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-
+import { ButtonComponent } from '../button/button';
 
 // ==================== INTERFACES ====================
 
@@ -78,7 +78,8 @@ export interface TableState<T = any> {
     MatInputModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
-    FormFieldComponent
+    FormFieldComponent,
+    ButtonComponent,
   ],
   animations: [
     trigger('detailExpand', [

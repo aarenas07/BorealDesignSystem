@@ -296,23 +296,9 @@ export class App {
   // Server-side Table Demo
   serverUsers: User[] = [];
   totalServerRecords = 100;
-  serverTableConfig: TableConfig = {
-    selectable: true,
-    expandable: false,
-    showGlobalFilter: true,
-    pageSizeOptions: [5, 10, 20],
-    defaultPageSize: 5,
-  };
 
   // Virtual Scroll Table Demo
   virtualUsers: User[] = [];
-  virtualTableConfig: TableConfig = {
-    selectable: true,
-    expandable: false,
-    showGlobalFilter: true,
-    density: 'compact',
-    stickyHeader: true,
-  };
 
   quickActions = [
     { label: 'Action 1', action: () => console.log('Action 1 clicked') },

@@ -24,11 +24,7 @@
   -webkit-font-feature-settings: 'liga';
   font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 .table-toolbar {
@@ -36,7 +32,6 @@
   display: flex;
   gap: 16px;
   align-items: center;
-  background: var(--mat-sys-surface-container);
   border-bottom: 1px solid #f0f0f0;
 }
 

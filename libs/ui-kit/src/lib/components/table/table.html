@@ -16,10 +16,7 @@
     @if (config.selectable && selection.hasValue()) {
     <div class="selection-info">
       <span>{{ selection.selected.length }} seleccionado(s)</span>
-      <button mat-button (click)="clearSelection()">
-        <mat-icon class="material-symbols-rounded">clear</mat-icon>
-        Limpiar selección
-      </button>
+      <bds-button label="Icon" variant="icon" icon="clear" (action)="clearSelection()"></bds-button>
     </div>
     }
   </div>
@@ -36,7 +33,7 @@
   <!-- Error State -->
   @if (state().error && !state().loading) {
   <div class="error-state">
-    <mat-icon class="material-symbols-rounded">error_outline</mat-icon>
+    <mat-icon>error_outline</mat-icon>
     <h3>Error al cargar datos</h3>
     <p>{{ state().error }}</p>
   </div>
@@ -45,7 +42,7 @@
   <!-- Empty State -->
   @if (!state().loading && !state().error && state().data.length === 0) {
   <div class="empty-state">
-    <mat-icon class="material-symbols-rounded">inbox</mat-icon>
+    <mat-icon>inbox</mat-icon>
     <h3>No hay datos disponibles</h3>
     <p>No se encontraron registros para mostrar</p>
   </div>
@@ -92,9 +89,7 @@
         <th mat-header-cell *matHeaderCellDef style="width: 48px"></th>
         <td mat-cell *matCellDef="let row">
           <button mat-icon-button (click)="toggleExpandRow(row); $event.stopPropagation()" [attr.aria-label]="'Expandir fila'">
-            <mat-icon class="material-symbols-rounded" [@rotateIcon]="expandedRow === row ? 'expanded' : 'collapsed'">
-              expand_more
-            </mat-icon>
+            <mat-icon [@rotateIcon]="expandedRow === row ? 'expanded' : 'collapsed'"> expand_more </mat-icon>
           </button>
         </td>
       </ng-container>

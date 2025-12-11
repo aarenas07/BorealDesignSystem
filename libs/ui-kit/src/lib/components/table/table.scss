@@ -32,6 +32,7 @@
   display: flex;
   gap: 16px;
   align-items: center;
+  background: var(--mat-sys-surface-container);
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -72,7 +73,7 @@ table {
 .mat-mdc-header-cell {
   font-weight: 500; // Ant Design uses regular/medium weight for headers
   color: rgba(0, 0, 0, 0.88) !important; // Ant Design primary text color
-  background-color: #fafafa !important; // Ant Design header background
+  //background-color: #fafafa !important; // Ant Design header background
   border-bottom: 1px solid #f0f0f0 !important;
 }
 
@@ -85,11 +86,11 @@ table {
   position: sticky;
   left: 0;
   z-index: 2;
-  background: var(--mat-sys-surface);
+  //background: var(--mat-sys-surface);
 
   &.mat-mdc-header-cell {
     z-index: 3;
-    background: #fafafa !important;
+    //background: #fafafa !important;
   }
 }
 
@@ -199,7 +200,8 @@ table {
     background-color: var(--mat-sys-surface-container);
   }
 }
-
+/* 
 .mat-mdc-header-row {
   background-color: var(--mat-sys-surface-container-low);
 }
+ */

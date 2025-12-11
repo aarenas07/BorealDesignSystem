@@ -5,8 +5,10 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
+    "lib:build": "npx nx build ui-kit",
     "test": "nx test",
-    "storybook": "nx storybook ui-kit"
+    "storybook": "nx storybook ui-kit",
+    "storybook:build": "npx nx build-storybook ui-kit"
   },
   "private": true,
   "dependencies": {

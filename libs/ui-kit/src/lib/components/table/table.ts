@@ -124,17 +124,7 @@ export class TableComponent<T = any> implements OnInit {
       totalRecords: value.length,
     });
   }
-  //@Input() actions: TableAction<T>[] = [];
-  @Input() set actions(value: TableAction<T>[]) {
-    if (value.length > 4) {
-      console.warn('Se recomienda no usar más de 3 acciones por fila para mantener una buena experiencia de usuario.');
-      console.log(value.slice(0, 4));
-      this._actions = value.slice(0, 4);
-    } else {
-      this._actions = value;
-    }
-  }
-
+  @Input() actions: TableAction<T>[] = [];
   @Output() sortChange = new EventEmitter<Sort>();
   @Output() pageChange = new EventEmitter<PageEvent>();
   @Output() selectionChange = new EventEmitter<T[]>();
@@ -144,7 +134,6 @@ export class TableComponent<T = any> implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  private _actions: TableAction<T>[] = [];
   dataSource = new MatTableDataSource<T>();
   selection = new SelectionModel<T>(true, []);
   expandedRow: T | null = null;
@@ -282,9 +271,5 @@ export class TableComponent<T = any> implements OnInit {
 
   getSelectedRows(): T[] {
     return this.selection.selected;
-  }
-
-  get actions(): TableAction<T>[] {
-    return this._actions;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, OnInit, TemplateRef, signal, computed } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, OnInit, TemplateRef, signal, computed, input } from '@angular/core';
 import { FormFieldComponent } from '../form-field/form-field';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -14,7 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormsModule } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-
+import { ButtonComponent } from '../button/button';
 
 // ==================== INTERFACES ====================
 
@@ -78,7 +78,8 @@ export interface TableState<T = any> {
     MatInputModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
-    FormFieldComponent
+    FormFieldComponent,
+    ButtonComponent,
   ],
   animations: [
     trigger('detailExpand', [
@@ -124,7 +125,6 @@ export class TableComponent<T = any> implements OnInit {
       totalRecords: value.length,
     });
   }
-
   @Output() sortChange = new EventEmitter<Sort>();
   @Output() pageChange = new EventEmitter<PageEvent>();
   @Output() selectionChange = new EventEmitter<T[]>();

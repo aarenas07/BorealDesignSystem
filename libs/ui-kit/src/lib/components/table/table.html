@@ -1,6 +1,7 @@
 <div class="generic-table-container" [attr.data-density]="config.density || 'comfortable'">
   <!-- Global Filter -->
-  <div class="table-toolbar" *ngIf="config.showGlobalFilter">
+  @if (config.showGlobalFilter) {
+  <div class="table-toolbar">
     <bds-form-field
       class="global-filter"
       [label]="'Buscar en toda la tabla'"
@@ -15,13 +16,11 @@
     @if (config.selectable && selection.hasValue()) {
     <div class="selection-info">
       <span>{{ selection.selected.length }} seleccionado(s)</span>
-      <button mat-button (click)="clearSelection()">
-        <mat-icon class="material-symbols-rounded">clear</mat-icon>
-        Limpiar selección
-      </button>
+      <bds-button label="Icon" variant="icon" icon="clear" (action)="clearSelection()"></bds-button>
     </div>
     }
   </div>
+  }
 
   <!-- Loading State -->
   @if (state().loading) {
@@ -34,7 +33,7 @@
   <!-- Error State -->
   @if (state().error && !state().loading) {
   <div class="error-state">
-    <mat-icon class="material-symbols-rounded">error_outline</mat-icon>
+    <mat-icon>error_outline</mat-icon>
     <h3>Error al cargar datos</h3>
     <p>{{ state().error }}</p>
   </div>
@@ -43,7 +42,7 @@
   <!-- Empty State -->
   @if (!state().loading && !state().error && state().data.length === 0) {
   <div class="empty-state">
-    <mat-icon class="material-symbols-rounded">inbox</mat-icon>
+    <mat-icon>inbox</mat-icon>
     <h3>No hay datos disponibles</h3>
     <p>No se encontraron registros para mostrar</p>
   </div>
@@ -90,9 +89,7 @@
         <th mat-header-cell *matHeaderCellDef style="width: 48px"></th>
         <td mat-cell *matCellDef="let row">
           <button mat-icon-button (click)="toggleExpandRow(row); $event.stopPropagation()" [attr.aria-label]="'Expandir fila'">
-            <mat-icon class="material-symbols-rounded" [@rotateIcon]="expandedRow === row ? 'expanded' : 'collapsed'">
-              expand_more
-            </mat-icon>
+            <mat-icon [@rotateIcon]="expandedRow === row ? 'expanded' : 'collapsed'"> expand_more </mat-icon>
           </button>
         </td>
       </ng-container>
@@ -125,28 +122,46 @@
         <th mat-header-cell *matHeaderCellDef class="actions-column">Acciones</th>
         <td mat-cell *matCellDef="let row" class="actions-column">
           <div class="action-buttons">
-            @for (action of getVisibleActions(row).slice(0, 3); track action.label) {
-            <button
-              mat-icon-button
-              [color]="action.color || 'primary'"
+            @if(getVisibleActions(row).length <= 3){
+            <!-- Maximo 3 botones de acción visibles -->
+            @for (action of getVisibleActions(row).slice(0,3); track action.label) {
+            <bds-button
+              label="Icon"
+              variant="icon"
+              size="md"
+              [icon]="action.icon"
               [disabled]="isActionDisabled(action, row)"
-              (click)="onActionClick(action, row, $event)"
-            >
-              <mat-icon class="material-symbols-rounded">{{ action.icon }}</mat-icon>
-            </button>
-            } @if (getVisibleActions(row).length > 3) {
+              (action)="onActionClick(action, row, $event)"
+            ></bds-button>
+            } }
+            <!-- Solo se mostrarán 3 iconos siempre incluido el dropdown -->
+            @else{
+            <!-- Maximo de 2 botones de acción visibles, el resto en un menú desplegable -->
+            @for (action of getVisibleActions(row).slice(0,2); track action.label) {
+            <bds-button
+              label="Icon"
+              variant="icon"
+              size="md"
+              [icon]="action.icon"
+              [disabled]="isActionDisabled(action, row)"
+              (action)="onActionClick(action, row, $event)"
+            ></bds-button>
+            }
+
+            <!-- El resto en un menú desplegable -->
+            @if (getVisibleActions(row).length > 3) {
             <button mat-icon-button [matMenuTriggerFor]="moreMenu">
               <mat-icon class="material-symbols-rounded">more_vert</mat-icon>
             </button>
             <mat-menu #moreMenu="matMenu">
-              @for (action of getVisibleActions(row).slice(3); track action.label) {
+              @for (action of getVisibleActions(row).slice(2); track action.label) {
               <button mat-menu-item [disabled]="isActionDisabled(action, row)" (click)="onActionClick(action, row, $event)">
                 <mat-icon class="material-symbols-rounded">{{ action.icon }}</mat-icon>
                 <span>{{ action.label }}</span>
               </button>
               }
             </mat-menu>
-            }
+            } }
           </div>
         </td>
       </ng-container>

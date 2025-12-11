@@ -24,11 +24,7 @@
   -webkit-font-feature-settings: 'liga';
   font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 .table-toolbar {
@@ -77,7 +73,6 @@ table {
 .mat-mdc-header-cell {
   font-weight: 500; // Ant Design uses regular/medium weight for headers
   color: rgba(0, 0, 0, 0.88) !important; // Ant Design primary text color
-  background-color: #fafafa !important; // Ant Design header background
   border-bottom: 1px solid #f0f0f0 !important;
 }
 
@@ -90,11 +85,9 @@ table {
   position: sticky;
   left: 0;
   z-index: 2;
-  background: var(--mat-sys-surface);
 
   &.mat-mdc-header-cell {
     z-index: 3;
-    background: #fafafa !important;
   }
 }
 
@@ -203,8 +196,4 @@ table {
   &:hover {
     background-color: var(--mat-sys-surface-container);
   }
-}
-
-.mat-mdc-header-row {
-  background-color: var(--mat-sys-surface-container-low);
 }

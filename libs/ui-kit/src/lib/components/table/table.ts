@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, OnInit, TemplateRef, signal, computed } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, OnInit, TemplateRef, signal, computed, input } from '@angular/core';
 import { FormFieldComponent } from '../form-field/form-field';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -115,7 +115,6 @@ export interface TableState<T = any> {
 })
 export class TableComponent<T = any> implements OnInit {
   @Input() columns: TableColumn<T>[] = [];
-  @Input() actions: TableAction<T>[] = [];
   @Input() config: TableConfig = {};
   @Input() expandedRowTemplate?: TemplateRef<any>;
   @Input() set data(value: T[]) {
@@ -124,6 +123,16 @@ export class TableComponent<T = any> implements OnInit {
       data: value,
       totalRecords: value.length,
     });
+  }
+  //@Input() actions: TableAction<T>[] = [];
+  @Input() set actions(value: TableAction<T>[]) {
+    if (value.length > 4) {
+      console.warn('Se recomienda no usar más de 3 acciones por fila para mantener una buena experiencia de usuario.');
+      console.log(value.slice(0, 4));
+      this._actions = value.slice(0, 4);
+    } else {
+      this._actions = value;
+    }
   }
 
   @Output() sortChange = new EventEmitter<Sort>();
@@ -135,6 +144,7 @@ export class TableComponent<T = any> implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  private _actions: TableAction<T>[] = [];
   dataSource = new MatTableDataSource<T>();
   selection = new SelectionModel<T>(true, []);
   expandedRow: T | null = null;
@@ -272,5 +282,9 @@ export class TableComponent<T = any> implements OnInit {
 
   getSelectedRows(): T[] {
     return this.selection.selected;
+  }
+
+  get actions(): TableAction<T>[] {
+    return this._actions;
   }
 }

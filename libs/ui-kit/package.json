@@ -1,6 +1,6 @@
 {
   "name": "@ada-lib/ui-kit",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Librería de componentes UI para ADA Enterprise",
   "main": "./index.js",
   "typings": "./index.d.ts",
@@ -11,7 +11,12 @@
     "@angular/material": "^20.0.0",
     "@angular/cdk": "^20.0.0"
   },
-  "keywords": ["angular", "ui-kit", "components", "ada"],
+  "keywords": [
+    "angular",
+    "ui-kit",
+    "components",
+    "ada"
+  ],
   "author": "Tu nombre o empresa",
   "license": "MIT",
   "publishConfig": {

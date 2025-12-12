@@ -4,7 +4,7 @@ import { SideSheetsComponent, SideSheetPosition, SideSheetSize } from './side-sh
 import { ButtonComponent } from '../button/button';
 
 const meta: Meta<SideSheetsComponent> = {
-  title: 'Molecules/SideSheets',
+  title: 'Modal/SideSheets',
   component: SideSheetsComponent,
   tags: ['autodocs'],
   decorators: [

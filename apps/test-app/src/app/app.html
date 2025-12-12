@@ -13,6 +13,9 @@
       <bds-button label="Filled" variant="filled" size="md" (action)="handleAction($event)"></bds-button>
       <bds-button label="Outlined" variant="outlined" size="md" (action)="handleAction($event)"></bds-button>
       <bds-button label="Icon" variant="icon" icon="favorite" size="md" (action)="handleAction($event)"></bds-button>
+      <bds-button label="Disabled" variant="filled" size="md" [disabled]="true"></bds-button>
+      <bds-button label="Icon" variant="elevated" icon="favorite" size="md"
+        (action)="handleAction($event)"></bds-button>
     </div>
   </section>
 
@@ -21,7 +24,8 @@
     <h2>Cards - Componente Personalizado</h2>
 
     <h3>Variantes de Elevación</h3>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
       <bds-card elevation="flat" size="md">
         <mat-card-title card-title>Card Flat</mat-card-title>
         <mat-card-subtitle card-subtitle>Sin sombra, con borde sutil</mat-card-subtitle>
@@ -57,7 +61,8 @@
     </div>
 
     <h3>Variantes de Tamaño</h3>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px">
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px">
       <bds-card elevation="raised" size="sm">
         <mat-card-title card-title>Card Pequeña</mat-card-title>
         <div card-content>
@@ -90,7 +95,8 @@
     </div>
 
     <h3>Card Clickeable</h3>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
       <bds-card elevation="raised" size="md" [clickable]="true">
         <mat-card-title card-title>Card Interactiva</mat-card-title>
         <mat-card-subtitle card-subtitle>Pasa el mouse para ver el efecto</mat-card-subtitle>
@@ -119,17 +125,9 @@
           <bds-button icon="add" label="Agregar Usuario" variant="filled" size="md" (action)="addUser()"></bds-button>
         </header>
 
-        <bds-table
-          [columns]="tableColumns"
-          [actions]="tableActions"
-          [config]="tableConfig"
-          [data]="users"
-          [expandedRowTemplate]="expandedRowTemplate"
-          (sortChange)="onSort($event)"
-          (pageChange)="onPageChange($event)"
-          (selectionChange)="onSelectionChange($event)"
-          (actionClick)="onActionClick($event)"
-        >
+        <bds-table [columns]="tableColumns" [actions]="tableActions" [config]="tableConfig" [data]="users"
+          [expandedRowTemplate]="expandedRowTemplate" (sortChange)="onSort($event)" (pageChange)="onPageChange($event)"
+          (selectionChange)="onSelectionChange($event)" (actionClick)="onActionClick($event)">
         </bds-table>
 
         <!-- Custom Templates -->
@@ -245,8 +243,7 @@
   </section>
 
   <section class="component-section">
-    <bds-side-bar
-      [sidebarData]="[
+    <bds-side-bar [sidebarData]="[
         {
           title: 'Main Menu',
           items: [
@@ -255,12 +252,8 @@
             { id: '3', label: 'Help', icon: 'help', url: '' }
           ]
         }
-      ]"
-      [userAvatar]="'a'"
-      [userName]="'John Doe'"
-      [quickActions]="quickActions"
-      (itemSelected)="onSidebarItemSelected($event)"
-    ></bds-side-bar>
+      ]" [userAvatar]="'a'" [userName]="'John Doe'" [quickActions]="quickActions"
+      (itemSelected)="onSidebarItemSelected($event)"></bds-side-bar>
   </section>
 
   <section class="component-section">
@@ -272,16 +265,20 @@
     <h2>Side Sheets</h2>
     <div class="demo-row">
       <!-- Side Sheets Multi-level -->
-      <bds-button label="Side Sheet Modal Multi-level" variant="filled" size="md" (action)="openSideSheetLevel()"></bds-button>
+      <bds-button label="Side Sheet Modal Multi-level" variant="filled" size="md"
+        (action)="openSideSheetLevel()"></bds-button>
 
       <!-- Side Sheets One -->
-      <bds-button label="Side Sheet Modal (start)" variant="filled" size="md" (action)="openSideSheetOne()"></bds-button>
+      <bds-button label="Side Sheet Modal (start)" variant="filled" size="md"
+        (action)="openSideSheetOne()"></bds-button>
 
       <!-- Side Sheets Two-->
-      <bds-button label="Side Sheet Modal (end)" variant="filled" size="md" (action)="openSideSheetThree()"></bds-button>
+      <bds-button label="Side Sheet Modal (end)" variant="filled" size="md"
+        (action)="openSideSheetThree()"></bds-button>
 
       <!-- Side Sheets Four-->
-      <bds-button label="Side Sheet standard (start)" variant="filled" size="md" (action)="openSideSheetFour()"></bds-button>
+      <bds-button label="Side Sheet standard (start)" variant="filled" size="md"
+        (action)="openSideSheetFour()"></bds-button>
     </div>
   </section>
 
@@ -289,16 +286,20 @@
   <bds-side-sheets position="start" [(open)]="isSideSheetOpenLevel" [modal]="true" [header]="'Multi-level'" size="lg">
     <div>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+        consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
+        quis dignissimos!
         Similique aut ratione facilis voluptas nostrum?
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
     </div>
@@ -320,16 +321,20 @@
   <bds-side-sheets position="start" [(open)]="isSideSheetOpenOne" [modal]="true" [header]="'Title 1'">
     <div>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+        consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
+        quis dignissimos!
         Similique aut ratione facilis voluptas nostrum?
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
     </div>
@@ -343,12 +348,15 @@
   <bds-side-sheets position="start" [(open)]="isSideSheetOpenTwo" [modal]="true" [header]="'Title 2'">
     <div>
       <p>
-        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+        consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
+        quis dignissimos!
         Similique aut ratione facilis voluptas nostrum?
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
     </div>
@@ -358,36 +366,45 @@
   <bds-side-sheets position="end" [(open)]="isSideSheetOpenThree" [modal]="true" [header]="'Title 3'">
     <div>
       <p>
-        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
+        consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
+        quis dignissimos!
         Similique aut ratione facilis voluptas nostrum?
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
     </div>
@@ -402,11 +419,13 @@
   <bds-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
     <div>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
+        debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
     </div>
@@ -441,10 +460,61 @@
     </div>
   </section>
 
+  <!-- Alert Section -->
   <section class="component-section">
     <bds-alert variant="info" title="Información" message="Este es un alerta de información."></bds-alert>
     <bds-alert variant="success" title="Información" message="Este es un alerta de información."></bds-alert>
     <bds-alert variant="warning" title="Información" message="Este es un alerta de información."></bds-alert>
     <bds-alert variant="error" title="Información" message="Este es un alerta de información."></bds-alert>
+  </section>
+
+  <!-- Textarea Section -->
+  <section class="component-section">
+    <h2>Textarea</h2>
+    <div class="demo-row">
+      <!-- Textarea  -->
+      <bds-textarea label="standard"></bds-textarea>
+      <bds-textarea label="required" [required]="true"></bds-textarea>
+      <bds-textarea label="hint" [hint]="'Texto de ayuda'"></bds-textarea>
+      <bds-textarea label="customError" [customError]="errorCustomTextarea()"
+        (valueChange)="onTextareaInput($event)"></bds-textarea>
+      <bds-textarea label="clearable" [clearable]="true" [value]="'clearable'"></bds-textarea>
+      <bds-textarea label="fullWidth" [fullWidth]="true"></bds-textarea>
+      <bds-textarea label="disabled" [disabled]="true"></bds-textarea>
+      <bds-textarea label="readonly" [readonly]="true"></bds-textarea>
+      <bds-textarea label="maxlength 10" [maxlength]="10"></bds-textarea>
+      <bds-textarea label="rows 1" [rows]="1"></bds-textarea>
+      <bds-textarea label="rows 2" [rows]="2"></bds-textarea>
+      <bds-textarea label="cols 30" [cols]="30"></bds-textarea>
+      <bds-textarea label="pattern" [pattern]="'^[a-zA-Z0-9]*$'"></bds-textarea>
+      <bds-textarea label="prefixIcon" [prefixIcon]="'home'"></bds-textarea>
+      <bds-textarea label="suffixIcon" [suffixIcon]="'home'"></bds-textarea>
+      <bds-textarea label="Variante Rellena" [appearance]="'fill'"></bds-textarea>
+      <bds-textarea label="value" [value]="'test'"></bds-textarea>
+    </div>
+  </section>
+
+  <!-- Form field Section -->
+  <section class="component-section">
+    <h2>Form field </h2>
+    <div class="demo-row">
+      <bds-form-field [label]="'standar'" [placeholder]="'Placeholder'"></bds-form-field>
+      <bds-form-field [label]="'email'" [placeholder]="'example@example.com'" [type]="'email'"
+        prefixIcon="email"></bds-form-field>
+      <bds-form-field [label]="'password'" [type]="'password'" suffixIcon="visibility"></bds-form-field>
+      <bds-form-field [label]="'number'" [type]="'number'" min="0" max="120" prefixIcon="cake"></bds-form-field>
+      <bds-form-field [label]="'Variante Rellena'" appearance="fill"></bds-form-field>
+      <bds-form-field [label]="'Hint'" [hint]="'Texto de ayuda'"></bds-form-field>
+      <bds-form-field [label]="'readonly'" [readonly]="true" [value]="'test'"></bds-form-field>
+      <bds-form-field [label]="'disabled'" [disabled]="true" [value]="'test'"></bds-form-field>
+      <bds-form-field [label]="'required'" [required]="true"></bds-form-field>
+      <bds-form-field [label]="'fullWidth'" [fullWidth]="true"></bds-form-field>
+      <bds-form-field [label]="'clearable'" [clearable]="true" [value]="'test'"></bds-form-field>
+      <bds-form-field [label]="'value'" [value]="'test'"></bds-form-field>
+      <bds-form-field [label]="'prefixIcon'" prefixIcon="home"></bds-form-field>
+      <bds-form-field [label]="'suffixIcon'" suffixIcon="home"></bds-form-field>
+      <bds-form-field label="customError" [customError]="errorCustomFormField()"
+        (valueChange)="onFormFieldInput($event)"></bds-form-field>
+    </div>
   </section>
 </main>

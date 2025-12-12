@@ -25,6 +25,8 @@ import {
   AlertComponent,
   BreadcrumbComponent,
   MenuItem,
+  TextareaComponent,
+  FormFieldComponent,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -60,6 +62,8 @@ interface User {
     SideSheetsComponent,
     AlertComponent,
     BreadcrumbComponent,
+    TextareaComponent,
+    FormFieldComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -304,6 +308,10 @@ export class App {
     { label: 'Action 1', action: () => console.log('Action 1 clicked') },
     { label: 'Action 2', action: () => console.log('Action 2 clicked') },
   ];
+
+  // Textarea
+  errorCustomTextarea = signal<string>('');
+  errorCustomFormField = signal<string>('');
 
   ngOnInit() {
     this.setupTableColumns();
@@ -622,5 +630,27 @@ export class App {
 
   closeSideSheetFour() {
     this.isSideSheetOpenFour = false;
+  }
+
+  /**
+   * Textarea
+   */
+  onTextareaInput(event: string) {
+    if (event === 'error') {
+      this.errorCustomTextarea.set('Error personalizado');
+      return;
+    }
+    this.errorCustomTextarea.set('');
+  }
+
+  /**
+   * formField
+   */
+  onFormFieldInput(event: string) {
+    if (event === 'error') {
+      this.errorCustomFormField.set('Error personalizado');
+      return;
+    }
+    this.errorCustomFormField.set('');
   }
 }

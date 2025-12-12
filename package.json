@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve",
+    "start": "npx nx serve test-app",
+    "start:app": "npx nx serve test-app",
+    "start:app:open": "npx nx serve test-app --open",
     "build": "nx build",
     "lib:build": "npx nx build ui-kit",
     "test": "nx test",

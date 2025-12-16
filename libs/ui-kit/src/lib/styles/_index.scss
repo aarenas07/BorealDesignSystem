@@ -1,7 +1,0 @@
-// 1. PRIMERO: Exponemos el tema SASS de Angular Material
-// Esto debe ir primero porque @forward debe estar antes que @import
-@forward 'theme';
-
-// 2. SEGUNDO: Usamos las variables CSS del sistema de diseño personalizado
-// Cambiamos @import por @use para evitar el error de @forward
-@use './sicoferp-theme/theme.scss';

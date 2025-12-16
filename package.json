@@ -7,7 +7,10 @@
     "start:app": "npx nx serve test-app",
     "start:app:open": "npx nx serve test-app --open",
     "build": "nx build",
-    "lib:build": "npx nx build ui-kit",
+    "build:lib": "npx nx build ui-kit",
+    "build:lib:post": "nx run ui-kit:post-build",
+    "build:post": "node libs/ui-kit/scripts/post-build.js",
+    "rm:dist": "rm -rf dist/libs",
     "test": "nx test",
     "storybook": "nx storybook ui-kit",
     "storybook:build": "npx nx build-storybook ui-kit"

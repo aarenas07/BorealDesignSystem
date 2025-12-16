@@ -354,7 +354,19 @@ export class ThemeSwitcherComponent {
 
   toggleTheme() {
     this.isDark = !this.isDark;
-    this.themeService.setTheme(this.isDark ? 'dark' : 'light');
+    this.themeService.setTheme(
+      this.isDark
+        ? {
+            id: 'sicof-light',
+            name: 'Sicof Light',
+            className: 'sicof-theme-light',
+          }
+        : {
+            id: 'sicof-dark',
+            name: 'Sicof Dark',
+            className: 'sicof-theme-dark',
+          }
+    );
   }
 }
 ```

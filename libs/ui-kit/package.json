@@ -1,10 +1,17 @@
 {
   "name": "@ada-lib/ui-kit",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Librería de componentes UI para ADA Enterprise",
   "main": "./index.js",
   "typings": "./index.d.ts",
   "type": "commonjs",
+  "exports": {
+    "./styles": "./src/lib/styles/_index.scss",
+    "./styles/theme": "./src/lib/styles/_theme.scss",
+    "./styles/variables": "./src/lib/styles/_variables.scss",
+    "./styles/palettes": "./src/lib/styles/_palettes.scss",
+    "./styles/full": "./src/lib/styles/styles.scss"
+  },
   "peerDependencies": {
     "@angular/common": "^20.0.0",
     "@angular/core": "^20.0.0",

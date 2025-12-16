@@ -22,6 +22,13 @@
       },
       "defaultConfiguration": "production"
     },
+    "post-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node libs/ui-kit/scripts/post-build.js"
+      },
+      "dependsOn": ["build"]
+    },
     "publish": {
       "executor": "nx:run-commands",
       "options": {

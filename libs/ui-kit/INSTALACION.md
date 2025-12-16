@@ -32,37 +32,211 @@ O especifica la URL directamente en `package.json`:
 
 ## 🎨 Configuración de Estilos
 
-### Opción 1: Importación Global (Recomendado)
+### Importación Global
 
 Importa los estilos en el archivo `styles.scss` principal de tu proyecto:
 
 ```scss
 // src/styles.scss
 
+// Importa el tema de material
+@use '@angular/material' as mat;
+
 // Importa el tema completo con todas las variables CSS
-@use '@ada-lib/ui-kit/styles';
+@use '@ada-lib/ui-kit/styles/full' as sicof-theme;
 
 // O importa solo lo que necesites:
 // @use '@ada-lib/ui-kit/styles/theme';
 // @use '@ada-lib/ui-kit/styles/variables';
+
+html {
+  /* Apply Angular Material theme with custom settings */
+  @include mat.theme(
+    (
+      color: mat.$violet-palette,
+      /* Use violet color palette */ typography: Roboto,
+      /* Set typography to Roboto */ density: 0 /* Set density to 0 for default spacing */,
+    )
+  );
+
+  /* Define styles for light theme */
+  &.theme-light {
+    color-scheme: light;
+  }
+
+  /* Define styles for dark theme */
+  &.theme-dark {
+    color-scheme: dark;
+  }
+
+  /* Custom Sicof Themes - Choose the one that fits your project */
+  &.sicof-theme-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$light-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-light-medium-contrast {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$light-medium-contrast-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-light-high-contrast {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$light-high-contrast-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-dark {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$dark-scheme);
+    color-scheme: dark;
+  }
+
+  &.sicof-theme-dark-medium-contrast {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$dark-medium-contrast-scheme);
+    color-scheme: dark;
+  }
+
+  &.sicof-theme-dark-high-contrast {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$dark-high-contrast-scheme);
+    color-scheme: dark;
+  }
+
+  &.sicof-theme-red-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$red-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-orange-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$orange-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-yellow-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$yellow-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-green-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$green-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-blue-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$blue-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-chartreuse-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$chartreuse-lt-scheme);
+    color-scheme: light;
+  }
+
+  &.sicof-theme-cyan-light {
+    @include sicof-theme.apply-sys-variables(sicof-theme.$cyan-lt-scheme);
+    color-scheme: light;
+  }
+}
 ```
 
-### Opción 2: Configuración en angular.json
+### Listado de Themes Actuales
 
-Agrega los estilos en la configuración de tu proyecto:
+```typescript
+export type ITheme = {
+    id: TThemeId;
+    name: string;
+    className: string;
+};
 
-```json
-{
-  "projects": {
-    "tu-proyecto": {
-      "architect": {
-        "build": {
-          "options": {
-            "styles": ["src/styles.scss", "node_modules/@ada-lib/ui-kit/src/lib/styles/_index.scss"]
-          }
-        }
-      }
+themes: ITheme[] = [
+    {
+        id: 'sicof-light',
+        name: 'Sicof Light',
+        className: 'sicof-theme-light',
+    },
+    {
+        id: 'sicof-light-medium',
+        name: 'Sicof Light Med',
+        className: 'sicof-theme-light-medium-contrast',
+    },
+    {
+        id: 'sicof-light-high',
+        name: 'Sicof Light High',
+        className: 'sicof-theme-light-high-contrast',
+    },
+    {
+        id: 'sicof-dark',
+        name: 'Sicof Dark',
+        className: 'sicof-theme-dark',
+    },
+    {
+        id: 'sicof-dark-medium',
+        name: 'Sicof Dark Med',
+        className: 'sicof-theme-dark-medium-contrast',
+    },
+    {
+        id: 'sicof-dark-high',
+        name: 'Sicof Dark High',
+        className: 'sicof-theme-dark-high-contrast',
+    },
+    {
+        id: 'sicof-red-lt',
+        name: 'Sicof Red Light',
+        className: 'sicof-theme-red-light',
+    },
+    {
+        id: 'sicof-orange-lt',
+        name: 'Sicof Orange Light',
+        className: 'sicof-theme-orange-light',
+    },
+    {
+        id: 'sicof-yellow-lt',
+        name: 'Sicof Yellow Light',
+        className: 'sicof-theme-yellow-light',
+    },
+    {
+        id: 'sicof-green-lt',
+        name: 'Sicof Green Light',
+        className: 'sicof-theme-green-light',
+    },
+    {
+        id: 'sicof-blue-lt',
+        name: 'Sicof Blue Light',
+        className: 'sicof-theme-blue-light',
+    },
+    {
+        id: 'sicof-chartreuse-lt',
+        name: 'Sicof Chartreuse Light',
+        className: 'sicof-theme-chartreuse-light',
+    },
+    {
+        id: 'sicof-cyan-lt',
+        name: 'Sicof Cyan Light',
+        className: 'sicof-theme-cyan-light',
     }
+];
+```
+
+### Implementación en el App.ts
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ThemeService } from '@ada-lib/ui-kit';
+
+@Component({
+  selector: 'app-root',
+  imports: [],
+  templateUrl: './app.html',
+  styleUrl: './app.scss',
+})
+export class App {
+  private readonly themeService: ThemeService = inject(ThemeService);
+
+  constructor() {
+    this.themeService.setTheme({
+      id: 'sicof-light',
+      name: 'Sicof Light',
+      className: 'sicof-theme-light',
+    });
   }
 }
 ```
@@ -199,7 +373,7 @@ export class ThemeSwitcherComponent {
 
 Esto indica que la librería no está correctamente instalada o el `package.json` no tiene los exports configurados. Asegúrate de:
 
-1. Usar la versión **2.1.1 o superior** de `@ada-lib/ui-kit`
+1. Usar la versión **2.1.8 o superior** de `@ada-lib/ui-kit`
 2. Reinstalar la librería: `npm install`
 3. Verificar que `node_modules/@ada-lib/ui-kit/package.json` tenga el campo `exports`
 

@@ -23,7 +23,7 @@ O especifica la URL directamente en `package.json`:
 ```json
 {
   "dependencies": {
-    "@ada-lib/ui-kit": "http://10.1.40.130:8081/repository/npm-hosted/@ada-lib/ui-kit/-/ui-kit-2.1.1.tgz"
+    "@ada-lib/ui-kit": "http://10.1.40.130:8081/repository/npm-hosted/@ada-lib/ui-kit/-/ui-kit-2.1.8.tgz"
   }
 }
 ```

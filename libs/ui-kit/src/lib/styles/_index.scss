@@ -1,7 +1,12 @@
-// 1. PRIMERO: Exponemos el tema SASS de Angular Material
-// Esto debe ir primero porque @forward debe estar antes que @import
+// Punto ÚNICO de entrada para temas y variables de la librería UI-Kit
+// Importa SIEMPRE este archivo para garantizar que tienes tanto el mixin de tema como las variables CSS
+
+// 1. Variables y tokens del sistema de diseño (CSS Custom Properties)
+@use './sicoferp-theme/theme.scss';
+
+// 2. Mixin de tema Angular Material + mapping de variables
 @forward 'theme';
 
-// 2. SEGUNDO: Usamos las variables CSS del sistema de diseño personalizado
-// Cambiamos @import por @use para evitar el error de @forward
-@use './sicoferp-theme/theme.scss';
+// NOTA IMPORTANTE:
+// Si importas sólo _theme.scss, NO tendrás las variables CSS necesarias.
+// Siempre importa este archivo para un theming correcto.

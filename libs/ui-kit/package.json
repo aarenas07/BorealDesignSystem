@@ -22,5 +22,10 @@
   "publishConfig": {
     "registry": "https://tu-servidor-nexus.com/repository/npm-hosted/",
     "access": "restricted"
+  },
+  "exports": {
+    "./theming": {
+      "sass": "./src/lib/styles/_index.scss"
+    }
   }
 }

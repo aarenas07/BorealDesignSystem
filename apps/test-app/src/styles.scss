@@ -2,7 +2,6 @@
 @use '@angular/material' as mat;
 @use '../../../libs/ui-kit/src/lib/styles/styles.scss' as sicof-theme;
 
-
 /* Set the height of the html and body elements to 100% */
 html,
 body {
@@ -12,7 +11,7 @@ body {
 /* Define base styles for the body element */
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 /*
@@ -24,13 +23,13 @@ html {
   color-scheme: light dark;
 
   /* Apply Angular Material theme with custom settings */
-  @include mat.theme((color: mat.$violet-palette,
-      /* Use violet color palette */
-      typography: Roboto,
-      /* Set typography to Roboto */
-      density: 0
-      /* Set density to 0 for default spacing */
-    ));
+  @include mat.theme(
+    (
+      color: mat.$violet-palette,
+      /* Use violet color palette */ typography: Roboto,
+      /* Set typography to Roboto */ density: 0 /* Set density to 0 for default spacing */,
+    )
+  );
 
   /* Define styles for light theme */
   &.theme-light {

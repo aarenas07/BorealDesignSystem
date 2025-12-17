@@ -12,3 +12,4 @@ export * from './lib/components/table/table';
 export * from './lib/services/theme.service';
 export * from './lib/components/alert';
 export * from './lib/components/textarea/textarea';
+export * from './lib/components/datepicker/datepicker';

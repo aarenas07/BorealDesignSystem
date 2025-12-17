@@ -517,4 +517,28 @@
         (valueChange)="onFormFieldInput($event)"></bds-form-field>
     </div>
   </section>
+
+  <!-- Datepicker Section -->
+  <section class="component-section">
+    <h2>Datepicker </h2>
+    <div class="demo-row">
+      <bds-datepicker [label]="'standar'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'touchUi'" [touchUi]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'fullWidth'" [fullWidth]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'readonlyInput'" [readonlyInput]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'disabledInput'" [disabledInput]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'disabledPicker'" [disabledPicker]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'disabled[Input-Picker]'" [disabledInput]="true" [disabledPicker]="true"
+        [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'required'" [required]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'actions'" [actions]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'errorCustom'" [customError]="errorCustomDatepicker()"
+        (dateChange)="onDatepickerInput($event)" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'minDate'" [minDate]="minDate()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'maxDate'" [maxDate]="maxDate()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'range'" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'value'" (valueChange)="receiveDate($event)" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+
+    </div>
+  </section>
 </main>

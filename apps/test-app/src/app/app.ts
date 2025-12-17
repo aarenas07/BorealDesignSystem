@@ -27,6 +27,7 @@ import {
   MenuItem,
   TextareaComponent,
   FormFieldComponent,
+  DatepickerComponent,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -64,6 +65,7 @@ interface User {
     BreadcrumbComponent,
     TextareaComponent,
     FormFieldComponent,
+    DatepickerComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -312,6 +314,12 @@ export class App {
   // Textarea
   errorCustomTextarea = signal<string>('');
   errorCustomFormField = signal<string>('');
+
+  // Datepicker
+  minDate = signal<Date>(new Date(1990, 0, 1));
+  maxDate = signal<Date>(new Date(2027, 0, 1));
+  errorCustomDatepicker = signal<string>('');
+  valueDatepicker = signal<Date | null>(null);
 
   ngOnInit() {
     this.setupTableColumns();
@@ -652,5 +660,28 @@ export class App {
       return;
     }
     this.errorCustomFormField.set('');
+  }
+
+  onDatepickerInput(event: Date | null) {
+    console.log('onDatepickerInput: ', event);
+    if (!event) {
+      this.errorCustomDatepicker.set('');
+      return;
+    }
+    const date = new Date(event);
+    const day = date.getDate();
+    const currentDay = new Date().getDate();
+
+    if (day < currentDay) {
+      this.errorCustomDatepicker.set('Error personalizado');
+      return;
+    }
+
+    this.errorCustomDatepicker.set('');
+  }
+
+  receiveDate(event: Date | null) {
+    console.log('receiveDate: ', event);
+    this.valueDatepicker.set(event);
   }
 }

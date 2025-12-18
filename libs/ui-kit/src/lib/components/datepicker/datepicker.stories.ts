@@ -12,7 +12,6 @@ import { ButtonComponent } from '../button/button';
 const meta: Meta<DatepickerComponent> = {
   title: 'Atomos/Datepicker',
   component: DatepickerComponent,
-  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [MatDatepickerModule, MatInputModule, MatFormFieldModule, MatIconModule, RouterTestingModule, ButtonComponent],

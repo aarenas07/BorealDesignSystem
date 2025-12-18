@@ -523,6 +523,7 @@
     <h2>Datepicker standard</h2>
     <div class="demo-row">
       <bds-datepicker [placeholder]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [appearance]="'fill'" [placeholder]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [hint]="'MM/DD/YYYY'" [placeholder]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'standard'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'standard with placeholder'" [hint]="'MM/DD/YYYY'"
@@ -547,6 +548,8 @@
     <h2>Datepicker range</h2>
     <div class="demo-row">
       <bds-datepicker [label]="'standard range'" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'standard range'" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"
+        [appearance]="'fill'"></bds-datepicker>
       <bds-datepicker [label]="'touchUi range'" [rangeInputs]="true" [touchUi]="true"
         [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'fullWidth range'" [fullWidth]="true" [rangeInputs]="true"
@@ -563,7 +566,9 @@
         [nameButtonsCancel]="'Cancelar'" [nameButtonsApply]="'Aplicar'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'minDate & maxDate range'" [minDate]="minDate()" [maxDate]="maxDate()"
         [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'value range'" (valueChange)="receiveDate($event)" [rangeInputs]="true"
+      <bds-datepicker [label]="'value range'" [valueRange]="valueDatepickerRange()" [rangeInputs]="true"
+        [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'output value range'" (valueRangeChange)="receiveDateRange($event)" [rangeInputs]="true"
         [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'placeholder range'" [placeholderStartDate]="'Inicio'" [placeholderEndDate]="'Fin'"
         [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>

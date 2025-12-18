@@ -9,6 +9,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 
 export type DatepickerStartView = 'month' | 'year' | 'multi-year';
 export type DatepickerAppearance = 'fill' | 'outline';
+export type DatepickerRange = { start: Date | null; end: Date | null };
 
 @Component({
   selector: 'bds-datepicker',
@@ -50,6 +51,7 @@ export class DatepickerComponent {
 
   // Valor con two-way binding
   value = model<Date | null>(null);
+  valueRange = model<DatepickerRange>({ start: null, end: null });
 
   // Layout
   fullWidth = input<boolean>(false);
@@ -117,9 +119,23 @@ export class DatepickerComponent {
       }
     });
 
+    // Sincronizar el valor del FormControl con el model del rango
+    effect(() => {
+      const currentValueRange = this.valueRange();
+      if (this.rangeForm.value.start !== currentValueRange.start || this.rangeForm.value.end !== currentValueRange.end) {
+        this.rangeForm.setValue(currentValueRange, { emitEvent: false });
+      }
+    });
+
     // Sincronizar el model con el valor del FormControl
     this.formControl.valueChanges.subscribe(newValue => {
       this.value.set(newValue || null);
+    });
+
+    // Sincronizar el model con el valor del FormControl range
+    this.rangeForm.valueChanges.subscribe(newValue => {
+      const newValueRange = { start: newValue.start || null, end: newValue.end || null };
+      this.valueRange.set(newValueRange);
     });
 
     // Actualizar validadores cuando cambien los inputs
@@ -164,16 +180,5 @@ export class DatepickerComponent {
 
   _dateChange(event: MatDatepickerInputEvent<Date>) {
     this.dateChange.emit(event.value);
-  }
-
-  _dateInputRange(event: any) {
-    //this.dateInput.emit(event.value);
-    console.log('eventInputRange', event);
-    console.log('eventInputRange', this.rangeForm.value);
-  }
-
-  _dateChangeRange(event: any) {
-    //this.dateChange.emit(event.value);
-    console.log('eventChangeRange', event);
   }
 }

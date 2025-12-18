@@ -321,6 +321,7 @@ export class App {
   maxDate = signal<Date>(new Date(this._currentYear + 1, 11, 31));
   errorCustomDatepicker = signal<string>('');
   valueDatepicker = signal<Date | null>(null);
+  valueDatepickerRange = signal<{ start: Date | null; end: Date | null }>({ start: new Date(2025, 11, 1), end: new Date(2025, 11, 31) });
 
   ngOnInit() {
     this.setupTableColumns();
@@ -684,6 +685,10 @@ export class App {
   receiveDate(event: Date | null) {
     console.log('receiveDate: ', event);
     this.valueDatepicker.set(event);
+  }
+
+  receiveDateRange(event: any) {
+    console.log('receiveDateRange: ', event);
   }
 
   myFilter = (d: Date | null): boolean => {

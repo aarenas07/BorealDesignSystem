@@ -245,7 +245,7 @@ export const PickerButton: StoryObj<DatepickerComponent> = {
         ...args,
       },
       template: `
-          <bds-datepicker 
+        <bds-datepicker 
             #pickerRef 
             [label]="label" 
             [hint]="hint"
@@ -260,6 +260,68 @@ export const PickerButton: StoryObj<DatepickerComponent> = {
 export const RangeInputs: StoryObj<DatepickerComponent> = {
   args: {
     rangeInputs: true,
-    placeholder: 'MM/DD/YYYY',
+  },
+};
+
+export const RangeInputsPlaceholder: StoryObj<DatepickerComponent> = {
+  args: {
+    rangeInputs: true,
+    placeholderStartDate: 'Inicio',
+    placeholderEndDate: 'Fin',
+  },
+};
+
+export const RangeInputsDisabledPicker: StoryObj<DatepickerComponent> = {
+  args: {
+    rangeInputs: true,
+    disabledPicker: true,
+    placeholderStartDate: 'MM/DD/YYYY',
+    placeholderEndDate: 'MM/DD/YYYY',
+  },
+};
+
+export const RangeInputsDisabledInput: StoryObj<DatepickerComponent> = {
+  args: {
+    rangeInputs: true,
+    disabledInput: true,
+    placeholderStartDate: 'MM/DD/YYYY',
+    placeholderEndDate: 'MM/DD/YYYY',
+  },
+};
+
+export const RangeInputsActionButtons: StoryObj<DatepickerComponent> = {
+  args: {
+    rangeInputs: true,
+    actionButtons: true,
+    placeholderStartDate: 'Inicio',
+    placeholderEndDate: 'Fin',
+    nameButtonsCancel: 'Cancel',
+    nameButtonsApply: 'Ok',
+  },
+};
+
+export const RangeInputsPickerButton: StoryObj<DatepickerComponent> = {
+  args: {
+    rangeInputs: true,
+    hiddenPicker: true,
+    placeholderStartDate: 'MM/DD/YYYY',
+    placeholderEndDate: 'MM/DD/YYYY',
+  },
+  render: args => {
+    return {
+      props: {
+        ...args,
+      },
+      template: `
+        <bds-datepicker 
+          #pickerRangeRef 
+          [rangeInputs]="rangeInputs" 
+          [hiddenPicker]="hiddenPicker" 
+          [placeholderStartDate]="placeholderStartDate" 
+          [placeholderEndDate]="placeholderEndDate">
+        </bds-datepicker>
+        <bds-button label="Open Picker" (action)="pickerRangeRef.open()"></bds-button>
+        `,
+    };
   },
 };

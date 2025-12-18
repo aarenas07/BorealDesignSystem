@@ -40,9 +40,13 @@ export class DatepickerComponent {
   appearance = input<DatepickerAppearance>('outline');
   startView = input<DatepickerStartView>('month');
   startDate = input<Date | null>(null);
-  actions = input<boolean>(false);
   minDate = input<Date | null>(null);
   maxDate = input<Date | null>(null);
+
+  // Acciones con botones de acción
+  actionButtons = input<boolean>(false);
+  nameButtonsCancel = input<string>('Cancel');
+  nameButtonsApply = input<string>('Apply');
 
   // Valor con two-way binding
   value = model<Date | null>(null);
@@ -60,6 +64,9 @@ export class DatepickerComponent {
   // Mensajes
   hint = input<string>('');
   customError = input<string>('');
+  placeholder = input<string>('');
+  placeholderStartDate = input<string>('');
+  placeholderEndDate = input<string>('');
 
   // FormControl para manejar validaciones
   formControl = new FormControl<Date | null>(null);
@@ -90,10 +97,12 @@ export class DatepickerComponent {
     return 'Campo inválido';
   });
 
+  // disabilitar input y picker
   disabled = computed(() => this.disabledInput() && this.disabledPicker());
 
   // eventos
   events = signal<string[]>([]);
+  filter = input<(d: Date | null) => boolean>();
 
   // Salidas
   dateInput = output<Date | null>();
@@ -155,5 +164,16 @@ export class DatepickerComponent {
 
   _dateChange(event: MatDatepickerInputEvent<Date>) {
     this.dateChange.emit(event.value);
+  }
+
+  _dateInputRange(event: any) {
+    //this.dateInput.emit(event.value);
+    console.log('eventInputRange', event);
+    console.log('eventInputRange', this.rangeForm.value);
+  }
+
+  _dateChangeRange(event: any) {
+    //this.dateChange.emit(event.value);
+    console.log('eventChangeRange', event);
   }
 }

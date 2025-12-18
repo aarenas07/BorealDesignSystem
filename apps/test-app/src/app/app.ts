@@ -316,8 +316,9 @@ export class App {
   errorCustomFormField = signal<string>('');
 
   // Datepicker
-  minDate = signal<Date>(new Date(1990, 0, 1));
-  maxDate = signal<Date>(new Date(2027, 0, 1));
+  private readonly _currentYear = new Date().getFullYear();
+  minDate = signal<Date>(new Date(this._currentYear - 100, 0, 1));
+  maxDate = signal<Date>(new Date(this._currentYear + 1, 11, 31));
   errorCustomDatepicker = signal<string>('');
   valueDatepicker = signal<Date | null>(null);
 
@@ -684,4 +685,10 @@ export class App {
     console.log('receiveDate: ', event);
     this.valueDatepicker.set(event);
   }
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+  };
 }

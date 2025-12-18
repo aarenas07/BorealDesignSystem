@@ -1,6 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, model, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, model, output, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
-import { MatDatepickerInput, MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerInputEvent,
+  MatDatepickerModule,
+  MatDateRangePicker,
+} from '@angular/material/datepicker';
 import { MatError, MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -62,6 +68,7 @@ export class DatepickerComponent {
   disabledPicker = input<boolean>(false);
   required = input<boolean>(false);
   readonlyInput = input<boolean>(false);
+  hiddenPicker = input<boolean>(false);
 
   // Mensajes
   hint = input<string>('');
@@ -105,6 +112,12 @@ export class DatepickerComponent {
   // eventos
   events = signal<string[]>([]);
   filter = input<(d: Date | null) => boolean>();
+  picker = viewChild<MatDatepicker<Date> | MatDateRangePicker<Date>>('picker');
+
+  // Metodos publicos
+  open() {
+    this.picker()?.open();
+  }
 
   // Salidas
   dateInput = output<Date | null>();
@@ -172,6 +185,10 @@ export class DatepickerComponent {
     // Aplicar validadores
     this.formControl.setValidators(validators);
     this.formControl.updateValueAndValidity();
+
+    this.rangeForm.get('start')?.setValidators(validators);
+    this.rangeForm.get('end')?.setValidators(validators);
+    this.rangeForm.updateValueAndValidity();
   }
 
   _dateInput(event: MatDatepickerInputEvent<Date>) {

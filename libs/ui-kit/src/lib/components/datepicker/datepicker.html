@@ -17,8 +17,8 @@
     @if (hint() ) {
     <mat-hint>{{ hint() }}</mat-hint>
     }
-    <mat-datepicker-toggle matIconSuffix [for]="picker" matIconSuffix
-        [disabled]="disabledPicker()"></mat-datepicker-toggle>
+    <mat-datepicker-toggle matIconSuffix [for]="picker" matIconSuffix [disabled]="disabledPicker()"
+        [hidden]="hiddenPicker()"></mat-datepicker-toggle>
     <mat-date-range-picker #picker [touchUi]="touchUi()" [startView]="startView()" [startAt]="startDate()"
         [disabled]="disabled()">
         @if (actionButtons()) {
@@ -53,8 +53,9 @@
     @if (hint() ) {
     <mat-hint>{{ hint() }}</mat-hint>
     }
-    <mat-datepicker-toggle matIconSuffix [for]="picker" matIconSuffix
-        [disabled]="disabledPicker() "></mat-datepicker-toggle>
+
+    <mat-datepicker-toggle matIconSuffix [for]="picker" matIconSuffix [disabled]="disabledPicker()"
+        [hidden]="hiddenPicker()"></mat-datepicker-toggle>
     <mat-datepicker #picker [touchUi]="touchUi()" [startView]="startView()" [startAt]="startDate()"
         [disabled]="disabled()">
         @if (actionButtons()) {

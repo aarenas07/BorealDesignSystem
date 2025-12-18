@@ -535,14 +535,19 @@
       <bds-datepicker [label]="'disabled[Input-Picker]'" [disabledInput]="true" [disabledPicker]="true"
         [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'required'" [required]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'actions'" [actionButtons]="true" [nameButtonsCancel]="'Cancelar'"
-        [nameButtonsApply]="'Aplicar'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'actions'" [actionButtons]="true" [nameButtonsCancel]="'Cancel'"
+        [nameButtonsApply]="'OK'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'errorCustom'" [customError]="errorCustomDatepicker()"
         (dateChange)="onDatepickerInput($event)" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'minDate'" [minDate]="minDate()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'maxDate'" [maxDate]="maxDate()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'value'" (valueChange)="receiveDate($event)" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'filter'" [hint]="'MM/DD/YYYY'" [filter]="myFilter"></bds-datepicker>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <bds-datepicker #pickerRef [label]="'Programmatic Open'" [hiddenPicker]="true"
+          [hint]="'MM/DD/YYYY'"></bds-datepicker>
+        <bds-button label="Open Picker" (action)="pickerRef.open()"></bds-button>
+      </div>
     </div>
 
     <h2>Datepicker range</h2>
@@ -563,7 +568,7 @@
       <bds-datepicker [label]="'required range'" [required]="true" [rangeInputs]="true"
         [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'actions range'" [actionButtons]="true" [rangeInputs]="true"
-        [nameButtonsCancel]="'Cancelar'" [nameButtonsApply]="'Aplicar'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+        [nameButtonsCancel]="'Cancel'" [nameButtonsApply]="'OK'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'minDate & maxDate range'" [minDate]="minDate()" [maxDate]="maxDate()"
         [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'value range'" [valueRange]="valueDatepickerRange()" [rangeInputs]="true"
@@ -572,6 +577,11 @@
         [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'placeholder range'" [placeholderStartDate]="'Inicio'" [placeholderEndDate]="'Fin'"
         [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <bds-datepicker #pickerRefRange [label]="'Programmatic Open'" [hiddenPicker]="true" [rangeInputs]="true"
+          [hint]="'MM/DD/YYYY'"></bds-datepicker>
+        <bds-button label="Open Picker" (action)="pickerRefRange.open()"></bds-button>
+      </div>
     </div>
   </section>
 </main>

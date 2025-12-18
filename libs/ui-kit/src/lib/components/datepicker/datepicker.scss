@@ -1,4 +1,4 @@
-// Componente Form Field - Estilos usando Angular Material Design 3
+// Componente Datepicker - Estilos usando Angular Material Design 3
 
 :host {
   display: inline-block;
@@ -13,15 +13,11 @@
 
     mat-form-field {
       width: 100%;
-
-      textarea {
-        width: 100%;
-      }
     }
   }
 
   // ============================================
-  // FORM FIELD BASE
+  // DATEPICKER BASE
   // ============================================
 
   mat-form-field {

@@ -325,3 +325,27 @@ export const RangeInputsPickerButton: StoryObj<DatepickerComponent> = {
     };
   },
 };
+
+export const RangeInputsValueRange: StoryObj<DatepickerComponent> = {
+  args: {
+    rangeInputs: true,
+    placeholderStartDate: 'MM/DD/YYYY',
+    placeholderEndDate: 'MM/DD/YYYY',
+    valueRange: { start: new Date(2026, 0, 1), end: new Date(2026, 0, 1) },
+  },
+  render: args => {
+    return {
+      props: {
+        ...args,
+      },
+      template: `
+        <bds-datepicker 
+          [rangeInputs]="rangeInputs" 
+          [valueRange]="valueRange" 
+          [placeholderStartDate]="placeholderStartDate" 
+          [placeholderEndDate]="placeholderEndDate">
+        </bds-datepicker> 
+        `,
+    };
+  },
+};

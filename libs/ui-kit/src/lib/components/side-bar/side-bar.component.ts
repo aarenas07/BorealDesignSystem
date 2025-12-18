@@ -69,7 +69,7 @@ export class SideBarComponent {
   ) { }
 
   onMouseEnter() {
-    console.log('[Sidebar] onMouseEnter', { isPinned: this.isPinned, isExpanded: this.isExpanded });
+    // console.log('[Sidebar] onMouseEnter', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     if (!this.isPinned && !this.isExpanded && !this.hoveringExpandButton) {
       this.isExpanded = true;
       this.updateSidebarState();
@@ -77,7 +77,7 @@ export class SideBarComponent {
   }
 
   onMouseLeave() {
-    console.log('[Sidebar] onMouseLeave', { isPinned: this.isPinned, isExpanded: this.isExpanded });
+    // console.log('[Sidebar] onMouseLeave', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     if (!this.isPinned && this.isExpanded && !this.hoveringExpandButton) {
       this.isExpanded = false;
       this.updateSidebarState();
@@ -87,13 +87,13 @@ export class SideBarComponent {
   togglePin() {
     this.isPinned = !this.isPinned;
     this.isExpanded = this.isPinned;
-    console.log('[Sidebar] togglePin', { isPinned: this.isPinned, isExpanded: this.isExpanded });
+    // console.log('[Sidebar] togglePin', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     this.updateSidebarState();
   }
 
   private updateSidebarState() {
     const isClosed = !this.isExpanded && !this.isPinned;
-    console.log('[Sidebar] updateSidebarState', { isClosed, isExpanded: this.isExpanded, isPinned: this.isPinned });
+    // console.log('[Sidebar] updateSidebarState', { isClosed, isExpanded: this.isExpanded, isPinned: this.isPinned });
     this.sidebarStateService.setSidebarClosed(isClosed);
     this.cdr.detectChanges();
   }
@@ -101,7 +101,7 @@ export class SideBarComponent {
   // Expande el sidebar solo mientras se hace hover en el botón
   onExpandButtonHover() {
     this.hoveringExpandButton = true;
-    console.log('[Sidebar] onExpandButtonHover', { isPinned: this.isPinned, isExpanded: this.isExpanded });
+    // console.log('[Sidebar] onExpandButtonHover', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     if (!this.isPinned && !this.isExpanded) {
       this.isExpanded = true;
       this.updateSidebarState();
@@ -117,7 +117,7 @@ export class SideBarComponent {
   toggleExpand() {
     this.isPinned = !this.isPinned;
     this.isExpanded = this.isPinned;
-    console.log('[Sidebar] toggleExpand', { isPinned: this.isPinned, isExpanded: this.isExpanded });
+    // console.log('[Sidebar] toggleExpand', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     this.updateSidebarState();
   }
 

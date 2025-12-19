@@ -6,9 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 export type AutocompleteAppearance = 'fill' | 'outline';
 export type AutocompleteOption = {
-  value: string;
-  label: string;
-  icon?: string;
+  value: string | number;
+  label: string | number;
+  img?: string;
+  group?: AutocompleteOption[];
 };
 
 @Component({
@@ -65,30 +66,47 @@ export class AutocompleteComponent implements OnInit {
 
   filter(): void {
     const filterValue = this.input.nativeElement.value.toLowerCase();
-    console.log('filterValue: ', typeof filterValue);
+    console.log('filterValue: ', filterValue);
 
     if (!filterValue) {
+      console.log('No filterValue');
       this.filteredOptions.set(this.options());
       return;
     }
 
     if (!this.options().length) {
+      console.log('No options');
       this.filteredOptions.set([]);
       return;
     }
 
-    if (typeof filterValue === 'string') {
-      console.log('es string');
-      const search = this.options().filter(o => o.label.toLowerCase().includes(filterValue));
+    if (this.options()[0].group) {
+      console.log('filterValue is group');
+
+      let search = this.options();
+      search = search.filter(o => {
+        console.log(o.group);
+        if (o.group) {
+          o.group = o.group.filter(g => g.label.toString().toLowerCase().includes(filterValue));
+        }
+      });
       console.log('search: ', search);
       this.filteredOptions.set(search);
       return;
     }
 
+    if (typeof filterValue === 'string') {
+      console.log('filterValue is string');
+      const search = this.options().filter(o => o.label.toString().toLowerCase().includes(filterValue));
+      this.filteredOptions.set(search);
+      return;
+    }
+
+    console.log('filterValue is not string');
     this.filteredOptions.set([]);
   }
 
   displayFn(item: AutocompleteOption): string {
-    return item && item.label ? item.label : '';
+    return item && item.label ? item.label.toString() : '';
   }
 }

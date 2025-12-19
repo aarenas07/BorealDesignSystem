@@ -347,6 +347,36 @@ export class App {
     { label: 'Seven', value: 'seven' },
   ]);
 
+  optionsAutocompleteGroup = signal<AutocompleteOption[]>([
+    {
+      label: 'Verduras',
+      value: 'group1',
+      group: [
+        { label: 'Tomate', value: 'tomate' },
+        { label: 'Pimiento', value: 'pimiento' },
+        { label: 'num 1', value: 'num-1' },
+      ],
+    },
+    {
+      label: 'Frutas',
+      value: 'group2',
+      group: [
+        { label: 'Manzana', value: 'manzana' },
+        { label: 'Banana', value: 'banana' },
+        { label: 'num 2', value: 'num-2' },
+      ],
+    },
+    {
+      label: 'Carnes',
+      value: 'group3',
+      group: [
+        { label: 'Carne de res', value: 'carne-de-res' },
+        { label: 'Carne de pollo', value: 'carne-de-pollo' },
+        { label: 'num 3', value: 'num-3' },
+      ],
+    },
+  ]);
+
   ngOnInit() {
     this.setupTableColumns();
     this.setupTableActions();

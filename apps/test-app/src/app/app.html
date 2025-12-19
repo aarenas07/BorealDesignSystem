@@ -518,6 +518,15 @@
     </div>
   </section>
 
+  <section class="component-section">
+    <h2>Autocomplete</h2>
+    <div class="demo-row">
+      <!-- <bds-autocomplete [label]="'Empty'" [options]="[]"></bds-autocomplete> -->
+      <!-- <bds-autocomplete [label]="'Autocomplete'" [options]="optionsAutocomplete()"></bds-autocomplete> -->
+      <bds-autocomplete [label]="'Autocomplete Group'" [options]="optionsAutocompleteGroup()"></bds-autocomplete>
+    </div>
+  </section>
+
   <!-- Datepicker Section -->
   <section class="component-section">
     <h2>Datepicker standard</h2>
@@ -591,15 +600,4 @@
     </div>
   </section>
 
-  <section class="component-section">
-    <h2>Autocomplete</h2>
-    <div class="demo-row">
-      <bds-autocomplete [options]="optionsAutocomplete()"></bds-autocomplete>
-      <!--  <bds-autocomplete [options]="optionsAutocomplete()" [itemTemplate]="itemTemplate">
-        <ng-template #itemTemplate let-option>
-          <div>prueba: {{ option['label'] }}</div>
-        </ng-template>
-      </bds-autocomplete> -->
-    </div>
-  </section>
 </main>

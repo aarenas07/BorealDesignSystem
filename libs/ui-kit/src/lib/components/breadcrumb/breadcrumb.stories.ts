@@ -3,11 +3,11 @@ import { moduleMetadata } from '@storybook/angular';
 import { BreadcrumbComponent, MenuItem } from './breadcrumb';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
+import { expect } from '@storybook/test';
 
 const meta: Meta<BreadcrumbComponent> = {
   title: 'Navigation/Breadcrumb',
   component: BreadcrumbComponent,
-  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [RouterTestingModule, MatIconModule],

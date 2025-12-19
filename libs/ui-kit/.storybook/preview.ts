@@ -7,11 +7,14 @@ const preview: Preview = {
     applicationConfig({
       providers: [
         // Material necesita animaciones para funcionar (Ripples, tooltips, etc.)
-        provideAnimations(), 
+        provideAnimations(),
       ],
     }),
   ],
   parameters: {
+    /* docs: {
+      codePanel: true, // Mostrar código en el panel de documentación de manera general
+    }, */
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -19,6 +22,7 @@ const preview: Preview = {
       },
     },
   },
+  tags: ['autodocs'],
 };
 
 export default preview;

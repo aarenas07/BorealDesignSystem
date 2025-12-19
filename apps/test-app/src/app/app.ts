@@ -29,6 +29,7 @@ import {
   FormFieldComponent,
   DatepickerComponent,
   ThemeService,
+  AutocompleteComponent,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -67,6 +68,7 @@ interface User {
     TextareaComponent,
     FormFieldComponent,
     DatepickerComponent,
+    AutocompleteComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',

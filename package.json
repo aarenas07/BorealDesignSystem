@@ -12,7 +12,7 @@
     "test": "nx test",
     "storybook": "nx storybook ui-kit",
     "storybook:build": "npx nx build-storybook ui-kit",
-    "chromatic": "npx chromatic --project-token=chpt_58de64779923b46 --storybook-build-dir dist/storybook/ui-kit"
+    "chromatic": "npx chromatic --project-token=chpt_0316b783993d3af --storybook-build-dir dist/storybook/ui-kit"
   },
   "private": true,
   "dependencies": {

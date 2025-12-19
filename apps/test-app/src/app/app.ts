@@ -30,6 +30,7 @@ import {
   DatepickerComponent,
   ThemeService,
   AutocompleteComponent,
+  AutocompleteOption,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -334,6 +335,17 @@ export class App {
   valueDatepicker = signal<Date | null>(new Date(2024, 0, 1));
   valueDatepickerChange = signal<Date | null>(null);
   valueDatepickerRange = signal<{ start: Date | null; end: Date | null }>({ start: new Date(2025, 11, 1), end: new Date(2025, 11, 31) });
+
+  // Autocomplete
+  optionsAutocomplete = signal<AutocompleteOption[]>([
+    { label: 'One', value: 'one' },
+    { label: 'Two', value: 'two' },
+    { label: 'Three', value: 'three' },
+    { label: 'Four', value: 'four' },
+    { label: 'Five', value: 'five' },
+    { label: 'Six', value: 'six' },
+    { label: 'Seven', value: 'seven' },
+  ]);
 
   ngOnInit() {
     this.setupTableColumns();

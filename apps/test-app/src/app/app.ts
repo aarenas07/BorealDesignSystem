@@ -1,4 +1,4 @@
-import { Component, signal, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -28,6 +28,7 @@ import {
   TextareaComponent,
   FormFieldComponent,
   DatepickerComponent,
+  ThemeService,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -134,11 +135,18 @@ export class App {
     { label: 'Page 3', active: true },
   ]);
 
+  private readonly themeService: ThemeService = inject(ThemeService);
+
   constructor() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || ''))
     );
+    this.themeService.setTheme({
+      id: 'sicof-light',
+      name: 'Sicof Light',
+      className: 'sicof-theme-light',
+    });
   }
 
   private _filter(value: string): string[] {

@@ -60,8 +60,8 @@
       "options": {
         "outputDir": "dist/storybook/ui-kit",
         "configDir": "libs/ui-kit/.storybook",
-        "browserTarget": "ui-kit:build-storybook",
-        "compodoc": false
+        "compodoc": false,
+        "styles": ["libs/ui-kit/.storybook/storybook-styles.scss"]
       },
       "configurations": {
         "ci": {

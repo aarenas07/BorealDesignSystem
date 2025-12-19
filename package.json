@@ -3,10 +3,16 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve",
+    "start": "npx nx serve test-app",
+    "start:app": "npx nx serve test-app",
+    "start:app:open": "npx nx serve test-app --open",
     "build": "nx build",
+    "build:lib": "npx nx build ui-kit",
+    "rm:dist": "rm -rf dist/libs",
     "test": "nx test",
-    "storybook": "nx storybook ui-kit"
+    "storybook": "nx storybook ui-kit",
+    "storybook:build": "npx nx build-storybook ui-kit",
+    "chromatic": "npx chromatic --project-token=chpt_58de64779923b46 --storybook-build-dir dist/storybook/ui-kit"
   },
   "private": true,
   "dependencies": {
@@ -47,6 +53,7 @@
     "@types/jest": "^29.5.12",
     "@types/node": "18.16.9",
     "angular-eslint": "latest",
+    "chromatic": "^13.3.4",
     "eslint": "^9.8.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",

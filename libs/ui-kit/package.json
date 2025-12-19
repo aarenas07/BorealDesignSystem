@@ -1,17 +1,34 @@
 {
   "name": "@ada-lib/ui-kit",
-  "version": "1.0.0",
+  "version": "2.1.9",
   "description": "Librería de componentes UI para ADA Enterprise",
   "main": "./index.js",
   "typings": "./index.d.ts",
   "type": "commonjs",
+  "exports": {
+    "./styles": "./src/lib/styles/index.scss",
+    "./styles/theme": "./src/lib/styles/_theme.scss",
+    "./styles/variables": "./src/lib/styles/_variables.scss",
+    "./styles/palettes": "./src/lib/styles/_palettes.scss",
+    "./styles/full": "./src/lib/styles/styles.scss",
+    "./styles/tokens/palettes": "./src/lib/styles/_palettes.scss",
+    "./styles/tokens/spacing": "./src/lib/styles/_spacing.scss",
+    "./styles/tokens/typography": "./src/lib/styles/_typography.scss",
+    "./styles/tokens/variables": "./src/lib/styles/_variables.scss",
+    "./styles/sicoferp-theme/theme": "./src/lib/styles/sicoferp-theme/theme.scss"
+  },
   "peerDependencies": {
     "@angular/common": "^20.0.0",
     "@angular/core": "^20.0.0",
     "@angular/material": "^20.0.0",
     "@angular/cdk": "^20.0.0"
   },
-  "keywords": ["angular", "ui-kit", "components", "ada"],
+  "keywords": [
+    "angular",
+    "ui-kit",
+    "components",
+    "ada"
+  ],
   "author": "Tu nombre o empresa",
   "license": "MIT",
   "publishConfig": {

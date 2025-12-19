@@ -1,37 +1,32 @@
-import { Component, input, model, computed, effect, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, model } from '@angular/core';
+import { FormControl, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule, Validators, ValidatorFn } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 // Tipos para las apariencias de Angular Material Form Field
-export type FormFieldAppearance = 'fill' | 'outline';
-
-// Tipos para los diferentes tipos de input
-export type FormFieldType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search' | 'date' | 'time' | 'datetime-local';
+export type FormTextareaAppearance = 'fill' | 'outline';
 
 @Component({
-  selector: 'bds-form-field',
+  selector: 'bds-textarea',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatInputModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatError],
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   host: {
     '[class.full-width]': 'fullWidth()',
     '[class.has-error]': 'formControl.invalid && formControl.touched',
     '[class.is-disabled]': 'disabled()',
   },
-  templateUrl: './form-field.html',
-  styleUrls: ['./form-field.scss'],
+  templateUrl: './textarea.html',
+  styleUrl: './textarea.scss',
 })
-export class FormFieldComponent {
+export class TextareaComponent {
   // Configuración básica
   label = input<string>('');
   placeholder = input<string>('');
-  type = input<FormFieldType>('text');
-  appearance = input<FormFieldAppearance>('outline');
+  appearance = input<FormTextareaAppearance>('outline');
 
   // Estados
   disabled = input<boolean>(false);
@@ -54,13 +49,10 @@ export class FormFieldComponent {
   value = model<string>('');
 
   // Atributos de validación
-  autocomplete = input<string>('off');
   maxlength = input<number | null>(null);
-  minlength = input<number | null>(null);
-  min = input<number | string | null>(null);
-  max = input<number | string | null>(null);
-  step = input<number | string | null>(null);
-  pattern = input<string | null>(null);
+  rows = input<number | null>(null);
+  cols = input<number | null>(null);
+  pattern = input<string>('');
 
   // FormControl para manejar validaciones
   formControl = new FormControl('');
@@ -82,14 +74,6 @@ export class FormFieldComponent {
 
     if (errors['required']) {
       return `${this.label() || 'Este campo'} es requerido`;
-    }
-
-    if (errors['email']) {
-      return 'Ingresa un email válido';
-    }
-
-    if (errors['minlength']) {
-      return `Mínimo ${errors['minlength'].requiredLength} caracteres`;
     }
 
     if (errors['maxlength']) {
@@ -162,29 +146,9 @@ export class FormFieldComponent {
       validators.push(Validators.required);
     }
 
-    // Email validator
-    if (this.type() === 'email') {
-      validators.push(Validators.email);
-    }
-
-    // MinLength validator
-    if (this.minlength() !== null) {
-      validators.push(Validators.minLength(this.minlength()!));
-    }
-
     // MaxLength validator
     if (this.maxlength() !== null) {
       validators.push(Validators.maxLength(this.maxlength()!));
-    }
-
-    // Min validator (para números)
-    if (this.min() !== null && this.type() === 'number') {
-      validators.push(Validators.min(Number(this.min())));
-    }
-
-    // Max validator (para números)
-    if (this.max() !== null && this.type() === 'number') {
-      validators.push(Validators.max(Number(this.max())));
     }
 
     // Pattern validator

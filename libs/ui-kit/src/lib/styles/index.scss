@@ -1,0 +1,22 @@
+// ============================================
+// ORDEN IMPORTANTE: @forward debe estar primero
+// ============================================
+
+// 1. Paletas base (usadas por el tema)
+@forward './palettes' as p-*;
+@forward './variables' as v-*;
+
+// 2. Tema Material Design 3 (con paletas de SicofERP)
+@forward './_theme' as theme-*;
+
+// 3. Tema personalizado SicofERP
+@forward './sicoferp-theme/theme' as sicoferp-*;
+
+// 4. Tokens del sistema de diseño
+@forward './tokens/palettes' as tokens-palettes-*;
+@forward './tokens/spacing' as tokens-spacing-*;
+@forward './tokens/typography' as tokens-typography-*;
+@forward './tokens/variables' as tokens-variables-*;
+
+// 5. Estilos globales y de componentes
+@forward './styles' as styles-*;

@@ -1,5 +1,6 @@
-import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
+import { Component, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -12,7 +13,6 @@ import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { Observable, map, startWith } from 'rxjs';
 import {
   ButtonComponent,
-  FormFieldComponent,
   TableAction,
   TableColumn,
   TableComponent,
@@ -22,8 +22,13 @@ import {
   RailComponent,
   RailConfig,
   SideSheetsComponent,
+  AlertComponent,
+  BreadcrumbComponent,
+  MenuItem,
+  TextareaComponent,
+  FormFieldComponent,
+  DatepickerComponent,
 } from '@organizacion/ui-kit';
-
 
 interface User {
   id: number;
@@ -42,12 +47,10 @@ interface User {
   imports: [
     FormsModule,
     ReactiveFormsModule,
-
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
-
     MatInputModule,
     MatIconModule,
     MatChipsModule,
@@ -55,10 +58,14 @@ interface User {
     TableComponent,
     ButtonComponent,
     CardComponent,
-    FormFieldComponent,
     SideBarComponent,
     RailComponent,
     SideSheetsComponent,
+    AlertComponent,
+    BreadcrumbComponent,
+    TextareaComponent,
+    FormFieldComponent,
+    DatepickerComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -107,6 +114,25 @@ export class App {
   isSideSheetOpenTwo = false;
   isSideSheetOpenThree = false;
   isSideSheetOpenFour = false;
+
+  //breadcrumb
+  items = signal<MenuItem[]>([
+    { label: 'Library', routerLink: '/' },
+    { label: 'Data', routerLink: '/' },
+    { label: 'Item', routerLink: '/', active: true },
+  ]);
+
+  itemsIcons = signal<MenuItem[]>([
+    { label: 'Users', icon: 'user', routerLink: '/' },
+    { label: 'User', icon: 'lists', routerLink: '/' },
+    { label: 'View', routerLink: '/', active: true },
+  ]);
+
+  itemsLinks = signal<MenuItem[]>([
+    { label: 'Page 1', icon: 'user', link: 'https://www.google.com/' },
+    { label: 'Page 2', icon: 'lists', link: 'https://www.google.com/' },
+    { label: 'Page 3', active: true },
+  ]);
 
   constructor() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -265,7 +291,7 @@ export class App {
   tableConfig: TableConfig = {
     selectable: false,
     expandable: true,
-    showGlobalFilter: false,
+    showGlobalFilter: true,
     zebraStriping: true,
     density: 'compact',
     pageSizeOptions: [5, 10, 25, 50],
@@ -276,28 +302,28 @@ export class App {
   // Server-side Table Demo
   serverUsers: User[] = [];
   totalServerRecords = 100;
-  serverTableConfig: TableConfig = {
-    selectable: true,
-    expandable: false,
-    showGlobalFilter: true,
-    pageSizeOptions: [5, 10, 20],
-    defaultPageSize: 5,
-  };
 
   // Virtual Scroll Table Demo
   virtualUsers: User[] = [];
-  virtualTableConfig: TableConfig = {
-    selectable: true,
-    expandable: false,
-    showGlobalFilter: true,
-    density: 'compact',
-    stickyHeader: true,
-  };
 
   quickActions = [
     { label: 'Action 1', action: () => console.log('Action 1 clicked') },
-    { label: 'Action 2', action: () => console.log('Action 2 clicked') }
+    { label: 'Action 2', action: () => console.log('Action 2 clicked') },
   ];
+
+  // Textarea
+  errorCustomTextarea = signal<string>('');
+  errorCustomFormField = signal<string>('');
+
+  // Datepicker
+  private readonly _currentYear = new Date().getFullYear();
+  startDate = signal<Date>(new Date(this._currentYear - 1, 0, 1));
+  minDate = signal<Date>(new Date(this._currentYear - 100, 0, 1));
+  maxDate = signal<Date>(new Date(this._currentYear + 1, 11, 31));
+  errorCustomDatepicker = signal<string>('');
+  valueDatepicker = signal<Date | null>(new Date(2024, 0, 1));
+  valueDatepickerChange = signal<Date | null>(null);
+  valueDatepickerRange = signal<{ start: Date | null; end: Date | null }>({ start: new Date(2025, 11, 1), end: new Date(2025, 11, 31) });
 
   ngOnInit() {
     this.setupTableColumns();
@@ -574,9 +600,9 @@ export class App {
         tooltipType: 'dark',
         cssClass: 'main-items-container',
         showSeparator: false,
-      }
+      },
     ],
-    tooltipPosition: 'right'
+    tooltipPosition: 'right',
   };
   openSideSheetLevel() {
     this.isSideSheetOpenLevel = true;
@@ -617,4 +643,59 @@ export class App {
   closeSideSheetFour() {
     this.isSideSheetOpenFour = false;
   }
+
+  /**
+   * Textarea
+   */
+  onTextareaInput(event: string) {
+    if (event === 'error') {
+      this.errorCustomTextarea.set('Error personalizado');
+      return;
+    }
+    this.errorCustomTextarea.set('');
+  }
+
+  /**
+   * formField
+   */
+  onFormFieldInput(event: string) {
+    if (event === 'error') {
+      this.errorCustomFormField.set('Error personalizado');
+      return;
+    }
+    this.errorCustomFormField.set('');
+  }
+
+  onDatepickerInput(event: Date | null) {
+    console.log('onDatepickerInput: ', event);
+    if (!event) {
+      this.errorCustomDatepicker.set('');
+      return;
+    }
+    const date = new Date(event);
+    const day = date.getDate();
+    const currentDay = new Date().getDate();
+
+    if (day < currentDay) {
+      this.errorCustomDatepicker.set('Error personalizado');
+      return;
+    }
+
+    this.errorCustomDatepicker.set('');
+  }
+
+  receiveDate(event: Date | null) {
+    console.log('receiveDate: ', event);
+    this.valueDatepickerChange.set(event);
+  }
+
+  receiveDateRange(event: any) {
+    console.log('receiveDateRange: ', event);
+  }
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+  };
 }

@@ -11,11 +11,21 @@
         @if (item.group) {
         <mat-optgroup [label]="item.label + ''">
             @for (itemGroup of item.group; track itemGroup) {
-            <mat-option [value]="itemGroup"> {{itemGroup.label}} </mat-option>
+            <mat-option [value]="itemGroup">
+                @if (itemGroup.img) {
+                <img [alt]="itemGroup.label" class="autocomplete-option-img" [src]="itemGroup.img" height="25">
+                }
+                <span>{{itemGroup.label}}</span>
+            </mat-option>
             }
         </mat-optgroup>
         } @else {
-        <mat-option [value]="item"> {{item.label}} </mat-option>
+        <mat-option [value]="item">
+            @if (item.img) {
+            <img [alt]="item.label" class="autocomplete-option-img" [src]="item.img" height="25">
+            }
+            <span>{{item.label}}</span>
+        </mat-option>
         }
         }
     </mat-autocomplete>

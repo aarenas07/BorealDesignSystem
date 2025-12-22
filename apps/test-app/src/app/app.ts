@@ -382,6 +382,30 @@ export class App {
     },
   ]);
 
+  optionsAutocompleteImg = signal<AutocompleteOption[]>([
+    { label: 'One', value: 'one', img: 'https://icon-icons.com/images/find_icons.webp' },
+    { label: 'Two', value: 'two', img: 'https://icon-icons.com/images/find_icons.webp' },
+  ]);
+
+  optionsAutocompleteGroupImg = signal<AutocompleteOption[]>([
+    {
+      label: 'Verduras',
+      value: 'group1',
+      group: [
+        { label: 'Tomate', value: 'tomate', img: 'https://icon-icons.com/images/find_icons.webp' },
+        { label: 'Pimiento', value: 'pimiento', img: 'https://icon-icons.com/images/find_icons.webp' },
+      ],
+    },
+    {
+      label: 'Frutas',
+      value: 'group2',
+      group: [
+        { label: 'Manzana', value: 'manzana', img: 'https://icon-icons.com/images/find_icons.webp' },
+        { label: 'Banana', value: 'banana', img: 'https://icon-icons.com/images/find_icons.webp' },
+      ],
+    },
+  ]);
+
   errorCustomAutocomplete = signal<string>('');
 
   ngOnInit() {

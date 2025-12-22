@@ -23,6 +23,18 @@
   mat-form-field {
     // Transiciones suaves
     transition: all 0.2s ease-in-out;
+
+    .mat-mdc-option.mdc-list-item {
+      align-items: center;
+      background-color: #ec2a2a;
+    }
+  }
+
+  .autocomplete-option-img {
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
   }
 
   // ============================================

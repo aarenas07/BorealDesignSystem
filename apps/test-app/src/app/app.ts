@@ -373,9 +373,16 @@ export class App {
         { label: 'Carne de res', value: 'carne-de-res' },
         { label: 'Carne de pollo', value: 'carne-de-pollo' },
         { label: 'num 3', value: 'num-3' },
+        { label: 'num 4', value: 'num-4' },
+        { label: 'num 5', value: 'num-5' },
+        { label: 'num 6', value: 'num-6' },
+        { label: 'num 7', value: 'num-7' },
+        { label: 'num 8', value: 'num-8' },
       ],
     },
   ]);
+
+  errorCustomAutocomplete = signal<string>('');
 
   ngOnInit() {
     this.setupTableColumns();
@@ -750,4 +757,13 @@ export class App {
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6;
   };
+
+  onAutocompleteInput(event: string) {
+    console.log('onAutocompleteInput: ', event);
+    if (event === 'error') {
+      this.errorCustomAutocomplete.set('Error personalizado');
+      return;
+    }
+    this.errorCustomAutocomplete.set('');
+  }
 }

@@ -2,10 +2,11 @@
     @if (label()) {
     <mat-label>{{ label() }}</mat-label>
     }
-    <input #input type="text" matInput aria-label="{{placeholder()}}" [placeholder]="placeholder()"
-        [required]="required()" [disabled]="disabledInput()" [formControl]="formControl" [matAutocomplete]="auto"
-        (input)="filter()" (focus)="filter()">
-    <mat-autocomplete [autoActiveFirstOption]="activeFirstOption()" #auto="matAutocomplete" [displayWith]="displayFn">
+    <input #input type="text" matInput aria-label="{{label()}}" [placeholder]="placeholder()" [required]="required()"
+        [formControl]="formControl" [matAutocomplete]="auto" (input)="filter()" (focus)="filter()"
+        [matAutocompleteDisabled]="autocompleteDisabled()">
+    <mat-autocomplete [autoActiveFirstOption]="autoActiveFirstOption()" #auto="matAutocomplete"
+        [displayWith]="displayFn">
         @for (item of filteredOptions(); track item) {
         @if (item.group) {
         <mat-optgroup [label]="item.label + ''">

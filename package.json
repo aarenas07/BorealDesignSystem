@@ -45,6 +45,7 @@
     "@nx/storybook": "latest",
     "@nx/web": "latest",
     "@nx/workspace": "latest",
+    "@storybook/addon-a11y": "^10.1.10",
     "@storybook/addon-essentials": "^8.4.0",
     "@storybook/addon-interactions": "^8.4.0",
     "@storybook/angular": "^8.4.0",

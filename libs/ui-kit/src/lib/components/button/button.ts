@@ -1,10 +1,4 @@
-import {
-  Component,
-  input,
-  output,
-  computed,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, input, output, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,11 +6,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Tipos para las variantes de Angular Material
 export type ButtonVariant =
-  | 'text'      // mat-button
-  | 'elevated'  // mat-raised-button
-  | 'filled'    // mat-flat-button
-  | 'outlined'  // mat-stroked-button
-  | 'icon';     // mat-icon-button
+  | 'text' // mat-button
+  | 'elevated' // mat-raised-button
+  | 'filled' // mat-flat-button
+  | 'outlined' // mat-stroked-button
+  | 'icon'; // mat-icon-button
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
@@ -25,19 +19,17 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   host: {
     '[class.size-sm]': 'size() === "sm"',
     '[class.size-md]': 'size() === "md"',
     '[class.size-lg]': 'size() === "lg"',
     '[class.full-width]': 'fullWidth()',
-    '[class.variant-icon]': 'variant() === "icon"'
+    '[class.variant-icon]': 'variant() === "icon"',
   },
   templateUrl: './button.html',
-  styleUrls: ['./button.scss']
+  styleUrls: ['./button.scss'],
 })
 export class ButtonComponent {
-
   label = input<string>('');
   variant = input<ButtonVariant>('filled');
 

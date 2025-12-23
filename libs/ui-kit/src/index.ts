@@ -13,3 +13,4 @@ export * from './lib/services/theme.service';
 export * from './lib/components/alert';
 export * from './lib/components/textarea/textarea';
 export * from './lib/components/datepicker/datepicker';
+export * from './lib/components/autocomplete/autocomplete';

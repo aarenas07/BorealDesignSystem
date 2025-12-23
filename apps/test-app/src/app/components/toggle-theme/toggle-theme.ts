@@ -1,26 +1,19 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from '@angular/material/button-toggle';
-import { ITheme, ThemeService } from '@organizacion/ui-kit';
-
-
-
+import { ITheme, ThemeService, ButtonComponent } from '@organizacion/ui-kit';
 
 @Component({
   selector: 'app-theme-toggle',
-  imports: [
-    MatButtonToggleGroup,
-    MatButtonToggle,
-  ],
+  imports: [ButtonComponent],
   templateUrl: './toggle-theme.html',
   styleUrl: './toggle-theme.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeToggleComponent {
   readonly themeService = inject(ThemeService);
-
   readonly themes: ITheme[] = ThemeService.themes;
 
-  themeChange(theme: MatButtonToggleChange): void {
-    this.themeService.setTheme(this.themes.find(t => t.id === theme.value) || this.themes[0]);
+  themeChange(theme: ITheme): void {
+    this.themeService.setTheme(theme);
+    console.log('theme_1: ', this.themeService.defaultTheme);
   }
 }

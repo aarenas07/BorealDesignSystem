@@ -1,0 +1,30 @@
+.container-fluid {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-outline-variant);
+
+  h2 {
+    display: block;
+    margin-top: 0;
+    color: var(--mat-sys-primary);
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+    padding-bottom: 8px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .col {
+      display: flex;
+      margin: 0.5rem;
+
+      span {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}

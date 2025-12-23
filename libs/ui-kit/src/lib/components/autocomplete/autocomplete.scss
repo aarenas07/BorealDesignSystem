@@ -23,18 +23,6 @@
   mat-form-field {
     // Transiciones suaves
     transition: all 0.2s ease-in-out;
-
-    .mat-mdc-option.mdc-list-item {
-      align-items: center;
-      background-color: #ec2a2a;
-    }
-  }
-
-  .autocomplete-option-img {
-    vertical-align: middle;
-    width: 25px;
-    height: 25px;
-    margin-right: 8px;
   }
 
   // ============================================
@@ -61,4 +49,17 @@
     font-size: 12px;
     font-weight: 500;
   }
+}
+
+.mat-mdc-option .mdc-list-item__primary-text {
+  display: flex;
+}
+
+img.autocomplete-option-img {
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  object-fit: cover;
+  margin-top: -5px;
 }

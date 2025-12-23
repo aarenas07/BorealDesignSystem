@@ -15,17 +15,21 @@ const meta: Meta<AutocompleteComponent> = {
     }),
   ],
   args: {
-    label: '',
-    placeholder: '',
-    options: [],
+    label: 'Label',
+    placeholder: 'Placeholder',
+    options: [
+      { label: 'One', value: 'one' },
+      { label: 'Two', value: 'two' },
+    ],
     required: false,
     disabled: false,
     appearance: 'outline',
     fullWidth: false,
     autoActiveFirstOption: false,
     autocompleteDisabled: false,
+    value: '',
     customError: '',
-    hint: '',
+    hint: 'Texto de ayuda',
   },
   argTypes: {
     label: { control: 'text' },
@@ -39,122 +43,22 @@ const meta: Meta<AutocompleteComponent> = {
     autocompleteDisabled: { control: 'boolean' },
     customError: { control: 'text' },
     hint: { control: 'text' },
+    value: { control: 'text' },
   },
 };
 
 export default meta;
 type Story = StoryObj<AutocompleteComponent>;
 
-export const Empty: Story = {
+export const Basic: Story = {
   args: {
-    label: 'Empty',
-    options: [],
-  },
-};
-
-export const Placeholder: Story = {
-  args: {
-    placeholder: 'Placeholder',
-    options: [
-      { label: 'One', value: 'one' },
-      { label: 'Two', value: 'two' },
-    ],
-  },
-};
-
-export const AppearanceFill: Story = {
-  args: {
-    appearance: 'fill',
-    label: 'Appearance Fill',
+    label: 'Basic',
     placeholder: 'Seleccione una opción',
     options: [
       { label: 'One', value: 'one' },
       { label: 'Two', value: 'two' },
     ],
-  },
-};
-
-export const FullWidth: Story = {
-  args: {
-    fullWidth: true,
-    label: 'Full Width',
-    placeholder: 'Seleccione una opción',
-    options: [
-      { label: 'One', value: 'one' },
-      { label: 'Two', value: 'two' },
-    ],
-  },
-};
-
-export const AutoActiveFirstOption: Story = {
-  args: {
-    autoActiveFirstOption: true,
-    label: 'Auto Active First Option',
-    placeholder: 'Seleccione una opción',
-    options: [
-      { label: 'One', value: 'one' },
-      { label: 'Two', value: 'two' },
-    ],
-  },
-};
-
-export const AutocompleteDisabled: Story = {
-  args: {
-    autocompleteDisabled: true,
-    label: 'Autocomplete Disabled',
-    placeholder: 'Seleccione una opción',
-    options: [
-      { label: 'One', value: 'one' },
-      { label: 'Two', value: 'two' },
-    ],
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-    label: 'Disabled',
-    placeholder: 'Seleccione una opción',
-    options: [
-      { label: 'One', value: 'one' },
-      { label: 'Two', value: 'two' },
-    ],
-  },
-};
-
-export const Required: Story = {
-  args: {
-    required: true,
-    label: 'Required',
-    placeholder: 'Seleccione una opción',
-    options: [
-      { label: 'One', value: 'one' },
-      { label: 'Two', value: 'two' },
-    ],
-  },
-};
-
-export const WidthHint: Story = {
-  args: {
-    hint: 'Texto de ayuda',
-    label: 'Width Hint',
-    placeholder: 'Seleccione una opción',
-    options: [
-      { label: 'One', value: 'one' },
-      { label: 'Two', value: 'two' },
-    ],
-  },
-};
-
-export const Value: Story = {
-  args: {
-    value: 'one',
-    label: 'Value',
-    placeholder: 'Seleccione una opción',
-    options: [
-      { label: 'One', value: 'one' },
-      { label: 'Two', value: 'two' },
-    ],
+    value: '',
   },
 };
 
@@ -207,6 +111,45 @@ export const ValueGroup: Story = {
           { label: 'Manzana', value: 'manzana' },
           { label: 'Banana', value: 'banana' },
           { label: 'num 2', value: 'num-2' },
+        ],
+      },
+    ],
+  },
+};
+
+export const AutocompleteImg: Story = {
+  args: {
+    value: 'one',
+    label: 'Value',
+    placeholder: 'Seleccione una opción',
+    options: [
+      { label: 'One', value: 'one', img: 'https://images.icon-icons.com/317/PNG/512/star-icon_34346.png' },
+      { label: 'Two', value: 'two', img: 'https://images.icon-icons.com/317/PNG/512/star-icon_34346.png' },
+    ],
+  },
+};
+
+export const AutocompleteGroupImg: Story = {
+  args: {
+    label: 'Autocomplete Group',
+    placeholder: 'Seleccione una opción',
+    options: [
+      {
+        label: 'Verduras',
+        value: 'group1',
+        group: [
+          { label: 'Tomate', value: 'tomate', img: 'https://images.icon-icons.com/317/PNG/512/star-icon_34346.png' },
+          { label: 'Pimiento', value: 'pimiento', img: 'https://images.icon-icons.com/317/PNG/512/star-icon_34346.png' },
+          { label: 'num 1', value: 'num-1', img: 'https://images.icon-icons.com/317/PNG/512/star-icon_34346.png' },
+        ],
+      },
+      {
+        label: 'Frutas',
+        value: 'group2',
+        group: [
+          { label: 'Manzana', value: 'manzana', img: 'https://images.icon-icons.com/317/PNG/512/star-icon_34346.png' },
+          { label: 'Banana', value: 'banana', img: 'https://images.icon-icons.com/317/PNG/512/star-icon_34346.png' },
+          { label: 'num 2', value: 'num-2', img: 'https://images.icon-icons.com/317/PNG/512/star-icon_34346.png' },
         ],
       },
     ],

@@ -383,8 +383,12 @@ export class App {
   ]);
 
   optionsAutocompleteImg = signal<AutocompleteOption[]>([
-    { label: 'One', value: 'one', img: 'https://icon-icons.com/images/find_icons.webp' },
-    { label: 'Two', value: 'two', img: 'https://icon-icons.com/images/find_icons.webp' },
+    {
+      label: 'One Estas es una prueba de como se ve',
+      value: 'one',
+      img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png',
+    },
+    { label: 'Two', value: 'two', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
   ]);
 
   optionsAutocompleteGroupImg = signal<AutocompleteOption[]>([
@@ -392,16 +396,16 @@ export class App {
       label: 'Verduras',
       value: 'group1',
       group: [
-        { label: 'Tomate', value: 'tomate', img: 'https://icon-icons.com/images/find_icons.webp' },
-        { label: 'Pimiento', value: 'pimiento', img: 'https://icon-icons.com/images/find_icons.webp' },
+        { label: 'Tomate', value: 'tomate', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+        { label: 'Pimiento', value: 'pimiento', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
       ],
     },
     {
       label: 'Frutas',
       value: 'group2',
       group: [
-        { label: 'Manzana', value: 'manzana', img: 'https://icon-icons.com/images/find_icons.webp' },
-        { label: 'Banana', value: 'banana', img: 'https://icon-icons.com/images/find_icons.webp' },
+        { label: 'Manzana', value: 'manzana', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+        { label: 'Banana', value: 'banana', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
       ],
     },
   ]);

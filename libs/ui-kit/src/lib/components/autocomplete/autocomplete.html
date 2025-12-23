@@ -13,7 +13,7 @@
             @for (itemGroup of item.group; track itemGroup) {
             <mat-option [value]="itemGroup">
                 @if (itemGroup.img) {
-                <img [alt]="itemGroup.label" class="autocomplete-option-img" [src]="itemGroup.img" height="25">
+                <img [alt]="itemGroup.label" class="autocomplete-option-img" [src]="itemGroup.img" height="20">
                 }
                 <span>{{itemGroup.label}}</span>
             </mat-option>
@@ -22,7 +22,7 @@
         } @else {
         <mat-option [value]="item">
             @if (item.img) {
-            <img [alt]="item.label" class="autocomplete-option-img" [src]="item.img" height="25">
+            <img [alt]="item.label" class="autocomplete-option-img" [src]="item.img" height="20">
             }
             <span>{{item.label}}</span>
         </mat-option>

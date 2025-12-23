@@ -1,5 +1,8 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, Input, Output, EventEmitter, TemplateRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, Output, EventEmitter, TemplateRef, CUSTOM_ELEMENTS_SCHEMA, input } from '@angular/core';
+
+export type RailTooltipType = 'dark' | 'light' | 'error' | 'success';
+export type tooltipPositionType = 'right' | 'left' | 'top' | 'bottom';
 
 // Renombrar SidebarItem a RailItem
 export interface RailItem {
@@ -16,7 +19,7 @@ export interface RailItem {
 export interface RailSection {
   key: string;
   items: RailItem[];
-  tooltipType?: 'dark' | 'light' | 'error' | 'success';
+  tooltipType?: RailTooltipType;
   cssClass?: string;
   showSeparator?: boolean;
 }
@@ -24,7 +27,7 @@ export interface RailSection {
 // RailConfig ya está bien nombrado
 export interface RailConfig {
   sections: RailSection[];
-  tooltipPosition?: 'right' | 'left' | 'top' | 'bottom';
+  tooltipPosition?: tooltipPositionType;
 }
 
 @Component({
@@ -36,44 +39,44 @@ export interface RailConfig {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class RailComponent {
-  @Input() config: RailConfig = { sections: [] };
-  @Input() items: any = null; // Para retrocompatibilidad
+  config = input<RailConfig>({ sections: [] });
+  items = input<any>(null); // Para retrocompatibilidad
 
   // Permite parametrizar la posición del tooltip globalmente o por sección
-  @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | undefined;
+  tooltipPosition = input<tooltipPositionType | undefined>(undefined);
 
   // Permite parametrizar el tipo de tooltip globalmente o por sección
-  @Input() tooltipType: 'dark' | 'light' | 'error' | 'success' | undefined;
+  tooltipType = input<RailTooltipType | undefined>(undefined);
 
   // Permite parametrizar la clase CSS de los ítems globalmente o por sección
-  @Input() itemCssClass: string | undefined;
+  itemCssClass = input<string | undefined>(undefined);
 
   // Permite pasar un template personalizado para los ítems
-  @Input() itemTemplate: TemplateRef<any> | undefined;
+  itemTemplate = input<TemplateRef<any> | undefined>(undefined);
 
   @Output() itemClick = new EventEmitter<RailItem>();
 
   get railSections(): RailSection[] {
     // Si se usa el formato antiguo, convertirlo al nuevo
-    if (this.items && !this.config.sections.length) {
-      return this.convertLegacyFormat(this.items);
+    if (this.items() && !this.config().sections.length) {
+      return this.convertLegacyFormat(this.items());
     }
-    return this.config.sections;
+    return this.config().sections;
   }
 
   get effectiveTooltipPosition(): string {
     // Prioriza el input, luego config, luego 'right'
-    return this.tooltipPosition || this.config.tooltipPosition || 'right';
+    return this.tooltipPosition() || this.config().tooltipPosition || 'right';
   }
 
   getSectionTooltipType(section: RailSection): string {
     // Prioriza el input, luego sección, luego 'dark'
-    return this.tooltipType || section.tooltipType || 'dark';
+    return this.tooltipType() || section.tooltipType || 'dark';
   }
 
   getSectionCssClass(section: RailSection): string {
     // Prioriza el input, luego sección, luego default
-    return this.itemCssClass || section.cssClass || 'items-container';
+    return this.itemCssClass() || section.cssClass || 'items-container';
   }
 
   onItemClick(item: RailItem) {

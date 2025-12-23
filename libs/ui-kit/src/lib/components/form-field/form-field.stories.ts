@@ -20,11 +20,15 @@ const meta: Meta<FormFieldComponent> = {
     placeholder: 'Texto de ejemplo',
     type: 'text',
     appearance: 'outline',
+    prefixIcon: '',
+    suffixIcon: '',
+    hint: '',
+    min: null,
+    max: null,
     disabled: false,
     required: false,
     readonly: false,
     fullWidth: false,
-    hint: '',
   },
   argTypes: {
     type: {
@@ -35,6 +39,11 @@ const meta: Meta<FormFieldComponent> = {
       control: 'select',
       options: ['fill', 'outline'],
     },
+    prefixIcon: { control: 'text' },
+    suffixIcon: { control: 'text' },
+    hint: { control: 'text' },
+    min: { control: 'number' },
+    max: { control: 'number' },
     disabled: { control: 'boolean' },
     required: { control: 'boolean' },
     readonly: { control: 'boolean' },
@@ -49,70 +58,6 @@ export const Basic: Story = {
   args: {
     label: 'Nombre de usuario',
     placeholder: 'Ej. Juan Perez',
-  },
-};
-
-export const Email: Story = {
-  args: {
-    label: 'Correo electrónico',
-    type: 'email',
-    placeholder: 'usuario@ejemplo.com',
-    prefixIcon: 'email',
-  },
-};
-
-export const Password: Story = {
-  args: {
-    label: 'Contraseña',
-    type: 'password',
-    suffixIcon: 'visibility',
-  },
-};
-
-export const NumberInput: Story = {
-  args: {
-    label: 'Edad',
-    type: 'number',
-    min: 0,
-    max: 120,
-    suffixIcon: 'cake',
-  },
-};
-
-export const FilledAppearance: Story = {
-  args: {
-    appearance: 'fill',
-    label: 'Variante Rellena',
-  },
-};
-
-export const WithHint: Story = {
-  args: {
-    label: 'Con ayuda',
-    hint: 'Este es un texto de ayuda para el usuario',
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    label: 'Deshabilitado',
-    disabled: true,
-    value: 'Valor no editable',
-  },
-};
-
-export const Readonly: Story = {
-  args: {
-    label: 'Solo lectura',
-    readonly: true,
-    value: 'Este valor no se puede cambiar',
-  },
-};
-
-export const Required: Story = {
-  args: {
-    label: 'Campo requerido',
-    required: true,
   },
 };
 

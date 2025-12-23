@@ -448,6 +448,11 @@
       <!-- Breadcrumb  -->
       <bds-breadcrumb [home]="{icon: 'home', label: 'Inicio', routerLink: '/'}" [items]="items()"> </bds-breadcrumb>
     </div>
+    <h2>Breadcrumb Home / Items Text</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [home]="{icon: 'home', label: 'Inicio', routerLink: '/'}" [items]="itemsText()"> </bds-breadcrumb>
+    </div>
     <h2>Breadcrumb Items (Icons)</h2>
     <div class="demo-row">
       <!-- Breadcrumb  -->
@@ -457,6 +462,11 @@
     <div class="demo-row">
       <!-- Breadcrumb  -->
       <bds-breadcrumb [items]="itemsLinks()"> </bds-breadcrumb>
+    </div>
+    <h2>Breadcrumb Separator</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [items]="itemsText()" [separator]="'>'"> </bds-breadcrumb>
     </div>
   </section>
 

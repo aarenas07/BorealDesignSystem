@@ -19,5 +19,6 @@ export interface MenuItem {
 })
 export class BreadcrumbComponent {
   home = input<MenuItem>();
+  separator = input<string>('/');
   items = input<MenuItem[]>([]);
 }

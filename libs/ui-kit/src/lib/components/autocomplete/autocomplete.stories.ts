@@ -119,7 +119,6 @@ export const ValueGroup: Story = {
 
 export const AutocompleteImg: Story = {
   args: {
-    value: 'one',
     label: 'Value',
     placeholder: 'Seleccione una opción',
     options: [

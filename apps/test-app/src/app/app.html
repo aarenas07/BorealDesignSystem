@@ -556,6 +556,8 @@
       </div>
     </div>
 
+
+
     <h2>Datepicker range</h2>
     <div class="demo-row">
       <bds-datepicker [label]="'standard range'" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
@@ -590,4 +592,34 @@
       </div>
     </div>
   </section>
+
+  <!-- Autocomplete Section -->
+  <section class="component-section">
+    <h2>Autocomplete</h2>
+    <div class="demo-row">
+      <bds-autocomplete [label]="'Empty'" [options]="[]"></bds-autocomplete>
+      <bds-autocomplete [placeholder]="'Placeholder'" [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'Autocomplete'" [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'appearance'" [appearance]="'fill'"
+        [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'fullWidth'" [fullWidth]="true" [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'autoActiveFirstOption'" [autoActiveFirstOption]="true"
+        [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'autocompleteDisabled'" [autocompleteDisabled]="true"
+        [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'disabled'" [disabled]="true" [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'required'" [required]="true" [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'hint'" [hint]="'Texto de ejemplo'"
+        [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'customError'" [customError]="errorCustomAutocomplete()"
+        (valueChange)="onAutocompleteInput($event)" [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'value'" [value]="'One'" [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'Autocomplete Group'" [options]="optionsAutocompleteGroup()"></bds-autocomplete>
+      <bds-autocomplete [label]="'value group'" [value]="'num 3'"
+        [options]="optionsAutocompleteGroup()"></bds-autocomplete>
+      <bds-autocomplete [label]="'Autocomplete Img'" [options]="optionsAutocompleteImg()"></bds-autocomplete>
+      <bds-autocomplete [label]="'Autocomplete Group Img'" [options]="optionsAutocompleteGroupImg()"></bds-autocomplete>
+    </div>
+  </section>
+
 </main>

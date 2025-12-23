@@ -12,9 +12,9 @@ const preview: Preview = {
     }),
   ],
   parameters: {
-    /* docs: {
+    docs: {
       codePanel: true, // Mostrar código en el panel de documentación de manera general
-    }, */
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

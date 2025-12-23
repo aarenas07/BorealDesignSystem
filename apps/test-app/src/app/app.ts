@@ -1,4 +1,4 @@
-import { Component, signal, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -28,6 +28,9 @@ import {
   TextareaComponent,
   FormFieldComponent,
   DatepickerComponent,
+  ThemeService,
+  AutocompleteComponent,
+  AutocompleteOption,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -66,6 +69,7 @@ interface User {
     TextareaComponent,
     FormFieldComponent,
     DatepickerComponent,
+    AutocompleteComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -134,11 +138,18 @@ export class App {
     { label: 'Page 3', active: true },
   ]);
 
+  private readonly themeService: ThemeService = inject(ThemeService);
+
   constructor() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || ''))
     );
+    this.themeService.setTheme({
+      id: 'sicof-light',
+      name: 'Sicof Light',
+      className: 'sicof-theme-light',
+    });
   }
 
   private _filter(value: string): string[] {
@@ -324,6 +335,82 @@ export class App {
   valueDatepicker = signal<Date | null>(new Date(2024, 0, 1));
   valueDatepickerChange = signal<Date | null>(null);
   valueDatepickerRange = signal<{ start: Date | null; end: Date | null }>({ start: new Date(2025, 11, 1), end: new Date(2025, 11, 31) });
+
+  // Autocomplete
+  optionsAutocomplete = signal<AutocompleteOption[]>([
+    { label: 'One', value: 'one' },
+    { label: 'Two', value: 'two' },
+    { label: 'Three', value: 'three' },
+    { label: 'Four', value: 'four' },
+    { label: 'Five', value: 'five' },
+    { label: 'Six', value: 'six' },
+    { label: 'Seven', value: 'seven' },
+  ]);
+
+  optionsAutocompleteGroup = signal<AutocompleteOption[]>([
+    {
+      label: 'Verduras',
+      value: 'group1',
+      group: [
+        { label: 'Tomate', value: 'tomate' },
+        { label: 'Pimiento', value: 'pimiento' },
+        { label: 'num 1', value: 'num-1' },
+      ],
+    },
+    {
+      label: 'Frutas',
+      value: 'group2',
+      group: [
+        { label: 'Manzana', value: 'manzana' },
+        { label: 'Banana', value: 'banana' },
+        { label: 'num 2', value: 'num-2' },
+      ],
+    },
+    {
+      label: 'Carnes',
+      value: 'group3',
+      group: [
+        { label: 'Carne de res', value: 'carne-de-res' },
+        { label: 'Carne de pollo', value: 'carne-de-pollo' },
+        { label: 'num 3', value: 'num-3' },
+        { label: 'num 4', value: 'num-4' },
+        { label: 'num 5', value: 'num-5' },
+        { label: 'num 6', value: 'num-6' },
+        { label: 'num 7', value: 'num-7' },
+        { label: 'num 8', value: 'num-8' },
+      ],
+    },
+  ]);
+
+  optionsAutocompleteImg = signal<AutocompleteOption[]>([
+    {
+      label: 'One Estas es una prueba de como se ve',
+      value: 'one',
+      img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png',
+    },
+    { label: 'Two', value: 'two', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+  ]);
+
+  optionsAutocompleteGroupImg = signal<AutocompleteOption[]>([
+    {
+      label: 'Verduras',
+      value: 'group1',
+      group: [
+        { label: 'Tomate', value: 'tomate', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+        { label: 'Pimiento', value: 'pimiento', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+      ],
+    },
+    {
+      label: 'Frutas',
+      value: 'group2',
+      group: [
+        { label: 'Manzana', value: 'manzana', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+        { label: 'Banana', value: 'banana', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+      ],
+    },
+  ]);
+
+  errorCustomAutocomplete = signal<string>('');
 
   ngOnInit() {
     this.setupTableColumns();
@@ -698,4 +785,13 @@ export class App {
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6;
   };
+
+  onAutocompleteInput(event: string) {
+    console.log('onAutocompleteInput: ', event);
+    if (event === 'error') {
+      this.errorCustomAutocomplete.set('Error personalizado');
+      return;
+    }
+    this.errorCustomAutocomplete.set('');
+  }
 }

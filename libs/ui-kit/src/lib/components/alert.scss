@@ -1,7 +1,5 @@
-
 // Definición de variables por defecto y estructura base
 .alert {
-
   display: flex;
   align-items: flex-start;
   padding: 16px;
@@ -11,8 +9,6 @@
   color: var(--mat-sys-on-surface);
   font-family: system-ui, -apple-system, sans-serif;
   margin-bottom: 16px; // Separación si hay varias alertas
-
- 
 
   // --- ELEMENTOS HIJOS ---
 
@@ -65,7 +61,7 @@
     justify-content: center;
 
     &:hover {
-      background-color: rgba(0,0,0, 0.05);
+      background-color: rgba(0, 0, 0, 0.05);
     }
 
     svg {
@@ -117,7 +113,7 @@
     color: var(--btn-primary-bg); // Usamos el color del botón primario para el texto
     padding-left: 0; // Para alinearlo a la izquierda visualmente
     padding-right: 0;
-    
+
     &:hover {
       text-decoration: underline;
     }

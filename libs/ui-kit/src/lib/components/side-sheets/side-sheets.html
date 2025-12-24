@@ -2,10 +2,16 @@
 <div class="sheet-backdrop" aria-hidden="true" (click)="onBackdropClick()"></div>
 }
 
-<aside class="side-sheet" [class.open]="open()" [class.position-start]="position() === 'start'"
-  [class.position-end]="position() === 'end'" [class.size-sm]="size() === 'sm'" [class.size-md]="size() === 'md'"
-  [class.size-lg]="size() === 'lg'" [class.size-full]="fullWidth()" [class.modal]="modal()" [attr.aria-modal]="modal()"
-  aria-label="Side sheets" role="dialog" tabindex="-1">
+<aside class="side-sheet" [class]="{
+      'open': open(),
+      'modal': modal(),
+      'position-start': position() === 'start',
+      'position-end': position() === 'end',
+      'size-sm': size() === 'sm',
+      'size-md': size() === 'md',
+      'size-lg': size() === 'lg',
+      'size-full': fullWidth(),
+    }" [aria-modal]="modal()" aria-label="Side sheets" role="dialog" tabindex="-1">
   <header class="sheet-header">
     @if (header()) {
     <h2>{{ header() }}</h2>

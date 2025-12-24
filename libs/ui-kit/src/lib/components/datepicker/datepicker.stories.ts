@@ -19,48 +19,52 @@ const meta: Meta<DatepickerComponent> = {
     }),
   ],
   args: {
-    fullWidth: false,
-    label: '',
+    label: 'Label',
     placeholder: 'Placeholder',
     placeholderStartDate: 'Start',
     placeholderEndDate: 'End',
+    hint: 'Texto de ayuda',
     required: false,
     disabledInput: false,
     disabledPicker: false,
     readonlyInput: false,
-    minDate: null,
-    maxDate: null,
-    startView: 'month',
-    startDate: null,
+    fullWidth: false,
     touchUi: false,
     actionButtons: false,
+    rangeInputs: false,
+    minDate: null,
+    maxDate: null,
+    startDate: null,
+    startView: 'month',
     nameButtonsCancel: 'Cancel',
     nameButtonsApply: 'Apply',
     appearance: 'outline',
-    rangeInputs: false,
-    hint: '',
+    filter: (d: Date | null): boolean => {
+      return true;
+    },
   },
   argTypes: {
-    fullWidth: { control: 'boolean' },
     label: { control: 'text' },
     placeholder: { control: 'text' },
     placeholderStartDate: { control: 'text' },
     placeholderEndDate: { control: 'text' },
+    hint: { control: 'text' },
     required: { control: 'boolean' },
     disabledInput: { control: 'boolean' },
     disabledPicker: { control: 'boolean' },
     readonlyInput: { control: 'boolean' },
-    minDate: { control: 'date' },
-    maxDate: { control: 'date' },
-    startView: { control: 'select', options: ['month', 'year', 'multi-year'] },
-    startDate: { control: 'date' },
+    fullWidth: { control: 'boolean' },
     touchUi: { control: 'boolean' },
     actionButtons: { control: 'boolean' },
+    rangeInputs: { control: 'boolean' },
+    minDate: { control: 'date' },
+    maxDate: { control: 'date' },
+    startDate: { control: 'date' },
+    startView: { control: 'select', options: ['month', 'year', 'multi-year'] },
     nameButtonsCancel: { control: 'text' },
     nameButtonsApply: { control: 'text' },
     appearance: { control: 'select', options: ['fill', 'outline'] },
-    rangeInputs: { control: 'boolean' },
-    hint: { control: 'text' },
+    filter: { control: 'object' },
   },
 };
 
@@ -68,117 +72,27 @@ export default meta;
 
 export const Basic: StoryObj<DatepickerComponent> = {};
 
-export const Label: StoryObj<DatepickerComponent> = {
-  args: {
-    label: 'Label',
-    placeholder: 'MM/DD/YYYY',
-  },
-};
-
-export const Placeholder: StoryObj<DatepickerComponent> = {
-  args: {
-    placeholder: 'MM/DD/YYYY',
-  },
-};
-
-export const FilledAppearance: StoryObj<DatepickerComponent> = {
-  args: {
-    appearance: 'fill',
-    placeholder: 'MM/DD/YYYY',
-  },
-};
-
-export const WithHint: StoryObj<DatepickerComponent> = {
-  args: {
-    placeholder: 'Placeholder',
-    hint: 'MM/DD/YYYY',
-  },
-};
-
-export const TouchUi: StoryObj<DatepickerComponent> = {
-  args: {
-    touchUi: true,
-    placeholder: 'MM/DD/YYYY',
-  },
-};
-
-export const FullWidth: StoryObj<DatepickerComponent> = {
-  args: {
-    fullWidth: true,
-    placeholder: 'MM/DD/YYYY',
-  },
-};
-
-export const ReadonlyInput: StoryObj<DatepickerComponent> = {
-  args: {
-    readonlyInput: true,
-    placeholder: 'MM/DD/YYYY',
-  },
-};
-
-export const DisabledPicker: StoryObj<DatepickerComponent> = {
-  args: {
-    disabledPicker: true,
-    placeholder: 'MM/DD/YYYY',
-  },
-};
-
-export const DisabledInputPicker: StoryObj<DatepickerComponent> = {
-  args: {
-    disabledInput: true,
-    disabledPicker: true,
-    placeholder: 'MM/DD/YYYY',
-  },
-};
-
-export const Required: StoryObj<DatepickerComponent> = {
-  args: {
-    required: true,
-    placeholder: 'MM/DD/YYYY',
-  },
-};
-
-export const ActionButtons: StoryObj<DatepickerComponent> = {
-  args: {
-    actionButtons: true,
-    placeholder: 'MM/DD/YYYY',
-    nameButtonsCancel: 'Cancelar',
-    nameButtonsApply: 'Aplicar',
-  },
-};
-
 export const MinDate: StoryObj<DatepickerComponent> = {
   args: {
     minDate: new Date(2024, 0, 1),
-    placeholder: 'MM/DD/YYYY',
   },
 };
 
 export const MaxDate: StoryObj<DatepickerComponent> = {
   args: {
     maxDate: new Date(2026, 11, 31),
-    placeholder: 'MM/DD/YYYY',
   },
 };
 
 export const StartDate: StoryObj<DatepickerComponent> = {
   args: {
     startDate: new Date(2026, 0, 1),
-    placeholder: 'MM/DD/YYYY',
-  },
-};
-
-export const StartView: StoryObj<DatepickerComponent> = {
-  args: {
-    startView: 'year',
-    placeholder: 'MM/DD/YYYY',
   },
 };
 
 export const ValueDate: StoryObj<DatepickerComponent> = {
   args: {
     value: new Date(2026, 0, 1),
-    placeholder: 'MM/DD/YYYY',
   },
 };
 
@@ -254,49 +168,6 @@ export const PickerButton: StoryObj<DatepickerComponent> = {
         <bds-button label="Open Picker" (action)="pickerRef.open()"></bds-button>
         `,
     };
-  },
-};
-
-export const RangeInputs: StoryObj<DatepickerComponent> = {
-  args: {
-    rangeInputs: true,
-  },
-};
-
-export const RangeInputsPlaceholder: StoryObj<DatepickerComponent> = {
-  args: {
-    rangeInputs: true,
-    placeholderStartDate: 'Inicio',
-    placeholderEndDate: 'Fin',
-  },
-};
-
-export const RangeInputsDisabledPicker: StoryObj<DatepickerComponent> = {
-  args: {
-    rangeInputs: true,
-    disabledPicker: true,
-    placeholderStartDate: 'MM/DD/YYYY',
-    placeholderEndDate: 'MM/DD/YYYY',
-  },
-};
-
-export const RangeInputsDisabledInput: StoryObj<DatepickerComponent> = {
-  args: {
-    rangeInputs: true,
-    disabledInput: true,
-    placeholderStartDate: 'MM/DD/YYYY',
-    placeholderEndDate: 'MM/DD/YYYY',
-  },
-};
-
-export const RangeInputsActionButtons: StoryObj<DatepickerComponent> = {
-  args: {
-    rangeInputs: true,
-    actionButtons: true,
-    placeholderStartDate: 'Inicio',
-    placeholderEndDate: 'Fin',
-    nameButtonsCancel: 'Cancel',
-    nameButtonsApply: 'Ok',
   },
 };
 

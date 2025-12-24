@@ -242,6 +242,7 @@
     </div>
   </section>
 
+  <!-- Side Bar Section -->
   <section class="component-section">
     <bds-side-bar [sidebarData]="[
         {
@@ -256,6 +257,7 @@
       (itemSelected)="onSidebarItemSelected($event)"></bds-side-bar>
   </section>
 
+  <!-- Rail Section -->
   <section class="component-section">
     <bds-rail [config]="railConfig"></bds-rail>
   </section>
@@ -448,6 +450,11 @@
       <!-- Breadcrumb  -->
       <bds-breadcrumb [home]="{icon: 'home', label: 'Inicio', routerLink: '/'}" [items]="items()"> </bds-breadcrumb>
     </div>
+    <h2>Breadcrumb Home / Items Text</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [home]="{icon: 'home', label: 'Inicio', routerLink: '/'}" [items]="itemsText()"> </bds-breadcrumb>
+    </div>
     <h2>Breadcrumb Items (Icons)</h2>
     <div class="demo-row">
       <!-- Breadcrumb  -->
@@ -458,14 +465,19 @@
       <!-- Breadcrumb  -->
       <bds-breadcrumb [items]="itemsLinks()"> </bds-breadcrumb>
     </div>
+    <h2>Breadcrumb Separator</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [items]="itemsText()" [separator]="'>'"> </bds-breadcrumb>
+    </div>
   </section>
 
   <!-- Alert Section -->
   <section class="component-section">
-    <bds-alert variant="info" title="Información" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="success" title="Información" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="warning" title="Información" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="error" title="Información" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="info" title="info" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="success" title="success" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="warning" title="warning" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="error" title="error" message="Este es un alerta de información."></bds-alert>
   </section>
 
   <!-- Textarea Section -->

@@ -1,5 +1,5 @@
 import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -146,7 +146,10 @@ export class App {
     { label: 'Page 3', active: true },
   ]);
 
+  formTesting: FormGroup = new FormGroup({});
+
   private readonly themeService: ThemeService = inject(ThemeService);
+  private readonly fb: FormBuilder = inject(FormBuilder);
 
   constructor() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -158,6 +161,70 @@ export class App {
       name: 'Sicof Light',
       className: 'sicof-theme-light',
     });
+  }
+
+  ngOnInit() {
+    this.setupTableColumns();
+    this.setupTableActions();
+
+    // Initialize demos
+    this.generateVirtualData();
+    this.onServerDataRequest({ page: 0, pageSize: 5 });
+
+    this.formTesting = this.fb.group({
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required]],
+      descripcion: ['', [Validators.required]],
+    });
+  }
+
+  ngAfterViewInit() {
+    // Update columns with templates after view init
+    this.tableColumns = [
+      {
+        key: 'name',
+        label: 'Usuario',
+        sortable: true,
+        sticky: true,
+        cellTemplate: this.avatarTemplate,
+      },
+      {
+        key: 'email',
+        label: 'Email',
+        sortable: true,
+      },
+      {
+        key: 'role',
+        label: 'Rol',
+        sortable: true,
+        cellTemplate: this.roleTemplate,
+      },
+      {
+        key: 'status',
+        label: 'Estado',
+        sortable: true,
+        cellTemplate: this.statusTemplate,
+      },
+      {
+        key: 'department',
+        label: 'Departamento',
+        sortable: true,
+      },
+      {
+        key: 'joinDate',
+        label: 'Fecha Ingreso',
+        dataType: 'date',
+        sortable: true,
+      },
+      {
+        key: 'salary',
+        label: 'Salario',
+        dataType: 'number',
+        sortable: true,
+        cellTemplate: this.salaryTemplate,
+      },
+    ];
   }
 
   private _filter(value: string): string[] {
@@ -423,15 +490,6 @@ export class App {
   // Tooltip
   enabled = new FormControl(false);
 
-  ngOnInit() {
-    this.setupTableColumns();
-    this.setupTableActions();
-
-    // Initialize demos
-    this.generateVirtualData();
-    this.onServerDataRequest({ page: 0, pageSize: 5 });
-  }
-
   onTooltipCancel() {
     console.log('Tooltip Cancel Clicked');
     alert('Tooltip Cancel Clicked');
@@ -440,54 +498,6 @@ export class App {
   onTooltipAccept() {
     console.log('Tooltip Accept Clicked');
     alert('Tooltip Accept Clicked');
-  }
-
-  ngAfterViewInit() {
-    // Update columns with templates after view init
-    this.tableColumns = [
-      {
-        key: 'name',
-        label: 'Usuario',
-        sortable: true,
-        sticky: true,
-        cellTemplate: this.avatarTemplate,
-      },
-      {
-        key: 'email',
-        label: 'Email',
-        sortable: true,
-      },
-      {
-        key: 'role',
-        label: 'Rol',
-        sortable: true,
-        cellTemplate: this.roleTemplate,
-      },
-      {
-        key: 'status',
-        label: 'Estado',
-        sortable: true,
-        cellTemplate: this.statusTemplate,
-      },
-      {
-        key: 'department',
-        label: 'Departamento',
-        sortable: true,
-      },
-      {
-        key: 'joinDate',
-        label: 'Fecha Ingreso',
-        dataType: 'date',
-        sortable: true,
-      },
-      {
-        key: 'salary',
-        label: 'Salario',
-        dataType: 'number',
-        sortable: true,
-        cellTemplate: this.salaryTemplate,
-      },
-    ];
   }
 
   setupTableColumns() {
@@ -814,5 +824,9 @@ export class App {
       return;
     }
     this.errorCustomAutocomplete.set('');
+  }
+
+  onSubmitForm() {
+    console.log('onSubmitForm: ', this.formTesting);
   }
 }

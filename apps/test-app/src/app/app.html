@@ -705,4 +705,44 @@
     </div>
   </section>
 
+  <!-- Form -->
+  <section class="component-section">
+    <h2>Form</h2>
+    <div class="demo-row">
+      <form [formGroup]="formTesting" (ngSubmit)="onSubmitForm()" class="form-container">
+        <bds-form-field [label]="'email'" [placeholder]="'example@example.com'" [type]="'email'" prefixIcon="email"
+          formControlName="email"></bds-form-field>
+        <bds-form-field [label]="'password'" [placeholder]="'password'" [type]="'password'" prefixIcon="lock"
+          formControlName="password"></bds-form-field>
+        <bds-datepicker [label]="'fechaNacimiento'" [placeholder]="'fechaNacimiento'" prefixIcon="calendar"
+          formControlName="fechaNacimiento"></bds-datepicker>
+        <bds-textarea [label]="'descripcion'" [placeholder]="'descripcion'" prefixIcon="description"
+          formControlName="descripcion"></bds-textarea>
+
+        <bds-button label="Enviar" variant="filled" type="submit"></bds-button>
+      </form>
+    </div>
+  </section>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
 </main>

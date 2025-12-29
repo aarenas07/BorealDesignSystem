@@ -289,3 +289,9 @@ mat-form-field {
     background-color: var(--mat-sys-outline-variant);
   }
 }
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

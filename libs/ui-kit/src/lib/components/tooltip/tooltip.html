@@ -15,10 +15,10 @@
         @if (btnCancelName() || btnAcceptName()) {
         <footer class="tooltip-footer">
             @if (btnCancelName()) {
-            <bds-button [label]="btnCancelName()" variant="outlined" (click)="btnClickCancel()"></bds-button>
+            <bds-button [label]="btnCancelName()" variant="outlined" (action)="btnClickCancel()"></bds-button>
             }
             @if (btnAcceptName()) {
-            <bds-button [label]="btnAcceptName()" (click)="btnClickAccept()"></bds-button>
+            <bds-button [label]="btnAcceptName()" (action)="btnClickAccept()"></bds-button>
             }
         </footer>
         }

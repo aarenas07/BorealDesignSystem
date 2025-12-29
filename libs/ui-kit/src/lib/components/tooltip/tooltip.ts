@@ -6,12 +6,10 @@ import {
   inject,
   input,
   OnDestroy,
-  OnInit,
-  ViewChild,
   ViewContainerRef,
   TemplateRef,
-  Type,
   ComponentRef,
+  output,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Overlay, OverlayRef, ConnectedPosition, ScrollStrategyOptions } from '@angular/cdk/overlay';
@@ -63,6 +61,8 @@ export class BdsTooltipDirective implements OnDestroy {
   delay = input<number>(300, { alias: 'bdsTooltipDelay' });
   positionAtOrigin = input<boolean>(false, { alias: 'bdsTooltipPositionAtOrigin' });
   templateCustom = input<TemplateRef<any>>();
+  clickCancel = output<void>({ alias: 'bdsTooltipClickCancel' });
+  clickAccept = output<void>({ alias: 'bdsTooltipClickAccept' });
 
   private overlay = inject(Overlay);
   private elementRef = inject(ElementRef);
@@ -139,6 +139,16 @@ export class BdsTooltipDirective implements OnDestroy {
     const componentRef = this.overlayRef.attach(tooltipPortal);
 
     this.updateComponentProperties(componentRef);
+
+    componentRef.instance.clickCancel.subscribe(() => {
+      this.clickCancel.emit();
+      this.closeOverlay();
+    });
+
+    componentRef.instance.clickAccept.subscribe(() => {
+      this.clickAccept.emit();
+      this.closeOverlay();
+    });
 
     positionStrategy.positionChanges.subscribe(change => {
       const pair = change.connectionPair;

@@ -688,21 +688,21 @@
           <mat-icon style="font-size: 16px; width: 16px; height: 16px;">info</mat-icon>
           <small>Additional Info</small>
         </div>
+        <bds-button label="Text" variant="text" size="md" (action)="handleAction($event)"></bds-button>
       </div>
     </ng-template>
   </section>
 
   <!-- Tooltip Custom Button -->
   <section class="component-section">
-    <h2>Tooltip Custom Button</h2>
+    <h2>Tooltip Defined Template (Rich)</h2>
     <div class="demo-row">
-      <bds-button label="Custom Button Tooltip" variant="filled"
+      <bds-button label="Custom Rich Tooltip" variant="filled"
         bdsTooltip="Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod"
         bdsTooltipType="rich" [bdsTooltipHeader]="'Custom Header'" [bdsTooltipBtnCancelName]="'Cancel'"
-        [bdsTooltipBtnAcceptName]="'Ok'"></bds-button>
+        [bdsTooltipBtnAcceptName]="'Ok'" (bdsTooltipClickCancel)="onTooltipCancel()"
+        (bdsTooltipClickAccept)="onTooltipAccept()"></bds-button>
     </div>
   </section>
-
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. .</p>
 
 </main>

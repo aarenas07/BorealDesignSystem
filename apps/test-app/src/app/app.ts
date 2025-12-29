@@ -432,6 +432,16 @@ export class App {
     this.onServerDataRequest({ page: 0, pageSize: 5 });
   }
 
+  onTooltipCancel() {
+    console.log('Tooltip Cancel Clicked');
+    alert('Tooltip Cancel Clicked');
+  }
+
+  onTooltipAccept() {
+    console.log('Tooltip Accept Clicked');
+    alert('Tooltip Accept Clicked');
+  }
+
   ngAfterViewInit() {
     // Update columns with templates after view init
     this.tableColumns = [

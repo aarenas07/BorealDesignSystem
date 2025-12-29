@@ -16,6 +16,7 @@ import {
 import { NgTemplateOutlet } from '@angular/common';
 import { Overlay, OverlayRef, ConnectedPosition, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { ButtonComponent } from '../button/button';
 
 export type TooltipType = 'default' | 'rich' | 'layout';
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
@@ -23,15 +24,28 @@ export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 @Component({
   selector: 'bds-tooltip-container',
   standalone: true,
-  imports: [NgTemplateOutlet],
+  imports: [NgTemplateOutlet, ButtonComponent],
   templateUrl: './tooltip.html',
   styleUrl: './tooltip.scss',
 })
 export class TooltipContainerComponent {
   content = input<string>('');
+  contentHeader = input<string>('');
+  btnCancelName = input<string>('');
+  btnAcceptName = input<string>('');
   typeTooltip = input<TooltipType>('default');
   actualPosition = input<TooltipPosition>('top');
   templateCustom = input<TemplateRef<any>>();
+  clickCancel = output<void>();
+  clickAccept = output<void>();
+
+  btnClickCancel() {
+    this.clickCancel.emit();
+  }
+
+  btnClickAccept() {
+    this.clickAccept.emit();
+  }
 }
 
 @Directive({
@@ -42,7 +56,8 @@ export class BdsTooltipDirective implements OnDestroy {
   typeTooltip = input<TooltipType>('default', { alias: 'bdsTooltipType' });
   content = input<string>('', { alias: 'bdsTooltip' });
   contentHeader = input<string>('', { alias: 'bdsTooltipHeader' });
-  contentFooter = input<string>('', { alias: 'bdsTooltipFooter' });
+  btnCancelName = input<string>('', { alias: 'bdsTooltipBtnCancelName' });
+  btnAcceptName = input<string>('', { alias: 'bdsTooltipBtnAcceptName' });
   position = input<TooltipPosition>('top', { alias: 'bdsTooltipPosition' });
   disabled = input<boolean>(false, { alias: 'bdsTooltipDisabled' });
   delay = input<number>(300, { alias: 'bdsTooltipDelay' });
@@ -79,7 +94,21 @@ export class BdsTooltipDirective implements OnDestroy {
   @HostListener('mouseleave')
   hide() {
     this.clearTimeout();
-    this.closeOverlay();
+    if (this.typeTooltip() === 'default') {
+      this.closeOverlay();
+    }
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  onClickOutside(target: any) {
+    if (!this.overlayRef) return;
+
+    const clickedInsideTrigger = this.elementRef.nativeElement.contains(target);
+    const clickedInsideOverlay = this.overlayRef.overlayElement.contains(target);
+
+    if (!clickedInsideTrigger && !clickedInsideOverlay) {
+      this.closeOverlay();
+    }
   }
 
   ngOnDestroy() {
@@ -128,6 +157,9 @@ export class BdsTooltipDirective implements OnDestroy {
     componentRef.setInput('content', this.content());
     componentRef.setInput('typeTooltip', this.typeTooltip());
     componentRef.setInput('actualPosition', this.position());
+    componentRef.setInput('contentHeader', this.contentHeader());
+    componentRef.setInput('btnCancelName', this.btnCancelName());
+    componentRef.setInput('btnAcceptName', this.btnAcceptName());
     componentRef.setInput('templateCustom', this.templateCustom());
   }
 

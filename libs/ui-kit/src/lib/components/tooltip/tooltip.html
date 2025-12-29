@@ -6,9 +6,7 @@
     </div>
     }
     @case ('layout') {
-    <div class="tooltip-content">
-        <ng-container *ngTemplateOutlet="templateCustom(); context: { $implicit: content() }"> </ng-container>
-    </div>
+    <ng-container *ngTemplateOutlet="templateCustom(); context: { $implicit: content() }"> </ng-container>
     }
     @default {
     {{ content() }}

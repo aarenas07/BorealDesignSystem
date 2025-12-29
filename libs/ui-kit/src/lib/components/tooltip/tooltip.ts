@@ -128,6 +128,7 @@ export class BdsTooltipDirective implements OnDestroy {
     componentRef.setInput('content', this.content());
     componentRef.setInput('typeTooltip', this.typeTooltip());
     componentRef.setInput('actualPosition', this.position());
+    componentRef.setInput('templateCustom', this.templateCustom());
   }
 
   private closeOverlay() {

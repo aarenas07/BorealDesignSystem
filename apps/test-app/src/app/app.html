@@ -669,4 +669,24 @@
       Position at origin enabled
     </mat-checkbox>
   </section>
+
+  <section class="component-section">
+    <h2>Tooltip Custom Template</h2>
+    <div class="demo-row">
+      <bds-button label="Custom Template Tooltip" variant="filled" bdsTooltip="Este es el contexto"
+        bdsTooltipType="layout" [templateCustom]="myCustomTooltip"></bds-button>
+    </div>
+
+    <ng-template #myCustomTooltip let-context>
+      <div style="padding: 4px; display: flex; flex-direction: column; gap: 4px;">
+        <strong style="color: var(--mat-sys-primary);">Custom Header</strong>
+        <span>{{ context }}</span>
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <mat-icon style="font-size: 16px; width: 16px; height: 16px;">info</mat-icon>
+          <small>Additional Info</small>
+        </div>
+      </div>
+    </ng-template>
+  </section>
+
 </main>

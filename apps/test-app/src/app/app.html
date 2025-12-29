@@ -634,13 +634,48 @@
     </div>
   </section>
 
-  <section>
+  <section class="component-section">
     <h2>Tooltip</h2>
     <div class="demo-row">
-      <bds-tooltip [content]="'Tooltip'" [type]="'default'" [position]="'top'">
-        <button mat-button>Tooltip</button>
-      </bds-tooltip>
+      <bds-button label="tooltip top" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipType="default" bdsTooltipPosition="top"></bds-button>
+
+      <bds-button label="tooltip bottom" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipType="default" bdsTooltipPosition="bottom"></bds-button>
+
+      <bds-button label="tooltip left" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipType="default" bdsTooltipPosition="left"></bds-button>
+
+      <bds-button label="tooltip right" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipType="default" bdsTooltipPosition="right"></bds-button>
+
+      <bds-button label="tooltip info" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipType="info" bdsTooltipPosition="top"></bds-button>
+
+      <bds-button label="tooltip warning" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipType="warning" bdsTooltipPosition="top"></bds-button>
+
+      <bds-button label="tooltip error" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipType="error" bdsTooltipPosition="top"></bds-button>
+
+      <bds-button label="tooltip dark" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipType="dark" bdsTooltipPosition="top"></bds-button>
+
+      <bds-button label="tooltip light" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipType="light" bdsTooltipPosition="top"></bds-button>
+
+
+
+
     </div>
   </section>
 
+  <section class="component-section">
+    <h2>Tooltip</h2>
+    <div class="demo-row">
+      <div class="tooltip-container" bdsTooltip="Este es un tooltip" bdsTooltipType="default" bdsTooltipPosition="top">
+        Text
+      </div>
+    </div>
+  </section>
 </main>

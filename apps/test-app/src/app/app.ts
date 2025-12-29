@@ -31,7 +31,7 @@ import {
   ThemeService,
   AutocompleteComponent,
   AutocompleteOption,
-  TooltipComponent,
+  BdsTooltipDirective,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -71,7 +71,7 @@ interface User {
     FormFieldComponent,
     DatepickerComponent,
     AutocompleteComponent,
-    TooltipComponent,
+    BdsTooltipDirective,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',

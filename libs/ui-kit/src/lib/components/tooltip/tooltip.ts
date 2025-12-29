@@ -42,6 +42,7 @@ export class BdsTooltipDirective implements OnDestroy {
   position = input<TooltipPosition>('top', { alias: 'bdsTooltipPosition' });
   disabled = input<boolean>(false, { alias: 'bdsTooltipDisabled' });
   delay = input<number>(300, { alias: 'bdsTooltipDelay' });
+  positionAtOrigin = input<boolean>(false, { alias: 'bdsTooltipPositionAtOrigin' });
 
   private overlay = inject(Overlay);
   private elementRef = inject(ElementRef);
@@ -50,14 +51,24 @@ export class BdsTooltipDirective implements OnDestroy {
 
   private overlayRef: OverlayRef | null = null;
   private showTimeout: any;
+  private lastMousePosition: { x: number; y: number } | null = null;
 
-  @HostListener('mouseenter')
-  show() {
+  @HostListener('mouseenter', ['$event'])
+  show(event: MouseEvent) {
     if (this.disabled() || !this.content()) return;
+
+    this.lastMousePosition = { x: event.clientX, y: event.clientY };
 
     this.showTimeout = setTimeout(() => {
       this.createOverlay();
     }, this.delay());
+  }
+
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (this.positionAtOrigin()) {
+      this.lastMousePosition = { x: event.clientX, y: event.clientY };
+    }
   }
 
   @HostListener('mouseleave')
@@ -80,7 +91,9 @@ export class BdsTooltipDirective implements OnDestroy {
   private createOverlay() {
     if (this.overlayRef) return;
 
-    const positionStrategy = this.overlay.position().flexibleConnectedTo(this.elementRef).withPositions(this.getPositions()).withPush(true);
+    const origin = this.positionAtOrigin() && this.lastMousePosition ? this.lastMousePosition : this.elementRef;
+
+    const positionStrategy = this.overlay.position().flexibleConnectedTo(origin).withPositions(this.getPositions()).withPush(true);
 
     this.overlayRef = this.overlay.create({
       positionStrategy,

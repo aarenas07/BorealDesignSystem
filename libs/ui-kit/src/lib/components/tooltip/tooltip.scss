@@ -15,43 +15,7 @@
 
 /* Tipos de tooltip */
 .tooltip-default {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #444;
-}
-
-.tooltip-info {
-  background-color: #e3f2fd;
-  color: #1565c0;
-  border: 1px solid #bbdefb;
-}
-
-.tooltip-success {
-  background-color: #e8f5e8;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
-}
-
-.tooltip-warning {
-  background-color: #fff3e0;
-  color: #f57c00;
-  border: 1px solid #ffcc02;
-}
-
-.tooltip-error {
-  background-color: #ffebee;
-  color: #d32f2f;
-  border: 1px solid #ffcdd2;
-}
-
-.tooltip-dark {
-  background-color: #212121;
-  color: #fff;
-  border: 1px solid #424242;
-}
-
-.tooltip-light {
-  background-color: #fafafa;
-  color: #424242;
-  border: 1px solid #e0e0e0;
+  background-color: var(--mat-sys-inverse-surface);
+  color: var(--mat-sys-inverse-on-surface);
+  border: 1px solid var(--mat-sys-inverse-surface);
 }

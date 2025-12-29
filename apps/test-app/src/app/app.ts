@@ -420,6 +420,9 @@ export class App {
 
   errorCustomAutocomplete = signal<string>('');
 
+  // Tooltip
+  enabled = new FormControl(false);
+
   ngOnInit() {
     this.setupTableColumns();
     this.setupTableActions();

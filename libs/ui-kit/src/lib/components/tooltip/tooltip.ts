@@ -13,23 +13,25 @@ import {
   Type,
   ComponentRef,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { Overlay, OverlayRef, ConnectedPosition, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 
-export type TooltipType = 'default' | 'info' | 'success' | 'warning' | 'error' | 'dark' | 'light';
+export type TooltipType = 'default' | 'rich' | 'layout';
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 
 @Component({
   selector: 'bds-tooltip-container',
   standalone: true,
-  imports: [],
+  imports: [NgTemplateOutlet],
   templateUrl: './tooltip.html',
   styleUrl: './tooltip.scss',
 })
 export class TooltipContainerComponent {
   content = input<string>('');
-  type = input<TooltipType>('default');
+  typeTooltip = input<TooltipType>('default');
   actualPosition = input<TooltipPosition>('top');
+  templateCustom = input<TemplateRef<any>>();
 }
 
 @Directive({
@@ -37,12 +39,15 @@ export class TooltipContainerComponent {
   standalone: true,
 })
 export class BdsTooltipDirective implements OnDestroy {
+  typeTooltip = input<TooltipType>('default', { alias: 'bdsTooltipType' });
   content = input<string>('', { alias: 'bdsTooltip' });
-  type = input<TooltipType>('default', { alias: 'bdsTooltipType' });
+  contentHeader = input<string>('', { alias: 'bdsTooltipHeader' });
+  contentFooter = input<string>('', { alias: 'bdsTooltipFooter' });
   position = input<TooltipPosition>('top', { alias: 'bdsTooltipPosition' });
   disabled = input<boolean>(false, { alias: 'bdsTooltipDisabled' });
   delay = input<number>(300, { alias: 'bdsTooltipDelay' });
   positionAtOrigin = input<boolean>(false, { alias: 'bdsTooltipPositionAtOrigin' });
+  templateCustom = input<TemplateRef<any>>();
 
   private overlay = inject(Overlay);
   private elementRef = inject(ElementRef);
@@ -121,7 +126,7 @@ export class BdsTooltipDirective implements OnDestroy {
 
   private updateComponentProperties(componentRef: ComponentRef<TooltipContainerComponent>) {
     componentRef.setInput('content', this.content());
-    componentRef.setInput('type', this.type());
+    componentRef.setInput('typeTooltip', this.typeTooltip());
     componentRef.setInput('actualPosition', this.position());
   }
 

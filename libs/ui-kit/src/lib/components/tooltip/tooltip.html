@@ -1,1 +1,10 @@
-<p>tooltip works!</p>
+<div class="tooltip-wrapper" (mouseenter)="showTooltip()" (mouseleave)="hideTooltip()" #triggerElement>
+    <ng-content></ng-content>
+    @if (isVisible && content()) {
+
+    <div class="tooltip" [class]="'tooltip-' + type()" [style]="tooltipStyles" #tooltipElement>
+        {{ content() }}
+        <div class="tooltip-arrow" [style]="arrowStyles"></div>
+    </div>
+    }
+</div>

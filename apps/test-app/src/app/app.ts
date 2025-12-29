@@ -31,6 +31,7 @@ import {
   ThemeService,
   AutocompleteComponent,
   AutocompleteOption,
+  TooltipComponent,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -70,6 +71,7 @@ interface User {
     FormFieldComponent,
     DatepickerComponent,
     AutocompleteComponent,
+    TooltipComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',

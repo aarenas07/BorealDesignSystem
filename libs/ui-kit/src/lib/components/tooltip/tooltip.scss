@@ -1,1 +1,75 @@
+.tooltip-wrapper {
+  display: inline-block;
+}
 
+.tooltip {
+  position: absolute;
+  z-index: 1000;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: var(--sds-typography-body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  word-wrap: break-word;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.tooltip.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Tipos de tooltip */
+.tooltip-default {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.tooltip-info {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+}
+
+.tooltip-success {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.tooltip-warning {
+  background-color: #fff3e0;
+  color: #f57c00;
+  border: 1px solid #ffcc02;
+}
+
+.tooltip-error {
+  background-color: #ffebee;
+  color: #d32f2f;
+  border: 1px solid #ffcdd2;
+}
+
+.tooltip-dark {
+  background-color: #212121;
+  color: #fff;
+  border: 1px solid #424242;
+}
+
+.tooltip-light {
+  background-color: #fafafa;
+  color: #424242;
+  border: 1px solid #e0e0e0;
+}

@@ -8,9 +8,9 @@
     <mat-date-range-input [formGroup]="rangeForm" [rangePicker]="picker" [disabled]="disabledInput()"
         [required]="required()" [min]="minDate()" [max]="maxDate()">
         <input matStartDate formControlName="start" placeholder="Start date" [required]="required()"
-            [readonly]="readonlyInput()" [placeholder]="placeholderStartDate()">
+            [readonly]="readonlyInput()" [placeholder]="placeholderStartDate()" (blur)="handleBlur()">
         <input matEndDate formControlName="end" placeholder="End date" [required]="required()"
-            [readonly]="readonlyInput()" [placeholder]="placeholderEndDate()">
+            [readonly]="readonlyInput()" [placeholder]="placeholderEndDate()" (blur)="handleBlur()">
     </mat-date-range-input>
 
     <!-- hint -->
@@ -48,7 +48,7 @@
     <input matInput [matDatepicker]="picker" [matDatepickerFilter]="filter()" [disabled]="disabledInput()"
         [required]="required()" [readonly]="readonlyInput()" [formControl]="formControl" [min]="minDate()"
         [max]="maxDate()" (dateInput)="_dateInput($event)" (dateChange)="_dateChange($event)"
-        [placeholder]="placeholder()">
+        [placeholder]="placeholder()" (blur)="handleBlur()">
     <!-- hint -->
     @if (hint() ) {
     <mat-hint>{{ hint() }}</mat-hint>

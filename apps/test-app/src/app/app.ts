@@ -174,6 +174,7 @@ export class App {
     this.formTesting = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
+      autocomplete: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
     });
@@ -828,5 +829,7 @@ export class App {
 
   onSubmitForm() {
     console.log('onSubmitForm: ', this.formTesting);
+    console.log('onSubmitForm controls: ', this.formTesting.controls);
+    console.log('onSubmitForm value: ', this.formTesting.value);
   }
 }

@@ -14,3 +14,4 @@ export * from './lib/components/alert';
 export * from './lib/components/textarea/textarea';
 export * from './lib/components/datepicker/datepicker';
 export * from './lib/components/autocomplete/autocomplete';
+export * from './lib/components/tooltip/tooltip';

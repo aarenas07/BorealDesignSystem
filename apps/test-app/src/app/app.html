@@ -634,4 +634,95 @@
     </div>
   </section>
 
+  <!-- Tooltip -->
+  <section class="component-section">
+    <h2>Tooltip</h2>
+    <div class="demo-row">
+      <bds-button label="tooltip top" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="top"></bds-button>
+
+      <bds-button label="tooltip bottom" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="bottom"></bds-button>
+
+      <bds-button label="tooltip left" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="left"></bds-button>
+
+      <bds-button label="tooltip right" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="right"></bds-button>
+
+      <bds-button label="tooltip delay 2000" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="top" [bdsTooltipDelay]="2000"></bds-button>
+
+      <bds-button label="tooltip disabled" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="top" [bdsTooltipDisabled]="true"></bds-button>
+    </div>
+  </section>
+
+  <!-- Tooltip Position at Origin -->
+  <section class="component-section">
+    <h2>Tooltip Position at Origin</h2>
+    <div class="demo-row">
+      <div class="tooltip-container" bdsTooltip="Positioned at mouse origin"
+        [bdsTooltipPositionAtOrigin]="enabled.value ? true : false" bdsTooltipPosition="top">
+        Move mouse inside me
+      </div>
+    </div>
+    <mat-checkbox [formControl]="enabled" class="example-enabled-checkbox">
+      Position at origin enabled
+    </mat-checkbox>
+  </section>
+
+  <!-- Tooltip Custom Template -->
+  <section class="component-section">
+    <h2>Tooltip Custom Template</h2>
+    <div class="demo-row">
+      <bds-button label="Custom Template Tooltip" variant="filled" bdsTooltip="Este es el contexto"
+        bdsTooltipType="layout" [templateCustom]="myCustomTooltip"></bds-button>
+    </div>
+
+    <ng-template #myCustomTooltip let-context>
+      <div style="padding: 4px; display: flex; flex-direction: column; gap: 4px;">
+        <strong style="color: var(--mat-sys-primary);">Custom Header</strong>
+        <span>{{ context }}</span>
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <mat-icon style="font-size: 16px; width: 16px; height: 16px;">info</mat-icon>
+          <small>Additional Info</small>
+        </div>
+        <bds-button label="Text" variant="text" size="md" (action)="handleAction($event)"></bds-button>
+      </div>
+    </ng-template>
+  </section>
+
+  <!-- Tooltip Rich -->
+  <section class="component-section">
+    <h2>Tooltip Defined Template (Rich)</h2>
+    <div class="demo-row">
+      <bds-button label="Custom Rich Tooltip" variant="filled"
+        bdsTooltip="Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod"
+        bdsTooltipType="rich" [bdsTooltipHeader]="'Custom Header'" [bdsTooltipBtnCancelName]="'Cancel'"
+        [bdsTooltipBtnAcceptName]="'Ok'" (bdsTooltipClickCancel)="onTooltipCancel()"
+        (bdsTooltipClickAccept)="onTooltipAccept()"></bds-button>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section class="component-section">
+    <h2>Form</h2>
+    <div class="demo-row">
+      <form [formGroup]="formTesting" (ngSubmit)="onSubmitForm()" class="form-container">
+        <bds-form-field [label]="'email'" [placeholder]="'example@example.com'" [type]="'email'" prefixIcon="email"
+          formControlName="email"></bds-form-field>
+        <bds-form-field [label]="'password'" [placeholder]="'******'" [type]="'password'" prefixIcon="lock"
+          formControlName="password"></bds-form-field>
+        <bds-autocomplete [label]="'autocomplete'" prefixIcon="calendar" [options]="optionsAutocomplete()"
+          formControlName="autocomplete"></bds-autocomplete>
+        <bds-datepicker [label]="'fechaNacimiento'" prefixIcon="calendar"
+          formControlName="fechaNacimiento"></bds-datepicker>
+        <bds-textarea [label]="'descripcion'" prefixIcon="description" formControlName="descripcion"></bds-textarea>
+
+        <bds-button label="Enviar" variant="filled" type="submit"></bds-button>
+      </form>
+    </div>
+  </section>
+
 </main>

@@ -10,7 +10,7 @@
 
   <input matInput [formControl]="formControl" [type]="type()" [readonly]="readonly()" [autocomplete]="autocomplete()"
     [attr.maxlength]="maxlength()" [attr.minlength]="minlength()" [attr.min]="min()" [attr.max]="max()"
-    [attr.step]="step()" [attr.pattern]="pattern()" />
+    [attr.step]="step()" [attr.pattern]="pattern()" (blur)="handleBlur()" />
 
   @if (clearable() && value()) {
   <button mat-icon-button matSuffix (click)="clear($event)">

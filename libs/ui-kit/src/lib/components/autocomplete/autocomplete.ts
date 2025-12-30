@@ -1,8 +1,21 @@
-import { Component, computed, effect, ElementRef, input, model, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+import { Component, computed, effect, ElementRef, input, model, OnInit, signal, ViewChild, forwardRef, OnDestroy } from '@angular/core';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidatorFn,
+  Validators,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+  AbstractControl,
+} from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Subject, takeUntil } from 'rxjs';
 
 export type AutocompleteAppearance = 'fill' | 'outline';
 export type AutocompleteOption = {
@@ -14,7 +27,20 @@ export type AutocompleteOption = {
 
 @Component({
   selector: 'bds-autocomplete',
+  standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => AutocompleteComponent),
+      multi: true,
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => AutocompleteComponent),
+      multi: true,
+    },
+  ],
   host: {
     '[class.full-width]': 'fullWidth()',
     '[class.has-error]': 'formControl.invalid && formControl.touched',
@@ -23,7 +49,7 @@ export type AutocompleteOption = {
   templateUrl: './autocomplete.html',
   styleUrl: './autocomplete.scss',
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent implements OnInit, ControlValueAccessor, Validator, OnDestroy {
   label = input<string>('');
   appearance = input<AutocompleteAppearance>('outline');
   fullWidth = input<boolean>(false);
@@ -42,6 +68,11 @@ export class AutocompleteComponent implements OnInit {
   filteredOptions = signal<AutocompleteOption[]>([]);
 
   value = model<any | null>(null);
+
+  private readonly destroy$ = new Subject<void>();
+
+  private onChange: (value: any) => void = () => {};
+  private onTouched: () => void = () => {};
 
   errorMessage = computed(() => {
     // Si hay un error personalizado, mostrarlo
@@ -72,6 +103,7 @@ export class AutocompleteComponent implements OnInit {
       if (this.formControl.value !== currentValue) {
         const filterValue = this.filterOptions(currentValue);
         this.formControl.setValue(filterValue, { emitEvent: false });
+        this.onChange(currentValue);
       }
     });
 
@@ -89,21 +121,67 @@ export class AutocompleteComponent implements OnInit {
     });
 
     // Sincronizar el model con el valor del FormControl
-    this.formControl.valueChanges.subscribe(newValue => {
-      this.value.set(newValue || null);
+    this.formControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(newValue => {
+      const val = newValue || null;
+      this.value.set(val);
+      this.onChange(val);
     });
 
     effect(() => {
       if (this.customError()) {
         this.formControl.setErrors({ customError: true });
       } else {
-        this.formControl.setErrors(null);
+        if (this.formControl.hasError('customError')) {
+          const errors = { ...this.formControl.errors };
+          delete errors['customError'];
+          this.formControl.setErrors(Object.keys(errors).length > 0 ? errors : null);
+        }
       }
     });
   }
 
   ngOnInit() {
     this.filteredOptions.set(this.options());
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  // ControlValueAccessor methods
+  writeValue(value: any): void {
+    const filterValue = this.filterOptions(value);
+    this.formControl.setValue(filterValue, { emitEvent: false });
+    this.value.set(value || null);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    if (isDisabled) {
+      this.formControl.disable();
+    } else {
+      this.formControl.enable();
+    }
+  }
+
+  // Validator methods
+  validate(control: AbstractControl): ValidationErrors | null {
+    if (this.formControl.invalid) {
+      return this.formControl.errors;
+    }
+    return null;
+  }
+
+  handleBlur(): void {
+    this.onTouched();
   }
 
   filter(): void {
@@ -190,6 +268,6 @@ export class AutocompleteComponent implements OnInit {
 
     // Aplicar validadores
     this.formControl.setValidators(validators);
-    this.formControl.updateValueAndValidity();
+    this.formControl.updateValueAndValidity({ emitEvent: false });
   }
 }

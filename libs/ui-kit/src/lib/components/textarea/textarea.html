@@ -8,8 +8,8 @@
     }
 
     <textarea matInput [formControl]="formControl" [readonly]="readonly()" [disabled]="disabled()"
-        [placeholder]="placeholder()" [maxlength]="maxlength()" [rows]="rows()" [cols]="cols()"
-        [pattern]="pattern()"></textarea>
+        [placeholder]="placeholder()" [maxlength]="maxlength()" [rows]="rows()" [cols]="cols()" [pattern]="pattern()"
+        (blur)="handleBlur()"></textarea>
 
     @if (clearable() && value()) {
     <button mat-icon-button matSuffix (click)="clear($event)">

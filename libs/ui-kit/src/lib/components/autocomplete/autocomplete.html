@@ -4,7 +4,7 @@
     }
     <input #input type="text" matInput aria-label="{{label()}}" [placeholder]="placeholder()" [required]="required()"
         [formControl]="formControl" [matAutocomplete]="auto" (input)="filter()" (focus)="filter()"
-        [matAutocompleteDisabled]="autocompleteDisabled()">
+        [matAutocompleteDisabled]="autocompleteDisabled()" (blur)="handleBlur()">
     <mat-autocomplete [autoActiveFirstOption]="autoActiveFirstOption()" #auto="matAutocomplete"
         [displayWith]="displayFn">
         @for (item of filteredOptions(); track item) {

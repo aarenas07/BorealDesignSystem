@@ -65,6 +65,16 @@ const mockData: User[] = [
   { id: 3, name: 'Elena Torres', email: 'elena.torres@example.com', role: 'User', active: false, lastLogin: new Date('2023-10-20') },
   { id: 4, name: 'David Díaz', email: 'david.diaz@example.com', role: 'Manager', active: true, lastLogin: new Date('2023-11-10') },
   { id: 5, name: 'Lucía Fernández', email: 'lucia.fernandez@example.com', role: 'User', active: true, lastLogin: new Date('2023-11-12') },
+  { id: 6, name: 'Lucía Fernández', email: 'lucia.fernandez@example.com', role: 'User', active: true, lastLogin: new Date('2023-11-12') },
+  { id: 7, name: 'Lucía Fernández', email: 'lucia.fernandez@example.com', role: 'User', active: true, lastLogin: new Date('2023-11-12') },
+  { id: 8, name: 'Lucía Fernández', email: 'lucia.fernandez@example.com', role: 'User', active: true, lastLogin: new Date('2023-11-12') },
+  { id: 9, name: 'Lucía Fernández', email: 'lucia.fernandez@example.com', role: 'User', active: true, lastLogin: new Date('2023-11-12') },
+  { id: 10, name: 'Lucía Fernández', email: 'lucia.fernandez@example.com', role: 'User', active: true, lastLogin: new Date('2023-11-12') },
+  { id: 11, name: 'Lucía Fernández', email: 'lucia.fernandez@example.com', role: 'User', active: true, lastLogin: new Date('2023-11-12') },
+  { id: 12, name: 'Lucía Fernández', email: 'lucia.fernandez@example.com', role: 'User', active: true, lastLogin: new Date('2023-11-12') },
+  { id: 13, name: 'Lucía Fernández', email: 'lucia.fernandez@example.com', role: 'User', active: true, lastLogin: new Date('2023-11-12') },
+  { id: 14, name: 'Lucía Fernández', email: 'lucia.fernandez@example.com', role: 'User', active: true, lastLogin: new Date('2023-11-12') },
+  { id: 15, name: 'Lucía Fernández', email: 'lucia.fernandez@example.com', role: 'User', active: true, lastLogin: new Date('2023-11-12') },
 ];
 
 const basicColumns: TableColumn<User>[] = [
@@ -173,9 +183,29 @@ export const DetailedConfiguration: Story = {
     },
     actions: [
       {
-        icon: 'more_vert',
-        label: 'Opciones',
-        onClick: row => console.log('Opciones', row),
+        icon: 'edit',
+        label: 'Editar',
+        color: 'primary',
+        onClick: row => alert(`Editando a ${row.name}`),
+      },
+      {
+        icon: 'delete',
+        label: 'Eliminar',
+        color: 'warn',
+        onClick: row => alert(`Eliminando a ${row.name}`),
+      },
+      {
+        icon: 'visibility',
+        label: 'Ver Detalles',
+        tooltip: 'Ver detalles completos',
+        onClick: user => alert(`Ver detalles de ${user.name}`),
+      },
+      {
+        icon: 'send',
+        label: 'Enviar Email',
+        tooltip: 'Enviar correo',
+        disabled: row => row.role === 'Admin',
+        onClick: row => alert(`Enviando email a ${row.email}`),
       },
     ],
   },

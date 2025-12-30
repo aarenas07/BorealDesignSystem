@@ -20,9 +20,9 @@ nav {
         }
       }
 
-      &:after {
-        content: '/';
-        padding: 0.5rem;
+      .breadcrumb-item-separator {
+        margin-left: 0.3rem;
+        margin-right: 0.3rem;
       }
 
       &:is(:hover, :active) {
@@ -38,12 +38,6 @@ nav {
         .breadcrumb-item-link {
           text-decoration: none;
           cursor: initial;
-        }
-      }
-
-      &:last-of-type {
-        &:after {
-          content: none;
         }
       }
     }

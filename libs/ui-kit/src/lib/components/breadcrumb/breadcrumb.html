@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <!-- Home -->
-    @if(home()){
+    @if(home()?.label|| home()?.icon){
     <li class="breadcrumb-item">
       <!-- Link -->
       @if (home()?.link) {
@@ -30,8 +30,14 @@
         @if (home()?.icon) {
         <mat-icon>{{ home()?.icon }}</mat-icon>
         }
+        @if (home()?.label) {
         <span>{{home()?.label}}</span>
+        }
       </a>
+      }
+      <!-- Separator -->
+      @if(items().length > 0){
+      <span class="breadcrumb-item-separator">{{separator()}}</span>
       }
     </li>
     } @for (item of items(); track $index) {
@@ -56,6 +62,7 @@
         }
         <span>{{item.label}}</span>
       </a>
+      <span class="breadcrumb-item-separator">{{separator()}}</span>
       }
       <!-- Router Link -->
       @else if (item.routerLink) {
@@ -66,16 +73,18 @@
         }
         <span>{{item.label}}</span>
       </a>
+      <span class="breadcrumb-item-separator">{{separator()}}</span>
       }
       <!-- Plain Text -->
       @else {
-      <span>
+      <span class="breadcrumb-item-link">
         <!-- Icon -->
         @if (item.icon) {
         <mat-icon>{{ item.icon }}</mat-icon>
         }
         <span>{{item.label}}</span>
       </span>
+      <span class="breadcrumb-item-separator">{{separator()}}</span>
       }
     </li>
     } }

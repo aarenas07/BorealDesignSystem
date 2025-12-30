@@ -3,7 +3,6 @@ import { moduleMetadata } from '@storybook/angular';
 import { BreadcrumbComponent, MenuItem } from './breadcrumb';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
-import { expect } from '@storybook/test';
 
 const meta: Meta<BreadcrumbComponent> = {
   title: 'Navigation/Breadcrumb',
@@ -20,10 +19,12 @@ const meta: Meta<BreadcrumbComponent> = {
       { label: 'Subsección', routerLink: '/seccion/sub' },
       { label: 'Detalle', active: true },
     ] as MenuItem[],
+    separator: '/',
   },
   argTypes: {
     home: { control: 'object' },
     items: { control: 'object' },
+    separator: { control: 'text' },
   },
 };
 export default meta;

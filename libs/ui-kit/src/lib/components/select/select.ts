@@ -1,43 +1,41 @@
-import { Component, computed, effect, ElementRef, input, model, OnInit, signal, ViewChild, forwardRef, OnDestroy } from '@angular/core';
+import { Component, computed, effect, forwardRef, input, model, OnDestroy } from '@angular/core';
 import {
+  AbstractControl,
+  ControlValueAccessor,
   FormControl,
   FormsModule,
-  ReactiveFormsModule,
-  ValidatorFn,
-  Validators,
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
   NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
   ValidationErrors,
   Validator,
-  AbstractControl,
+  ValidatorFn,
+  Validators,
 } from '@angular/forms';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { Subject, takeUntil } from 'rxjs';
 
-export type AutocompleteAppearance = 'fill' | 'outline';
-export type AutocompleteOption = {
+export type SelectAppearance = 'fill' | 'outline';
+export type SelectOption = {
   value: string | number;
   label: string | number;
   img?: string;
-  group?: AutocompleteOption[];
+  group?: SelectOption[];
 };
 
 @Component({
-  selector: 'bds-autocomplete',
+  selector: 'bds-select',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule],
+  imports: [MatSelectModule, FormsModule, ReactiveFormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AutocompleteComponent),
+      useExisting: forwardRef(() => SelectComponent),
       multi: true,
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => AutocompleteComponent),
+      useExisting: forwardRef(() => SelectComponent),
       multi: true,
     },
   ],
@@ -46,16 +44,15 @@ export type AutocompleteOption = {
     '[class.has-error]': 'formControl.invalid && formControl.touched',
     '[class.is-disabled]': 'disabled()',
   },
-  templateUrl: './autocomplete.html',
-  styleUrl: './autocomplete.scss',
+  templateUrl: './select.html',
+  styleUrl: './select.scss',
 })
-export class AutocompleteComponent implements OnInit, ControlValueAccessor, Validator, OnDestroy {
+export class SelectComponent implements ControlValueAccessor, Validator, OnDestroy {
   label = input<string>('');
-  appearance = input<AutocompleteAppearance>('outline');
+  appearance = input<SelectAppearance>('outline');
   fullWidth = input<boolean>(false);
+  multiple = input<boolean>(false);
 
-  autoActiveFirstOption = input<boolean>(false);
-  autocompleteDisabled = input<boolean>(false);
   disabled = input<boolean>(false);
   required = input<boolean>(false);
 
@@ -63,9 +60,8 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
   hint = input<string>('');
   customError = input<string>('');
 
-  formControl = new FormControl<string | object | null>('');
-  options = input<AutocompleteOption[]>([]);
-  filteredOptions = signal<AutocompleteOption[]>([]);
+  formControl = new FormControl<string | null>('');
+  options = input<SelectOption[]>([]);
 
   value = model<any | null>(null);
 
@@ -95,14 +91,11 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
     return 'Campo inválido';
   });
 
-  @ViewChild('input') input!: ElementRef<HTMLInputElement>;
-
   constructor() {
     effect(() => {
       const currentValue = this.value();
       if (this.formControl.value !== currentValue) {
-        const filterValue = this.filterOptions(currentValue);
-        this.formControl.setValue(filterValue, { emitEvent: false });
+        this.formControl.setValue(currentValue, { emitEvent: false });
         this.onChange(currentValue);
       }
     });
@@ -140,10 +133,6 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
     });
   }
 
-  ngOnInit() {
-    this.filteredOptions.set(this.options());
-  }
-
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -151,8 +140,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
 
   // ControlValueAccessor methods
   writeValue(value: any): void {
-    const filterValue = this.filterOptions(value);
-    this.formControl.setValue(filterValue, { emitEvent: false });
+    this.formControl.setValue(value, { emitEvent: false });
     this.value.set(value || null);
   }
 
@@ -182,80 +170,6 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
 
   handleBlur(): void {
     this.onTouched();
-  }
-
-  filter(): void {
-    const filterValue = this.input.nativeElement.value.toLowerCase();
-
-    if (!filterValue) {
-      this.filteredOptions.set(this.options());
-      return;
-    }
-
-    if (!this.options().length) {
-      this.filteredOptions.set([]);
-      return;
-    }
-
-    if (this.isGrouped()) {
-      let copyOptions = structuredClone(this.options());
-
-      copyOptions = copyOptions.filter(o => {
-        if (o.group) {
-          o.group = o.group.filter(g => g.label.toString().toLowerCase().includes(filterValue));
-        }
-        if (o.group?.length === 0) {
-          return null;
-        }
-
-        return o;
-      });
-
-      this.filteredOptions.set(copyOptions);
-      return;
-    }
-
-    if (typeof filterValue === 'string') {
-      const search = this.options().filter(o => o.label.toString().toLowerCase().includes(filterValue));
-      this.filteredOptions.set(search);
-      return;
-    }
-
-    this.filteredOptions.set([]);
-  }
-
-  private filterOptions(currentValue: string | object): string | object {
-    if (!currentValue) {
-      return '';
-    }
-
-    if (!this.options().length) {
-      return currentValue;
-    }
-
-    if (this.isGrouped()) {
-      let copyOptions = structuredClone(this.options());
-      let foundOption = null;
-
-      copyOptions.forEach(o => {
-        if (o.group) {
-          foundOption = o.group.find(g => g.label.toString().toLowerCase() === currentValue.toString().toLowerCase());
-        }
-      });
-
-      return foundOption || '';
-    }
-
-    const foundOption = this.options().find(o => o.label.toString().toLowerCase() === currentValue.toString().toLowerCase());
-    return foundOption || '';
-  }
-
-  displayFn(item: AutocompleteOption): string {
-    return item && item.label ? item.label.toString() : '';
-  }
-
-  isGrouped(): boolean {
-    return this.options().some(o => o.group);
   }
 
   private updateValidators(): void {

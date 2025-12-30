@@ -242,6 +242,7 @@
     </div>
   </section>
 
+  <!-- Side Bar Section -->
   <section class="component-section">
     <bds-side-bar [sidebarData]="[
         {
@@ -256,6 +257,7 @@
       (itemSelected)="onSidebarItemSelected($event)"></bds-side-bar>
   </section>
 
+  <!-- Rail Section -->
   <section class="component-section">
     <bds-rail [config]="railConfig"></bds-rail>
   </section>
@@ -448,6 +450,11 @@
       <!-- Breadcrumb  -->
       <bds-breadcrumb [home]="{icon: 'home', label: 'Inicio', routerLink: '/'}" [items]="items()"> </bds-breadcrumb>
     </div>
+    <h2>Breadcrumb Home / Items Text</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [home]="{icon: 'home', label: 'Inicio', routerLink: '/'}" [items]="itemsText()"> </bds-breadcrumb>
+    </div>
     <h2>Breadcrumb Items (Icons)</h2>
     <div class="demo-row">
       <!-- Breadcrumb  -->
@@ -458,14 +465,19 @@
       <!-- Breadcrumb  -->
       <bds-breadcrumb [items]="itemsLinks()"> </bds-breadcrumb>
     </div>
+    <h2>Breadcrumb Separator</h2>
+    <div class="demo-row">
+      <!-- Breadcrumb  -->
+      <bds-breadcrumb [items]="itemsText()" [separator]="'>'"> </bds-breadcrumb>
+    </div>
   </section>
 
   <!-- Alert Section -->
   <section class="component-section">
-    <bds-alert variant="info" title="Información" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="success" title="Información" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="warning" title="Información" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="error" title="Información" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="info" title="info" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="success" title="success" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="warning" title="warning" message="Este es un alerta de información."></bds-alert>
+    <bds-alert variant="error" title="error" message="Este es un alerta de información."></bds-alert>
   </section>
 
   <!-- Textarea Section -->
@@ -619,6 +631,140 @@
         [options]="optionsAutocompleteGroup()"></bds-autocomplete>
       <bds-autocomplete [label]="'Autocomplete Img'" [options]="optionsAutocompleteImg()"></bds-autocomplete>
       <bds-autocomplete [label]="'Autocomplete Group Img'" [options]="optionsAutocompleteGroupImg()"></bds-autocomplete>
+    </div>
+  </section>
+
+  <!-- Tooltip -->
+  <section class="component-section">
+    <h2>Tooltip</h2>
+    <div class="demo-row">
+      <bds-button label="tooltip top" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="top"></bds-button>
+
+      <bds-button label="tooltip bottom" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="bottom"></bds-button>
+
+      <bds-button label="tooltip left" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="left"></bds-button>
+
+      <bds-button label="tooltip right" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="right"></bds-button>
+
+      <bds-button label="tooltip delay 2000" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="top" [bdsTooltipDelay]="2000"></bds-button>
+
+      <bds-button label="tooltip disabled" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="top" [bdsTooltipDisabled]="true"></bds-button>
+    </div>
+  </section>
+
+  <!-- Tooltip Position at Origin -->
+  <section class="component-section">
+    <h2>Tooltip Position at Origin</h2>
+    <div class="demo-row">
+      <div class="tooltip-container" bdsTooltip="Positioned at mouse origin"
+        [bdsTooltipPositionAtOrigin]="enabled.value ? true : false" bdsTooltipPosition="top">
+        Move mouse inside me
+      </div>
+    </div>
+    <mat-checkbox [formControl]="enabled" class="example-enabled-checkbox">
+      Position at origin enabled
+    </mat-checkbox>
+  </section>
+
+  <!-- Tooltip Custom Template -->
+  <section class="component-section">
+    <h2>Tooltip Custom Template</h2>
+    <div class="demo-row">
+      <bds-button label="Custom Template Tooltip" variant="filled" bdsTooltip="Este es el contexto"
+        bdsTooltipType="layout" [templateCustom]="myCustomTooltip"></bds-button>
+    </div>
+
+    <ng-template #myCustomTooltip let-context>
+      <div style="padding: 4px; display: flex; flex-direction: column; gap: 4px;">
+        <strong style="color: var(--mat-sys-primary);">Custom Header</strong>
+        <span>{{ context }}</span>
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <mat-icon style="font-size: 16px; width: 16px; height: 16px;">info</mat-icon>
+          <small>Additional Info</small>
+        </div>
+        <bds-button label="Text" variant="text" size="md" (action)="handleAction($event)"></bds-button>
+      </div>
+    </ng-template>
+  </section>
+
+  <!-- Tooltip Rich -->
+  <section class="component-section">
+    <h2>Tooltip Defined Template (Rich)</h2>
+    <div class="demo-row">
+      <bds-button label="Custom Rich Tooltip" variant="filled"
+        bdsTooltip="Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod"
+        bdsTooltipType="rich" [bdsTooltipHeader]="'Custom Header'" [bdsTooltipBtnCancelName]="'Cancel'"
+        [bdsTooltipBtnAcceptName]="'Ok'" (bdsTooltipClickCancel)="onTooltipCancel()"
+        (bdsTooltipClickAccept)="onTooltipAccept()"></bds-button>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section class="component-section">
+    <h2>Form</h2>
+    <div class="demo-row">
+      <form [formGroup]="formTesting" (ngSubmit)="onSubmitForm()" class="form-container">
+        <bds-form-field [label]="'email'" [placeholder]="'example@example.com'" [type]="'email'" prefixIcon="email"
+          [required]="true" formControlName="email"></bds-form-field>
+        <bds-form-field [label]="'password'" [placeholder]="'******'" [type]="'password'" prefixIcon="lock"
+          [required]="true" formControlName="password"></bds-form-field>
+        <bds-autocomplete [label]="'autocomplete'" prefixIcon="calendar" [options]="optionsAutocomplete()"
+          [required]="true" formControlName="autocomplete"></bds-autocomplete>
+        <bds-autocomplete [label]="'autocompleteGroupImg'" prefixIcon="calendar"
+          [options]="optionsAutocompleteGroupImg()" [required]="true"
+          formControlName="autocompleteGroupImg"></bds-autocomplete>
+        <bds-select [label]="'select'" [options]="optionsSelect()" [required]="true"
+          formControlName="select"></bds-select>
+        <bds-select [label]="'selectGroupImg'" [options]="optionsSelectGroupImg()" [required]="true"
+          formControlName="selectGroupImg"></bds-select>
+        <bds-select [label]="'Seleccion Multiple'" [multiple]="true" [options]="optionsSelect()" [required]="true"
+          formControlName="selectMultiple"></bds-select>
+        <bds-select [label]="'Seleccion Multiple Group'" [multiple]="true" [options]="optionsSelectGroup()"
+          [required]="true" formControlName="selectMultipleGroup"></bds-select>
+        <bds-datepicker [label]="'fechaNacimiento'" prefixIcon="calendar" [required]="true"
+          formControlName="fechaNacimiento"></bds-datepicker>
+        <bds-textarea [label]="'descripcion'" prefixIcon="description" [required]="true"
+          formControlName="descripcion"></bds-textarea>
+
+        <bds-button label="Enviar" variant="filled" type="submit"></bds-button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Select -->
+  <section class="component-section">
+    <h2>Select</h2>
+    <div class="demo-row">
+      <bds-select [label]="'Empty'" [options]="[]"></bds-select>
+      <bds-select [label]="'Label'" [placeholder]="'Placeholder'" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'Select'" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'appearance'" [appearance]="'fill'" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'fullWidth'" [fullWidth]="true" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'disabled'" [disabled]="true" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'required'" [required]="true" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'hint'" [hint]="'Texto de ejemplo'" [options]="optionsSelect()"></bds-select>
+      <!-- <bds-select [label]="'customError'" [customError]="errorCustomSelect()" (valueChange)="onSelectInput($event)"
+        [options]="optionsSelect()"></bds-select> -->
+      <bds-select [label]="'value'" [value]="'option3'" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'Select Group'" [options]="optionsSelectGroup()"></bds-select>
+      <bds-select [label]="'value group'" [value]="'num-3'" [options]="optionsSelectGroup()"></bds-select>
+      <bds-select [label]="'Select Img'" [options]="optionsSelectImg()"></bds-select>
+      <bds-select [label]="'Multiple'" [multiple]="true" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'Multiple Group'" [multiple]="true" [options]="optionsSelectGroup()"></bds-select>
+    </div>
+  </section>
+
+  <!-- example -->
+  <section class="component-section">
+    <h2>example</h2>
+    <div class="demo-row">
+
     </div>
   </section>
 

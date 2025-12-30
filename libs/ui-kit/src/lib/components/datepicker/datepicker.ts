@@ -1,5 +1,30 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, model, output, signal, viewChild } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  input,
+  model,
+  output,
+  signal,
+  viewChild,
+  forwardRef,
+  OnDestroy,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidatorFn,
+  Validators,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+  AbstractControl,
+} from '@angular/forms';
 import {
   MatDatepicker,
   MatDatepickerInput,
@@ -12,6 +37,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerToggle } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { Subject, takeUntil } from 'rxjs';
 
 export type DatepickerStartView = 'month' | 'year' | 'multi-year';
 export type DatepickerAppearance = 'fill' | 'outline';
@@ -31,7 +57,19 @@ export type DatepickerRange = { start: Date | null; end: Date | null };
     MatError,
     MatButtonModule,
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DatepickerComponent),
+      multi: true,
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => DatepickerComponent),
+      multi: true,
+    },
+  ],
   host: {
     '[class.full-width]': 'fullWidth()',
     '[class.has-error]': 'formControl.invalid && formControl.touched',
@@ -41,7 +79,7 @@ export type DatepickerRange = { start: Date | null; end: Date | null };
   styleUrl: './datepicker.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DatepickerComponent {
+export class DatepickerComponent implements ControlValueAccessor, Validator, OnDestroy {
   // Configuración básica
   label = input<string>('');
   appearance = input<DatepickerAppearance>('outline');
@@ -84,6 +122,11 @@ export class DatepickerComponent {
     end: new FormControl<Date | null>(null),
   });
   rangeInputs = input<boolean>(false);
+
+  private readonly destroy$ = new Subject<void>();
+
+  private onChange: (value: any) => void = () => {};
+  private onTouched: () => void = () => {};
 
   errorMessage = computed(() => {
     // Si hay un error personalizado, mostrarlo
@@ -129,6 +172,9 @@ export class DatepickerComponent {
       const currentValue = this.value();
       if (this.formControl.value !== currentValue) {
         this.formControl.setValue(currentValue, { emitEvent: false });
+        if (!this.rangeInputs()) {
+          this.onChange(currentValue);
+        }
       }
     });
 
@@ -137,18 +183,28 @@ export class DatepickerComponent {
       const currentValueRange = this.valueRange();
       if (this.rangeForm.value.start !== currentValueRange.start || this.rangeForm.value.end !== currentValueRange.end) {
         this.rangeForm.setValue(currentValueRange, { emitEvent: false });
+        if (this.rangeInputs()) {
+          this.onChange(currentValueRange);
+        }
       }
     });
 
     // Sincronizar el model con el valor del FormControl
-    this.formControl.valueChanges.subscribe(newValue => {
-      this.value.set(newValue || null);
+    this.formControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(newValue => {
+      const val = newValue || null;
+      this.value.set(val);
+      if (!this.rangeInputs()) {
+        this.onChange(val);
+      }
     });
 
     // Sincronizar el model con el valor del FormControl range
-    this.rangeForm.valueChanges.subscribe(newValue => {
+    this.rangeForm.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(newValue => {
       const newValueRange = { start: newValue.start || null, end: newValue.end || null };
       this.valueRange.set(newValueRange);
+      if (this.rangeInputs()) {
+        this.onChange(newValueRange);
+      }
     });
 
     // Actualizar validadores cuando cambien los inputs
@@ -160,8 +216,10 @@ export class DatepickerComponent {
     effect(() => {
       if (this.disabled()) {
         this.formControl.disable();
+        this.rangeForm.disable();
       } else {
         this.formControl.enable();
+        this.rangeForm.enable();
       }
     });
 
@@ -169,9 +227,67 @@ export class DatepickerComponent {
       if (this.customError()) {
         this.formControl.setErrors({ customError: true });
       } else {
-        this.formControl.setErrors(null);
+        if (this.formControl.hasError('customError')) {
+          const errors = { ...this.formControl.errors };
+          delete errors['customError'];
+          this.formControl.setErrors(Object.keys(errors).length > 0 ? errors : null);
+        }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  // ControlValueAccessor methods
+  writeValue(value: any): void {
+    if (this.rangeInputs()) {
+      const val = value || { start: null, end: null };
+      this.rangeForm.setValue(val, { emitEvent: false });
+      this.valueRange.set(val);
+    } else {
+      const val = value || null;
+      this.formControl.setValue(val, { emitEvent: false });
+      this.value.set(val);
+    }
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    if (isDisabled) {
+      this.formControl.disable();
+      this.rangeForm.disable();
+    } else {
+      this.formControl.enable();
+      this.rangeForm.enable();
+    }
+  }
+
+  // Validator methods
+  validate(control: AbstractControl): ValidationErrors | null {
+    if (this.rangeInputs()) {
+      if (this.rangeForm.invalid) {
+        return this.rangeForm.errors;
+      }
+    } else {
+      if (this.formControl.invalid) {
+        return this.formControl.errors;
+      }
+    }
+    return null;
+  }
+
+  handleBlur(): void {
+    this.onTouched();
   }
 
   private updateValidators(): void {
@@ -184,11 +300,11 @@ export class DatepickerComponent {
 
     // Aplicar validadores
     this.formControl.setValidators(validators);
-    this.formControl.updateValueAndValidity();
+    this.formControl.updateValueAndValidity({ emitEvent: false });
 
     this.rangeForm.get('start')?.setValidators(validators);
     this.rangeForm.get('end')?.setValidators(validators);
-    this.rangeForm.updateValueAndValidity();
+    this.rangeForm.updateValueAndValidity({ emitEvent: false });
   }
 
   _dateInput(event: MatDatepickerInputEvent<Date>) {

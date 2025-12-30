@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import { AutocompleteComponent } from './autocomplete';
+import { SelectComponent } from './select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
-const meta: Meta<AutocompleteComponent> = {
-  title: 'Atomos/Autocomplete',
-  component: AutocompleteComponent,
+const meta: Meta<SelectComponent> = {
+  title: 'Atomos/Select',
+  component: SelectComponent,
   decorators: [
     moduleMetadata({
-      imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AutocompleteComponent],
+      imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, SelectComponent],
     }),
   ],
   args: {
@@ -23,12 +23,11 @@ const meta: Meta<AutocompleteComponent> = {
     ],
     required: false,
     disabled: false,
-    appearance: 'outline',
     fullWidth: false,
-    autoActiveFirstOption: false,
-    autocompleteDisabled: false,
-    value: '',
+    multiple: false,
+    appearance: 'outline',
     customError: '',
+    value: '',
     hint: 'Texto de ayuda',
   },
   argTypes: {
@@ -37,34 +36,71 @@ const meta: Meta<AutocompleteComponent> = {
     options: { control: 'object' },
     required: { control: 'boolean' },
     disabled: { control: 'boolean' },
-    appearance: { control: 'radio', options: ['fill', 'outline'] },
     fullWidth: { control: 'boolean' },
-    autoActiveFirstOption: { control: 'boolean' },
-    autocompleteDisabled: { control: 'boolean' },
+    multiple: { control: 'boolean' },
+    appearance: { control: 'radio', options: ['fill', 'outline'] },
     customError: { control: 'text' },
-    hint: { control: 'text' },
     value: { control: 'text' },
+    hint: { control: 'text' },
   },
 };
 
 export default meta;
-type Story = StoryObj<AutocompleteComponent>;
+type Story = StoryObj<SelectComponent>;
 
 export const Basic: Story = {
+  render: args => ({
+    props: args,
+    template: `
+    <bds-select 
+        [label]="label" 
+        [placeholder]="placeholder" 
+        [options]="options" 
+        [value]="value" 
+        [multiple]="multiple"
+        [required]="required"
+        [disabled]="disabled"
+        [appearance]="appearance"
+        [fullWidth]="fullWidth"
+        [customError]="customError"
+        [hint]="hint"
+    ></bds-select>
+    `,
+  }),
   args: {
-    label: 'Basic',
-    placeholder: 'Seleccione una opción',
+    label: 'Label',
+    placeholder: 'Placeholder',
     options: [
       { label: 'One', value: 'one' },
       { label: 'Two', value: 'two' },
     ],
+    required: false,
+    disabled: false,
+    fullWidth: false,
+    multiple: false,
+    appearance: 'outline',
+    customError: '',
     value: '',
+    hint: 'Texto de ayuda',
+  },
+  argTypes: {
+    label: { control: 'text' },
+    placeholder: { control: 'text' },
+    options: { control: 'object' },
+    required: { control: 'boolean' },
+    disabled: { control: 'boolean' },
+    fullWidth: { control: 'boolean' },
+    multiple: { control: 'boolean' },
+    appearance: { control: 'radio', options: ['fill', 'outline'] },
+    customError: { control: 'text' },
+    value: { control: 'text' },
+    hint: { control: 'text' },
   },
 };
 
-export const AutocompleteGroup: Story = {
+export const SelectGroup: Story = {
   args: {
-    label: 'Autocomplete Group',
+    label: 'Select Group',
     placeholder: 'Seleccione una opción',
     options: [
       {
@@ -91,7 +127,7 @@ export const AutocompleteGroup: Story = {
 
 export const ValueGroup: Story = {
   args: {
-    value: 'Banana',
+    value: 'banana',
     label: 'Value Group',
     placeholder: 'Seleccione una opción',
     options: [
@@ -117,9 +153,9 @@ export const ValueGroup: Story = {
   },
 };
 
-export const AutocompleteImg: Story = {
+export const SelectImg: Story = {
   args: {
-    label: 'Value',
+    label: 'Select Img',
     placeholder: 'Seleccione una opción',
     options: [
       { label: 'One', value: 'one', img: 'https://images.icon-icons.com/317/PNG/512/star-icon_34346.png' },
@@ -128,9 +164,9 @@ export const AutocompleteImg: Story = {
   },
 };
 
-export const AutocompleteGroupImg: Story = {
+export const SelectGroupImg: Story = {
   args: {
-    label: 'Autocomplete Group',
+    label: 'Select Group Img',
     placeholder: 'Seleccione una opción',
     options: [
       {

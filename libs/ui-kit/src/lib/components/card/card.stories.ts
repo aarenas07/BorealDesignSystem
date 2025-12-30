@@ -135,102 +135,6 @@ export const Complete: Story = {
   }),
 };
 
-// --- VARIANTES DE ELEVACIÓN ---
-
-export const Flat: Story = {
-  args: {
-    elevation: 'flat',
-  },
-  render: args => ({
-    props: args,
-    template: `
-      <bds-card [elevation]="elevation" [size]="size">
-        <mat-card-title card-title>Card Plana</mat-card-title>
-        <div card-content>
-          <p>Esta card tiene elevación flat - sin sombra, solo con un borde sutil.</p>
-        </div>
-      </bds-card>
-    `,
-  }),
-};
-
-export const Outlined: Story = {
-  args: {
-    elevation: 'outlined',
-  },
-  render: args => ({
-    props: args,
-    template: `
-      <bds-card [elevation]="elevation" [size]="size">
-        <mat-card-title card-title>Card Outlined</mat-card-title>
-        <div card-content>
-          <p>Esta card tiene elevación outlined - con borde prominente y sin sombra.</p>
-        </div>
-      </bds-card>
-    `,
-  }),
-};
-
-export const Raised: Story = {
-  args: {
-    elevation: 'raised',
-  },
-  render: args => ({
-    props: args,
-    template: `
-      <bds-card [elevation]="elevation" [size]="size">
-        <mat-card-title card-title>Card Elevada</mat-card-title>
-        <div card-content>
-          <p>Esta card tiene elevación raised - con sombra para dar sensación de profundidad.</p>
-        </div>
-      </bds-card>
-    `,
-  }),
-};
-
-// --- VARIANTES DE TAMAÑO ---
-
-export const Small: Story = {
-  args: {
-    size: 'sm',
-  },
-  render: args => ({
-    props: args,
-    template: `
-      <bds-card [elevation]="elevation" [size]="size">
-        <mat-card-title card-title>Card Pequeña</mat-card-title>
-        <div card-content>
-          <p>Card con tamaño sm - compacta y con menos padding.</p>
-        </div>
-        <div card-actions>
-          <button mat-button>ACCIÓN</button>
-        </div>
-      </bds-card>
-    `,
-  }),
-};
-
-export const Large: Story = {
-  args: {
-    size: 'lg',
-  },
-  render: args => ({
-    props: args,
-    template: `
-      <bds-card [elevation]="elevation" [size]="size">
-        <mat-card-title card-title>Card Grande</mat-card-title>
-        <mat-card-subtitle card-subtitle>Con más espacio</mat-card-subtitle>
-        <div card-content>
-          <p>Card con tamaño lg - espaciosa con más padding y fuentes más grandes.</p>
-        </div>
-        <div card-actions>
-          <button mat-raised-button>ACCIÓN PRINCIPAL</button>
-        </div>
-      </bds-card>
-    `,
-  }),
-};
-
 // --- ESTADOS ESPECIALES ---
 
 export const Clickable: Story = {
@@ -248,26 +152,6 @@ export const Clickable: Story = {
         <div card-content>
           <p>Esta card es clickeable. Pasa el mouse sobre ella para ver el efecto hover.</p>
           <p><strong>Haz click para probar la interacción.</strong></p>
-        </div>
-      </bds-card>
-    `,
-  }),
-};
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
-  render: args => ({
-    props: args,
-    template: `
-      <bds-card [elevation]="elevation" [size]="size" [disabled]="disabled">
-        <mat-card-title card-title>Card Deshabilitada</mat-card-title>
-        <div card-content>
-          <p>Esta card está en estado deshabilitado - con opacidad reducida y sin interacciones.</p>
-        </div>
-        <div card-actions>
-          <button mat-button disabled>ACCIÓN</button>
         </div>
       </bds-card>
     `,

@@ -1,5 +1,5 @@
 import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -31,6 +31,9 @@ import {
   ThemeService,
   AutocompleteComponent,
   AutocompleteOption,
+  BdsTooltipDirective,
+  SelectComponent,
+  SelectOption,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -70,6 +73,8 @@ interface User {
     FormFieldComponent,
     DatepickerComponent,
     AutocompleteComponent,
+    BdsTooltipDirective,
+    SelectComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -126,47 +131,25 @@ export class App {
     { label: 'Item', routerLink: '/', active: true },
   ]);
 
+  itemsText = signal<MenuItem[]>([
+    { label: 'Users', icon: 'group' },
+    { label: 'User', icon: 'person' },
+    { label: 'View', icon: 'visibility', active: true },
+  ]);
+
   itemsIcons = signal<MenuItem[]>([
-    { label: 'Users', icon: 'user', routerLink: '/' },
-    { label: 'User', icon: 'lists', routerLink: '/' },
-    { label: 'View', routerLink: '/', active: true },
+    { label: 'Users', icon: 'groups', routerLink: '/' },
+    { label: 'User', icon: 'person', routerLink: '/' },
+    { label: 'View', icon: 'visibility', routerLink: '/', active: true },
   ]);
 
   itemsLinks = signal<MenuItem[]>([
-    { label: 'Page 1', icon: 'user', link: 'https://www.google.com/' },
-    { label: 'Page 2', icon: 'lists', link: 'https://www.google.com/' },
+    { label: 'Page 1', icon: 'view_module', link: 'https://www.google.com/' },
+    { label: 'Page 2', icon: 'list', link: 'https://www.google.com/' },
     { label: 'Page 3', active: true },
   ]);
 
-  private readonly themeService: ThemeService = inject(ThemeService);
-
-  constructor() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || ''))
-    );
-    this.themeService.setTheme({
-      id: 'sicof-light',
-      name: 'Sicof Light',
-      className: 'sicof-theme-light',
-    });
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-  formatLabel(value: number): string {
-    return `${value}`;
-  }
-
-  save() {
-    console.log('Guardando...');
-  }
-  delete() {
-    console.log('Eliminando...');
-  }
+  formTesting: FormGroup = new FormGroup({});
 
   /* table */
   @ViewChild('avatarTemplate') avatarTemplate!: TemplateRef<any>;
@@ -412,6 +395,93 @@ export class App {
 
   errorCustomAutocomplete = signal<string>('');
 
+  // Tooltip
+  enabled = new FormControl(false);
+
+  // Select
+  optionsSelect = signal<SelectOption[]>([
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+    { label: 'Option 3', value: 'option3' },
+  ]);
+  optionsSelectGroup = signal<SelectOption[]>([
+    {
+      label: 'Verduras',
+      value: 'group1',
+      group: [
+        { label: 'Tomate', value: 'tomate' },
+        { label: 'Pimiento', value: 'pimiento' },
+        { label: 'num 1', value: 'num-1' },
+      ],
+    },
+    {
+      label: 'Frutas',
+      value: 'group2',
+      group: [
+        { label: 'Manzana', value: 'manzana' },
+        { label: 'Banana', value: 'banana' },
+        { label: 'num 2', value: 'num-2' },
+      ],
+    },
+    {
+      label: 'Carnes',
+      value: 'group3',
+      group: [
+        { label: 'Carne de res', value: 'carne-de-res' },
+        { label: 'Carne de pollo', value: 'carne-de-pollo' },
+        { label: 'num 3', value: 'num-3' },
+        { label: 'num 4', value: 'num-4' },
+        { label: 'num 5', value: 'num-5' },
+        { label: 'num 6', value: 'num-6' },
+        { label: 'num 7', value: 'num-7' },
+        { label: 'num 8', value: 'num-8' },
+      ],
+    },
+  ]);
+  optionsSelectImg = signal<SelectOption[]>([
+    {
+      label: 'One Estas es una prueba de como se ve',
+      value: 'one',
+      img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png',
+    },
+    { label: 'Two', value: 'two', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+  ]);
+  optionsSelectGroupImg = signal<SelectOption[]>([
+    {
+      label: 'Verduras',
+      value: 'group1',
+      group: [
+        { label: 'Tomate', value: 'tomate', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+        { label: 'Pimiento', value: 'pimiento', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+      ],
+    },
+    {
+      label: 'Frutas',
+      value: 'group2',
+      group: [
+        { label: 'Manzana', value: 'manzana', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+        { label: 'Banana', value: 'banana', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
+      ],
+    },
+  ]);
+
+  errorCustomSelect = signal<string>('');
+
+  private readonly themeService: ThemeService = inject(ThemeService);
+  private readonly fb: FormBuilder = inject(FormBuilder);
+
+  constructor() {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || ''))
+    );
+    this.themeService.setTheme({
+      id: 'sicof-light',
+      name: 'Sicof Light',
+      className: 'sicof-theme-light',
+    });
+  }
+
   ngOnInit() {
     this.setupTableColumns();
     this.setupTableActions();
@@ -419,6 +489,19 @@ export class App {
     // Initialize demos
     this.generateVirtualData();
     this.onServerDataRequest({ page: 0, pageSize: 5 });
+
+    this.formTesting = this.fb.group({
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      autocomplete: ['', [Validators.required]],
+      autocompleteGroupImg: ['', [Validators.required]],
+      select: ['', [Validators.required]],
+      selectGroupImg: ['', [Validators.required]],
+      selectMultiple: ['', [Validators.required]],
+      selectMultipleGroup: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required]],
+      descripcion: ['', [Validators.required]],
+    });
   }
 
   ngAfterViewInit() {
@@ -467,6 +550,32 @@ export class App {
         cellTemplate: this.salaryTemplate,
       },
     ];
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  formatLabel(value: number): string {
+    return `${value}`;
+  }
+
+  save() {
+    console.log('Guardando...');
+  }
+  delete() {
+    console.log('Eliminando...');
+  }
+
+  onTooltipCancel() {
+    console.log('Tooltip Cancel Clicked');
+    alert('Tooltip Cancel Clicked');
+  }
+
+  onTooltipAccept() {
+    console.log('Tooltip Accept Clicked');
+    alert('Tooltip Accept Clicked');
   }
 
   setupTableColumns() {
@@ -734,7 +843,7 @@ export class App {
   /**
    * Textarea
    */
-  onTextareaInput(event: string) {
+  onTextareaInput(event: string | null) {
     if (event === 'error') {
       this.errorCustomTextarea.set('Error personalizado');
       return;
@@ -793,5 +902,28 @@ export class App {
       return;
     }
     this.errorCustomAutocomplete.set('');
+  }
+
+  onSubmitForm() {
+    console.log('onSubmitForm: ', this.formTesting);
+    console.log('onSubmitForm controls: ', this.formTesting.controls);
+
+    if (!this.formTesting.valid) {
+      this.formTesting.markAllAsTouched();
+      this.errorCustomSelect.set('Error personalizado');
+      return;
+    }
+
+    console.log('onSubmitForm value: ', this.formTesting.value);
+    console.log('Formulario enviado');
+  }
+
+  onSelectInput(event: string) {
+    console.log('onSelectInput: ', event);
+    if (event === 'error') {
+      this.errorCustomSelect.set('Error personalizado');
+      return;
+    }
+    this.errorCustomSelect.set('');
   }
 }

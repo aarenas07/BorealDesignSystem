@@ -172,10 +172,6 @@ export class SelectComponent implements ControlValueAccessor, Validator, OnDestr
     this.onTouched();
   }
 
-  isGrouped(): boolean {
-    return this.options().some(o => o.group);
-  }
-
   private updateValidators(): void {
     const validators: ValidatorFn[] = [];
 

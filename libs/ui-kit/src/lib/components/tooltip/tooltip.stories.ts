@@ -88,7 +88,7 @@ export const WithPositionAtOrigin: Story = {
     template: `
       <div style="display: flex; justify-content: center; align-items: center; padding: 20px;">
         <div
-          style="display: flex; justify-content: center; align-items: center; width: 300px; height: 300px; border: 1px solid #ccc; border-radius: 50%; cursor: help;"
+          style="display: flex; justify-content: center; align-items: center; width: 300px; height: 300px; border: 1px solid #ccc; border-radius: 50%; cursor: crosshair;"
           [bdsTooltip]="'Positioned at mouse origin'"
           [bdsTooltipPosition]="'bottom'"
           [bdsTooltipPositionAtOrigin]="positionAtOrigin"
@@ -137,16 +137,7 @@ export const RichWithButtons: Story = {
     onAccept: { action: 'clickAccept' },
   },
 };
-/* 
-export const PositionAtOrigin: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    content: 'El tooltip sigue al cursor',
-    positionAtOrigin: true,
-  },
-};
- */
+
 export const CustomTemplate: Story = {
   render: args => ({
     props: args,

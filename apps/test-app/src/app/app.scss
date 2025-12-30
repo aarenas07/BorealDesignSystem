@@ -292,6 +292,6 @@ mat-form-field {
 
 .form-container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 16px;
 }

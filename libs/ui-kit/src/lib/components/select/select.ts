@@ -60,7 +60,7 @@ export class SelectComponent implements ControlValueAccessor, Validator, OnDestr
   hint = input<string>('');
   customError = input<string>('');
 
-  formControl = new FormControl<string | object | null>('');
+  formControl = new FormControl<string | null>('');
   options = input<SelectOption[]>([]);
 
   value = model<any | null>(null);

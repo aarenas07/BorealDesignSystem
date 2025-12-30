@@ -70,7 +70,7 @@ export class TextareaComponent implements ControlValueAccessor, Validator, OnDes
   fullWidth = input<boolean>(false);
 
   // Valor con two-way binding
-  value = model<string>('');
+  value = model<string | null>(null);
 
   // Atributos de validación
   maxlength = input<number | null>(null);

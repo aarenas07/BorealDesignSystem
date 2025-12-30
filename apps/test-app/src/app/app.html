@@ -711,17 +711,61 @@
     <div class="demo-row">
       <form [formGroup]="formTesting" (ngSubmit)="onSubmitForm()" class="form-container">
         <bds-form-field [label]="'email'" [placeholder]="'example@example.com'" [type]="'email'" prefixIcon="email"
-          formControlName="email"></bds-form-field>
+          [required]="true" formControlName="email"></bds-form-field>
         <bds-form-field [label]="'password'" [placeholder]="'******'" [type]="'password'" prefixIcon="lock"
-          formControlName="password"></bds-form-field>
+          [required]="true" formControlName="password"></bds-form-field>
         <bds-autocomplete [label]="'autocomplete'" prefixIcon="calendar" [options]="optionsAutocomplete()"
-          formControlName="autocomplete"></bds-autocomplete>
-        <bds-datepicker [label]="'fechaNacimiento'" prefixIcon="calendar"
+          [required]="true" formControlName="autocomplete"></bds-autocomplete>
+        <bds-autocomplete [label]="'autocompleteGroupImg'" prefixIcon="calendar"
+          [options]="optionsAutocompleteGroupImg()" [required]="true"
+          formControlName="autocompleteGroupImg"></bds-autocomplete>
+        <bds-select [label]="'select'" [options]="optionsSelect()" [required]="true"
+          formControlName="select"></bds-select>
+        <bds-select [label]="'selectGroupImg'" [options]="optionsSelectGroupImg()" [required]="true"
+          formControlName="selectGroupImg"></bds-select>
+        <bds-select [label]="'Seleccion Multiple'" [multiple]="true" [options]="optionsSelect()" [required]="true"
+          formControlName="selectMultiple"></bds-select>
+        <bds-select [label]="'Seleccion Multiple Group'" [multiple]="true" [options]="optionsSelectGroup()"
+          [required]="true" formControlName="selectMultipleGroup"></bds-select>
+        <bds-datepicker [label]="'fechaNacimiento'" prefixIcon="calendar" [required]="true"
           formControlName="fechaNacimiento"></bds-datepicker>
-        <bds-textarea [label]="'descripcion'" prefixIcon="description" formControlName="descripcion"></bds-textarea>
+        <bds-textarea [label]="'descripcion'" prefixIcon="description" [required]="true"
+          formControlName="descripcion"></bds-textarea>
 
         <bds-button label="Enviar" variant="filled" type="submit"></bds-button>
       </form>
+    </div>
+  </section>
+
+  <!-- Select -->
+  <section class="component-section">
+    <h2>Select</h2>
+    <div class="demo-row">
+      <bds-select [label]="'Empty'" [options]="[]"></bds-select>
+      <bds-select [label]="'Label'" [placeholder]="'Placeholder'" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'Select'" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'appearance'" [appearance]="'fill'" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'fullWidth'" [fullWidth]="true" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'disabled'" [disabled]="true" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'required'" [required]="true" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'hint'" [hint]="'Texto de ejemplo'" [options]="optionsSelect()"></bds-select>
+      <!-- <bds-select [label]="'customError'" [customError]="errorCustomSelect()" (valueChange)="onSelectInput($event)"
+        [options]="optionsSelect()"></bds-select> -->
+      <bds-select [label]="'value'" [value]="'option3'" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'Select Group'" [options]="optionsSelectGroup()"></bds-select>
+      <bds-select [label]="'value group'" [value]="'num-3'" [options]="optionsSelectGroup()"></bds-select>
+      <bds-select [label]="'Select Img'" [options]="optionsSelectImg()"></bds-select>
+      <bds-select [label]="'Multiple'" [multiple]="true" [options]="optionsSelect()"></bds-select>
+      <bds-select [label]="'Multiple Group'" [multiple]="true" [options]="optionsSelectGroup()"></bds-select>
+    </div>
+  </section>
+
+
+  <!-- example -->
+  <section class="component-section">
+    <h2>example</h2>
+    <div class="demo-row">
+
     </div>
   </section>
 

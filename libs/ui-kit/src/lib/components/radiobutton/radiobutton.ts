@@ -11,14 +11,7 @@ import {
 } from '@angular/forms';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { Subject, takeUntil } from 'rxjs';
-
-// Tipos para las apariencias de Angular Material Form Field
-export type RadiobuttonLabelPosition = 'before' | 'after';
-
-export interface RadiobuttonProps {
-  label: string;
-  value: string;
-}
+import { MenuOptionBds, RadiobuttonLabelPosition } from '../../interfaces';
 
 @Component({
   selector: 'bds-radiobutton',
@@ -53,7 +46,7 @@ export class RadiobuttonComponent {
   disabled = input<boolean>(false);
   column = input<boolean>(true);
 
-  options = input<RadiobuttonProps[]>([]);
+  options = input<MenuOptionBds[]>([]);
   formControl = new FormControl('');
 
   value = model<any | null>(null);

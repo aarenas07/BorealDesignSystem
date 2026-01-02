@@ -729,10 +729,12 @@
           [required]="true" formControlName="selectMultipleGroup"></bds-select>
         <bds-datepicker [label]="'fechaNacimiento'" prefixIcon="calendar" [required]="true"
           formControlName="fechaNacimiento"></bds-datepicker>
+        <bds-radiobutton [ariaLabel]="'Sexo'" [options]="groupSexo()" [required]="true"
+          formControlName="sexo"></bds-radiobutton>
         <bds-textarea [label]="'descripcion'" prefixIcon="description" [required]="true"
           formControlName="descripcion"></bds-textarea>
 
-        <bds-button label="Enviar" variant="filled" type="submit"></bds-button>
+        <bds-button [fullWidth]="true" label="Enviar" variant="filled" type="submit"></bds-button>
       </form>
     </div>
   </section>
@@ -757,6 +759,38 @@
       <bds-select [label]="'Select Img'" [options]="optionsSelectImg()"></bds-select>
       <bds-select [label]="'Multiple'" [multiple]="true" [options]="optionsSelect()"></bds-select>
       <bds-select [label]="'Multiple Group'" [multiple]="true" [options]="optionsSelectGroup()"></bds-select>
+    </div>
+  </section>
+
+  <!-- example -->
+  <section class="component-section">
+    <h2>Radio Button</h2>
+    <div class="demo-row">
+      <bds-radiobutton [ariaLabel]="'Radio Button 1'" [options]="optionsRadio()"></bds-radiobutton>
+    </div>
+    <div class="demo-row">
+      <bds-radiobutton [ariaLabel]="'Radio Button 2'" [options]="optionsRadio()" [label]="'Label'"></bds-radiobutton>
+    </div>
+    <div class="demo-row">
+      <bds-radiobutton [ariaLabel]="'Radio Button 3'" [options]="optionsRadio()" [label]="'Disabled'"
+        [disabled]="true"></bds-radiobutton>
+    </div>
+    <div class="demo-row">
+      <bds-radiobutton [ariaLabel]="'Radio Button 4'" [options]="optionsRadio()" [label]="'Column'"
+        [column]="false"></bds-radiobutton>
+    </div>
+    <div class="demo-row">
+      <bds-radiobutton [ariaLabel]="'Radio Button 5'" [options]="optionsRadio()" [label]="'Column'"
+        [positionLabel]="'before'"></bds-radiobutton>
+    </div>
+    <div class="demo-row">
+      <bds-radiobutton [ariaLabel]="'Radio Button 5'" [options]="optionsRadio()" [label]="'Value'"
+        [value]="'one'"></bds-radiobutton>
+    </div>
+    <div class="demo-row">
+      <bds-radiobutton [ariaLabel]="'Radio Button 6'" [options]="optionsRadio()" [label]="'Change'"
+        (change)="onRadioInput($event)"></bds-radiobutton>
+      <p style="margin-left: 10px;">Value radio: {{ valueRadio() }}</p>
     </div>
   </section>
 

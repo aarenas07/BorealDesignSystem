@@ -16,3 +16,4 @@ export * from './lib/components/datepicker/datepicker';
 export * from './lib/components/autocomplete/autocomplete';
 export * from './lib/components/tooltip/tooltip';
 export * from './lib/components/select/select';
+export * from './lib/components/radiobutton/radiobutton';

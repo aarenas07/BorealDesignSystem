@@ -38,7 +38,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerToggle } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Subject, takeUntil } from 'rxjs';
-import { DatepickerAppearance, DatepickerRange, DatepickerStartView } from '../../interfaces';
+import { AppearanceComponentBds, DatepickerRange, DatepickerStartView } from '../../interfaces';
 
 @Component({
   selector: 'bds-datepicker',
@@ -79,7 +79,7 @@ import { DatepickerAppearance, DatepickerRange, DatepickerStartView } from '../.
 export class DatepickerComponent implements ControlValueAccessor, Validator, OnDestroy {
   // Configuración básica
   label = input<string>('');
-  appearance = input<DatepickerAppearance>('outline');
+  appearance = input<AppearanceComponentBds>('outline');
   startView = input<DatepickerStartView>('month');
   startDate = input<Date | null>(null);
   minDate = input<Date | null>(null);

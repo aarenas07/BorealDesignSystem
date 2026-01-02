@@ -16,7 +16,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Subject, takeUntil } from 'rxjs';
-import { AutocompleteAppearance, MenuOptionBds } from '../../interfaces';
+import { AppearanceComponentBds, MenuOptionBds } from '../../interfaces';
 
 @Component({
   selector: 'bds-autocomplete',
@@ -44,7 +44,7 @@ import { AutocompleteAppearance, MenuOptionBds } from '../../interfaces';
 })
 export class AutocompleteComponent implements OnInit, ControlValueAccessor, Validator, OnDestroy {
   label = input<string>('');
-  appearance = input<AutocompleteAppearance>('outline');
+  appearance = input<AppearanceComponentBds>('outline');
   fullWidth = input<boolean>(false);
 
   autoActiveFirstOption = input<boolean>(false);

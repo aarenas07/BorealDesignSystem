@@ -1,4 +1,4 @@
 export * from './radiobutton.interface';
 export * from './datepicker.interface';
-export * from './autocomplete.interface';
-export * from './select.interface';
+export * from './bds-appearance.enum';
+export * from './bds-options.interface';

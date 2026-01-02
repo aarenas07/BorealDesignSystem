@@ -33,9 +33,7 @@ import {
   MenuOptionBds,
   BdsTooltipDirective,
   SelectComponent,
-  SelectOption,
   RadiobuttonComponent,
-  RadiobuttonProps,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -402,12 +400,12 @@ export class App {
   enabled = new FormControl(false);
 
   // Select
-  optionsSelect = signal<SelectOption[]>([
+  optionsSelect = signal<MenuOptionBds[]>([
     { label: 'Option 1', value: 'option1' },
     { label: 'Option 2', value: 'option2' },
     { label: 'Option 3', value: 'option3' },
   ]);
-  optionsSelectGroup = signal<SelectOption[]>([
+  optionsSelectGroup = signal<MenuOptionBds[]>([
     {
       label: 'Verduras',
       value: 'group1',
@@ -441,7 +439,7 @@ export class App {
       ],
     },
   ]);
-  optionsSelectImg = signal<SelectOption[]>([
+  optionsSelectImg = signal<MenuOptionBds[]>([
     {
       label: 'One Estas es una prueba de como se ve',
       value: 'one',
@@ -449,7 +447,7 @@ export class App {
     },
     { label: 'Two', value: 'two', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
   ]);
-  optionsSelectGroupImg = signal<SelectOption[]>([
+  optionsSelectGroupImg = signal<MenuOptionBds[]>([
     {
       label: 'Verduras',
       value: 'group1',
@@ -471,13 +469,13 @@ export class App {
   errorCustomSelect = signal<string>('');
 
   // Radio Button
-  optionsRadio = signal<RadiobuttonProps[]>([
+  optionsRadio = signal<MenuOptionBds[]>([
     { label: 'One', value: 'one' },
     { label: 'Two', value: 'two' },
     { label: 'Three', value: 'three' },
   ]);
 
-  groupSexo = signal<RadiobuttonProps[]>([
+  groupSexo = signal<MenuOptionBds[]>([
     { label: 'Masculino', value: 'masculino' },
     { label: 'Femenino', value: 'femenino' },
     { label: 'Otro', value: 'otro' },

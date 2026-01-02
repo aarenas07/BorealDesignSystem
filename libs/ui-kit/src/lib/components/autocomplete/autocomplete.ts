@@ -16,14 +16,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Subject, takeUntil } from 'rxjs';
-
-export type AutocompleteAppearance = 'fill' | 'outline';
-export type AutocompleteOption = {
-  value: string | number;
-  label: string | number;
-  img?: string;
-  group?: AutocompleteOption[];
-};
+import { AutocompleteAppearance, MenuOptionBds } from '../../interfaces';
 
 @Component({
   selector: 'bds-autocomplete',
@@ -64,8 +57,8 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
   customError = input<string>('');
 
   formControl = new FormControl<string | object | null>('');
-  options = input<AutocompleteOption[]>([]);
-  filteredOptions = signal<AutocompleteOption[]>([]);
+  options = input<MenuOptionBds[]>([]);
+  filteredOptions = signal<MenuOptionBds[]>([]);
 
   value = model<any | null>(null);
 
@@ -250,7 +243,7 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
     return foundOption || '';
   }
 
-  displayFn(item: AutocompleteOption): string {
+  displayFn(item: MenuOptionBds): string {
     return item && item.label ? item.label.toString() : '';
   }
 

@@ -30,7 +30,7 @@ import {
   DatepickerComponent,
   ThemeService,
   AutocompleteComponent,
-  AutocompleteOption,
+  MenuOptionBds,
   BdsTooltipDirective,
   SelectComponent,
   SelectOption,
@@ -323,7 +323,7 @@ export class App {
   valueDatepickerRange = signal<{ start: Date | null; end: Date | null }>({ start: new Date(2025, 11, 1), end: new Date(2025, 11, 31) });
 
   // Autocomplete
-  optionsAutocomplete = signal<AutocompleteOption[]>([
+  optionsAutocomplete = signal<MenuOptionBds[]>([
     { label: 'One', value: 'one' },
     { label: 'Two', value: 'two' },
     { label: 'Three', value: 'three' },
@@ -333,7 +333,7 @@ export class App {
     { label: 'Seven', value: 'seven' },
   ]);
 
-  optionsAutocompleteGroup = signal<AutocompleteOption[]>([
+  optionsAutocompleteGroup = signal<MenuOptionBds[]>([
     {
       label: 'Verduras',
       value: 'group1',
@@ -368,7 +368,7 @@ export class App {
     },
   ]);
 
-  optionsAutocompleteImg = signal<AutocompleteOption[]>([
+  optionsAutocompleteImg = signal<MenuOptionBds[]>([
     {
       label: 'One Estas es una prueba de como se ve',
       value: 'one',
@@ -377,7 +377,7 @@ export class App {
     { label: 'Two', value: 'two', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
   ]);
 
-  optionsAutocompleteGroupImg = signal<AutocompleteOption[]>([
+  optionsAutocompleteGroupImg = signal<MenuOptionBds[]>([
     {
       label: 'Verduras',
       value: 'group1',

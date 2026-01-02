@@ -38,10 +38,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerToggle } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Subject, takeUntil } from 'rxjs';
-
-export type DatepickerStartView = 'month' | 'year' | 'multi-year';
-export type DatepickerAppearance = 'fill' | 'outline';
-export type DatepickerRange = { start: Date | null; end: Date | null };
+import { DatepickerAppearance, DatepickerRange, DatepickerStartView } from '../../interfaces';
 
 @Component({
   selector: 'bds-datepicker',

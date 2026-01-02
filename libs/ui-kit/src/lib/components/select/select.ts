@@ -14,14 +14,7 @@ import {
 } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { Subject, takeUntil } from 'rxjs';
-
-export type SelectAppearance = 'fill' | 'outline';
-export type SelectOption = {
-  value: string | number;
-  label: string | number;
-  img?: string;
-  group?: SelectOption[];
-};
+import { SelectAppearance, SelectOption } from '../../interfaces';
 
 @Component({
   selector: 'bds-select',

@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const meta: Meta<TextareaComponent> = {
   title: 'Atomos/Textarea',
   component: TextareaComponent,
-  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [MatIconModule, MatButtonModule, ReactiveFormsModule, BrowserAnimationsModule],

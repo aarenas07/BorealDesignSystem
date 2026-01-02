@@ -34,6 +34,8 @@ import {
   BdsTooltipDirective,
   SelectComponent,
   SelectOption,
+  RadiobuttonComponent,
+  RadiobuttonProps,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -75,6 +77,7 @@ interface User {
     AutocompleteComponent,
     BdsTooltipDirective,
     SelectComponent,
+    RadiobuttonComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -467,6 +470,21 @@ export class App {
 
   errorCustomSelect = signal<string>('');
 
+  // Radio Button
+  optionsRadio = signal<RadiobuttonProps[]>([
+    { label: 'One', value: 'one' },
+    { label: 'Two', value: 'two' },
+    { label: 'Three', value: 'three' },
+  ]);
+
+  groupSexo = signal<RadiobuttonProps[]>([
+    { label: 'Masculino', value: 'masculino' },
+    { label: 'Femenino', value: 'femenino' },
+    { label: 'Otro', value: 'otro' },
+  ]);
+
+  valueRadio = signal<string>('');
+
   private readonly themeService: ThemeService = inject(ThemeService);
   private readonly fb: FormBuilder = inject(FormBuilder);
 
@@ -500,6 +518,7 @@ export class App {
       selectMultiple: ['', [Validators.required]],
       selectMultipleGroup: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]],
+      sexo: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
     });
   }
@@ -925,5 +944,10 @@ export class App {
       return;
     }
     this.errorCustomSelect.set('');
+  }
+
+  onRadioInput(event: any) {
+    console.log('onRadioInput: ', event);
+    this.valueRadio.set(event.value);
   }
 }

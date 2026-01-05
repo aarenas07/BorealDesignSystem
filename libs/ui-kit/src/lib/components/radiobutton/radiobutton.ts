@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { Subject, takeUntil } from 'rxjs';
-import { MenuOptionBds, RadiobuttonLabelPosition } from '../../interfaces';
+import { MenuOptionBds, LabelPositionBds } from '../../interfaces';
 
 @Component({
   selector: 'bds-radiobutton',
@@ -41,7 +41,7 @@ export class RadiobuttonComponent {
   label = input<string>('');
   name = input<string>('');
   ariaLabel = input.required<string>();
-  positionLabel = input<RadiobuttonLabelPosition>('after');
+  positionLabel = input<LabelPositionBds>('after');
 
   disabled = input<boolean>(false);
   column = input<boolean>(true);

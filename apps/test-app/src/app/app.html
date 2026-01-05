@@ -731,6 +731,10 @@
           formControlName="fechaNacimiento"></bds-datepicker>
         <bds-radiobutton [ariaLabel]="'Sexo'" [options]="groupSexo()" [required]="true"
           formControlName="sexo"></bds-radiobutton>
+        @for (option of optionsHobbies(); track option.value) {
+        <bds-checkbox [label]="option.label+' '" [checked]="option.value ? true: false"
+          (change)="onCheckboxInput($event)" formControlName="hobbies"></bds-checkbox>
+        }
         <bds-textarea [label]="'descripcion'" prefixIcon="description" [required]="true"
           formControlName="descripcion"></bds-textarea>
 
@@ -762,7 +766,7 @@
     </div>
   </section>
 
-  <!-- example -->
+  <!-- Radiobutton -->
   <section class="component-section">
     <h2>Radio Button</h2>
     <div class="demo-row">
@@ -791,6 +795,30 @@
       <bds-radiobutton [ariaLabel]="'Radio Button 6'" [options]="optionsRadio()" [label]="'Change'"
         (change)="onRadioInput($event)"></bds-radiobutton>
       <p style="margin-left: 10px;">Value radio: {{ valueRadio() }}</p>
+    </div>
+  </section>
+
+  <!-- Checkbox -->
+  <section class="component-section">
+    <h2>Checkbox</h2>
+    <div class="demo-row">
+      <bds-checkbox [label]="'Checkbox 1'"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'disabled'" [disabled]="true"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'checked'" [checked]="true"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'indeterminate'" [indeterminate]="true"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'positionLabel before'" [positionLabel]="'before'"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'Change'" (change)="onCheckboxInput($event)"></bds-checkbox>
+      <p style="margin-left: 10px;">Value checkbox: {{ valueCheckbox() }}</p>
     </div>
   </section>
 

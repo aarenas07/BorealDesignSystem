@@ -34,6 +34,7 @@ import {
   BdsTooltipDirective,
   SelectComponent,
   RadiobuttonComponent,
+  CheckboxComponent,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -76,6 +77,7 @@ interface User {
     BdsTooltipDirective,
     SelectComponent,
     RadiobuttonComponent,
+    CheckboxComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -483,6 +485,16 @@ export class App {
 
   valueRadio = signal<string>('');
 
+  //Hobbies
+  optionsHobbies = signal<MenuOptionBds[]>([
+    { label: 'Work', value: false },
+    { label: 'Play', value: false },
+    { label: 'Sleep', value: false },
+  ]);
+
+  //Checkbox
+  valueCheckbox = signal<boolean>(false);
+
   private readonly themeService: ThemeService = inject(ThemeService);
   private readonly fb: FormBuilder = inject(FormBuilder);
 
@@ -517,6 +529,7 @@ export class App {
       selectMultipleGroup: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]],
       sexo: ['', [Validators.required]],
+      hobbies: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
     });
   }
@@ -947,5 +960,10 @@ export class App {
   onRadioInput(event: any) {
     console.log('onRadioInput: ', event);
     this.valueRadio.set(event.value);
+  }
+
+  onCheckboxInput(event: any) {
+    console.log('onCheckboxInput: ', event);
+    this.valueCheckbox.set(event.checked);
   }
 }

@@ -15,14 +15,14 @@ const meta: Meta<CheckboxComponent> = {
   args: {
     label: 'Checkbox',
     disabled: false,
-    checked: false,
+    value: false,
     indeterminate: false,
     positionLabel: 'after',
   },
   argTypes: {
     label: { control: 'text' },
     disabled: { control: 'boolean' },
-    checked: { control: 'boolean' },
+    value: { control: 'boolean' },
     indeterminate: { control: 'boolean' },
     positionLabel: { control: 'radio', options: ['before', 'after'] },
   },
@@ -35,7 +35,7 @@ export const Basic: Story = {
   args: {
     label: 'Label checkbox',
     disabled: false,
-    checked: false,
+    value: false,
     indeterminate: false,
     positionLabel: 'after',
   },

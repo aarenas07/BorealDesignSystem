@@ -493,11 +493,11 @@ export class App {
   ]);
 
   listHobbies = signal<any[]>([
-    { label: 'Deportes', value: false },
-    { label: 'Pintar', value: false },
-    { label: 'Videos juegos', value: false },
-    { label: 'Ver peliculas', value: false },
-    { label: 'Leer', value: false },
+    { label: 'Deportes' },
+    { label: 'Pintar' },
+    { label: 'Videos juegos' },
+    { label: 'Ver peliculas' },
+    { label: 'Leer' },
   ]);
 
   //Checkbox

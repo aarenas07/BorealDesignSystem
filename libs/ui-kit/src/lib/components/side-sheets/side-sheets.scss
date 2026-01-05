@@ -1,7 +1,7 @@
 .sheet-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 2000;
+  z-index: 1000;
   backdrop-filter: blur(4px);
 }
 
@@ -14,7 +14,7 @@
   background: var(--mat-sys-surface);
   box-shadow: 0px 2px 1px -1px rgba(226, 226, 226, 0.2), 0px 1px 1px 0px rgba(161, 160, 160, 0.14),
     0px 1px 3px 0px rgba(119, 119, 119, 0.12);
-  z-index: 2000;
+  z-index: 1000;
   transform: translateX(100%);
   transition: transform 200ms ease;
   overflow: hidden;

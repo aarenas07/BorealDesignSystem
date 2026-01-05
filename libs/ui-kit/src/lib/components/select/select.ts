@@ -14,14 +14,7 @@ import {
 } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { Subject, takeUntil } from 'rxjs';
-
-export type SelectAppearance = 'fill' | 'outline';
-export type SelectOption = {
-  value: string | number;
-  label: string | number;
-  img?: string;
-  group?: SelectOption[];
-};
+import { AppearanceComponentBds, MenuOptionBds } from '../../interfaces';
 
 @Component({
   selector: 'bds-select',
@@ -49,7 +42,7 @@ export type SelectOption = {
 })
 export class SelectComponent implements ControlValueAccessor, Validator, OnDestroy {
   label = input<string>('');
-  appearance = input<SelectAppearance>('outline');
+  appearance = input<AppearanceComponentBds>('outline');
   fullWidth = input<boolean>(false);
   multiple = input<boolean>(false);
 
@@ -61,7 +54,7 @@ export class SelectComponent implements ControlValueAccessor, Validator, OnDestr
   customError = input<string>('');
 
   formControl = new FormControl<string | null>('');
-  options = input<SelectOption[]>([]);
+  options = input<MenuOptionBds[]>([]);
 
   value = model<any | null>(null);
 

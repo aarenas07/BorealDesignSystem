@@ -1,5 +1,5 @@
 import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -30,10 +30,11 @@ import {
   DatepickerComponent,
   ThemeService,
   AutocompleteComponent,
-  AutocompleteOption,
+  MenuOptionBds,
   BdsTooltipDirective,
   SelectComponent,
-  SelectOption,
+  RadiobuttonComponent,
+  CheckboxComponent,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -75,6 +76,8 @@ interface User {
     AutocompleteComponent,
     BdsTooltipDirective,
     SelectComponent,
+    RadiobuttonComponent,
+    CheckboxComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -320,7 +323,7 @@ export class App {
   valueDatepickerRange = signal<{ start: Date | null; end: Date | null }>({ start: new Date(2025, 11, 1), end: new Date(2025, 11, 31) });
 
   // Autocomplete
-  optionsAutocomplete = signal<AutocompleteOption[]>([
+  optionsAutocomplete = signal<MenuOptionBds[]>([
     { label: 'One', value: 'one' },
     { label: 'Two', value: 'two' },
     { label: 'Three', value: 'three' },
@@ -330,7 +333,7 @@ export class App {
     { label: 'Seven', value: 'seven' },
   ]);
 
-  optionsAutocompleteGroup = signal<AutocompleteOption[]>([
+  optionsAutocompleteGroup = signal<MenuOptionBds[]>([
     {
       label: 'Verduras',
       value: 'group1',
@@ -365,7 +368,7 @@ export class App {
     },
   ]);
 
-  optionsAutocompleteImg = signal<AutocompleteOption[]>([
+  optionsAutocompleteImg = signal<MenuOptionBds[]>([
     {
       label: 'One Estas es una prueba de como se ve',
       value: 'one',
@@ -374,7 +377,7 @@ export class App {
     { label: 'Two', value: 'two', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
   ]);
 
-  optionsAutocompleteGroupImg = signal<AutocompleteOption[]>([
+  optionsAutocompleteGroupImg = signal<MenuOptionBds[]>([
     {
       label: 'Verduras',
       value: 'group1',
@@ -399,12 +402,12 @@ export class App {
   enabled = new FormControl(false);
 
   // Select
-  optionsSelect = signal<SelectOption[]>([
+  optionsSelect = signal<MenuOptionBds[]>([
     { label: 'Option 1', value: 'option1' },
     { label: 'Option 2', value: 'option2' },
     { label: 'Option 3', value: 'option3' },
   ]);
-  optionsSelectGroup = signal<SelectOption[]>([
+  optionsSelectGroup = signal<MenuOptionBds[]>([
     {
       label: 'Verduras',
       value: 'group1',
@@ -438,7 +441,7 @@ export class App {
       ],
     },
   ]);
-  optionsSelectImg = signal<SelectOption[]>([
+  optionsSelectImg = signal<MenuOptionBds[]>([
     {
       label: 'One Estas es una prueba de como se ve',
       value: 'one',
@@ -446,7 +449,7 @@ export class App {
     },
     { label: 'Two', value: 'two', img: 'https://images.icon-icons.com/4217/PNG/512/star_planet_icon_263076.png' },
   ]);
-  optionsSelectGroupImg = signal<SelectOption[]>([
+  optionsSelectGroupImg = signal<MenuOptionBds[]>([
     {
       label: 'Verduras',
       value: 'group1',
@@ -466,6 +469,39 @@ export class App {
   ]);
 
   errorCustomSelect = signal<string>('');
+
+  // Radio Button
+  optionsRadio = signal<MenuOptionBds[]>([
+    { label: 'One', value: 'one' },
+    { label: 'Two', value: 'two' },
+    { label: 'Three', value: 'three' },
+  ]);
+
+  groupSexo = signal<MenuOptionBds[]>([
+    { label: 'Masculino', value: 'masculino' },
+    { label: 'Femenino', value: 'femenino' },
+    { label: 'Otro', value: 'otro' },
+  ]);
+
+  valueRadio = signal<string>('');
+
+  //Hobbies
+  optionsHobbies = signal<MenuOptionBds[]>([
+    { label: 'Work', value: false },
+    { label: 'Play', value: false },
+    { label: 'Sleep', value: false },
+  ]);
+
+  listHobbies = signal<any[]>([
+    { label: 'Deportes' },
+    { label: 'Pintar' },
+    { label: 'Videos juegos' },
+    { label: 'Ver peliculas' },
+    { label: 'Leer' },
+  ]);
+
+  //Checkbox
+  valueCheckbox = signal<boolean>(false);
 
   private readonly themeService: ThemeService = inject(ThemeService);
   private readonly fb: FormBuilder = inject(FormBuilder);
@@ -500,6 +536,8 @@ export class App {
       selectMultiple: ['', [Validators.required]],
       selectMultipleGroup: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]],
+      sexo: ['', [Validators.required]],
+      hobbies: this.fb.array(this.listHobbies().map(() => this.fb.control(false))),
       descripcion: ['', [Validators.required]],
     });
   }
@@ -550,6 +588,10 @@ export class App {
         cellTemplate: this.salaryTemplate,
       },
     ];
+  }
+
+  get hobbiesFormArray() {
+    return this.formTesting.get('hobbies') as FormArray;
   }
 
   private _filter(value: string): string[] {
@@ -925,5 +967,15 @@ export class App {
       return;
     }
     this.errorCustomSelect.set('');
+  }
+
+  onRadioInput(event: any) {
+    console.log('onRadioInput: ', event);
+    this.valueRadio.set(event.value);
+  }
+
+  onCheckboxInput(event: any) {
+    console.log('onCheckboxInput: ', event);
+    this.valueCheckbox.set(event.checked);
   }
 }

@@ -1,0 +1,41 @@
+.bds-radio-group-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+
+  &.is-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    mat-radio-group {
+      pointer-events: none;
+    }
+  }
+}
+
+.bds-radio-group-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mat-sys-on-surface);
+  padding: 8px;
+  display: inline-block;
+}
+
+mat-radio-group {
+  &.bds-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 4px;
+
+    &.column {
+      flex-direction: column;
+    }
+  }
+
+  mat-radio-button {
+    display: flex;
+    row-gap: 10px;
+    column-gap: 8px;
+  }
+}

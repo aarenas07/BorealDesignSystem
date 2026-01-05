@@ -705,6 +705,7 @@
     </div>
   </section>
 
+
   <!-- Form -->
   <section class="component-section">
     <h2>Form</h2>
@@ -731,10 +732,11 @@
           formControlName="fechaNacimiento"></bds-datepicker>
         <bds-radiobutton [ariaLabel]="'Sexo'" [options]="groupSexo()" [required]="true"
           formControlName="sexo"></bds-radiobutton>
-        @for (option of optionsHobbies(); track option.value) {
-        <bds-checkbox [label]="option.label+' '" [checked]="option.value ? true: false"
-          (change)="onCheckboxInput($event)" formControlName="hobbies"></bds-checkbox>
-        }
+        <div formArrayName="hobbies">
+          @for (item of listHobbies(); track $index) {
+          <bds-checkbox [label]="item.label+''" [formControlName]="$index"></bds-checkbox>
+          }
+        </div>
         <bds-textarea [label]="'descripcion'" prefixIcon="description" [required]="true"
           formControlName="descripcion"></bds-textarea>
 
@@ -808,7 +810,7 @@
       <bds-checkbox [label]="'disabled'" [disabled]="true"></bds-checkbox>
     </div>
     <div class="demo-row">
-      <bds-checkbox [label]="'checked'" [checked]="true"></bds-checkbox>
+      <bds-checkbox [label]="'value'" [value]="true"></bds-checkbox>
     </div>
     <div class="demo-row">
       <bds-checkbox [label]="'indeterminate'" [indeterminate]="true"></bds-checkbox>
@@ -821,6 +823,7 @@
       <p style="margin-left: 10px;">Value checkbox: {{ valueCheckbox() }}</p>
     </div>
   </section>
+
 
   <!-- example -->
   <section class="component-section">

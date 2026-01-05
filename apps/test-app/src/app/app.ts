@@ -1,5 +1,5 @@
 import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -492,6 +492,14 @@ export class App {
     { label: 'Sleep', value: false },
   ]);
 
+  listHobbies = signal<any[]>([
+    { label: 'Deportes', value: false },
+    { label: 'Pintar', value: false },
+    { label: 'Videos juegos', value: false },
+    { label: 'Ver peliculas', value: false },
+    { label: 'Leer', value: false },
+  ]);
+
   //Checkbox
   valueCheckbox = signal<boolean>(false);
 
@@ -529,7 +537,7 @@ export class App {
       selectMultipleGroup: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]],
       sexo: ['', [Validators.required]],
-      hobbies: ['', [Validators.required]],
+      hobbies: this.fb.array(this.listHobbies().map(() => this.fb.control(false))),
       descripcion: ['', [Validators.required]],
     });
   }
@@ -580,6 +588,10 @@ export class App {
         cellTemplate: this.salaryTemplate,
       },
     ];
+  }
+
+  get hobbiesFormArray() {
+    return this.formTesting.get('hobbies') as FormArray;
   }
 
   private _filter(value: string): string[] {

@@ -42,7 +42,6 @@ export class CheckboxComponent {
   positionLabel = input<LabelPositionBds>('after');
 
   disabled = input<boolean>(false);
-  checked = input<boolean>(false);
 
   formControl = new FormControl(false);
 
@@ -57,19 +56,29 @@ export class CheckboxComponent {
   private onTouched: () => void = () => {};
 
   constructor() {
-    // Sincronizar el valor del FormControl con el model y notificar cambios
+    // Sincronizar el valor del model con el FormControl y viceversa
     effect(() => {
       const currentValue = this.value();
       if (this.formControl.value !== currentValue) {
         this.formControl.setValue(currentValue, { emitEvent: false });
-        this.onChange(currentValue);
+      }
+    });
+
+    // Sincronizar el input 'checked' con el FormControl (para uso sin Form)
+    effect(() => {
+      const isChecked = this.value();
+      if (this.formControl.value !== isChecked) {
+        this.formControl.setValue(isChecked, { emitEvent: false });
+        this.value.set(isChecked);
       }
     });
 
     // Sincronizar el model con el valor del FormControl y notificar cambios
     this.formControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(newValue => {
-      const val = newValue ? true : false;
-      this.value.set(val);
+      const val = !!newValue;
+      if (this.value() !== val) {
+        this.value.set(val);
+      }
       this.onChange(val);
     });
 
@@ -103,9 +112,11 @@ export class CheckboxComponent {
 
   // ControlValueAccessor methods
   writeValue(value: any): void {
-    const val = value || null;
-    this.formControl.setValue(val, { emitEvent: false });
-    this.value.set(val);
+    const val = !!value;
+    if (this.formControl.value !== val) {
+      this.formControl.setValue(val, { emitEvent: false });
+      this.value.set(val);
+    }
   }
 
   registerOnChange(fn: any): void {

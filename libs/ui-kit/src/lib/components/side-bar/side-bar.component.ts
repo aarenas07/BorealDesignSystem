@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Importar CommonModule
 import { SidebarStateService } from './services/sidebar-state.service';
 import { ChangeDetectorRef } from '@angular/core';
@@ -49,13 +42,11 @@ export class SideBarComponent {
   @Input() adminMenuConfig: CommandMenuConfig = {
     icon: 'home',
     shortcut: 'Ctrl + K',
-    placeholder: 'Buscar...'
+    placeholder: 'Buscar...',
   };
   @Input() userAvatar: string = '';
   @Input() userName: string = '';
-  @Input() quickActions: { label: string; action?: () => void }[] = [
-    { label: '+ ' },
-  ]; // Default quick actions
+  @Input() quickActions: { label: string; action?: () => void }[] = [{ label: '+ ' }]; // Default quick actions
   @Output() itemSelected = new EventEmitter<SidebarItem>();
 
   isExpanded = true;
@@ -66,10 +57,9 @@ export class SideBarComponent {
     private elementRef: ElementRef,
     private sidebarStateService: SidebarStateService,
     private cdr: ChangeDetectorRef // Inyectar ChangeDetectorRef
-  ) { }
+  ) {}
 
   onMouseEnter() {
-    console.log('[Sidebar] onMouseEnter', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     if (!this.isPinned && !this.isExpanded && !this.hoveringExpandButton) {
       this.isExpanded = true;
       this.updateSidebarState();
@@ -77,7 +67,6 @@ export class SideBarComponent {
   }
 
   onMouseLeave() {
-    console.log('[Sidebar] onMouseLeave', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     if (!this.isPinned && this.isExpanded && !this.hoveringExpandButton) {
       this.isExpanded = false;
       this.updateSidebarState();
@@ -87,13 +76,11 @@ export class SideBarComponent {
   togglePin() {
     this.isPinned = !this.isPinned;
     this.isExpanded = this.isPinned;
-    console.log('[Sidebar] togglePin', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     this.updateSidebarState();
   }
 
   private updateSidebarState() {
     const isClosed = !this.isExpanded && !this.isPinned;
-    console.log('[Sidebar] updateSidebarState', { isClosed, isExpanded: this.isExpanded, isPinned: this.isPinned });
     this.sidebarStateService.setSidebarClosed(isClosed);
     this.cdr.detectChanges();
   }
@@ -101,7 +88,6 @@ export class SideBarComponent {
   // Expande el sidebar solo mientras se hace hover en el botón
   onExpandButtonHover() {
     this.hoveringExpandButton = true;
-    console.log('[Sidebar] onExpandButtonHover', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     if (!this.isPinned && !this.isExpanded) {
       this.isExpanded = true;
       this.updateSidebarState();
@@ -117,7 +103,6 @@ export class SideBarComponent {
   toggleExpand() {
     this.isPinned = !this.isPinned;
     this.isExpanded = this.isPinned;
-    console.log('[Sidebar] toggleExpand', { isPinned: this.isPinned, isExpanded: this.isExpanded });
     this.updateSidebarState();
   }
 
@@ -145,7 +130,6 @@ export class SideBarComponent {
     }
     if (item.route) {
       // this.router.navigate([item.route]);
-      console.log('Redirecting to route:', item.route);
     }
     if (item.url) {
       window.open(item.url, '_blank'); // Open external URLs in a new tab

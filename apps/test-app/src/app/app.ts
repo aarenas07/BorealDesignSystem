@@ -1,5 +1,5 @@
 import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -34,6 +34,7 @@ import {
   BdsTooltipDirective,
   SelectComponent,
   RadiobuttonComponent,
+  CheckboxComponent,
 } from '@organizacion/ui-kit';
 
 interface User {
@@ -76,6 +77,7 @@ interface User {
     BdsTooltipDirective,
     SelectComponent,
     RadiobuttonComponent,
+    CheckboxComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -483,6 +485,24 @@ export class App {
 
   valueRadio = signal<string>('');
 
+  //Hobbies
+  optionsHobbies = signal<MenuOptionBds[]>([
+    { label: 'Work', value: false },
+    { label: 'Play', value: false },
+    { label: 'Sleep', value: false },
+  ]);
+
+  listHobbies = signal<any[]>([
+    { label: 'Deportes' },
+    { label: 'Pintar' },
+    { label: 'Videos juegos' },
+    { label: 'Ver peliculas' },
+    { label: 'Leer' },
+  ]);
+
+  //Checkbox
+  valueCheckbox = signal<boolean>(false);
+
   private readonly themeService: ThemeService = inject(ThemeService);
   private readonly fb: FormBuilder = inject(FormBuilder);
 
@@ -517,6 +537,7 @@ export class App {
       selectMultipleGroup: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]],
       sexo: ['', [Validators.required]],
+      hobbies: this.fb.array(this.listHobbies().map(() => this.fb.control(false))),
       descripcion: ['', [Validators.required]],
     });
   }
@@ -567,6 +588,10 @@ export class App {
         cellTemplate: this.salaryTemplate,
       },
     ];
+  }
+
+  get hobbiesFormArray() {
+    return this.formTesting.get('hobbies') as FormArray;
   }
 
   private _filter(value: string): string[] {
@@ -947,5 +972,10 @@ export class App {
   onRadioInput(event: any) {
     console.log('onRadioInput: ', event);
     this.valueRadio.set(event.value);
+  }
+
+  onCheckboxInput(event: any) {
+    console.log('onCheckboxInput: ', event);
+    this.valueCheckbox.set(event.checked);
   }
 }

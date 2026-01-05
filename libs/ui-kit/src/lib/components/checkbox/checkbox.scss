@@ -1,0 +1,9 @@
+.bds-check-group-container {
+  display: flex;
+  gap: 8px;
+
+  &.is-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

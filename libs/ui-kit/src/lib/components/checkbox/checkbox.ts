@@ -9,24 +9,24 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
-import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { LabelPositionBds } from '../../interfaces';
 import { Subject, takeUntil } from 'rxjs';
-import { MenuOptionBds, LabelPositionBds } from '../../interfaces';
 
 @Component({
-  selector: 'bds-radiobutton',
+  selector: 'bds-checkbox',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MatRadioModule],
+  imports: [FormsModule, ReactiveFormsModule, MatCheckboxModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => RadiobuttonComponent),
+      useExisting: forwardRef(() => CheckboxComponent),
       multi: true,
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RadiobuttonComponent),
+      useExisting: forwardRef(() => CheckboxComponent),
       multi: true,
     },
   ],
@@ -34,24 +34,21 @@ import { MenuOptionBds, LabelPositionBds } from '../../interfaces';
     '[class.has-error]': 'formControl.invalid && formControl.touched',
     '[class.is-disabled]': 'disabled()',
   },
-  templateUrl: './radiobutton.html',
-  styleUrl: './radiobutton.scss',
+  templateUrl: './checkbox.html',
+  styleUrl: './checkbox.scss',
 })
-export class RadiobuttonComponent {
+export class CheckboxComponent {
   label = input<string>('');
-  name = input<string>('');
-  ariaLabel = input.required<string>();
   positionLabel = input<LabelPositionBds>('after');
 
   disabled = input<boolean>(false);
-  column = input<boolean>(true);
 
-  options = input<MenuOptionBds[]>([]);
-  formControl = new FormControl('');
+  formControl = new FormControl(false);
 
-  value = model<any | null>(null);
+  value = model<boolean>(false);
+  indeterminate = model<boolean>(false);
 
-  change = output<MatRadioChange>();
+  change = output<MatCheckboxChange>();
 
   private readonly destroy$ = new Subject<void>();
 
@@ -59,19 +56,29 @@ export class RadiobuttonComponent {
   private onTouched: () => void = () => {};
 
   constructor() {
-    // Sincronizar el valor del FormControl con el model y notificar cambios
+    // Sincronizar el valor del model con el FormControl y viceversa
     effect(() => {
       const currentValue = this.value();
       if (this.formControl.value !== currentValue) {
         this.formControl.setValue(currentValue, { emitEvent: false });
-        this.onChange(currentValue);
+      }
+    });
+
+    // Sincronizar el input 'checked' con el FormControl (para uso sin Form)
+    effect(() => {
+      const isChecked = this.value();
+      if (this.formControl.value !== isChecked) {
+        this.formControl.setValue(isChecked, { emitEvent: false });
+        this.value.set(isChecked);
       }
     });
 
     // Sincronizar el model con el valor del FormControl y notificar cambios
     this.formControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(newValue => {
-      const val = newValue || '';
-      this.value.set(val);
+      const val = !!newValue;
+      if (this.value() !== val) {
+        this.value.set(val);
+      }
       this.onChange(val);
     });
 
@@ -105,9 +112,11 @@ export class RadiobuttonComponent {
 
   // ControlValueAccessor methods
   writeValue(value: any): void {
-    const val = value || '';
-    this.formControl.setValue(val, { emitEvent: false });
-    this.value.set(val);
+    const val = !!value;
+    if (this.formControl.value !== val) {
+      this.formControl.setValue(val, { emitEvent: false });
+      this.value.set(val);
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -146,8 +155,8 @@ export class RadiobuttonComponent {
     this.formControl.updateValueAndValidity({ emitEvent: false });
   }
 
-  handleChange(event: MatRadioChange): void {
-    this.value.set(event.value);
+  handleChange(event: MatCheckboxChange): void {
+    this.value.set(event.checked);
     this.change.emit(event);
   }
 }

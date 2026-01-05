@@ -1,0 +1,6 @@
+<div class="bds-check-group-container" [class.is-disabled]="disabled()">
+    <mat-checkbox [name]="label()" [disabled]="disabled()" [(indeterminate)]="indeterminate" [formControl]="formControl"
+        [labelPosition]="positionLabel()" (change)="handleChange($event)">
+        {{label()}}
+    </mat-checkbox>
+</div>

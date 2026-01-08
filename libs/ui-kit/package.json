@@ -1,6 +1,6 @@
 {
   "name": "@ada-lib/ui-kit",
-  "version": "2.5.6",
+  "version": "2.5.5",
   "description": "Librería de componentes UI para ADA Enterprise",
   "main": "./index.js",
   "typings": "./index.d.ts",

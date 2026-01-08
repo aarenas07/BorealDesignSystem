@@ -122,7 +122,6 @@ export class TableComponent<T = any> implements OnInit {
     this.state.set({
       ...this.state(),
       data: value,
-      totalRecords: value.length,
     });
   }
   @Output() sortChange = new EventEmitter<Sort>();

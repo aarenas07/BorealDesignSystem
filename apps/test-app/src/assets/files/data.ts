@@ -1,4 +1,4 @@
-export const USUARIOS_TEST: any = [
+export const USUARIOS_TEST_ONE: any = [
   {
     id: 1,
     name: 'Juan Pérez',
@@ -99,6 +99,18 @@ export const USUARIOS_TEST: any = [
     salary: 85000,
     department: 'IT',
   },
+  {
+    id: 11,
+    name: 'Luis Rodríguez',
+    email: 'luis.rodriguez@empresa.com',
+    role: 'admin',
+    status: 'inactive',
+    joinDate: new Date('2023-07-22'),
+    salary: 85000,
+    department: 'IT',
+  },
+];
+export const USUARIOS_TEST_TWO: any = [
   {
     id: 11,
     name: 'Luis Rodríguez',

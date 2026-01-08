@@ -36,7 +36,7 @@ import {
   RadiobuttonComponent,
   CheckboxComponent,
 } from '@organizacion/ui-kit';
-import { USUARIOS_TEST } from '../assets/files/data';
+import { USUARIOS_TEST_TWO, USUARIOS_TEST_ONE } from '../assets/files/data';
 
 interface User {
   id: number;
@@ -423,8 +423,8 @@ export class App {
     });
 
     setTimeout(() => {
-      this.users = USUARIOS_TEST;
-      this.table.updateData(this.users, 12);
+      this.users = USUARIOS_TEST_ONE;
+      this.table.updateData(this.users, 10);
     }, 3000);
   }
 

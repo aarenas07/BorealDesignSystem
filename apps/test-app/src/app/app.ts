@@ -36,6 +36,7 @@ import {
   RadiobuttonComponent,
   CheckboxComponent,
 } from '@organizacion/ui-kit';
+import { USUARIOS_TEST } from '../assets/files/data';
 
 interface User {
   id: number;
@@ -84,6 +85,7 @@ interface User {
   styleUrl: './app.scss',
 })
 export class App {
+  @ViewChild(TableComponent) table!: TableComponent;
   nameValue = '';
 
   // Autocomplete
@@ -160,128 +162,7 @@ export class App {
   @ViewChild('roleTemplate') roleTemplate!: TemplateRef<any>;
   @ViewChild('salaryTemplate') salaryTemplate!: TemplateRef<any>;
 
-  users: User[] = [
-    {
-      id: 1,
-      name: 'Juan Pérez',
-      email: 'juan.perez@empresa.com',
-      role: 'developer',
-      status: 'active',
-      joinDate: new Date('2023-01-15'),
-      salary: 75000,
-      department: 'Engineering',
-    },
-    {
-      id: 2,
-      name: 'María García',
-      email: 'maria.garcia@empresa.com',
-      role: 'designer',
-      status: 'active',
-      joinDate: new Date('2023-03-20'),
-      salary: 68000,
-      department: 'Design',
-    },
-    {
-      id: 3,
-      name: 'Carlos López',
-      email: 'carlos.lopez@empresa.com',
-      role: 'manager',
-      status: 'active',
-      joinDate: new Date('2022-11-10'),
-      salary: 95000,
-      department: 'Management',
-    },
-    {
-      id: 4,
-      name: 'Ana Martínez',
-      email: 'ana.martinez@empresa.com',
-      role: 'developer',
-      status: 'pending',
-      joinDate: new Date('2024-01-05'),
-      salary: 72000,
-      department: 'Engineering',
-    },
-    {
-      id: 5,
-      name: 'Luis Rodríguez',
-      email: 'luis.rodriguez@empresa.com',
-      role: 'admin',
-      status: 'inactive',
-      joinDate: new Date('2023-07-22'),
-      salary: 85000,
-      department: 'IT',
-    },
-    {
-      id: 6,
-      name: 'Luis Rodríguez',
-      email: 'luis.rodriguez@empresa.com',
-      role: 'admin',
-      status: 'inactive',
-      joinDate: new Date('2023-07-22'),
-      salary: 85000,
-      department: 'IT',
-    },
-    {
-      id: 7,
-      name: 'Luis Rodríguez',
-      email: 'luis.rodriguez@empresa.com',
-      role: 'admin',
-      status: 'inactive',
-      joinDate: new Date('2023-07-22'),
-      salary: 85000,
-      department: 'IT',
-    },
-    {
-      id: 8,
-      name: 'Luis Rodríguez',
-      email: 'luis.rodriguez@empresa.com',
-      role: 'admin',
-      status: 'inactive',
-      joinDate: new Date('2023-07-22'),
-      salary: 85000,
-      department: 'IT',
-    },
-    {
-      id: 9,
-      name: 'Luis Rodríguez',
-      email: 'luis.rodriguez@empresa.com',
-      role: 'admin',
-      status: 'inactive',
-      joinDate: new Date('2023-07-22'),
-      salary: 85000,
-      department: 'IT',
-    },
-    {
-      id: 10,
-      name: 'Luis Rodríguez',
-      email: 'luis.rodriguez@empresa.com',
-      role: 'admin',
-      status: 'inactive',
-      joinDate: new Date('2023-07-22'),
-      salary: 85000,
-      department: 'IT',
-    },
-    {
-      id: 11,
-      name: 'Luis Rodríguez',
-      email: 'luis.rodriguez@empresa.com',
-      role: 'admin',
-      status: 'inactive',
-      joinDate: new Date('2023-07-22'),
-      salary: 85000,
-      department: 'IT',
-    },
-    {
-      id: 12,
-      name: 'Luis Rodríguez',
-      email: 'luis.rodriguez@empresa.com',
-      role: 'admin',
-      status: 'inactive',
-      joinDate: new Date('2023-07-22'),
-      salary: 85000,
-      department: 'IT',
-    },
-  ];
+  users: User[] = [];
 
   tableColumns: TableColumn<User>[] = [];
   tableActions: TableAction<User>[] = [];
@@ -540,6 +421,11 @@ export class App {
       hobbies: this.fb.array(this.listHobbies().map(() => this.fb.control(false))),
       descripcion: ['', [Validators.required]],
     });
+
+    setTimeout(() => {
+      this.users = USUARIOS_TEST;
+      this.table.updateData(this.users, 12);
+    }, 3000);
   }
 
   ngAfterViewInit() {

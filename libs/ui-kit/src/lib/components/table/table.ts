@@ -258,11 +258,11 @@ export class TableComponent<T = any> implements OnInit {
     this.state.update(s => ({ ...s, error }));
   }
 
-  updateData(data: T[], totalRecords?: number) {
+  updateData(data: T[], totalRecords: number = 0) {
     this.state.update(s => ({
       ...s,
       data,
-      totalRecords: totalRecords || data.length,
+      totalRecords: totalRecords,
       loading: false,
       error: null,
     }));

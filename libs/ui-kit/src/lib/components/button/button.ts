@@ -13,6 +13,7 @@ export type ButtonVariant =
   | 'icon'; // mat-icon-button
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonType = 'button' | 'submit' | 'reset';
 
 @Component({
   selector: 'bds-button',
@@ -32,6 +33,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 export class ButtonComponent {
   label = input<string>('');
   variant = input<ButtonVariant>('filled');
+  type = input<ButtonType>('button');
 
   size = input<ButtonSize>('md');
   icon = input<string | null>(null);

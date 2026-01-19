@@ -43,6 +43,20 @@ export interface TableAction<T = any> {
   onClick: (row: T) => void;
 }
 
+export interface TableHeaderAction {
+  label: string;
+  icon?: string;
+  variant?: 'filled' | 'outlined';
+  onClick: () => void;
+}
+
+export interface TableSelectionAction<T = any> {
+  label: string;
+  variant?: 'filled' | 'outlined';
+  color?: 'primary' | 'accent' | 'warn';
+  onClick: (selected: T[]) => void;
+}
+
 export interface TableConfig {
   selectable?: boolean;
   expandable?: boolean;
@@ -116,6 +130,8 @@ export interface TableState<T = any> {
 export class TableComponent<T = any> implements OnInit {
   @Input() columns: TableColumn<T>[] = [];
   @Input() actions: TableAction<T>[] = [];
+  @Input() headerActions: TableHeaderAction[] = [];
+  @Input() selectionActions: TableSelectionAction<T>[] = [];
   @Input() config: TableConfig = {};
   @Input() expandedRowTemplate?: TemplateRef<any>;
   @Input() set data(value: T[]) {

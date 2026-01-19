@@ -1,4 +1,4 @@
-import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, model, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -35,6 +35,8 @@ import {
   SelectComponent,
   RadiobuttonComponent,
   CheckboxComponent,
+  TabsComponent,
+  TabsBds,
 } from '@organizacion/ui-kit';
 import { USUARIOS_TEST_TWO, USUARIOS_TEST_ONE } from '../assets/files/data';
 
@@ -79,6 +81,7 @@ interface User {
     SelectComponent,
     RadiobuttonComponent,
     CheckboxComponent,
+    TabsComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -384,6 +387,14 @@ export class App {
   //Checkbox
   valueCheckbox = signal<boolean>(false);
 
+  //Tabs
+  optionsTabs = signal<TabsBds[]>([]);
+
+  selectedTabIndex = model<number>(0);
+  @ViewChild('contentTab1') contentTab1!: TemplateRef<any>;
+  @ViewChild('contentTab2') contentTab2!: TemplateRef<any>;
+  @ViewChild('contentTab3') contentTab3!: TemplateRef<any>;
+
   private readonly themeService: ThemeService = inject(ThemeService);
   private readonly fb: FormBuilder = inject(FormBuilder);
 
@@ -474,6 +485,12 @@ export class App {
         cellTemplate: this.salaryTemplate,
       },
     ];
+
+    this.optionsTabs.set([
+      { id: 'one', label: 'One', icon: 'thumb_up', disabled: false, contentTemplate: this.contentTab1 },
+      { id: 'two', label: 'Two', icon: 'thumb_down', disabled: false, contentTemplate: this.contentTab2 },
+      { id: 'three', label: 'Three', icon: 'thumb_up', disabled: false, contentTemplate: this.contentTab3 },
+    ]);
   }
 
   get hobbiesFormArray() {

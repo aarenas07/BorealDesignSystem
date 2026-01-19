@@ -1,1 +1,26 @@
+.bds-tabs {
+  .bds-tab-icon {
+    margin-right: 8px;
+  }
 
+  mat-icon {
+    color: var(--mat-sys-primary);
+  }
+}
+
+.bds-drag-tabs.cdk-drop-list-dragging {
+  pointer-events: none;
+}
+
+.bds-drag-tabs-preview.cdk-drag-animating {
+  transition: all 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.mat-mdc-tab.bds-drag-tabs-preview {
+  outline: dashed 1px #ccc;
+  outline-offset: 4px;
+}
+
+.bds-drag-tabs .cdk-drag-placeholder {
+  opacity: 0.5;
+}

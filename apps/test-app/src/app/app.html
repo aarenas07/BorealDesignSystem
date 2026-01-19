@@ -824,7 +824,6 @@
     </div>
   </section>
 
-
   <!-- example -->
   <section class="component-section">
     <h2>example</h2>
@@ -832,5 +831,32 @@
 
     </div>
   </section>
+
+  <!-- Tabs -->
+  <section class="component-section">
+    <h2>Tabs</h2>
+  </section>
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabs()" [(selectedTabIndex)]="selectedTabIndex"
+      animationDuration="0ms"></bds-tabs>
+
+    <!-- Custom Templates -->
+    <ng-template #contentTab1 let-context>
+      <div class="content-tab" style="padding: 1rem;">
+        <p>Content Tab 1</p>
+      </div>
+    </ng-template>
+    <ng-template #contentTab2 let-context>
+      <div class="content-tab" style="padding: 1rem;">
+        <p>Content Tab 2</p>
+      </div>
+    </ng-template>
+    <ng-template #contentTab3 let-context>
+      <div class="content-tab" style="padding: 1rem;">
+        <p>Content Tab 3</p>
+      </div>
+    </ng-template>
+  </div>
+  <p>index: {{ selectedTabIndex() }}</p>
 
 </main>

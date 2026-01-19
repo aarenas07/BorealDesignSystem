@@ -37,6 +37,10 @@ import {
   SelectComponent,
   RadiobuttonComponent,
   CheckboxComponent,
+  CollapsibleNavComponent,
+  NavSection,
+  CollapsibleNavConfig,
+  CommandItem,
 } from '@organizacion/ui-kit';
 import { USUARIOS_TEST_TWO, USUARIOS_TEST_ONE } from '../assets/files/data';
 
@@ -81,6 +85,7 @@ interface User {
     SelectComponent,
     RadiobuttonComponent,
     CheckboxComponent,
+    CollapsibleNavComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -766,6 +771,111 @@ export class App {
     ],
     tooltipPosition: 'right',
   };
+
+  // -----------------------------------------------------------------------------------------------------
+  // Collapsible Nav Demo
+  // -----------------------------------------------------------------------------------------------------
+
+  collapsibleSections: NavSection[] = [
+    {
+      key: 'main',
+      items: [
+        {
+          id: 'dashboard',
+          label: 'Dashboard',
+          icon: 'dashboard',
+          isModule: true,
+          children: [
+            { id: 'analytics', label: 'Analytics', icon: 'analytics', route: '/analytics' },
+            { id: 'reports', label: 'Reports', icon: 'summarize', route: '/reports' }
+          ]
+        },
+        {
+          id: 'projects',
+          label: 'Projects',
+          icon: 'folder',
+          isModule: true,
+          children: [
+            { id: 'all-projects', label: 'All Projects', icon: 'list', route: '/projects' },
+            { id: 'active', label: 'Active', icon: 'play_arrow', route: '/projects/active' }
+          ]
+        }
+      ],
+      tooltipType: 'dark'
+    }
+  ];
+
+  collapsibleConfig: CollapsibleNavConfig = {
+    user: {
+      avatar: 'JD',
+      name: 'John Doe',
+      show: true
+    },
+    quickActions: {
+      title: 'Quick Actions',
+      titleIcon: 'bolt',
+      show: true,
+      actions: [
+        { id: 'new-project', label: 'New Project', icon: 'add', action: () => console.log('Quick Action: New Project') },
+        { id: 'invite', label: 'Invite Team', icon: 'person_add', action: () => console.log('Quick Action: Invite Team') }
+      ]
+    },
+    favorites: {
+      title: 'Favorites',
+      titleIcon: 'star',
+      show: true,
+      isCollapsed: false,
+      items: [
+        { id: 'fav1', label: 'Marketing Campaign', icon: 'campaign' },
+        { id: 'fav2', label: 'Q4 Budget', icon: 'attach_money' }
+      ],
+      actions: [
+        {
+          id: 'add-fav',
+          label: 'Add Favorite',
+          icon: 'add',
+          action: () => {
+            console.log('Header Action: Add Favorite Clicked');
+            alert('Header Action: Add Favorite Clicked');
+          }
+        },
+        {
+          id: 'edit-fav',
+          label: 'Edit Favorites',
+          icon: 'edit',
+          action: () => {
+            console.log('Header Action: Edit Favorites Clicked');
+            alert('Header Action: Edit Favorites Clicked');
+          }
+        }
+      ]
+    },
+    createButton: {
+      show: true,
+      icon: 'add_circle',
+      action: () => {
+        console.log('Create Button Clicked (from config)');
+        alert('Create Button Clicked (from config)');
+      }
+    },
+    rail: {
+      tooltipPosition: 'right',
+      showLabels: true,
+      labelMaxLength: 12
+    }
+  };
+
+  collapsibleCommandItems: CommandItem[] = [
+    { label: 'Go to Dashboard', icon: 'dashboard', options: [{ label: 'Dashboard', value: 'dash', routerLink: '/' }] },
+    { label: 'Create Issue', icon: 'bug_report', options: [{ label: 'New Issue', value: 'issue', action: () => console.log('Create Issue') }] }
+  ];
+
+  onCollapsibleCreate(): void {
+    console.log('Create event emitted');
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+
   openSideSheetLevel() {
     this.isSideSheetOpenLevel = true;
   }

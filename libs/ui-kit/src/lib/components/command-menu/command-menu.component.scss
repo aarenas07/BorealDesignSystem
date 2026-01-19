@@ -1,0 +1,42 @@
+.command-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 22px;
+  padding: 0.5rem 1rem;
+  color: var(--sds-color-text-default-default);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 28px;
+  border: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
+  background: var(--mat-sys-surface-container-high);
+  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-025) var(--sds-size-depth-100) var(--sds-size-depth-0) var(--sds-color-black-100);
+
+  &:hover:not(.disabled) {
+    background-color: #e8e8e8;
+  }
+
+  .placeholder-text {
+    font-family: var(--sds-typography-body-font-family);
+    font-size: var(--sds-typography-body-size-medium);
+    font-style: normal;
+    font-weight: var(--sds-typography-body-font-weight-regular);
+    line-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .shortcut {
+    padding: var(--sds-size-space-100) var(--sds-size-space-200);
+    border-radius: 28px;
+    border: 1px solid var(--sds-color-border-default-default);
+    color: var(--sds-color-text-default-secondary);
+    font-family: 'Roboto';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: var(--sds-typography-code-font-weight);
+  }
+}

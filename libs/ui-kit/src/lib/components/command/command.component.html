@@ -1,0 +1,41 @@
+<ng-template #commandDialog>
+    <div class="container-command command">
+        <div class="command-input">
+            <input type="text" class="form-item__input" [placeholder]="config().placeholder" [formControl]="inputFilter"
+                (input)="filter()" />
+            <div class="command-input__icon">
+                <span class="material-symbols-rounded">
+                    search
+                </span>
+            </div>
+        </div>
+
+        <div class="command-items">
+            @for (item of filteredItems; track $index) {
+            <div class="command-item" (click)="itemSelected(item)">
+                <div class="item-icon">
+                    <span class="material-symbols-rounded">
+                        {{ item.icon }}
+                    </span>
+                </div>
+                <p class="item-text">{{ item.label }}</p>
+            </div>
+            }
+        </div>
+
+        @if(filteredItems?.length === 0){
+        <div class="empty-card">
+            <div class="empty-card__icon">
+                <span class="material-symbols-rounded">
+                    search_off
+                </span>
+            </div>
+
+            <div class="empty-card__texts texts">
+                <p class="texts-title">No hay resultados para la búsqueda </p>
+            </div>
+            <ng-content></ng-content>
+        </div>
+        }
+    </div>
+</ng-template>

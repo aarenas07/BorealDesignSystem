@@ -19,3 +19,4 @@ export * from './lib/components/select/select';
 export * from './lib/components/radiobutton/radiobutton';
 export * from './lib/components/checkbox/checkbox';
 export * from './lib/interfaces';
+export * from './lib/components/collapsible-nav/collapsible-nav.component';

@@ -1,0 +1,194 @@
+<!-- Overlay -->
+@if (isExpanded && showOverlay) {
+<div class="nav-overlay" [style.opacity]="overlayOpacity" (click)="collapse()">
+</div>
+}
+
+<!-- Container principal - Rail siempre visible + Sidebar deslizante -->
+<div class="collapsible-nav" [class.expanded]="isExpanded">
+
+
+    <div class="rail-panel" [class.has-labels]="showRailLabels">
+        <!-- Botón toggle -->
+        @if (toggleButtonConfig.show !== false) {
+        <div class="toggle-container">
+            <button class="toggle-btn" (click)="toggle()">
+                <span class="material-symbols-rounded">
+                    {{ isExpanded ? closeIcon : toggleIcon }}
+                </span>
+            </button>
+        </div>
+        }
+
+        @if (createButtonConfig.show !== false) {
+        <div class="create-btn-container">
+            <button class="create-btn" (click)="onCreateButtonClick()">
+                <span class="material-symbols-rounded">
+                    {{ createButtonConfig.icon || 'add' }}
+                </span>
+            </button>
+        </div>
+        }
+
+        <!-- Secciones en rail -->
+        <div class="rail-sections">
+            @for (section of sections; track section.key; let isLast = $last) {
+            <div [class]="section.cssClass || 'rail-section'">
+                @for (item of section.items; track item.id) {
+
+                <div class="rail-item" [class.active]="item.isActive || (item.isModule && item.id === activeModuleId)"
+                    [class.with-label]="showRailLabels" (click)="onRailItemClick(item)">
+                    @if (item.icon) {
+                    <span class="material-symbols-rounded rail-icon">{{ item.icon }}</span>
+                    }
+                    @if (showRailLabels) {
+                    <span class="rail-label">{{ truncateLabel(item.label) }}</span>
+                    }
+                    @if (item.badge && item.badge > 0) {
+                    <span class="rail-badge">{{ item.badge }}</span>
+                    }
+                </div>
+
+                }
+            </div>
+
+            @if (section.showSeparator && !isLast) {
+            <div class="rail-separator"></div>
+            }
+            }
+        </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- SIDEBAR PANEL - Aparece al lado del rail cuando está expandido   -->
+    <!-- ================================================================== -->
+    <div class="sidebar-panel" [class.visible]="isExpanded">
+        <!-- Header -->
+        <div class="sidebar-header">
+            <div class="header-row">
+                <!-- Usuario -->
+                @if (userConfig.show !== false) {
+                <div class="user-info">
+                    @if (userConfig.isAvatarImage) {
+                    <img class="user-avatar-img" [src]="userConfig.avatar" [alt]="userConfig.name" />
+                    } @else {
+                    <div class="user-avatar">{{ userConfig.avatar }}</div>
+                    }
+                    <span class="user-name">{{ userConfig.name }}</span>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Command Menu -->
+        @if (showCommandMenu && commandItems.length > 0) {
+        <div class="command-menu-container">
+            <lib-ada-command-menu [commandItems]="commandItems" [config]="commandMenuConfig" [showSearchIcon]="true"
+                (commandAction)="commandAction($event)">
+            </lib-ada-command-menu>
+        </div>
+        }
+
+        <!-- Quick Actions -->
+        @if (quickActionsConfig.show !== false && quickActionsConfig.actions.length > 0) {
+        <div class="quick-actions">
+            <div class="section-header">
+                @if (quickActionsConfig.titleIcon) {
+                <span class="material-symbols-rounded">{{ quickActionsConfig.titleIcon }}</span>
+                }
+                {{ quickActionsConfig.title }}
+            </div>
+            @for (action of quickActionsConfig.actions; track action.id) {
+            <div class="action-item" (click)="onQuickActionClick(action)">
+                @if (action.icon) {
+                <span class="material-symbols-rounded action-icon">{{ action.icon }}</span>
+                }
+                {{ action.label }}
+            </div>
+            }
+        </div>
+        }
+
+        <!-- Favorites -->
+        @if (favoritesConfig.show !== false && favoritesConfig.items?.length) {
+        <div class="favorites-section">
+            <div class="section-header-container">
+                <div class="section-header collapsible" (click)="toggleFavorites()">
+                    @if (favoritesConfig.titleIcon) {
+                    <span class="material-symbols-rounded" [class.collapsed]="favoritesConfig.isCollapsed">
+                        {{ favoritesConfig.titleIcon }}
+                    </span>
+                    }
+                    {{ favoritesConfig.title }}
+                </div>
+
+                @if (favoritesConfig.actions?.length) {
+                <div class="section-actions">
+                    @for (action of favoritesConfig.actions; track action.id) {
+                    <button class="icon-btn" (click)="$event.stopPropagation(); onQuickActionClick(action)"
+                        [title]="action.label">
+                        <span class="material-symbols-rounded">{{ action.icon }}</span>
+                    </button>
+                    }
+                </div>
+                }
+            </div>
+
+            @if (!favoritesConfig.isCollapsed) {
+            <div class="favorites-items">
+                @for (item of favoritesConfig.items; track item.id) {
+                <div class="favorite-item" (click)="onFavoriteClick(item)">
+                    @if (item.icon) {
+                    <span class="material-symbols-rounded">{{ item.icon }}</span>
+                    }
+                    {{ item.label }}
+                </div>
+                }
+            </div>
+            }
+        </div>
+        }
+
+        <!-- Navigation Sections -->
+        <div class="nav-content">
+            @if (activeModifiersTitle) {
+            <div class="section-header">
+                {{ activeModifiersTitle }}
+            </div>
+            }
+
+            <div class="section-items">
+                @for (item of sidebarItems; track item.id) {
+                <div class="nav-item" [class.has-children]="item.children?.length">
+                    <!-- Main Item -->
+                    <div class="item-content" [class.expanded]="item.isExpanded" (click)="toggleItem(item)">
+                        @if (item.icon) {
+                        <span class="material-symbols-rounded item-icon">{{ item.icon }}</span>
+                        }
+                        <span class="item-label">{{ item.label }}</span>
+                        @if (item.children?.length) {
+                        <span class="material-symbols-rounded expand-arrow" [class.rotated]="item.isExpanded">
+                            keyboard_arrow_right
+                        </span>
+                        }
+                    </div>
+
+                    <!-- Children -->
+                    @if (item.children?.length && item.isExpanded) {
+                    <div class="children-items">
+                        @for (child of item.children; track child.id) {
+                        <div class="child-item" (click)="onItemClick(child)">
+                            @if (child.icon) {
+                            <span class="material-symbols-rounded child-icon">{{ child.icon }}</span>
+                            }
+                            {{ child.label }}
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

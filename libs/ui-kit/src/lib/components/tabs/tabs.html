@@ -1,26 +1,25 @@
 <mat-tab-group class="bds-tabs" dynamicHeight="true" [animationDuration]="animationDuration()"
     [mat-stretch-tabs]="stretchTabs()" [mat-align-tabs]="alignTabs()" [(selectedIndex)]="selectedTabIndex"
-    (selectedTabChange)="_selectedTabChange($event)" cdkDropList cdkDropListOrientation="horizontal"
+    (selectedTabChange)="_selectedTabChange($event)" cdkDropList cdkDropListOrientation="mixed"
     (cdkDropListDropped)="drop($event)" cdkDropListElementContainer=".mat-mdc-tab-labels" class="bds-drag-tabs">
 
     @for (item of optionsNavTabs(); track $index) {
     <mat-tab [disabled]="item.disabled">
         <ng-template mat-tab-label>
             @if (draggableTabs()) {
-            <span cdkDrag cdkDragPreviewClass="bds-drag-tabs-preview" cdkDragRootElement=".mat-mdc-tab">
+            <span cdkDrag cdkDragPreviewClass="bds-drag-tabs-preview" cdkDragRootElement=".mat-mdc-tab"
+                class="bds-drag-tabs-label">
                 @if (item.icon) {
                 <mat-icon class="bds-tab-icon">{{ item.icon }}</mat-icon>
                 }
-                <span>{{item.label}}</span>
+                <span class="bds-tab-label">{{item.label}}</span>
             </span>
             } @else {
-            <span>
-                @if (item.icon) {
-                <mat-icon class="bds-tab-icon">{{ item.icon }}</mat-icon>
-                }
+            @if (item.icon) {
+            <mat-icon class="bds-tab-icon">{{ item.icon }}</mat-icon>
+            }
 
-                <span>{{ item.label }}</span>
-            </span>
+            <span>{{ item.label }}</span>
             }
         </ng-template>
 

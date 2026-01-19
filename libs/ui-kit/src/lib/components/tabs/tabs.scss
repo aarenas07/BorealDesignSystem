@@ -1,11 +1,9 @@
-.bds-tabs {
-  .bds-tab-icon {
-    margin-right: 8px;
-  }
+.bds-tab-icon {
+  margin-right: 8px;
+}
 
-  mat-icon {
-    color: var(--mat-sys-primary);
-  }
+.bds-drag-tabs .cdk-drag-placeholder {
+  opacity: 0.5;
 }
 
 .bds-drag-tabs.cdk-drop-list-dragging {
@@ -21,6 +19,25 @@
   outline-offset: 4px;
 }
 
-.bds-drag-tabs .cdk-drag-placeholder {
-  opacity: 0.5;
+.mat-mdc-tab-labels {
+  .mat-mdc-tab {
+    .mdc-tab__text-label {
+      .bds-drag-tabs-label {
+        display: flex;
+        align-items: center;
+      }
+
+      &:is(:hover, :active) {
+        .mdc-tab__text-label {
+          color: var(--mat-sys-primary);
+        }
+      }
+    }
+
+    &.mdc-tab--active {
+      .mdc-tab__text-label {
+        color: var(--mat-sys-primary);
+      }
+    }
+  }
 }

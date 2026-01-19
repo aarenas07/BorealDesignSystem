@@ -837,8 +837,8 @@
     <h2>Tabs</h2>
   </section>
   <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
-    <bds-tabs [optionsNavTabs]="optionsTabs()" [(selectedTabIndex)]="selectedTabIndex"
-      animationDuration="0ms"></bds-tabs>
+    <bds-tabs [optionsNavTabs]="optionsTabs()" [(selectedTabIndex)]="selectedTabIndex" animationDuration="0ms"
+      [draggableTabs]="true"></bds-tabs>
 
     <!-- Custom Templates -->
     <ng-template #contentTab1 let-context>

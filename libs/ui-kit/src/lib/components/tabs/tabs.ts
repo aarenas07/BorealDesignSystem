@@ -32,9 +32,7 @@ export class TabsComponent {
 
   drop(event: CdkDragDrop<TabsBds[]>) {
     const prevActive = this.optionsNavTabs()[this.selectedTabIndex()];
-
     moveItemInArray(this.optionsNavTabs(), event.previousIndex, event.currentIndex);
     this.selectedTabIndex.set(this.optionsNavTabs().indexOf(prevActive));
-    console.log('selectedTabIndex: ', this.selectedTabIndex());
   }
 }

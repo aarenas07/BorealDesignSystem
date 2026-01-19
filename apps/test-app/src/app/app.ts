@@ -487,9 +487,9 @@ export class App {
     ];
 
     this.optionsTabs.set([
-      { id: 'one', label: 'Conocimientos adquiridos', icon: 'thumb_up', disabled: false, contentTemplate: this.contentTab1 },
-      { id: 'two', label: 'Two', icon: 'thumb_down', disabled: false, contentTemplate: this.contentTab2 },
-      { id: 'three', label: 'Three', icon: 'thumb_up', disabled: false, contentTemplate: this.contentTab3 },
+      { label: 'Conocimientos adquiridos', icon: 'thumb_up', disabled: false, contentTemplate: this.contentTab1 },
+      { label: 'Two', icon: 'thumb_down', disabled: false, contentTemplate: this.contentTab2 },
+      { label: 'Three', icon: 'thumb_up', disabled: false, contentTemplate: this.contentTab3 },
     ]);
   }
 

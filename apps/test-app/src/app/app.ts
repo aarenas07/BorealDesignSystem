@@ -389,6 +389,18 @@ export class App {
 
   //Tabs
   optionsTabs = signal<TabsBds[]>([]);
+  optionsTabsIcons = signal<TabsBds[]>([
+    { label: 'Icon 1', icon: 'thumb_up', disabled: false },
+    { label: 'Icon 2', icon: 'thumb_down', disabled: false },
+  ]);
+  optionsTabsDraggable = signal<TabsBds[]>([
+    { label: 'Draggable 1', icon: 'thumb_up', disabled: false },
+    { label: 'Draggable 2', icon: 'thumb_down', disabled: false },
+  ]);
+  optionsTabsDisabled = signal<TabsBds[]>([
+    { label: 'Active', icon: 'thumb_up', disabled: false },
+    { label: 'Disabled', icon: 'thumb_down', disabled: true },
+  ]);
 
   selectedTabIndex = model<number>(0);
   @ViewChild('contentTab1') contentTab1!: TemplateRef<any>;
@@ -487,9 +499,9 @@ export class App {
     ];
 
     this.optionsTabs.set([
-      { label: 'Conocimientos adquiridos', icon: 'thumb_up', disabled: false, contentTemplate: this.contentTab1 },
-      { label: 'Two', icon: 'thumb_down', disabled: false, contentTemplate: this.contentTab2 },
-      { label: 'Three', icon: 'thumb_up', disabled: false, contentTemplate: this.contentTab3 },
+      { label: 'One', disabled: false, contentTemplate: this.contentTab1 },
+      { label: 'Two', disabled: false, contentTemplate: this.contentTab2 },
+      { label: 'Three', disabled: false, contentTemplate: this.contentTab3 },
     ]);
   }
 

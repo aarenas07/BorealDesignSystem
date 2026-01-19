@@ -824,21 +824,12 @@
     </div>
   </section>
 
-  <!-- example -->
-  <section class="component-section">
-    <h2>example</h2>
-    <div class="demo-row">
-
-    </div>
-  </section>
-
   <!-- Tabs -->
   <section class="component-section">
     <h2>Tabs</h2>
   </section>
   <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
-    <bds-tabs [optionsNavTabs]="optionsTabs()" [(selectedTabIndex)]="selectedTabIndex" animationDuration="0ms"
-      [draggableTabs]="true"></bds-tabs>
+    <bds-tabs [optionsNavTabs]="optionsTabs()" animationDuration="0ms"></bds-tabs>
 
     <!-- Custom Templates -->
     <ng-template #contentTab1 let-context>
@@ -857,6 +848,37 @@
       </div>
     </ng-template>
   </div>
-  <p>index: {{ selectedTabIndex() }}</p>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsIcons()"></bds-tabs>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsDraggable()" animationDuration="0ms" [draggableTabs]="true"></bds-tabs>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsDisabled()"></bds-tabs>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [stretchTabs]="true"></bds-tabs>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [alignTabs]="'center'"></bds-tabs>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [alignTabs]="'end'"></bds-tabs>
+  </div>
+
+  <!-- example -->
+  <section class="component-section">
+    <h2>example</h2>
+    <div class="demo-row">
+
+    </div>
+  </section>
 
 </main>

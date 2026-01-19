@@ -3,7 +3,6 @@ import { NgTemplateOutlet } from '@angular/common';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { MatIcon } from '@angular/material/icon';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-
 import { TabsBds } from '../../interfaces';
 
 export type AlignTabs = 'start' | 'center' | 'end';
@@ -19,10 +18,8 @@ export class TabsComponent {
   alignTabs = input<AlignTabs>('start');
   stretchTabs = input<boolean>(false);
   animationDuration = input<string>('300ms');
-
   selectedTabIndex = model<number>(0);
   selectedTabChange = output<MatTabChangeEvent>();
-
   optionsNavTabs = input<TabsBds[]>([]);
   draggableTabs = input<boolean>(false);
 

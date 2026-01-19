@@ -6,9 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 const meta: Meta<TabsComponent> = {
-  title: 'Components/Tabs',
+  title: 'Atomos/Tabs',
   component: TabsComponent,
-  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [CommonModule, MatTabsModule, MatIconModule, CdkDrag, CdkDropList],

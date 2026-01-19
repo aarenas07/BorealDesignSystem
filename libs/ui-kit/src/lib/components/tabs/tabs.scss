@@ -1,0 +1,43 @@
+.bds-tab-icon {
+  margin-right: 8px;
+}
+
+.bds-drag-tabs .cdk-drag-placeholder {
+  opacity: 0.5;
+}
+
+.bds-drag-tabs.cdk-drop-list-dragging {
+  pointer-events: none;
+}
+
+.bds-drag-tabs-preview.cdk-drag-animating {
+  transition: all 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.mat-mdc-tab.bds-drag-tabs-preview {
+  outline: dashed 1px #ccc;
+  outline-offset: 4px;
+}
+
+.mat-mdc-tab-labels {
+  .mat-mdc-tab {
+    .mdc-tab__text-label {
+      .bds-drag-tabs-label {
+        display: flex;
+        align-items: center;
+      }
+
+      &:is(:hover, :active) {
+        .mdc-tab__text-label {
+          color: var(--mat-sys-primary);
+        }
+      }
+    }
+
+    &.mdc-tab--active {
+      .mdc-tab__text-label {
+        color: var(--mat-sys-primary);
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 <mat-tab-group class="bds-tabs" dynamicHeight="true" [animationDuration]="animationDuration()"
     [mat-stretch-tabs]="stretchTabs()" [mat-align-tabs]="alignTabs()" [(selectedIndex)]="selectedTabIndex"
     (selectedTabChange)="_selectedTabChange($event)" cdkDropList cdkDropListOrientation="mixed"
-    (cdkDropListDropped)="drop($event)" cdkDropListElementContainer=".mat-mdc-tab-labels" class="bds-drag-tabs">
+    (cdkDropListDropped)="bdsDrop($event)" cdkDropListElementContainer=".mat-mdc-tab-labels" class="bds-drag-tabs">
 
     @for (item of optionsNavTabs(); track $index) {
     <mat-tab [disabled]="item.disabled">

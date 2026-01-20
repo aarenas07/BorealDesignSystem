@@ -20,3 +20,4 @@ export * from './lib/components/radiobutton/radiobutton';
 export * from './lib/components/checkbox/checkbox';
 export * from './lib/interfaces';
 export * from './lib/components/tabs/tabs';
+export * from './lib/components/snackbar/snackbar';

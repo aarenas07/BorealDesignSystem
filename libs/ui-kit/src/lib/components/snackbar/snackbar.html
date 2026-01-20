@@ -1,1 +1,11 @@
-<p>snackbar works!</p>
+<span class="bds-snackbar-label" matSnackBarLabel>
+    {{message()}}
+</span>
+<span matSnackBarActions>
+    <button matButton matSnackBarAction (click)="bdsSnackBarRef.dismissWithAction()">
+        @if(icons() != ''){
+        <mat-icon>close</mat-icon>
+        }
+        {{action()}}
+    </button>
+</span>

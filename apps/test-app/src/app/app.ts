@@ -37,8 +37,9 @@ import {
   CheckboxComponent,
   TabsComponent,
   TabsBds,
+  SnackbarComponent,
 } from '@organizacion/ui-kit';
-import { USUARIOS_TEST_TWO, USUARIOS_TEST_ONE } from '../assets/files/data';
+import { USUARIOS_TEST_ONE } from '../assets/files/data';
 
 interface User {
   id: number;
@@ -89,6 +90,7 @@ interface User {
 })
 export class App {
   @ViewChild(TableComponent) table!: TableComponent;
+  @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
   nameValue = '';
 
   // Autocomplete
@@ -892,5 +894,18 @@ export class App {
   onCheckboxInput(event: any) {
     console.log('onCheckboxInput: ', event);
     this.valueCheckbox.set(event.checked);
+  }
+
+  openSnackbar() {
+    this.snackbar.bdsSnackBar.openFromComponent(SnackbarComponent, {
+      data: {
+        message: 'Mensaje de snackbar',
+        action: 'Cerrar',
+        icons: 'close',
+      },
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+    });
   }
 }

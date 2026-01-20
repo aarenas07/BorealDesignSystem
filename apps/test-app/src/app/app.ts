@@ -906,6 +906,7 @@ export class App {
         action: 'Cerrar',
       },
       duration: 0,
+      panelClass: ['bds-snackbar', 'bds-snackbar--error'],
       verticalPosition: 'top',
       horizontalPosition: 'left',
     });

@@ -91,7 +91,7 @@ interface User {
 })
 export class App {
   @ViewChild(TableComponent) table!: TableComponent;
-  private readonly _snackBar: MatSnackBar = inject(MatSnackBar);
+
   nameValue = '';
 
   // Autocomplete
@@ -410,6 +410,7 @@ export class App {
   @ViewChild('contentTab2') contentTab2!: TemplateRef<any>;
   @ViewChild('contentTab3') contentTab3!: TemplateRef<any>;
 
+  private readonly _snackBar: MatSnackBar = inject(MatSnackBar);
   private readonly themeService: ThemeService = inject(ThemeService);
   private readonly fb: FormBuilder = inject(FormBuilder);
 

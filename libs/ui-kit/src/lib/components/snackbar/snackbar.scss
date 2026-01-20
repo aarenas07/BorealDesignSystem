@@ -1,4 +1,4 @@
-$color-warning: var(--md-extended-color-warning-color);
+@use '../../styles/index' as bds;
 
 bds-snackbar {
   display: flex;
@@ -20,63 +20,47 @@ bds-snackbar {
 @at-root {
   .bds-snackbar {
     &--info .mdc-snackbar__surface {
-      background-color: var(--mat-sys-surface-container-high, #f0f0f0);
+      background-color: bds.$v-color-accent-container;
 
-      .mdc-snackbar__label {
-        color: var(--mat-sys-info, #006a62);
-      }
-      .mat-mdc-button {
-        color: var(--mat-sys-info, #006a62);
-      }
+      .mdc-snackbar__label,
+      .mat-mdc-button,
       .mat-icon {
-        color: var(--mat-sys-info, #006a62);
+        color: bds.$v-color-accent;
       }
     }
-
+    /* 
     &--success .mdc-snackbar__surface {
-      background-color: var(--mat-sys-surface-container-high, #f0f0f0);
+      background-color: bds.$v-color-positive-container;
 
-      .mdc-snackbar__label {
-        color: var(--mat-sys-success, #1c6b51);
-      }
-      .mat-mdc-button {
-        color: var(--mat-sys-success, #1c6b51);
-      }
+      .mdc-snackbar__label,
+      .mat-mdc-button,
       .mat-icon {
-        color: var(--mat-sys-success, #1c6b51);
+        color: bds.$v-color-positive;
       }
     }
 
     &--warning .mdc-snackbar__surface {
-      background-color: $color-warning;
+      background-color: bds.$v-color-warning-container;
 
-      .mdc-snackbar__label {
-        color: var(--mat-sys-warning, #715c0c);
-      }
-      .mat-mdc-button {
-        color: var(--mat-sys-warning, #715c0c);
-      }
+      .mdc-snackbar__label,
+      .mat-mdc-button,
       .mat-icon {
-        color: var(--mat-sys-warning, #715c0c);
+        color: bds.$v-color-warning;
       }
     }
 
     &--error .mdc-snackbar__surface {
-      background-color: #fce8e8;
+      background-color: var(--mat-sys-error-container);
 
-      .mdc-snackbar__label {
-        color: var(--mat-sys-error, #ba1a1a);
-      }
-      .mat-mdc-button {
-        color: var(--mat-sys-error, #ba1a1a);
-      }
+      .mdc-snackbar__label,
+      .mat-mdc-button,
       .mat-icon {
-        color: var(--mat-sys-error, #ba1a1a);
+        color: var(--mat-sys-error);
       }
     }
 
     &--default .mdc-snackbar__surface {
       background-color: var(--mat-snack-bar-container-color, var(--mat-sys-inverse-surface));
-    }
+    } */
   }
 }

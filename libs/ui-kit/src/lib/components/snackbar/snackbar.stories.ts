@@ -25,11 +25,13 @@ class SnackbarHostComponent {
   private readonly snackBar: MatSnackBar = inject(MatSnackBar);
 
   open() {
+    const data = this.data();
     this.snackBar.openFromComponent(SnackbarComponent, {
-      data: this.data(),
+      data: data,
       duration: this.duration(),
       horizontalPosition: this.horizontalPosition(),
       verticalPosition: this.verticalPosition(),
+      panelClass: data?.type ? ['bds-snackbar', `bds-snackbar--${data.type}`] : ['bds-snackbar'],
     });
   }
 }
@@ -58,6 +60,10 @@ const meta: Meta<
     action: { control: 'text' },
     icon: { control: 'text' },
     longerAction: { control: 'boolean' },
+    type: {
+      control: 'select',
+      options: ['info', 'success', 'warning', 'error'],
+    },
     duration: { control: 'number' },
     horizontalPosition: {
       control: 'select',
@@ -73,6 +79,7 @@ const meta: Meta<
     action: 'Cerrar',
     icon: 'close',
     longerAction: false,
+    type: 'info',
     duration: 3000,
     horizontalPosition: 'center',
     verticalPosition: 'bottom',
@@ -90,30 +97,6 @@ type Story = StoryObj<
 >;
 
 export const Interactive: Story = {
-  argTypes: {
-    message: { control: 'text' },
-    action: { control: 'text' },
-    icon: { control: 'text' },
-    longerAction: { control: 'boolean' },
-    duration: { control: 'number' },
-    horizontalPosition: {
-      control: 'select',
-      options: ['start', 'center', 'end', 'left', 'right'],
-    },
-    verticalPosition: {
-      control: 'select',
-      options: ['top', 'bottom'],
-    },
-  },
-  args: {
-    message: 'Este es un mensaje de snackbar',
-    action: 'Cerrar',
-    icon: 'close',
-    longerAction: false,
-    duration: 3000,
-    horizontalPosition: 'center',
-    verticalPosition: 'bottom',
-  },
   render: args => ({
     props: {
       data: {
@@ -121,11 +104,12 @@ export const Interactive: Story = {
         action: args.action,
         icon: args.icon,
         longerAction: args.longerAction,
+        type: args.type,
       },
       duration: args.duration,
       horizontalPosition: args.horizontalPosition,
       verticalPosition: args.verticalPosition,
     },
-    template: `<bds-snackbar-host [data]="data"  [duration]="duration" [horizontalPosition]="horizontalPosition" [verticalPosition]="verticalPosition"></bds-snackbar-host>`,
+    template: `<bds-snackbar-host [data]="data" [duration]="duration" [horizontalPosition]="horizontalPosition" [verticalPosition]="verticalPosition"></bds-snackbar-host>`,
   }),
 };

@@ -1,4 +1,6 @@
-:host {
+$color-warning: var(--md-extended-color-warning-color);
+
+bds-snackbar {
   display: flex;
 
   &.longer-action {
@@ -12,5 +14,69 @@
 
   mat-icon {
     margin: 0;
+  }
+}
+
+@at-root {
+  .bds-snackbar {
+    &--info .mdc-snackbar__surface {
+      background-color: var(--mat-sys-surface-container-high, #f0f0f0);
+
+      .mdc-snackbar__label {
+        color: var(--mat-sys-info, #006a62);
+      }
+      .mat-mdc-button {
+        color: var(--mat-sys-info, #006a62);
+      }
+      .mat-icon {
+        color: var(--mat-sys-info, #006a62);
+      }
+    }
+
+    &--success .mdc-snackbar__surface {
+      background-color: var(--mat-sys-surface-container-high, #f0f0f0);
+
+      .mdc-snackbar__label {
+        color: var(--mat-sys-success, #1c6b51);
+      }
+      .mat-mdc-button {
+        color: var(--mat-sys-success, #1c6b51);
+      }
+      .mat-icon {
+        color: var(--mat-sys-success, #1c6b51);
+      }
+    }
+
+    &--warning .mdc-snackbar__surface {
+      background-color: $color-warning;
+
+      .mdc-snackbar__label {
+        color: var(--mat-sys-warning, #715c0c);
+      }
+      .mat-mdc-button {
+        color: var(--mat-sys-warning, #715c0c);
+      }
+      .mat-icon {
+        color: var(--mat-sys-warning, #715c0c);
+      }
+    }
+
+    &--error .mdc-snackbar__surface {
+      background-color: #fce8e8;
+
+      .mdc-snackbar__label {
+        color: var(--mat-sys-error, #ba1a1a);
+      }
+      .mat-mdc-button {
+        color: var(--mat-sys-error, #ba1a1a);
+      }
+      .mat-icon {
+        color: var(--mat-sys-error, #ba1a1a);
+      }
+    }
+
+    &--default .mdc-snackbar__surface {
+      background-color: var(--mat-snack-bar-container-color, var(--mat-sys-inverse-surface));
+    }
   }
 }

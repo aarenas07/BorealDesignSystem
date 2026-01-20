@@ -1,13 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_SNACK_BAR_DATA, MatSnackBarAction, MatSnackBarActions, MatSnackBarLabel, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MatIcon } from '@angular/material/icon';
+
+export type SnackbarType = 'info' | 'success' | 'warning' | 'error' | 'default';
 
 export interface SnackbarDataBds {
   message: string;
   action?: string;
   icon?: string;
   longerAction?: boolean;
+  type?: SnackbarType;
 }
 
 @Component({
@@ -18,6 +21,7 @@ export interface SnackbarDataBds {
   },
   templateUrl: './snackbar.html',
   styleUrl: './snackbar.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class SnackbarComponent {
   readonly data: SnackbarDataBds = inject(MAT_SNACK_BAR_DATA);

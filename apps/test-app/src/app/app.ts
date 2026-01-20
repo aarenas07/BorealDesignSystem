@@ -898,27 +898,77 @@ export class App {
     this.valueCheckbox.set(event.checked);
   }
 
-  openSnackbar() {
+  openSnackbarDefault() {
     this._snackBar.openFromComponent(SnackbarComponent, {
       data: {
-        message: 'Two-line snackbar with longer action and close affordance ',
-        icon: 'close',
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'default',
       },
-      duration: 2000,
-      verticalPosition: 'bottom',
+      duration: 0,
+      panelClass: ['bds-snackbar', 'bds-snackbar--default'],
+      verticalPosition: 'top',
+      horizontalPosition: 'left',
+    });
+  }
+
+  openSnackbarSuccess() {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      data: {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'success',
+      },
+      duration: 0,
+      panelClass: ['bds-snackbar', 'bds-snackbar--success'],
+      verticalPosition: 'top',
       horizontalPosition: 'center',
     });
   }
 
-  openSnackbarLong() {
+  openSnackbarInfo() {
     this._snackBar.openFromComponent(SnackbarComponent, {
       data: {
-        message:
-          'Two-line snackbar with longer action and close affordance Two-line snackbar with longer action and close affordance Two-line snackbar with longer action and close affordance Two-line snackbar with longer action and close affordance Two-line snackbar with longer action and close affordance',
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
         action: 'Cerrar',
-        longerAction: true,
+        type: 'info',
       },
-      duration: 2000,
+      duration: 0,
+      panelClass: ['bds-snackbar', 'bds-snackbar--info'],
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+    });
+  }
+
+  openSnackbarWarning() {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      data: {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'warning',
+      },
+      duration: 0,
+      panelClass: ['bds-snackbar', 'bds-snackbar--warning'],
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+    });
+  }
+
+  openSnackbarError() {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      data: {
+        message: 'Ha ocurrido un error crítico al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.',
+        action: 'Reintentar',
+        icon: 'error',
+        longerAction: true,
+        type: 'error',
+      },
+      duration: 0,
+      panelClass: ['bds-snackbar', 'bds-snackbar--error'],
       verticalPosition: 'top',
       horizontalPosition: 'end',
     });

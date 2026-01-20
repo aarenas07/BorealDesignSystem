@@ -8,6 +8,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { Observable, map, startWith } from 'rxjs';
@@ -90,7 +91,7 @@ interface User {
 })
 export class App {
   @ViewChild(TableComponent) table!: TableComponent;
-  @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
+  private readonly _snackBar: MatSnackBar = inject(MatSnackBar);
   nameValue = '';
 
   // Autocomplete
@@ -897,15 +898,28 @@ export class App {
   }
 
   openSnackbar() {
-    this.snackbar.bdsSnackBar.openFromComponent(SnackbarComponent, {
+    this._snackBar.openFromComponent(SnackbarComponent, {
       data: {
-        message: 'Mensaje de snackbar',
-        action: 'Cerrar',
-        icons: 'close',
+        message: 'Two-line snackbar with longer action and close affordance ',
+        icon: 'close',
       },
-      duration: 5000,
-      verticalPosition: 'top',
+      duration: 2000,
+      verticalPosition: 'bottom',
       horizontalPosition: 'center',
+    });
+  }
+
+  openSnackbarLong() {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      data: {
+        message:
+          'Two-line snackbar with longer action and close affordance Two-line snackbar with longer action and close affordance Two-line snackbar with longer action and close affordance Two-line snackbar with longer action and close affordance Two-line snackbar with longer action and close affordance',
+        action: 'Cerrar',
+        longerAction: true,
+      },
+      duration: 2000,
+      verticalPosition: 'top',
+      horizontalPosition: 'end',
     });
   }
 }

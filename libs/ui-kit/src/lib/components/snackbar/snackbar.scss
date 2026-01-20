@@ -1,1 +1,16 @@
+:host {
+  display: flex;
 
+  &.longer-action {
+    flex-direction: column;
+
+    .mat-mdc-snack-bar-actions {
+      justify-content: flex-end;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  mat-icon {
+    margin: 0;
+  }
+}

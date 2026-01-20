@@ -1,4 +1,5 @@
-@use '../../styles/index' as bds;
+@use '../../styles/sicoferp-theme/theme' as sicoferp-theme;
+@use '../../styles/variables' as bds;
 
 bds-snackbar {
   display: flex;
@@ -20,32 +21,50 @@ bds-snackbar {
 @at-root {
   .bds-snackbar {
     &--info .mdc-snackbar__surface {
-      background-color: bds.$v-color-accent-container;
+      background-color: bds.$color-accent-container;
 
       .mdc-snackbar__label,
       .mat-mdc-button,
       .mat-icon {
-        color: bds.$v-color-accent;
+        color: bds.$color-accent;
+      }
+
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: bds.$color-accent;
+        }
       }
     }
-    /* 
+
     &--success .mdc-snackbar__surface {
-      background-color: bds.$v-color-positive-container;
+      background-color: bds.$color-positive-container;
 
       .mdc-snackbar__label,
       .mat-mdc-button,
       .mat-icon {
-        color: bds.$v-color-positive;
+        color: bds.$color-positive;
+      }
+
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: bds.$color-positive;
+        }
       }
     }
 
     &--warning .mdc-snackbar__surface {
-      background-color: bds.$v-color-warning-container;
+      background-color: bds.$color-warning-container;
 
       .mdc-snackbar__label,
       .mat-mdc-button,
       .mat-icon {
-        color: bds.$v-color-warning;
+        color: bds.$color-warning;
+      }
+
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: bds.$color-warning;
+        }
       }
     }
 
@@ -57,10 +76,12 @@ bds-snackbar {
       .mat-icon {
         color: var(--mat-sys-error);
       }
-    }
 
-    &--default .mdc-snackbar__surface {
-      background-color: var(--mat-snack-bar-container-color, var(--mat-sys-inverse-surface));
-    } */
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: var(--mat-sys-primary);
+        }
+      }
+    }
   }
 }

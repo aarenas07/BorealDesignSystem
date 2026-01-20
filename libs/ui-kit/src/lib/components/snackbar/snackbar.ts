@@ -10,7 +10,6 @@ export interface SnackbarDataBds {
   action?: string;
   icon?: string;
   longerAction?: boolean;
-  type?: SnackbarType;
 }
 
 @Component({

@@ -898,13 +898,25 @@ export class App {
     this.valueCheckbox.set(event.checked);
   }
 
+  openSnackbarTest() {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      data: {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+      },
+      duration: 0,
+      verticalPosition: 'top',
+      horizontalPosition: 'left',
+    });
+  }
+
   openSnackbarDefault() {
     this._snackBar.openFromComponent(SnackbarComponent, {
       data: {
         message: 'Acción realizada con éxito',
         icon: 'check_circle',
         action: 'Cerrar',
-        type: 'default',
       },
       duration: 0,
       panelClass: ['bds-snackbar', 'bds-snackbar--default'],
@@ -919,7 +931,6 @@ export class App {
         message: 'Acción realizada con éxito',
         icon: 'check_circle',
         action: 'Cerrar',
-        type: 'success',
       },
       duration: 0,
       panelClass: ['bds-snackbar', 'bds-snackbar--success'],
@@ -934,7 +945,6 @@ export class App {
         message: 'Acción realizada con éxito',
         icon: 'check_circle',
         action: 'Cerrar',
-        type: 'info',
       },
       duration: 0,
       panelClass: ['bds-snackbar', 'bds-snackbar--info'],
@@ -949,7 +959,6 @@ export class App {
         message: 'Acción realizada con éxito',
         icon: 'check_circle',
         action: 'Cerrar',
-        type: 'warning',
       },
       duration: 0,
       panelClass: ['bds-snackbar', 'bds-snackbar--warning'],
@@ -961,14 +970,27 @@ export class App {
   openSnackbarError() {
     this._snackBar.openFromComponent(SnackbarComponent, {
       data: {
-        message: 'Ha ocurrido un error crítico al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.',
+        message: 'Ha ocurrido un error crítico.',
         action: 'Reintentar',
         icon: 'error',
-        longerAction: true,
-        type: 'error',
       },
       duration: 0,
       panelClass: ['bds-snackbar', 'bds-snackbar--error'],
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+    });
+  }
+
+  openSnackbarLong() {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      data: {
+        message: 'Texto de prueba para el snackbar con acción larga.',
+        action: 'Aceptar',
+        icon: 'close',
+        longerAction: true,
+      },
+      duration: 0,
+      panelClass: ['bds-snackbar', 'bds-snackbar--default'],
       verticalPosition: 'top',
       horizontalPosition: 'end',
     });

@@ -51,7 +51,6 @@
     flex-direction: column;
     align-items: center;
     width: var(--nav-rail-width);
-    height: 100%;
     padding-top: 44px;
     background: var(--mat-sys-surface);
     flex-shrink: 0;
@@ -229,9 +228,7 @@
     &.overlay {
         position: absolute;
         left: var(--nav-rail-width);
-        height: 100%;
         box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
-        border-right: 1px solid #e0e0e0;
     }
 }
 

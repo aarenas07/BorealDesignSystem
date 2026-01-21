@@ -39,12 +39,14 @@
   border-bottom: 1px solid #f0f0f0;
 
   .global-filter-container {
-    width: 68%
+    width: 50%
   }
 
   .actions-container {
     display: flex;
     gap: 8px;
+    width: 50%;
+    justify-content: flex-end;
   }
 }
 
@@ -214,14 +216,7 @@ table {
   padding: 64px 24px;
   text-align: center;
 
-  mat-icon {
-    font-size: 64px;
-    width: 64px;
-    height: 64px;
-    margin-bottom: 16px;
-    opacity: 0.5;
-    color: var(--mat-sys-on-surface-variant);
-  }
+
 
   h3 {
     margin: 0 0 8px 0;

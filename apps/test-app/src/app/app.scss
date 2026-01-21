@@ -78,30 +78,11 @@ mat-form-field {
   gap: 12px;
 }
 
-.avatar,
-.avatar-placeholder {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.avatar-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  font-weight: 600;
-  font-size: 14px;
-}
 
 /* Status Chips */
-.status-active {
-  background: #e8f5e9 !important;
-  color: #2e7d32 !important;
-}
 
+<<<<<<< HEAD
+=======
 .status-inactive {
   background: #ffebee !important;
   color: #c62828 !important;
@@ -151,12 +132,12 @@ mat-form-field {
   color: #2e7d32;
   font-size: 14px;
 }
+>>>>>>> 5b292af741ab75e9db1659ee7204357a84e0c678
 
 /* Expanded Row */
 .expanded-row-content {
   padding: 20px;
   background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
-  border-left: 4px solid #1976d2;
   margin: 8px 0;
 }
 
@@ -172,7 +153,6 @@ mat-form-field {
     font-size: 32px;
     width: 32px;
     height: 32px;
-    color: #1976d2;
   }
 
   h3 {
@@ -200,7 +180,7 @@ mat-form-field {
     color: rgba(0, 0, 0, 0.87);
 
     mat-icon {
-      color: #1976d2;
+      color: var(--mat-sys-primary);
       font-size: 20px;
       width: 20px;
       height: 20px;
@@ -211,6 +191,13 @@ mat-form-field {
 .info-grid {
   display: grid;
   gap: 16px;
+}
+
+.status-icon-active {
+  color: white;
+
+  font-size: 14px;
+
 }
 
 .info-item {
@@ -224,17 +211,11 @@ mat-form-field {
   transition: all 0.2s ease;
 
   &:hover {
-    border-color: #1976d2;
+    border-color: var(--mat-sys-primary);
     box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
   }
 
-  mat-icon {
-    color: #1976d2;
-    margin-top: 2px;
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
-  }
+
 
   div {
     flex: 1;
@@ -302,4 +283,13 @@ mat-form-field {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+.status-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 28px;
+  background-color: var(--mat-sys-primary)
 }

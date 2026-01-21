@@ -17,6 +17,8 @@ import {
   TableColumn,
   TableComponent,
   TableConfig,
+  TableHeaderAction,
+  TableSelectionAction,
   CardComponent,
   SideBarComponent,
   RailComponent,
@@ -238,9 +240,11 @@ export class App {
 
   tableColumns: TableColumn<User>[] = [];
   tableActions: TableAction<User>[] = [];
+  headerActions: TableHeaderAction[] = [];
+  selectionActions: TableSelectionAction<User>[] = [];
   tableConfig: TableConfig = {
-    selectable: false,
-    expandable: true,
+    selectable: true,
+    expandable: false,
     showGlobalFilter: true,
     zebraStriping: true,
     density: 'compact',
@@ -544,7 +548,6 @@ export class App {
       {
         key: 'status',
         label: 'Estado',
-        sortable: true,
         cellTemplate: this.statusTemplate,
       },
       {
@@ -641,7 +644,7 @@ export class App {
         onClick: user => this.viewUser(user),
       },
       {
-        icon: 'block',
+        icon: '',
         label: 'Desactivar',
         tooltip: 'Desactivar usuario',
         color: 'warn',
@@ -656,19 +659,53 @@ export class App {
         onClick: user => this.activateUser(user),
       },
       {
-        icon: 'send',
+        icon: '',
         label: 'Enviar Email',
         tooltip: 'Enviar correo',
         onClick: user => this.sendEmail(user),
       },
       {
-        icon: 'delete',
+        icon: '',
         label: 'Eliminar',
         tooltip: 'Eliminar usuario',
         color: 'warn',
         disabled: user => user.role === 'admin',
         onClick: user => this.deleteUser(user),
       },
+    ];
+
+    this.headerActions = [
+      {
+        label: 'Agregar Usuario',
+        icon: 'add',
+        variant: 'outlined',
+        onClick: () => this.addUser(),
+      },
+      {
+        label: 'Exportar',
+        icon: 'download',
+        variant: 'filled',
+        onClick: () => console.log('Exporting data...'),
+      }
+    ];
+
+    this.selectionActions = [
+      {
+        label: 'Eliminar Seleccionados',
+        variant: 'outlined',
+        color: 'warn',
+        onClick: (selected) => {
+          if (confirm(`¿Eliminar ${selected.length} usuarios?`)) {
+            console.log('Eliminando usuarios:', selected);
+            // Implement delete logic here if needed
+          }
+        },
+      },
+      {
+        label: 'Archivar',
+        variant: 'filled',
+        onClick: (selected) => console.log('Archivando:', selected),
+      }
     ];
   }
 

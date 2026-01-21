@@ -1,21 +1,49 @@
 <div class="generic-table-container" [attr.data-density]="config.density || 'comfortable'">
-  <!-- Global Filter -->
-  @if (config.showGlobalFilter) {
-  <div class="table-toolbar">
-    <bds-form-field class="global-filter" [label]="'Buscar en toda la tabla'" [(value)]="globalFilterValue"
-      (valueChange)="applyGlobalFilter($event)" [clearable]="true" [prefixIcon]="'search'">
-    </bds-form-field>
+  <!-- Toolbar -->
+  @if (config.showGlobalFilter || headerActions.length > 0 || (config.selectable && selection.hasValue())) {
+  <div class="table-toolbar" [class.selection-mode]="selection.hasValue()">
 
-    <!-- Selection Info -->
-    @if (config.selectable && selection.hasValue()) {
-    <div class="selection-info">
-      <span>{{ selection.selected.length }} seleccionado(s)</span>
-      <bds-button label="Icon" variant="icon" icon="clear" (action)="clearSelection()"></bds-button>
+    <!-- Standard View: Filter + Header Actions -->
+    <div class="global-filter-container">
+      @if (config.showGlobalFilter) {
+      <bds-form-field class="global-filter" appearance="fill" [label]="'Filtrar registros'"
+        [(value)]="globalFilterValue" (valueChange)="applyGlobalFilter($event)" [clearable]="true"
+        [prefixIcon]="'search'">
+      </bds-form-field>
+      }
     </div>
-    }
+
+    <div class="actions-container">
+      @for (action of headerActions; track action.label) {
+      <bds-button icon="{{action.icon}}" [label]="action.label" [variant]="action.variant || 'filled'" size="md"
+        (click)="action.onClick()">
+      </bds-button>
+      }
+    </div>
+
+
+
   </div>
   }
+  @if (selection.hasValue()) {
+  <div class="selection-toolbar-content">
+    <div class="selection-left">
+      <button mat-icon-button (click)="clearSelection()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <div class="divider"></div>
+      <span class="selection-count">{{ selection.selected.length }} registros seleccionados</span>
+    </div>
 
+    <div class="selection-actions">
+      @for (action of selectionActions; track action.label) {
+      <bds-button [label]="action.label" [variant]="action.variant || 'filled'" size="md"
+        (click)="action.onClick(selection.selected)">
+      </bds-button>
+      }
+    </div>
+  </div>
+  }
   <!-- Loading State -->
   @if (state().loading) {
   <div class="loading-state">
@@ -83,7 +111,9 @@
           [disabled]="column.sortable === false" [style.width]="column.width" [class.sticky-column]="column.sticky">
           {{ column.label }}
         </th>
-        <td mat-cell *matCellDef="let row" [style.width]="column.width" [class.sticky-column]="column.sticky">
+        <td mat-cell *matCellDef="let row" [style.width]="column.width" [class.sticky-column]="column.sticky"
+          [ngClass]="column.cellClass ? column.cellClass(row) : ''"
+          [ngStyle]="column.cellStyle ? column.cellStyle(row) : {}">
           @if (column.cellTemplate) {
           <ng-container *ngTemplateOutlet="column.cellTemplate; context: { $implicit: row, column: column }">
           </ng-container>

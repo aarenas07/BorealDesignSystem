@@ -31,6 +31,8 @@ export interface TableColumn<T = any> {
   hidden?: boolean;
   cellTemplate?: TemplateRef<any>;
   customSort?: (a: T, b: T) => number;
+  cellClass?: (row: T) => string | string[] | { [klass: string]: any };
+  cellStyle?: (row: T) => { [style: string]: any };
 }
 
 export interface TableAction<T = any> {
@@ -41,6 +43,20 @@ export interface TableAction<T = any> {
   visible?: (row: T) => boolean;
   disabled?: (row: T) => boolean;
   onClick: (row: T) => void;
+}
+
+export interface TableHeaderAction {
+  label: string;
+  icon?: string;
+  variant?: 'filled' | 'outlined';
+  onClick: () => void;
+}
+
+export interface TableSelectionAction<T = any> {
+  label: string;
+  variant?: 'filled' | 'outlined';
+  color?: 'primary' | 'accent' | 'warn';
+  onClick: (selected: T[]) => void;
 }
 
 export interface TableConfig {
@@ -116,6 +132,8 @@ export interface TableState<T = any> {
 export class TableComponent<T = any> implements OnInit {
   @Input() columns: TableColumn<T>[] = [];
   @Input() actions: TableAction<T>[] = [];
+  @Input() headerActions: TableHeaderAction[] = [];
+  @Input() selectionActions: TableSelectionAction<T>[] = [];
   @Input() config: TableConfig = {};
   @Input() expandedRowTemplate?: TemplateRef<any>;
   @Input() set data(value: T[]) {

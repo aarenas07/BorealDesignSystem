@@ -677,3 +677,7 @@ $blue-lt-scheme: (
         --mat-sys-#{$key}: #{$value};
     }
 }
+
+:root {
+    --mat-button-filled-container-shape: 8px
+}

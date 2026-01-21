@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from
 import { CommonModule } from '@angular/common'; // Importar CommonModule
 import { SidebarStateService } from './services/sidebar-state.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { CommandMenuConfig } from '../../interfaces/command-item.interface';
 
 export interface SidebarItem {
   id: string;
@@ -20,14 +21,7 @@ export interface SidebarSection {
   isCollapsed?: boolean;
 }
 
-export interface CommandMenuConfig {
-  placeholder?: string;
-  icon?: string;
-  shortcut?: string;
-  width?: string;
-  buttonClass?: string;
-  disabled?: boolean;
-}
+
 
 @Component({
   selector: 'bds-side-bar',
@@ -57,7 +51,7 @@ export class SideBarComponent {
     private elementRef: ElementRef,
     private sidebarStateService: SidebarStateService,
     private cdr: ChangeDetectorRef // Inyectar ChangeDetectorRef
-  ) {}
+  ) { }
 
   onMouseEnter() {
     if (!this.isPinned && !this.isExpanded && !this.hoveringExpandButton) {

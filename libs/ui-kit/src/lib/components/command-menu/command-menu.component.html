@@ -1,0 +1,27 @@
+<div
+  class="command-bar"
+  [class]="config.buttonClass"
+  [class.disabled]="config.disabled"
+  (click)="onClick()"
+  [attr.aria-label]="config.placeholder"
+>
+  <span class="placeholder-text">
+    @if (showSearchIcon) {
+    <span class="material-symbols-rounded"> search </span>
+    }
+    {{ config.placeholder || "Menú rápido" }}
+  </span>
+
+  @if (config.shortcut) {
+  <span class="shortcut">
+    {{ config.shortcut }}
+  </span>
+  }
+</div>
+
+<lib-ada-command
+  [config]="commandConfig"
+  [commandItems]="commandItems"
+  (commandEmitter)="onCommandAction($event)"
+>
+</lib-ada-command>

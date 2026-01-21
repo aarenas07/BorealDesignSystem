@@ -1,4 +1,4 @@
-import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, model, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -12,11 +12,19 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { Observable, map, startWith } from 'rxjs';
 import {
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+  MatExpansionPanelDescription,
+} from '@angular/material/expansion';
+import {
   ButtonComponent,
   TableAction,
   TableColumn,
   TableComponent,
   TableConfig,
+  TableHeaderAction,
+  TableSelectionAction,
   CardComponent,
   SideBarComponent,
   RailComponent,
@@ -35,8 +43,19 @@ import {
   SelectComponent,
   RadiobuttonComponent,
   CheckboxComponent,
+  CollapsibleNavComponent,
+  CollapsibleNavConfig,
+  CommandItem,
+  CommandMenuConfig,
+  StepperComponent,
+  StepperStep,
+  StepContentDirective,
+  ExpansionPanelComponent,
+  TabsComponent,
+  TabsBds,
+  BdsSnackbarService,
 } from '@organizacion/ui-kit';
-import { USUARIOS_TEST_TWO, USUARIOS_TEST_ONE } from '../assets/files/data';
+import { USUARIOS_TEST_ONE } from '../assets/files/data';
 
 interface User {
   id: number;
@@ -47,6 +66,46 @@ interface User {
   joinDate: Date;
   salary: number;
   department: string;
+}
+
+export interface NavItem {
+  /** Identificador único del item */
+  id: string;
+  /** Texto a mostrar */
+  label: string;
+  /** Icono de Material Symbols */
+  icon?: string;
+  /** Ruta de navegación */
+  route?: string;
+  /** Items hijos para crear submenús */
+  children?: NavItem[];
+  /** Estado de expansión para items con hijos */
+  isExpanded?: boolean;
+  /** Si el item está activo */
+  isActive?: boolean;
+  /** Badge numérico */
+  badge?: number;
+  /** Función a ejecutar al hacer clic */
+  action?: () => void;
+  /** Si es un módulo principal (aparece en el rail) */
+  isModule?: boolean;
+}
+
+export interface NavSection {
+  /** Clave identificadora de la sección */
+  key: string;
+  /** Título de la sección (visible solo en modo expandido) */
+  title?: string;
+  /** Lista de items en la sección */
+  items: NavItem[];
+  /** Tipo de tooltip para el modo rail */
+  tooltipType?: 'dark' | 'light' | 'error' | 'success';
+  /** Clase CSS adicional */
+  cssClass?: string;
+  /** Mostrar separador después de esta sección */
+  showSeparator?: boolean;
+  /** Estado de colapso de la sección */
+  isCollapsed?: boolean;
 }
 
 @Component({
@@ -79,13 +138,24 @@ interface User {
     SelectComponent,
     RadiobuttonComponent,
     CheckboxComponent,
+    CollapsibleNavComponent,
+    ExpansionPanelComponent,
+    StepperComponent,
+    StepContentDirective,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatExpansionPanelDescription,
+    TabsComponent,
   ],
+
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
   @ViewChild(TableComponent) table!: TableComponent;
+
   nameValue = '';
 
   // Autocomplete
@@ -100,6 +170,62 @@ export class App {
   // Radio
   favoriteSeason: string = 'Winter';
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
+
+  expasionFavorite = false;
+  /** Pasos del stepper */
+  steps: StepperStep[] = [
+    {
+      label: 'Datos básicos',
+      description: 'Información general del proyecto',
+    },
+    {
+      label: 'Documentos',
+      description: 'Carga de archivos requeridos',
+    },
+    {
+      label: 'Confirmación',
+      description: 'Resumen final',
+    },
+  ];
+
+  /** Paso activo */
+  activeIndex = 0;
+
+  /** Datos del formulario (ejemplo) */
+  projectName = '';
+  category = '';
+
+  /** Listener del cambio de paso */
+  onStepChange(event: { previousIndex: number; currentIndex: number }) {
+    console.log('Cambio de paso:', event);
+
+    // Ejemplo: lógica condicional
+    if (event.currentIndex === 2) {
+      console.log('Entrando a confirmación');
+    }
+  }
+
+  /** Ejemplo de avance manual */
+  nextStep() {
+    if (this.activeIndex < this.steps.length - 1) {
+      this.activeIndex++;
+    }
+  }
+
+  /** Ejemplo de retroceso manual */
+  prevStep() {
+    if (this.activeIndex > 0) {
+      this.activeIndex--;
+    }
+  }
+
+  /** Ejemplo de finalización */
+  finish() {
+    console.log('Finalizar proceso', {
+      projectName: this.projectName,
+      category: this.category,
+    });
+  }
 
   // Select
   foods: any[] = [
@@ -166,11 +292,13 @@ export class App {
 
   tableColumns: TableColumn<User>[] = [];
   tableActions: TableAction<User>[] = [];
+  headerActions: TableHeaderAction[] = [];
+  selectionActions: TableSelectionAction<User>[] = [];
   tableConfig: TableConfig = {
-    selectable: false,
-    expandable: true,
+    selectable: true,
+    expandable: false,
     showGlobalFilter: true,
-    zebraStriping: true,
+    zebraStriping: false,
     density: 'compact',
     pageSizeOptions: [5, 10, 25, 50],
     defaultPageSize: 10,
@@ -384,7 +512,29 @@ export class App {
   //Checkbox
   valueCheckbox = signal<boolean>(false);
 
+  //Tabs
+  optionsTabs = signal<TabsBds[]>([]);
+  optionsTabsIcons = signal<TabsBds[]>([
+    { label: 'Icon 1', icon: 'thumb_up', disabled: false },
+    { label: 'Icon 2', icon: 'thumb_down', disabled: false },
+  ]);
+  optionsTabsDraggable = signal<TabsBds[]>([
+    { label: 'Draggable 1', icon: 'thumb_up', disabled: false },
+    { label: 'Draggable 2', icon: 'thumb_down', disabled: false },
+  ]);
+  optionsTabsDisabled = signal<TabsBds[]>([
+    { label: 'Active', icon: 'thumb_up', disabled: false },
+    { label: 'Disabled', icon: 'thumb_down', disabled: true },
+  ]);
+
+  selectedTabIndex = model<number>(0);
+  @ViewChild('contentTab1') contentTab1!: TemplateRef<any>;
+  @ViewChild('contentTab2') contentTab2!: TemplateRef<any>;
+  @ViewChild('contentTab3') contentTab3!: TemplateRef<any>;
+
   private readonly themeService: ThemeService = inject(ThemeService);
+  private readonly bdsSnackbarService: BdsSnackbarService = inject(BdsSnackbarService);
+
   private readonly fb: FormBuilder = inject(FormBuilder);
 
   constructor() {
@@ -452,7 +602,6 @@ export class App {
       {
         key: 'status',
         label: 'Estado',
-        sortable: true,
         cellTemplate: this.statusTemplate,
       },
       {
@@ -474,6 +623,12 @@ export class App {
         cellTemplate: this.salaryTemplate,
       },
     ];
+
+    this.optionsTabs.set([
+      { label: 'One', disabled: false, contentTemplate: this.contentTab1 },
+      { label: 'Two', disabled: false, contentTemplate: this.contentTab2 },
+      { label: 'Three', disabled: false, contentTemplate: this.contentTab3 },
+    ]);
   }
 
   get hobbiesFormArray() {
@@ -543,7 +698,7 @@ export class App {
         onClick: user => this.viewUser(user),
       },
       {
-        icon: 'block',
+        icon: '',
         label: 'Desactivar',
         tooltip: 'Desactivar usuario',
         color: 'warn',
@@ -558,18 +713,52 @@ export class App {
         onClick: user => this.activateUser(user),
       },
       {
-        icon: 'send',
+        icon: '',
         label: 'Enviar Email',
         tooltip: 'Enviar correo',
         onClick: user => this.sendEmail(user),
       },
       {
-        icon: 'delete',
+        icon: '',
         label: 'Eliminar',
         tooltip: 'Eliminar usuario',
         color: 'warn',
         disabled: user => user.role === 'admin',
         onClick: user => this.deleteUser(user),
+      },
+    ];
+
+    this.headerActions = [
+      {
+        label: 'Agregar Usuario',
+        icon: 'add',
+        variant: 'outlined',
+        onClick: () => this.addUser(),
+      },
+      {
+        label: 'Exportar',
+        icon: 'download',
+        variant: 'filled',
+        onClick: () => console.log('Exporting data...'),
+      },
+    ];
+
+    this.selectionActions = [
+      {
+        label: 'Eliminar Seleccionados',
+        variant: 'outlined',
+        color: 'warn',
+        onClick: selected => {
+          if (confirm(`¿Eliminar ${selected.length} usuarios?`)) {
+            console.log('Eliminando usuarios:', selected);
+            // Implement delete logic here if needed
+          }
+        },
+      },
+      {
+        label: 'Archivar',
+        variant: 'filled',
+        onClick: selected => console.log('Archivando:', selected),
       },
     ];
   }
@@ -728,6 +917,188 @@ export class App {
     ],
     tooltipPosition: 'right',
   };
+
+  // -----------------------------------------------------------------------------------------------------
+  // Collapsible Nav Demo
+  // -----------------------------------------------------------------------------------------------------
+
+  collapsibleSections: NavSection[] = [
+    {
+      key: 'main',
+      items: [
+        {
+          id: 'presupuesto',
+          label: 'Presupuesto',
+          icon: 'savings',
+          isModule: true,
+          isExpanded: false,
+          children: [
+            {
+              id: 'disponibilidades',
+              label: 'Gestión de Disponibilidades',
+              icon: 'account_balance_wallet',
+              children: [
+                { id: 'listar-disp', label: 'Listar disponibilidades', icon: 'list', route: '/presupuesto/disponibilidades' },
+                { id: 'aprobar-disp', label: 'Aprobar disponibilidades', icon: 'check_circle', route: '/presupuesto/aprobar' },
+                { id: 'cancelar-disp', label: 'Cancelar disponibilidades', icon: 'cancel', route: '/presupuesto/cancelar' },
+                {
+                  id: 'config-disp',
+                  label: 'Configuración Avanzada',
+                  icon: 'settings',
+                  children: [
+                    { id: 'general-conf', label: 'General', route: '/presupuesto/conf/general' },
+                    {
+                      id: 'workflows',
+                      label: 'Flujos de Aprobación',
+                      children: [
+                        { id: 'wf-1', label: 'Nivel 1: Gerencia', route: '/wf/1' },
+                        { id: 'wf-2', label: 'Nivel 2: Finanzas', route: '/wf/2' },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              id: 'reportes-presupuesto',
+              label: 'Reportes',
+              icon: 'summarize',
+              route: '/presupuesto/reportes',
+            },
+          ],
+        },
+        {
+          id: 'rentas',
+          label: 'Rentas',
+          icon: 'monetization_on',
+          isModule: true,
+          children: [
+            { id: 'dashboard-rentas', label: 'Dashboard', icon: 'dashboard', route: '/rentas/dashboard' },
+            { id: 'recaudos', label: 'Recaudos', icon: 'receipt_long', route: '/rentas/recaudos' },
+          ],
+        },
+        {
+          id: 'contabilidad',
+          label: 'Contabilidad',
+          icon: 'calculate',
+          isModule: true,
+          children: [{ id: 'libros', label: 'Libros Contables', icon: 'menu_book', route: '/contabilidad/libros' }],
+        },
+      ],
+      tooltipType: 'dark',
+    },
+  ];
+
+  collapsibleConfig: CollapsibleNavConfig = {
+    user: {
+      avatar: 'U',
+      name: 'Admin User',
+      show: true,
+    },
+    quickActions: {
+      title: 'Acciones rápidas',
+      titleIcon: '',
+      actions: [
+        { id: 'action1', label: 'Label', icon: 'star_outline' },
+        { id: 'action2', label: 'Label', icon: 'star_outline' },
+        { id: 'action3', label: 'Label', icon: 'star_outline' },
+        { id: 'action4', label: 'Label', icon: 'star_outline' },
+      ],
+      show: true,
+    },
+    favorites: {
+      title: 'Favoritos',
+      items: [],
+      show: false,
+    },
+    toggleButton: {
+      icon: 'menu',
+      closeIcon: 'menu_open',
+      position: 'top',
+      show: true,
+    },
+    createButton: {
+      show: true,
+      icon: 'star',
+      action: () => {
+        console.log('Create Button Clicked');
+      },
+    },
+    behavior: {
+      closeOnClickOutside: true,
+      closeOnNavigation: true,
+      showOverlay: true,
+      overlayOpacity: 0.5,
+      animationDuration: 300,
+      initialExpanded: false,
+    },
+    rail: {
+      tooltipPosition: 'right',
+      showLabels: false,
+      labelMaxLength: 12,
+    },
+    showCommandMenu: true,
+  };
+
+  collapsibleCommandItems: CommandItem[] = [
+    {
+      label: 'Buscar Disponibilidad',
+      icon: 'search',
+      options: [{ label: 'Ir a buscador', value: 'search-disp', routerLink: '/presupuesto/buscar' }],
+    },
+    {
+      label: 'Panel de Control',
+      icon: 'dashboard',
+      options: [{ label: 'Ver dashboard', value: 'view-dashboard', routerLink: '/dashboard' }],
+    },
+    {
+      label: 'Perfil de Usuario',
+      icon: 'account_circle',
+      options: [{ label: 'Editar perfil', value: 'edit-profile', routerLink: '/perfil' }],
+    },
+    {
+      label: 'Configuración',
+      icon: 'settings',
+      options: [{ label: 'Ajustes generales', value: 'settings-app', action: () => console.log('Abrir configuración') }],
+    },
+    {
+      label: 'Reportes Financieros',
+      icon: 'analytics',
+      options: [{ label: 'Ver reportes', value: 'view-reports', routerLink: '/reportes' }],
+    },
+    {
+      label: 'Gestión de Usuarios',
+      icon: 'group',
+      options: [{ label: 'Administrar usuarios', value: 'manage-users', routerLink: '/usuarios' }],
+    },
+    {
+      label: 'Notificaciones',
+      icon: 'notifications',
+      options: [{ label: 'Ver alertas', value: 'view-notifications', action: () => console.log('Ver notificaciones') }],
+    },
+    {
+      label: 'Historial de Cambios',
+      icon: 'history',
+      options: [{ label: 'Ver auditoría', value: 'view-audit', routerLink: '/auditoria' }],
+    },
+    {
+      label: 'Imprimir Documento',
+      icon: 'print',
+      options: [{ label: 'Imprimir vista actual', value: 'print-view', action: () => window.print() }],
+    },
+    {
+      label: 'Cerrar Sesión',
+      icon: 'logout',
+      options: [{ label: 'Salir del sistema', value: 'logout-app', action: () => console.log('Cerrando sesión...') }],
+    },
+  ];
+
+  onCollapsibleCreate(): void {
+    console.log('Create event emitted');
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+
   openSideSheetLevel() {
     this.isSideSheetOpenLevel = true;
   }
@@ -863,5 +1234,158 @@ export class App {
   onCheckboxInput(event: any) {
     console.log('onCheckboxInput: ', event);
     this.valueCheckbox.set(event.checked);
+  }
+
+  // Configuración del CollapsibleNav
+  navConfig: CollapsibleNavConfig = {
+    user: {
+      avatar: 'U',
+      name: 'Usuario',
+      show: true,
+    },
+    quickActions: {
+      title: 'Acciones rápidas',
+      titleIcon: 'keyboard_arrow_down',
+      actions: [
+        { id: 'action1', label: 'Acción 1', icon: 'bolt' },
+        { id: 'action2', label: 'Acción 2', icon: 'star' },
+      ],
+      show: false,
+    },
+    favorites: {
+      title: 'Favoritos',
+      titleIcon: 'keyboard_arrow_down',
+      items: [],
+      show: false,
+    },
+    toggleButton: {
+      icon: 'menu',
+      closeIcon: 'menu_open',
+      position: 'top',
+      show: true,
+    },
+    behavior: {
+      closeOnClickOutside: true,
+      closeOnNavigation: true,
+      showOverlay: true,
+      overlayOpacity: 0.5,
+      animationDuration: 300,
+      initialExpanded: false,
+    },
+    rail: {
+      tooltipPosition: 'right',
+      showLabels: false,
+    },
+    showCommandMenu: true,
+  };
+
+  // Configuración del menú de comandos
+  commandMenuConfig: CommandMenuConfig = {
+    placeholder: 'Buscar...',
+    icon: 'search',
+    shortcut: 'Ctrl + K',
+    width: '400px',
+    buttonClass: 'command-menu-button',
+    disabled: false,
+  };
+
+  onNavToggle(expanded: boolean) {
+    console.log('Nav expanded:', expanded);
+  }
+
+  onItemSelected(item: NavItem) {
+    console.log('Item', item.label);
+  }
+
+  commandItems: CommandItem[] = [];
+  navSections: NavSection[] = [];
+
+  openSnackbarDefault() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
+  }
+
+  openSnackbarSuccess() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'success',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
+  }
+
+  openSnackbarInfo() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'info',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
+  }
+
+  openSnackbarWarning() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Existen inconvenientes al realizar el proceso.',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'warning',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
+  }
+
+  openSnackbarError() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Ha ocurrido un error crítico.',
+        action: 'Reintentar',
+        icon: 'error',
+        type: 'error',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
+  }
+
+  openSnackbarLong() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Texto de prueba para el snackbar con acción larga.',
+        action: 'Aceptar',
+        icon: 'close',
+        longerAction: true,
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
   }
 }

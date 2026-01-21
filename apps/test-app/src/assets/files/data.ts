@@ -109,18 +109,6 @@ export const USUARIOS_TEST_ONE: any = [
     salary: 85000,
     department: 'IT',
   },
-];
-export const USUARIOS_TEST_TWO: any = [
-  {
-    id: 11,
-    name: 'Luis Rodríguez',
-    email: 'luis.rodriguez@empresa.com',
-    role: 'admin',
-    status: 'inactive',
-    joinDate: new Date('2023-07-22'),
-    salary: 85000,
-    department: 'IT',
-  },
   {
     id: 12,
     name: 'Luis Rodríguez',

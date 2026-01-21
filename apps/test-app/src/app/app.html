@@ -243,7 +243,7 @@
   </section>
 
   <!-- Side Bar Section -->
-  <section class="component-section">
+  <!-- <section class="component-section">
     <bds-side-bar [sidebarData]="[
         {
           title: 'Main Menu',
@@ -255,7 +255,7 @@
         }
       ]" [userAvatar]="'a'" [userName]="'John Doe'" [quickActions]="quickActions"
       (itemSelected)="onSidebarItemSelected($event)"></bds-side-bar>
-  </section>
+  </section> -->
 
   <!-- Expasion Panel Section -->
   <section class="component-section" style="width: 50%;">
@@ -344,9 +344,11 @@
   </section>
 
   <!-- Rail Section -->
-  <section class="component-section">
+  <!-- <section class="component-section">
     <bds-rail [config]="railConfig"></bds-rail>
-  </section>
+  </section> -->
+
+  +
 
   <!-- Side Sheets Section -->
   <section class="component-section">
@@ -959,12 +961,12 @@
     <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [alignTabs]="'end'"></bds-tabs>
   </div>
 
-  <!-- example -->
-  <section class="component-section">
-    <h2>example</h2>
-    <div class="demo-row">
-
-    </div>
-  </section>
-
 </main>
+
+
+<div class=" layout-wrapper">
+  <app-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
+    [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()">
+  </app-collapsible-nav>
+
+</div>

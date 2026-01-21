@@ -240,3 +240,21 @@ mat-form-field {
   flex-wrap: wrap;
   gap: 16px;
 }
+
+.status-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 28px;
+  background-color: var(--mat-sys-primary)
+}
+
+
+.layout-wrapper {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100%;
+  background: var(--mat-sys-surface);
+}

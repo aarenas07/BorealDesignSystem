@@ -1,31 +1,31 @@
 @if (open() && modal()) {
-<div class="sheet-backdrop" aria-hidden="true" (click)="onBackdropClick()"></div>
+<div class="bds-sheet-backdrop" aria-hidden="true" (click)="onBackdropClick()"></div>
 }
 
-<aside class="side-sheet" [class]="{
-      'open': open(),
-      'modal': modal(),
-      'position-start': position() === 'start',
-      'position-end': position() === 'end',
-      'size-sm': size() === 'sm',
-      'size-md': size() === 'md',
-      'size-lg': size() === 'lg',
-      'size-full': fullWidth(),
+<aside class="bds-side-sheet" [class]="{
+      'bds-open': open(),
+      'bds-modal': modal(),
+      'bds-position-start': position() === 'start',
+      'bds-position-end': position() === 'end',
+      'bds-size-sm': size() === 'sm',
+      'bds-size-md': size() === 'md',
+      'bds-size-lg': size() === 'lg',
+      'bds-size-full': fullWidth(),
     }" [aria-modal]="modal()" aria-label="Side sheets" role="dialog" tabindex="-1">
-  <header class="sheet-header">
+  <header class="bds-sheet-header">
     @if (header()) {
     <h2>{{ header() }}</h2>
     }
-    <a class="sheet-close-btn" aria-label="Cerrar" (click)="close()">
+    <a class="bds-sheet-close-btn" aria-label="Cerrar" (click)="close()">
       <span class="material-icons">close</span>
     </a>
   </header>
 
-  <section class="sheet-content">
+  <section class="bds-sheet-content">
     <ng-content></ng-content>
   </section>
   @if (actionsTemplate) {
-  <footer class="sheet-actions">
+  <footer class="bds-sheet-actions">
     <ng-container *ngTemplateOutlet="actionsTemplate"></ng-container>
   </footer>
   }

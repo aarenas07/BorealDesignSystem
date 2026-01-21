@@ -22,3 +22,4 @@ export * from './lib/components/checkbox/checkbox';
 export * from './lib/components/stepper/stepper';
 export * from './lib/directives/step-content-directive.directive';
 export * from './lib/interfaces';
+export * from './lib/components/tabs/tabs';

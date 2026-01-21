@@ -96,7 +96,7 @@ interface User {
     MatExpansionPanelTitle,
     MatExpansionPanelDescription,
     TabsComponent
-],
+  ],
 
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',

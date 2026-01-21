@@ -39,6 +39,7 @@ import {
   TabsComponent,
   TabsBds,
   SnackbarComponent,
+  BdsSnackbarService,
 } from '@organizacion/ui-kit';
 import { USUARIOS_TEST_ONE } from '../assets/files/data';
 
@@ -412,6 +413,8 @@ export class App {
 
   private readonly _snackBar: MatSnackBar = inject(MatSnackBar);
   private readonly themeService: ThemeService = inject(ThemeService);
+  private readonly bdsSnackbarService: BdsSnackbarService = inject(BdsSnackbarService);
+
   private readonly fb: FormBuilder = inject(FormBuilder);
 
   constructor() {
@@ -898,102 +901,92 @@ export class App {
     this.valueCheckbox.set(event.checked);
   }
 
-  openSnackbarTest() {
-    this._snackBar.openFromComponent(SnackbarComponent, {
-      data: {
-        message: 'Acción realizada con éxito',
-        icon: 'check_circle',
-        action: 'Cerrar',
-      },
-      duration: 0,
-      panelClass: ['bds-snackbar', 'bds-snackbar--error'],
-      verticalPosition: 'top',
-      horizontalPosition: 'left',
-    });
-  }
-
   openSnackbarDefault() {
-    this._snackBar.openFromComponent(SnackbarComponent, {
-      data: {
+    this.bdsSnackbarService.openSnackbar(
+      {
         message: 'Acción realizada con éxito',
         icon: 'check_circle',
         action: 'Cerrar',
       },
-      duration: 0,
-      panelClass: ['bds-snackbar', 'bds-snackbar--default'],
-      verticalPosition: 'top',
-      horizontalPosition: 'left',
-    });
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
   }
 
   openSnackbarSuccess() {
-    this._snackBar.openFromComponent(SnackbarComponent, {
-      data: {
+    this.bdsSnackbarService.openSnackbar(
+      {
         message: 'Acción realizada con éxito',
         icon: 'check_circle',
         action: 'Cerrar',
+        type: 'success',
       },
-      duration: 0,
-      panelClass: ['bds-snackbar', 'bds-snackbar--success'],
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-    });
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
   }
 
   openSnackbarInfo() {
-    this._snackBar.openFromComponent(SnackbarComponent, {
-      data: {
+    this.bdsSnackbarService.openSnackbar(
+      {
         message: 'Acción realizada con éxito',
         icon: 'check_circle',
         action: 'Cerrar',
+        type: 'info',
       },
-      duration: 0,
-      panelClass: ['bds-snackbar', 'bds-snackbar--info'],
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-    });
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
   }
 
   openSnackbarWarning() {
-    this._snackBar.openFromComponent(SnackbarComponent, {
-      data: {
-        message: 'Acción realizada con éxito',
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Existen inconvenientes al realizar el proceso.',
         icon: 'check_circle',
         action: 'Cerrar',
+        type: 'warning',
       },
-      duration: 0,
-      panelClass: ['bds-snackbar', 'bds-snackbar--warning'],
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-    });
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
   }
 
   openSnackbarError() {
-    this._snackBar.openFromComponent(SnackbarComponent, {
-      data: {
+    this.bdsSnackbarService.openSnackbar(
+      {
         message: 'Ha ocurrido un error crítico.',
         action: 'Reintentar',
         icon: 'error',
+        type: 'error',
       },
-      duration: 0,
-      panelClass: ['bds-snackbar', 'bds-snackbar--error'],
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-    });
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
   }
 
   openSnackbarLong() {
-    this._snackBar.openFromComponent(SnackbarComponent, {
-      data: {
+    this.bdsSnackbarService.openSnackbar(
+      {
         message: 'Texto de prueba para el snackbar con acción larga.',
         action: 'Aceptar',
         icon: 'close',
         longerAction: true,
       },
-      duration: 0,
-      panelClass: ['bds-snackbar', 'bds-snackbar--default'],
-      verticalPosition: 'top',
-      horizontalPosition: 'end',
-    });
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
   }
 }

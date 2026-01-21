@@ -21,3 +21,4 @@ export * from './lib/components/checkbox/checkbox';
 export * from './lib/interfaces';
 export * from './lib/components/tabs/tabs';
 export * from './lib/components/snackbar/snackbar';
+export * from './lib/components/snackbar/services/bds-snackbar.service';

@@ -8,7 +8,8 @@ import {
 } from '@angular/material/snack-bar';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { ButtonComponent } from '../button/button';
-import { SnackbarComponent, SnackbarDataBds } from './snackbar';
+import { SnackbarComponent } from './snackbar';
+import { SnackbarDataBds } from '../../interfaces/bds-snackbar.interface';
 
 @Component({
   selector: 'bds-snackbar-host',

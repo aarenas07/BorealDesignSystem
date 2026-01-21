@@ -12,10 +12,10 @@ bds-snackbar {
       padding-bottom: 0.5rem;
     }
   }
+}
 
-  mat-icon {
-    margin: 0;
-  }
+.mat-mdc-button > .mat-icon {
+  margin: 0;
 }
 
 @at-root {

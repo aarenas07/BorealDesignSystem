@@ -1,15 +1,32 @@
-import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { ButtonComponent } from '../button/button';
-import { SnackbarDataBds, SnackbarConfigBds } from '../../interfaces/bds-snackbar.interface';
-import { BdsSnackbarService } from './services/bds-snackbar.service';
+import { Component, inject, input } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { inject } from '@angular/core';
+import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+import { SnackbarDataBds, SnackbarConfigBds } from '../../interfaces/bds-snackbar.interface';
+import { ButtonComponent } from '../button/button';
+import { BdsSnackbarService } from './services/bds-snackbar.service';
+
+@Component({
+  selector: 'bds-snackbar-host',
+  standalone: true,
+  imports: [ButtonComponent],
+  template: ` <bds-button label="Abrir Snackbar" (action)="open()"></bds-button> `,
+})
+class SnackbarHostComponent {
+  data = input.required<SnackbarDataBds>();
+  config = input<SnackbarConfigBds>();
+
+  private readonly _snackbarService = inject(BdsSnackbarService);
+
+  open() {
+    this._snackbarService.openSnackbar(this.data(), this.config());
+  }
+}
 
 const meta: Meta = {
   title: 'Modal/Snackbar',
   decorators: [
     moduleMetadata({
-      imports: [ButtonComponent, MatSnackBarModule],
+      imports: [ButtonComponent, MatSnackBarModule, SnackbarHostComponent],
       providers: [MatSnackBar, BdsSnackbarService],
     }),
   ],
@@ -50,33 +67,23 @@ type Story = StoryObj;
 
 export const Interactive: Story = {
   render: args => {
-    const bdsSnackbarService = inject(BdsSnackbarService);
-    console.log('args: ', args);
-    let data: SnackbarDataBds = {
-      message: args['message'],
-      action: args['action'],
-      icon: args['icon'],
-      longerAction: args['longerAction'],
-      type: args['type'],
-    };
-
-    let config: SnackbarConfigBds = {
-      duration: args['duration'],
-      horizontalPosition: args['horizontalPosition'],
-      verticalPosition: args['verticalPosition'],
-    };
-
     return {
       props: {
-        openSnackbar: () => {
-          console.log('openSnackbar');
-          console.log('data: ', data);
-          console.log('config: ', config);
-          //bdsSnackbarService.openSnackbar(args,config);
+        data: {
+          message: args['message'],
+          action: args['action'],
+          icon: args['icon'],
+          longerAction: args['longerAction'],
+          type: args['type'],
+        },
+        config: {
+          duration: args['duration'],
+          horizontalPosition: args['horizontalPosition'],
+          verticalPosition: args['verticalPosition'],
         },
       },
       template: `
-       <bds-button label="Abrir Snackbar" (action)="openSnackbar()"></bds-button>
+       <bds-snackbar-host [data]="data" [config]="config"></bds-snackbar-host>
       `,
     };
   },

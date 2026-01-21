@@ -3,7 +3,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { SnackbarDataBds, SnackbarConfigBds } from '../../interfaces/bds-snackbar.interface';
 import { ButtonComponent } from '../button/button';
-import { BdsSnackbarService } from './services/bds-snackbar.service';
+import { BdsSnackbarService } from '../../services/bds-snackbar.service';
 
 @Component({
   selector: 'bds-snackbar-host',

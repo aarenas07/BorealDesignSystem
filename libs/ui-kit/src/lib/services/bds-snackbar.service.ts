@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { SnackbarComponent } from '../snackbar';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarDataBds, SnackbarConfigBds } from '../../../interfaces/bds-snackbar.interface';
+import { SnackbarComponent } from '../components/snackbar/snackbar';
+import { SnackbarConfigBds, SnackbarDataBds } from '../interfaces/bds-snackbar.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,12 @@ import { SnackbarDataBds, SnackbarConfigBds } from '../../../interfaces/bds-snac
 export class BdsSnackbarService {
   private readonly _snackBar: MatSnackBar = inject(MatSnackBar);
 
-  openSnackbar(data: SnackbarDataBds, config?: SnackbarConfigBds) {
+  /**
+   * Open a snackbar
+   * @param data Snackbar data
+   * @param config Snackbar config
+   */
+  openSnackbar(data: SnackbarDataBds, config?: SnackbarConfigBds): void {
     this._snackBar.openFromComponent(SnackbarComponent, {
       data: data,
       duration: config?.duration ?? 0,

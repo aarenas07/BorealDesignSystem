@@ -1,20 +1,10 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  Output,
-  OnInit,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CommandItem, CommandMenuConfig } from '../../interfaces';
 
 import { CommandMenuComponent } from '../command-menu/command-menu.component';
 import { SidebarStateService } from '../side-bar/services/sidebar-state.service';
-import { TooltipContainerComponent } from '../tooltip/tooltip';
-
 
 // ============================================================================
 // INTERFACES - Modelos de datos totalmente parametrizables
@@ -144,7 +134,6 @@ export interface CreateButtonConfig {
  * Configuración del menú de comandos
  */
 
-
 /**
  * Configuración del botón toggle (hamburguesa)
  */
@@ -217,7 +206,7 @@ export interface CollapsibleNavConfig {
 
 @Component({
   selector: 'app-collapsible-nav',
-  imports: [CommonModule, TooltipContainerComponent, CommandMenuComponent],
+  imports: [CommonModule, CommandMenuComponent],
   templateUrl: './collapsible-nav.component.html',
   styleUrl: './collapsible-nav.component.scss',
 })
@@ -268,7 +257,7 @@ export class CollapsibleNavComponent implements OnInit {
     },
     createButton: {
       show: false,
-      icon: 'add'
+      icon: 'add',
     },
     behavior: {
       closeOnClickOutside: true,
@@ -320,7 +309,7 @@ export class CollapsibleNavComponent implements OnInit {
     private elementRef: ElementRef,
     private router: Router,
     private sidebarStateService: SidebarStateService
-  ) { }
+  ) {}
 
   activeModuleId: string | null = null;
 
@@ -330,9 +319,7 @@ export class CollapsibleNavComponent implements OnInit {
 
     // Seleccionar primer módulo por defecto si existe y no hay activo
     if (!this.activeModuleId && this.sections.length > 0) {
-      const firstModule = this.sections
-        .flatMap((s) => s.items)
-        .find((i) => i.isModule);
+      const firstModule = this.sections.flatMap(s => s.items).find(i => i.isModule);
       if (firstModule) {
         this.activeModuleId = firstModule.id;
       }
@@ -383,7 +370,7 @@ export class CollapsibleNavComponent implements OnInit {
     if (!this.isExpanded) {
       this.isExpanded = true;
       // Al expandir automáticamente (ej. hover o click en rail), NO forzamos pin por defecto,
-      // a menos que se quiera comportamiento específico. 
+      // a menos que se quiera comportamiento específico.
       // Por ahora mantenemos isPinned como estaba o false si se prefiere overlay por defecto.
       this.expandedChange.emit(true);
       this.updateSidebarState();
@@ -475,9 +462,7 @@ export class CollapsibleNavComponent implements OnInit {
   get sidebarItems(): NavItem[] {
     if (!this.activeModuleId) return [];
 
-    const activeModule = this.sections
-      .flatMap((s) => s.items)
-      .find((i) => i.id === this.activeModuleId);
+    const activeModule = this.sections.flatMap(s => s.items).find(i => i.id === this.activeModuleId);
 
     return activeModule?.children || [];
   }
@@ -487,9 +472,7 @@ export class CollapsibleNavComponent implements OnInit {
    */
   get activeModifiersTitle(): string {
     if (!this.activeModuleId) return '';
-    const activeModule = this.sections
-      .flatMap((s) => s.items)
-      .find((i) => i.id === this.activeModuleId);
+    const activeModule = this.sections.flatMap(s => s.items).find(i => i.id === this.activeModuleId);
     return activeModule?.label || '';
   }
 
@@ -588,9 +571,7 @@ export class CollapsibleNavComponent implements OnInit {
   }
 
   get favoritesConfig(): FavoritesConfig {
-    return (
-      this.config.favorites ?? { title: 'Favoritos', items: [], show: false }
-    );
+    return this.config.favorites ?? { title: 'Favoritos', items: [], show: false };
   }
 
   get toggleButtonConfig(): ToggleButtonConfig {
@@ -608,7 +589,7 @@ export class CollapsibleNavComponent implements OnInit {
     return (
       this.config.createButton ?? {
         show: false,
-        icon: 'add'
+        icon: 'add',
       }
     );
   }

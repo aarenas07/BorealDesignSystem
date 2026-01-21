@@ -1,19 +1,16 @@
-import { Component, input, output, effect, inject, viewChild, TemplateRef, ElementRef } from '@angular/core';
+import { Component, input, output, inject, viewChild, TemplateRef } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CommandItem } from '../../interfaces';
 import { FormFieldComponent } from '../form-field/form-field';
-import { MatIcon } from '@angular/material/icon';
-
 
 @Component({
   selector: 'lib-ada-command',
-  imports: [ReactiveFormsModule, MatDialogModule, FormFieldComponent, MatIcon],
+  imports: [ReactiveFormsModule, MatDialogModule, FormFieldComponent],
   templateUrl: './command.component.html',
-  styleUrl: './command.component.scss'
+  styleUrl: './command.component.scss',
 })
 export class CommandComponent {
-
   readonly dialog = inject(MatDialog);
   dialogTemplate = viewChild.required<TemplateRef<any>>('commandDialog');
   dialogRef: MatDialogRef<any> | null = null;
@@ -22,7 +19,7 @@ export class CommandComponent {
   config = input({
     visible: false,
     width: '45rem',
-    placeholder: 'Ir a una página o ejecutar alguna acción...'
+    placeholder: 'Ir a una página o ejecutar alguna acción...',
   });
   commandItems = input<CommandItem[]>();
 
@@ -64,7 +61,7 @@ export class CommandComponent {
         panelClass: 'command-dialog-panel',
         position: { top: '50px' },
         autoFocus: false,
-        restoreFocus: false
+        restoreFocus: false,
       });
 
       this.dialogRef.afterClosed().subscribe(() => {
@@ -85,9 +82,10 @@ export class CommandComponent {
 
   filter(query: string) {
     if (this.commandItems()?.length) {
-      this.filteredItems = query !== ''
-        ? this.commandItems()?.filter(item => item.label.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
-        : this.commandItems();
+      this.filteredItems =
+        query !== ''
+          ? this.commandItems()?.filter(item => item.label.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
+          : this.commandItems();
     }
   }
 
@@ -104,10 +102,9 @@ export class CommandComponent {
       current.visible = !current.visible;
 
       // Since we mutated the object, ngDoCheck will pick it up on next CD cycle.
-      // But we can also force it immediately if outside Angular Zone? 
+      // But we can also force it immediately if outside Angular Zone?
       // Keyboard events from window.addEventListener *might* be patched by Zone,
       // but usually are. So ngDoCheck should run automatically.
     }
   };
 }
-

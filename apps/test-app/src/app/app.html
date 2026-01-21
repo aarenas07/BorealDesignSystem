@@ -889,6 +889,30 @@
     <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [alignTabs]="'end'"></bds-tabs>
   </div>
 
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabs()" [primaryTabs]="false"></bds-tabs>
+    <!-- Custom Templates -->
+    <ng-template #contentTab1 let-context>
+      <div class="content-tab" style="padding: 1rem;">
+        <p>Content Tab 1</p>
+      </div>
+    </ng-template>
+    <ng-template #contentTab2 let-context>
+      <div class="content-tab" style="padding: 1rem;">
+        <p>Content Tab 2</p>
+      </div>
+    </ng-template>
+    <ng-template #contentTab3 let-context>
+      <div class="content-tab" style="padding: 1rem;">
+        <p>Content Tab 3</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [primaryTabs]="false"></bds-tabs>
+  </div>
+
   <!-- example -->
   <section class="component-section">
     <h2>example</h2>

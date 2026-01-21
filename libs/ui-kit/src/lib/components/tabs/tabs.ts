@@ -17,6 +17,7 @@ export type AlignTabs = 'start' | 'center' | 'end';
 export class TabsComponent {
   alignTabs = input<AlignTabs>('start');
   stretchTabs = input<boolean>(false);
+  primaryTabs = input<boolean>(true);
   animationDuration = input<string>('300ms');
   selectedTabIndex = model<number>(0);
   selectedTabChange = output<MatTabChangeEvent>();

@@ -1,0 +1,87 @@
+@use '../../styles/sicoferp-theme/theme' as sicoferp-theme;
+@use '../../styles/variables' as bds;
+
+bds-snackbar {
+  display: flex;
+
+  &.longer-action {
+    flex-direction: column;
+
+    .mat-mdc-snack-bar-actions {
+      justify-content: flex-end;
+      padding-bottom: 0.5rem;
+    }
+  }
+}
+
+.mat-mdc-button > .mat-icon {
+  margin: 0;
+}
+
+@at-root {
+  .bds-snackbar {
+    &--info .mdc-snackbar__surface {
+      background-color: bds.$color-accent-container;
+
+      .mdc-snackbar__label,
+      .mat-mdc-button,
+      .mat-icon {
+        color: bds.$color-accent;
+      }
+
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: bds.$color-accent;
+        }
+      }
+    }
+
+    &--success .mdc-snackbar__surface {
+      background-color: bds.$color-positive-container;
+
+      .mdc-snackbar__label,
+      .mat-mdc-button,
+      .mat-icon {
+        color: bds.$color-positive;
+      }
+
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: bds.$color-positive;
+        }
+      }
+    }
+
+    &--warning .mdc-snackbar__surface {
+      background-color: bds.$color-warning-container;
+
+      .mdc-snackbar__label,
+      .mat-mdc-button,
+      .mat-icon {
+        color: bds.$color-warning;
+      }
+
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: bds.$color-warning;
+        }
+      }
+    }
+
+    &--error .mdc-snackbar__surface {
+      background-color: var(--mat-sys-error-container);
+
+      .mdc-snackbar__label,
+      .mat-mdc-button,
+      .mat-icon {
+        color: var(--mat-sys-error);
+      }
+
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: var(--mat-sys-primary);
+        }
+      }
+    }
+  }
+}

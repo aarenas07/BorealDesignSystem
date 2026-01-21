@@ -1,13 +1,8 @@
 <ng-template #commandDialog>
     <div class="container-command command">
         <div class="command-input">
-            <input type="text" class="form-item__input" [placeholder]="config().placeholder" [formControl]="inputFilter"
-                (input)="filter()" />
-            <div class="command-input__icon">
-                <span class="material-symbols-rounded">
-                    search
-                </span>
-            </div>
+            <bds-form-field [label]="'Buscar...'" [fullWidth]="true" (valueChange)="filter($event)" suffixIcon="search">
+            </bds-form-field>
         </div>
 
         <div class="command-items">

@@ -258,12 +258,7 @@
     <bds-rail [config]="railConfig"></bds-rail>
   </section> -->
 
-  <!-- Collapsible Nav Section -->
-  <div style="height: 600px; border: 1px solid #ccc; position: relative; margin-bottom: 24px;">
-    <app-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
-      [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()">
-    </app-collapsible-nav>
-  </div>
+  +
 
   <!-- Side Sheets Section -->
   <section class="component-section">
@@ -828,13 +823,10 @@
   </section>
 
 
-  <!-- example -->
-  <section class="component-section">
-    <h2>Collapsible Nav</h2>
-    <div class="demo-row">
-      <app-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
-        [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()"></app-collapsible-nav>
-    </div>
-  </section>
-
 </main>
+<div class=" layout-wrapper">
+  <app-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
+    [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()">
+  </app-collapsible-nav>
+
+</div>

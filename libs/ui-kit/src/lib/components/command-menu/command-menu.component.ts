@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 import { CommandComponent } from '../command/command.component';
 import { CommandConfig, CommandItem, CommandMenuConfig } from '../../interfaces';
+import { FormFieldComponent } from '../form-field/form-field';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { CommandConfig, CommandItem, CommandMenuConfig } from '../../interfaces'
   imports: [
     CommonModule,
     CommandComponent,
+    FormFieldComponent
   ],
   templateUrl: './command-menu.component.html',
   styleUrl: './command-menu.component.scss',

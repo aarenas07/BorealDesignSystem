@@ -2,11 +2,13 @@ import { Component, input, output, effect, inject, viewChild, TemplateRef, Eleme
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CommandItem } from '../../interfaces';
+import { FormFieldComponent } from '../form-field/form-field';
+import { MatIcon } from '@angular/material/icon';
 
 
 @Component({
   selector: 'lib-ada-command',
-  imports: [ReactiveFormsModule, MatDialogModule],
+  imports: [ReactiveFormsModule, MatDialogModule, FormFieldComponent, MatIcon],
   templateUrl: './command.component.html',
   styleUrl: './command.component.scss'
 })
@@ -81,10 +83,10 @@ export class CommandComponent {
     }
   }
 
-  filter() {
+  filter(query: string) {
     if (this.commandItems()?.length) {
-      this.filteredItems = this.inputFilter?.value !== ''
-        ? this.commandItems()?.filter(item => item.label.toLocaleLowerCase().includes(this.inputFilter?.value!.toLocaleLowerCase()))
+      this.filteredItems = query !== ''
+        ? this.commandItems()?.filter(item => item.label.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
         : this.commandItems();
     }
   }

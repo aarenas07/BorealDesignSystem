@@ -21,15 +21,15 @@ describe('CollapsibleNavComponent', () => {
     });
 
     it('should start collapsed by default', () => {
-        expect(component.isExpanded).toBeFalse();
+        expect(component.isExpanded).toBe(false);
     });
 
     it('should toggle expansion state', () => {
-        expect(component.isExpanded).toBeFalse();
+        expect(component.isExpanded).toBe(false);
         component.toggle();
-        expect(component.isExpanded).toBeTrue();
+        expect(component.isExpanded).toBe(true);
         component.toggle();
-        expect(component.isExpanded).toBeFalse();
+        expect(component.isExpanded).toBe(false);
     });
 
     it('should emit expandedChange on toggle', () => {
@@ -40,13 +40,13 @@ describe('CollapsibleNavComponent', () => {
 
     it('should expand when expand() is called', () => {
         component.expand();
-        expect(component.isExpanded).toBeTrue();
+        expect(component.isExpanded).toBe(true);
     });
 
     it('should collapse when collapse() is called', () => {
         component.isExpanded = true;
         component.collapse();
-        expect(component.isExpanded).toBeFalse();
+        expect(component.isExpanded).toBe(false);
     });
 
     it('should use default config values', () => {
@@ -60,5 +60,32 @@ describe('CollapsibleNavComponent', () => {
         const item = { id: 'test', label: 'Test Item' };
         component.onItemClick(item);
         expect(component.itemClick.emit).toHaveBeenCalledWith(item);
+    });
+    it('should NOT collapse when clicked outside if pinned', () => {
+        component.isExpanded = true;
+        component.isPinned = true;
+        component.config.behavior!.closeOnClickOutside = true;
+
+        // Simular clic fuera del elemento
+        const event = new MouseEvent('click', { bubbles: true });
+        Object.defineProperty(event, 'target', { value: document.body });
+
+        component.onDocumentClick(event);
+
+        expect(component.isExpanded).toBe(true);
+    });
+
+    it('should collapse when clicked outside if NOT pinned', () => {
+        component.isExpanded = true;
+        component.isPinned = false;
+        component.config.behavior!.closeOnClickOutside = true;
+
+        // Simular clic fuera del elemento
+        const event = new MouseEvent('click', { bubbles: true });
+        Object.defineProperty(event, 'target', { value: document.body });
+
+        component.onDocumentClick(event);
+
+        expect(component.isExpanded).toBe(false);
     });
 });

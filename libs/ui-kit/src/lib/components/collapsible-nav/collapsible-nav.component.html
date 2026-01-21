@@ -1,20 +1,20 @@
 <!-- Overlay -->
-@if (isExpanded && showOverlay) {
+@if (isExpanded && !isPinned && showOverlay) {
 <div class="nav-overlay" [style.opacity]="overlayOpacity" (click)="collapse()">
 </div>
 }
 
 <!-- Container principal - Rail siempre visible + Sidebar deslizante -->
-<div class="collapsible-nav" [class.expanded]="isExpanded">
+<div class="collapsible-nav" [class.expanded]="isExpanded" (mouseleave)="onNavMouseLeave()">
 
 
-    <div class="rail-panel" [class.has-labels]="showRailLabels">
+    <div class="rail-panel" [class.has-labels]="showRailLabels" (mouseenter)="onRailMouseEnter()">
         <!-- Botón toggle -->
         @if (toggleButtonConfig.show !== false) {
         <div class="toggle-container">
-            <button class="toggle-btn" (click)="toggle()">
-                <span class="material-symbols-rounded">
-                    {{ isExpanded ? closeIcon : toggleIcon }}
+            <button class="toggle-btn" (click)="toggle()" [title]="isPinned ? 'Desanclar barra' : 'Fijar barra'">
+                <span class="material-symbols-rounded" [class.filled]="isPinned">
+                    menu
                 </span>
             </button>
         </div>
@@ -62,7 +62,7 @@
     <!-- ================================================================== -->
     <!-- SIDEBAR PANEL - Aparece al lado del rail cuando está expandido   -->
     <!-- ================================================================== -->
-    <div class="sidebar-panel" [class.visible]="isExpanded">
+    <div class="sidebar-panel" [class.visible]="isExpanded" [class.overlay]="!isPinned">
         <!-- Header -->
         <div class="sidebar-header">
             <div class="header-row">
@@ -96,7 +96,7 @@
                 @if (quickActionsConfig.titleIcon) {
                 <span class="material-symbols-rounded">{{ quickActionsConfig.titleIcon }}</span>
                 }
-                {{ quickActionsConfig.title }}
+                <span class="section-title">{{ quickActionsConfig.title }}</span>
             </div>
             @for (action of quickActionsConfig.actions; track action.id) {
             <div class="action-item" (click)="onQuickActionClick(action)">
@@ -151,43 +151,46 @@
 
         <!-- Navigation Sections -->
         <div class="nav-content">
+
             @if (activeModifiersTitle) {
-            <div class="section-header">
+            <div class="section-header collapsible" (click)="toggleActiveModule()">
+                <span class="material-symbols-rounded" [class.collapsed]="isActiveModuleCollapsed">
+                    keyboard_arrow_down
+                </span>
                 {{ activeModifiersTitle }}
             </div>
             }
 
-            <div class="section-items">
-                @for (item of sidebarItems; track item.id) {
-                <div class="nav-item" [class.has-children]="item.children?.length">
-                    <!-- Main Item -->
-                    <div class="item-content" [class.expanded]="item.isExpanded" (click)="toggleItem(item)">
-                        @if (item.icon) {
-                        <span class="material-symbols-rounded item-icon">{{ item.icon }}</span>
-                        }
-                        <span class="item-label">{{ item.label }}</span>
-                        @if (item.children?.length) {
-                        <span class="material-symbols-rounded expand-arrow" [class.rotated]="item.isExpanded">
-                            keyboard_arrow_right
-                        </span>
-                        }
-                    </div>
-
-                    <!-- Children -->
-                    @if (item.children?.length && item.isExpanded) {
-                    <div class="children-items">
-                        @for (child of item.children; track child.id) {
-                        <div class="child-item" (click)="onItemClick(child)">
-                            @if (child.icon) {
-                            <span class="material-symbols-rounded child-icon">{{ child.icon }}</span>
+            <div class="section-items" [class.collapsed]="isActiveModuleCollapsed">
+                <ng-template #navItemTemplate let-item="item">
+                    <div class="nav-item">
+                        <div class="item-content" [class.expanded]="item.isExpanded" (click)="toggleItem(item)">
+                            @if (item.icon) {
+                            <span class="material-symbols-rounded item-icon">{{ item.icon }}</span>
                             }
-                            {{ child.label }}
+                            <span class="item-label">{{ item.label }}</span>
+                            @if (item.children?.length) {
+                            <span class="material-symbols-rounded expand-arrow" [class.rotated]="item.isExpanded">
+                                keyboard_arrow_right
+                            </span>
+                            }
+                        </div>
+
+                        @if (item.children?.length && item.isExpanded) {
+                        <div class="children-items">
+                            @for (child of item.children; track child.id) {
+                            <ng-container *ngTemplateOutlet="navItemTemplate; context: { item: child }"></ng-container>
+                            }
                         </div>
                         }
                     </div>
+                </ng-template>
+
+                <div class="section-items">
+                    @for (item of sidebarItems; track item.id) {
+                    <ng-container *ngTemplateOutlet="navItemTemplate; context: { item: item }"></ng-container>
                     }
                 </div>
-                }
             </div>
         </div>
     </div>

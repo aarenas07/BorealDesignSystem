@@ -225,7 +225,7 @@ export class CollapsibleNavComponent implements OnInit {
   // -------------------------------------------------------------------------
   // INPUTS - Propiedades configurables desde el componente padre
   // -------------------------------------------------------------------------
-
+  isActiveModuleCollapsed = false;
   /** Secciones de navegación */
   @Input() sections: NavSection[] = [];
 
@@ -310,6 +310,7 @@ export class CollapsibleNavComponent implements OnInit {
   // -------------------------------------------------------------------------
 
   isExpanded = false;
+  isPinned = false;
 
   // -------------------------------------------------------------------------
   // CONSTRUCTOR E INICIALIZACIÓN
@@ -348,12 +349,31 @@ export class CollapsibleNavComponent implements OnInit {
   // -------------------------------------------------------------------------
 
   /**
-   * Toggle del estado expandido/colapsado
+   * Toggle del estado expandido/colapsado y pin
    */
   toggle(): void {
-    this.isExpanded = !this.isExpanded;
+    if (!this.isExpanded) {
+      // Si está cerrado, abrir y fijar (Pin)
+      this.isExpanded = true;
+      this.isPinned = true;
+    } else {
+      // Si está abierto
+      if (this.isPinned) {
+        // Si está fijado, quitar el pin (modo overlay)
+        this.isPinned = false;
+        // Mantenemos expanded true
+      } else {
+        // Si está en overlay, fijar
+        this.isPinned = true;
+      }
+    }
+
     this.expandedChange.emit(this.isExpanded);
     this.updateSidebarState();
+  }
+
+  toggleActiveModule(): void {
+    this.isActiveModuleCollapsed = !this.isActiveModuleCollapsed;
   }
 
   /**
@@ -362,6 +382,9 @@ export class CollapsibleNavComponent implements OnInit {
   expand(): void {
     if (!this.isExpanded) {
       this.isExpanded = true;
+      // Al expandir automáticamente (ej. hover o click en rail), NO forzamos pin por defecto,
+      // a menos que se quiera comportamiento específico. 
+      // Por ahora mantenemos isPinned como estaba o false si se prefiere overlay por defecto.
       this.expandedChange.emit(true);
       this.updateSidebarState();
     }
@@ -379,7 +402,10 @@ export class CollapsibleNavComponent implements OnInit {
   }
 
   private updateSidebarState(): void {
-    this.sidebarStateService.setSidebarClosed(!this.isExpanded);
+    // Comunicar si el sidebar está ocupando espacio o no.
+    // Si isPinned es true, ocupa espacio (closed = false).
+    // Si isPinned es false (overlay), NO ocupa espacio en el layout principal (closed = true).
+    this.sidebarStateService.setSidebarClosed(!this.isPinned);
   }
 
   // -------------------------------------------------------------------------
@@ -427,12 +453,15 @@ export class CollapsibleNavComponent implements OnInit {
   onRailItemClick(item: NavItem): void {
     if (item.isModule) {
       this.activeModuleId = item.id;
+
+      // IMPORTANTE: Al cambiar de módulo, queremos que aparezca expandido por defecto
+      this.isActiveModuleCollapsed = false;
+
       // Si tiene hijos, expandir el nav
       if (item.children?.length) {
         this.expand();
       }
     } else if (item.children?.length) {
-      // Comportamiento anterior para items no marcados como módulo explícitamente pero con hijos
       this.expand();
       item.isExpanded = true;
     } else {
@@ -517,6 +546,26 @@ export class CollapsibleNavComponent implements OnInit {
       if (this.behaviorConfig.closeOnNavigation) {
         this.collapse();
       }
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // MÉTODOS DE HOVER
+  // -------------------------------------------------------------------------
+
+  onRailMouseEnter(): void {
+    if (!this.isPinned && !this.isExpanded) {
+      this.isExpanded = true;
+      this.expandedChange.emit(true);
+      this.updateSidebarState();
+    }
+  }
+
+  onNavMouseLeave(): void {
+    if (!this.isPinned && this.isExpanded) {
+      this.isExpanded = false;
+      this.expandedChange.emit(false);
+      this.updateSidebarState();
     }
   }
 
@@ -609,7 +658,8 @@ export class CollapsibleNavComponent implements OnInit {
   }
 
   get toggleIcon(): string {
-    return this.toggleButtonConfig.icon ?? 'menu';
+    if (!this.isExpanded) return 'menu';
+    return this.isPinned ? 'push_pin' : 'menu_open';
   }
 
   get closeIcon(): string {
@@ -637,6 +687,7 @@ export class CollapsibleNavComponent implements OnInit {
     if (
       this.behaviorConfig.closeOnClickOutside &&
       this.isExpanded &&
+      !this.isPinned &&
       !this.elementRef.nativeElement.contains(event.target)
     ) {
       this.collapse();

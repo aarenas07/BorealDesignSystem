@@ -4,21 +4,24 @@
   justify-content: space-between;
   gap: 1rem;
   margin-top: 22px;
-  padding: 0.5rem 1rem;
-  color: var(--sds-color-text-default-default);
-  cursor: pointer;
-  transition: all 0.2s ease;
+  padding: 12px 16px;
   border-radius: 28px;
-  border: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
   background: var(--mat-sys-surface-container-high);
-  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-025) var(--sds-size-depth-100) var(--sds-size-depth-0) var(--sds-color-black-100);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  color: var(--mat-sys-on-surface-variant);
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
 
   &:hover:not(.disabled) {
     background-color: #e8e8e8;
   }
 
   .placeholder-text {
-    font-family: var(--sds-typography-body-font-family);
+    font-family: "Roboto", sans-serif;
     font-size: var(--sds-typography-body-size-medium);
     font-style: normal;
     font-weight: var(--sds-typography-body-font-weight-regular);
@@ -30,11 +33,12 @@
   }
 
   .shortcut {
-    padding: var(--sds-size-space-100) var(--sds-size-space-200);
-    border-radius: 28px;
-    border: 1px solid var(--sds-color-border-default-default);
-    color: var(--sds-color-text-default-secondary);
-    font-family: 'Roboto';
+    padding: 0px 12px;
+    border-radius: 100px;
+    display: flex;
+    border: 1px solid var(--mat-sys-outline-variant);
+    color: var(--mat-sys-on-surface-variant);
+    font-family: "Roboto", sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: var(--sds-typography-code-font-weight);

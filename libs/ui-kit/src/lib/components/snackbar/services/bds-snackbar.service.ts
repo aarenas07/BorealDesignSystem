@@ -13,7 +13,7 @@ export class BdsSnackbarService {
     this._snackBar.openFromComponent(SnackbarComponent, {
       data: data,
       duration: config?.duration ?? 0,
-      panelClass: ['bds-snackbar', `bds-snackbar--${data.type}`],
+      panelClass: ['bds-snackbar', `bds-snackbar--${data.type ?? 'default'}`],
       verticalPosition: config?.verticalPosition ?? 'bottom',
       horizontalPosition: config?.horizontalPosition ?? 'center',
     });

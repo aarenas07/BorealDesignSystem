@@ -1,59 +1,16 @@
-import { Component, inject, input } from '@angular/core';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarModule,
-  MatSnackBarRef,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { ButtonComponent } from '../button/button';
-import { SnackbarComponent } from './snackbar';
-import { SnackbarDataBds } from '../../interfaces/bds-snackbar.interface';
+import { SnackbarDataBds, SnackbarConfigBds } from '../../interfaces/bds-snackbar.interface';
+import { BdsSnackbarService } from './services/bds-snackbar.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { inject } from '@angular/core';
 
-@Component({
-  selector: 'bds-snackbar-host',
-  standalone: true,
-  imports: [ButtonComponent, MatSnackBarModule],
-  template: `<bds-button label="Abrir Snackbar" (action)="open()"></bds-button>`,
-})
-class SnackbarHostComponent {
-  data = input<SnackbarDataBds>();
-  duration = input<number | undefined>(undefined);
-  horizontalPosition = input<MatSnackBarHorizontalPosition>('center');
-  verticalPosition = input<MatSnackBarVerticalPosition>('bottom');
-
-  private readonly snackBar: MatSnackBar = inject(MatSnackBar);
-
-  open() {
-    const data = this.data();
-    this.snackBar.openFromComponent(SnackbarComponent, {
-      data: data,
-      duration: this.duration(),
-      horizontalPosition: this.horizontalPosition(),
-      verticalPosition: this.verticalPosition(),
-      panelClass: data?.type ? ['bds-snackbar', `bds-snackbar--${data.type}`] : ['bds-snackbar'],
-    });
-  }
-}
-
-const meta: Meta<
-  SnackbarDataBds & {
-    duration?: number;
-    horizontalPosition?: MatSnackBarHorizontalPosition;
-    verticalPosition?: MatSnackBarVerticalPosition;
-  }
-> = {
+const meta: Meta = {
   title: 'Modal/Snackbar',
   decorators: [
     moduleMetadata({
-      imports: [SnackbarComponent, ButtonComponent, MatSnackBarModule, SnackbarHostComponent],
-      providers: [
-        {
-          provide: MatSnackBarRef,
-          useValue: { dismissWithAction: () => {} },
-        },
-      ],
+      imports: [ButtonComponent, MatSnackBarModule],
+      providers: [MatSnackBar, BdsSnackbarService],
     }),
   ],
   argTypes: {
@@ -89,28 +46,38 @@ const meta: Meta<
 
 export default meta;
 
-type Story = StoryObj<
-  SnackbarDataBds & {
-    duration?: number;
-    horizontalPosition?: MatSnackBarHorizontalPosition;
-    verticalPosition?: MatSnackBarVerticalPosition;
-  }
->;
+type Story = StoryObj;
 
 export const Interactive: Story = {
-  render: args => ({
-    props: {
-      data: {
-        message: args.message,
-        action: args.action,
-        icon: args.icon,
-        longerAction: args.longerAction,
-        type: args.type,
+  render: args => {
+    const bdsSnackbarService = inject(BdsSnackbarService);
+    console.log('args: ', args);
+    let data: SnackbarDataBds = {
+      message: args['message'],
+      action: args['action'],
+      icon: args['icon'],
+      longerAction: args['longerAction'],
+      type: args['type'],
+    };
+
+    let config: SnackbarConfigBds = {
+      duration: args['duration'],
+      horizontalPosition: args['horizontalPosition'],
+      verticalPosition: args['verticalPosition'],
+    };
+
+    return {
+      props: {
+        openSnackbar: () => {
+          console.log('openSnackbar');
+          console.log('data: ', data);
+          console.log('config: ', config);
+          //bdsSnackbarService.openSnackbar(args,config);
+        },
       },
-      duration: args.duration,
-      horizontalPosition: args.horizontalPosition,
-      verticalPosition: args.verticalPosition,
-    },
-    template: `<bds-snackbar-host [data]="data" [duration]="duration" [horizontalPosition]="horizontalPosition" [verticalPosition]="verticalPosition"></bds-snackbar-host>`,
-  }),
+      template: `
+       <bds-button label="Abrir Snackbar" (action)="openSnackbar()"></bds-button>
+      `,
+    };
+  },
 };

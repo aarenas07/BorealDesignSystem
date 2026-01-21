@@ -8,7 +8,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { Observable, map, startWith } from 'rxjs';
@@ -38,7 +37,6 @@ import {
   CheckboxComponent,
   TabsComponent,
   TabsBds,
-  SnackbarComponent,
   BdsSnackbarService,
 } from '@organizacion/ui-kit';
 import { USUARIOS_TEST_ONE } from '../assets/files/data';
@@ -411,7 +409,6 @@ export class App {
   @ViewChild('contentTab2') contentTab2!: TemplateRef<any>;
   @ViewChild('contentTab3') contentTab3!: TemplateRef<any>;
 
-  private readonly _snackBar: MatSnackBar = inject(MatSnackBar);
   private readonly themeService: ThemeService = inject(ThemeService);
   private readonly bdsSnackbarService: BdsSnackbarService = inject(BdsSnackbarService);
 

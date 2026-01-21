@@ -139,12 +139,16 @@
         </ng-template> -->
 
         <ng-template #statusTemplate let-row>
-          <mat-chip-set>
+          <!-- <mat-chip-set>
             <mat-chip [highlighted]="true" [class]="'status-' + row.status">
               <mat-icon [class]="'status-icon-' + row.status"> {{ getStatusIcon(row.status) }} </mat-icon>
               {{ getStatusLabel(row.status) }}
             </mat-chip>
-          </mat-chip-set>
+          </mat-chip-set> -->
+          <div [class]="'status-' + row.status">
+            <mat-icon [class]="'status-icon-' + row.status"> {{ getStatusIcon(row.status) }} </mat-icon>
+            {{ getStatusLabel(row.status) }}
+          </div>
         </ng-template>
 
         <ng-template #roleTemplate let-row>

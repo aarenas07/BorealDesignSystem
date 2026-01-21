@@ -31,6 +31,8 @@ export interface TableColumn<T = any> {
   hidden?: boolean;
   cellTemplate?: TemplateRef<any>;
   customSort?: (a: T, b: T) => number;
+  cellClass?: (row: T) => string | string[] | { [klass: string]: any };
+  cellStyle?: (row: T) => { [style: string]: any };
 }
 
 export interface TableAction<T = any> {

@@ -141,6 +141,13 @@ mat-form-field {
   gap: 16px;
 }
 
+.status-icon-active {
+  color: white;
+
+  font-size: 14px;
+
+}
+
 .info-item {
   display: flex;
   gap: 12px;
@@ -156,13 +163,7 @@ mat-form-field {
     box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
   }
 
-  mat-icon {
-    color: var(--mat-sys-primary);
-    margin-top: 2px;
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
-  }
+
 
   div {
     flex: 1;
@@ -224,4 +225,13 @@ mat-form-field {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+.status-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 28px;
+  background-color: var(--mat-sys-primary)
 }

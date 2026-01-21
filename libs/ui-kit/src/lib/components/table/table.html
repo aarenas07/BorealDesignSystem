@@ -111,7 +111,9 @@
           [disabled]="column.sortable === false" [style.width]="column.width" [class.sticky-column]="column.sticky">
           {{ column.label }}
         </th>
-        <td mat-cell *matCellDef="let row" [style.width]="column.width" [class.sticky-column]="column.sticky">
+        <td mat-cell *matCellDef="let row" [style.width]="column.width" [class.sticky-column]="column.sticky"
+          [ngClass]="column.cellClass ? column.cellClass(row) : ''"
+          [ngStyle]="column.cellStyle ? column.cellStyle(row) : {}">
           @if (column.cellTemplate) {
           <ng-container *ngTemplateOutlet="column.cellTemplate; context: { $implicit: row, column: column }">
           </ng-container>

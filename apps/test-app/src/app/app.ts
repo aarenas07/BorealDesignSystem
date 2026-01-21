@@ -456,7 +456,6 @@ export class App {
       {
         key: 'status',
         label: 'Estado',
-        sortable: true,
         cellTemplate: this.statusTemplate,
       },
       {

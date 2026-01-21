@@ -23,6 +23,10 @@ const meta: Meta<TabsComponent> = {
       control: 'boolean',
       description: 'Si las pestañas deben estirarse para ocupar todo el ancho',
     },
+    primaryTabs: {
+      control: 'boolean',
+      description: 'Si las pestañas deben tener el estilo primario',
+    },
     animationDuration: {
       control: 'text',
       description: 'Duración de la animación de transición',
@@ -43,6 +47,7 @@ const meta: Meta<TabsComponent> = {
   args: {
     alignTabs: 'start',
     stretchTabs: false,
+    primaryTabs: true,
     animationDuration: '0ms',
     selectedTabIndex: 0,
     draggableTabs: false,

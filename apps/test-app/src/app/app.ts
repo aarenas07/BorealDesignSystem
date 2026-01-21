@@ -42,7 +42,7 @@ import {
   RadiobuttonComponent,
   CheckboxComponent,
   CollapsibleNavComponent,
-  CollapsibleNavConfig,
+  CollapsibleNavConfigBds,
   CommandItem,
   CommandMenuConfig,
   StepperComponent,
@@ -66,7 +66,7 @@ interface User {
   department: string;
 }
 
-export interface NavItem {
+export interface NavItemBds {
   /** Identificador único del item */
   id: string;
   /** Texto a mostrar */
@@ -76,7 +76,7 @@ export interface NavItem {
   /** Ruta de navegación */
   route?: string;
   /** Items hijos para crear submenús */
-  children?: NavItem[];
+  children?: NavItemBds[];
   /** Estado de expansión para items con hijos */
   isExpanded?: boolean;
   /** Si el item está activo */
@@ -89,13 +89,13 @@ export interface NavItem {
   isModule?: boolean;
 }
 
-export interface NavSection {
+export interface NavSectionBds {
   /** Clave identificadora de la sección */
   key: string;
   /** Título de la sección (visible solo en modo expandido) */
   title?: string;
   /** Lista de items en la sección */
-  items: NavItem[];
+  items: NavItemBds[];
   /** Tipo de tooltip para el modo rail */
   tooltipType?: 'dark' | 'light' | 'error' | 'success';
   /** Clase CSS adicional */
@@ -918,7 +918,7 @@ export class App {
   // Collapsible Nav Demo
   // -----------------------------------------------------------------------------------------------------
 
-  collapsibleSections: NavSection[] = [
+  collapsibleSections: NavSectionBds[] = [
     {
       key: 'main',
       items: [
@@ -985,7 +985,7 @@ export class App {
     },
   ];
 
-  collapsibleConfig: CollapsibleNavConfig = {
+  collapsibleConfig: CollapsibleNavConfigBds = {
     user: {
       avatar: 'U',
       name: 'Admin User',
@@ -1233,7 +1233,7 @@ export class App {
   }
 
   // Configuración del CollapsibleNav
-  navConfig: CollapsibleNavConfig = {
+  navConfig: CollapsibleNavConfigBds = {
     user: {
       avatar: 'U',
       name: 'Usuario',
@@ -1289,12 +1289,12 @@ export class App {
     console.log('Nav expanded:', expanded);
   }
 
-  onItemSelected(item: NavItem) {
+  onItemSelected(item: NavItemBds) {
     console.log('Item', item.label);
   }
 
   commandItems: CommandItem[] = [];
-  navSections: NavSection[] = [];
+  navSections: NavSectionBds[] = [];
 
   openSnackbarDefault() {
     this.bdsSnackbarService.openSnackbar(

@@ -14,11 +14,7 @@ export interface StepperStep {
 @Component({
   selector: 'bds-stepper',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatStepperModule,
-    StepContentDirective
-  ],
+  imports: [CommonModule, MatStepperModule],
   templateUrl: './stepper.html',
   styleUrl: './stepper.scss',
 })
@@ -34,10 +30,6 @@ export class StepperComponent {
 
   activeStepTemplate = computed(() => {
     const contents = this.stepContents();
-    console.log('Contenido');
-    console.log(contents);
-    console.log('activeIndex');
-    console.log(this.activeIndex())
     return contents.find(t => Number(t.index) === this.activeIndex())?.template ?? null;
   });
 

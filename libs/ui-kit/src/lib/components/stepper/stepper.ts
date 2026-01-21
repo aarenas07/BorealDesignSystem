@@ -2,7 +2,7 @@ import { Component, computed, contentChildren, input, model, output } from '@ang
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { StepContentDirective } from '../../directives/step-content-directive.directive';
+import { BdsStepContentDirective } from '../../directives/bds-step-content.directive';
 
 export interface StepperStep {
   label: string;
@@ -26,7 +26,7 @@ export class StepperComponent {
 
   stepChange = output<{ previousIndex: number; currentIndex: number }>();
 
-  stepContents = contentChildren(StepContentDirective);
+  stepContents = contentChildren(BdsStepContentDirective);
 
   activeStepTemplate = computed(() => {
     const contents = this.stepContents();

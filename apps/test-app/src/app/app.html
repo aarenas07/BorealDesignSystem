@@ -901,6 +901,12 @@
     </div>
   </section>
 
+  <div class="layout-wrapper">
+    <bds-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
+      [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()">
+    </bds-collapsible-nav>
+  </div>
+
   <!-- Tabs -->
   <section class="component-section">
     <h2>Tabs</h2>
@@ -990,9 +996,9 @@
     <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [primaryTabs]="false"></bds-tabs>
   </div>
 
-  <!-- example -->
+  <!-- Snackbar -->
   <section class="component-section">
-    <h2>example</h2>
+    <h2>Snackbar</h2>
     <div class="demo-row">
       <bds-button label="Open Snackbar default" variant="filled" (action)="openSnackbarDefault()"></bds-button>
       <bds-button label="Open Snackbar info" variant="filled" (action)="openSnackbarInfo()"></bds-button>
@@ -1003,9 +1009,5 @@
     </div>
   </section>
 
-  <div class="layout-wrapper">
-    <app-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
-      [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()">
-    </app-collapsible-nav>
-  </div>
+
 </main>

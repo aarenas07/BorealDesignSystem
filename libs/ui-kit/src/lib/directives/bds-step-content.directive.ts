@@ -4,7 +4,7 @@ import { Directive, Input, TemplateRef } from '@angular/core';
   selector: '[bdsStepContent]',
   standalone: true,
 })
-export class StepContentDirective {
+export class BdsStepContentDirective {
   @Input('bdsStepContent') index!: string | number;
 
   constructor(public template: TemplateRef<unknown>) {}

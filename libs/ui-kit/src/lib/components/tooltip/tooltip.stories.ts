@@ -1,6 +1,6 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { ButtonComponent } from '../button/button';
-import { BdsTooltipDirective } from './tooltip';
+import { BdsTooltipDirective } from '../../directives/bds-tooltip.directive';
 
 const meta: Meta = {
   title: 'Directivas/Tooltip',

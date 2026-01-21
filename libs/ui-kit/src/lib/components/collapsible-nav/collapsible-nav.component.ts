@@ -5,207 +5,26 @@ import { CommandItem, CommandMenuConfig } from '../../interfaces';
 
 import { CommandMenuComponent } from '../command-menu/command-menu.component';
 import { SidebarStateService } from '../side-bar/services/sidebar-state.service';
-
-// ============================================================================
-// INTERFACES - Modelos de datos totalmente parametrizables
-// ============================================================================
-
-/**
- * Representa un item de navegación
- */
-export interface NavItem {
-  /** Identificador único del item */
-  id: string;
-  /** Texto a mostrar */
-  label: string;
-  /** Icono de Material Symbols */
-  icon?: string;
-  /** Ruta de navegación */
-  route?: string;
-  /** Items hijos para crear submenús */
-  children?: NavItem[];
-  /** Estado de expansión para items con hijos */
-  isExpanded?: boolean;
-  /** Si el item está activo */
-  isActive?: boolean;
-  /** Badge numérico */
-  badge?: number;
-  /** Función a ejecutar al hacer clic */
-  action?: () => void;
-  /** Si es un módulo principal (aparece en el rail) */
-  isModule?: boolean;
-}
-
-/**
- * Representa una sección de navegación
- */
-export interface NavSection {
-  /** Clave identificadora de la sección */
-  key: string;
-  /** Título de la sección (visible solo en modo expandido) */
-  title?: string;
-  /** Lista de items en la sección */
-  items: NavItem[];
-  /** Tipo de tooltip para el modo rail */
-  tooltipType?: 'dark' | 'light' | 'error' | 'success';
-  /** Clase CSS adicional */
-  cssClass?: string;
-  /** Mostrar separador después de esta sección */
-  showSeparator?: boolean;
-  /** Estado de colapso de la sección */
-  isCollapsed?: boolean;
-}
-
-/**
- * Configuración del usuario para el header
- */
-export interface UserConfig {
-  /** Avatar del usuario (iniciales o URL de imagen) */
-  avatar: string;
-  /** Si el avatar es una URL de imagen */
-  isAvatarImage?: boolean;
-  /** Nombre del usuario */
-  name: string;
-  /** Mostrar la sección de usuario */
-  show?: boolean;
-}
-
-/**
- * Representa una acción rápida
- */
-export interface QuickAction {
-  /** Identificador único */
-  id: string;
-  /** Texto de la acción */
-  label: string;
-  /** Icono de Material Symbols */
-  icon?: string;
-  /** Ruta de navegación */
-  route?: string;
-  /** Función a ejecutar al hacer clic */
-  action?: () => void;
-}
-
-/**
- * Configuración de acciones rápidas
- */
-export interface QuickActionsConfig {
-  /** Título de la sección */
-  title: string;
-  /** Icono del título */
-  titleIcon?: string;
-  /** Lista de acciones */
-  actions: QuickAction[];
-  /** Mostrar la sección */
-  show?: boolean;
-}
-
-/**
- * Configuración de favoritos
- */
-export interface FavoritesConfig {
-  /** Título de la sección */
-  title: string;
-  /** Icono del título */
-  titleIcon?: string;
-  /** Lista de items favoritos */
-  items?: NavItem[];
-  /** Acciones en la cabecera de la sección */
-  actions?: QuickAction[];
-  /** Mostrar la sección */
-  show?: boolean;
-  /** Estado de colapso */
-  isCollapsed?: boolean;
-}
-
-/**
- * Configuración del botón de creación (Plus)
- */
-export interface CreateButtonConfig {
-  /** Mostrar el botón */
-  show?: boolean;
-  /** Icono del botón (default: 'add') */
-  icon?: string;
-  /** Acción a ejecutar (si no se define, emite createActionClick) */
-  action?: () => void;
-}
-
-/**
- * Configuración del menú de comandos
- */
-
-/**
- * Configuración del botón toggle (hamburguesa)
- */
-export interface ToggleButtonConfig {
-  /** Icono cuando está colapsado (default: 'menu') */
-  icon?: string;
-  /** Icono cuando está expandido (default: 'close') */
-  closeIcon?: string;
-  /** Posición del botón */
-  position?: 'top' | 'bottom';
-  /** Mostrar el botón */
-  show?: boolean;
-}
-
-/**
- * Configuración de comportamiento
- */
-export interface BehaviorConfig {
-  /** Cerrar al hacer clic fuera */
-  closeOnClickOutside?: boolean;
-  /** Cerrar al navegar */
-  closeOnNavigation?: boolean;
-  /** Mostrar overlay oscuro cuando está expandido */
-  showOverlay?: boolean;
-  /** Opacidad del overlay (0-1) */
-  overlayOpacity?: number;
-  /** Duración de animación en ms */
-  animationDuration?: number;
-  /** Estado inicial expandido */
-  initialExpanded?: boolean;
-}
-
-/**
- * Configuración del Rail (modo colapsado)
- */
-export interface RailComponentConfig {
-  /** Posición del tooltip */
-  tooltipPosition?: 'right' | 'left' | 'top' | 'bottom';
-  /** Mostrar labels debajo de los iconos */
-  showLabels?: boolean;
-  /** Número máximo de caracteres para el label (se trunca con ...) */
-  labelMaxLength?: number;
-}
-
-/**
- * Configuración general del Collapsible Nav
- */
-export interface CollapsibleNavConfig {
-  /** Configuración del usuario */
-  user?: UserConfig;
-  /** Configuración de acciones rápidas */
-  quickActions?: QuickActionsConfig;
-  /** Configuración de favoritos */
-  favorites?: FavoritesConfig;
-  /** Configuración del botón toggle */
-  toggleButton?: ToggleButtonConfig;
-  /** Configuración del botón de creación */
-  createButton?: CreateButtonConfig;
-  /** Configuración de comportamiento */
-  behavior?: BehaviorConfig;
-  /** Configuración del rail */
-  rail?: RailComponentConfig;
-  /** Mostrar el menú de comandos */
-  showCommandMenu?: boolean;
-}
+import {
+  NavSectionBds,
+  CollapsibleNavConfigBds,
+  NavItemBds,
+  QuickActionBds,
+  UserConfigBds,
+  QuickActionsConfigBds,
+  FavoritesConfigBdsBds,
+  CreateButtonConfigBds,
+  ToggleButtonConfigBds,
+  BehaviorConfigBds,
+  RailComponentConfigBds,
+} from '../../interfaces/bds-collapsible-nav.interface';
 
 // ============================================================================
 // COMPONENTE
 // ============================================================================
 
 @Component({
-  selector: 'app-collapsible-nav',
+  selector: 'bds-collapsible-nav',
   imports: [CommonModule, CommandMenuComponent],
   templateUrl: './collapsible-nav.component.html',
   styleUrl: './collapsible-nav.component.scss',
@@ -216,7 +35,7 @@ export class CollapsibleNavComponent implements OnInit {
   // -------------------------------------------------------------------------
   isActiveModuleCollapsed = false;
   /** Secciones de navegación */
-  @Input() sections: NavSection[] = [];
+  @Input() sections: NavSectionBds[] = [];
 
   /** Items para el menú de comandos */
   @Input() commandItems: CommandItem[] = [];
@@ -229,7 +48,7 @@ export class CollapsibleNavComponent implements OnInit {
   };
 
   /** Configuración general del componente */
-  @Input() config: CollapsibleNavConfig = {
+  @Input() config: CollapsibleNavConfigBds = {
     user: {
       avatar: 'U',
       name: 'Usuario',
@@ -283,13 +102,13 @@ export class CollapsibleNavComponent implements OnInit {
   @Output() expandedChange = new EventEmitter<boolean>();
 
   /** Emitido cuando se selecciona un item */
-  @Output() itemClick = new EventEmitter<NavItem>();
+  @Output() itemClick = new EventEmitter<NavItemBds>();
 
   /** Emitido cuando se hace clic en una acción rápida */
-  @Output() quickActionClick = new EventEmitter<QuickAction>();
+  @Output() quickActionClick = new EventEmitter<QuickActionBds>();
 
   /** Emitido cuando se hace clic en un favorito */
-  @Output() favoriteClick = new EventEmitter<NavItem>();
+  @Output() favoriteClick = new EventEmitter<NavItemBds>();
 
   /** Emitido cuando se hace clic en el botón de creación (plus) */
   @Output() createActionClick = new EventEmitter<void>();
@@ -399,7 +218,7 @@ export class CollapsibleNavComponent implements OnInit {
   // MÉTODOS DE SECCIONES
   // -------------------------------------------------------------------------
 
-  toggleSection(section: NavSection): void {
+  toggleSection(section: NavSectionBds): void {
     section.isCollapsed = !section.isCollapsed;
   }
 
@@ -413,7 +232,7 @@ export class CollapsibleNavComponent implements OnInit {
   // MÉTODOS DE ITEMS
   // -------------------------------------------------------------------------
 
-  toggleItem(item: NavItem): void {
+  toggleItem(item: NavItemBds): void {
     if (item.children?.length) {
       item.isExpanded = !item.isExpanded;
     } else {
@@ -421,7 +240,7 @@ export class CollapsibleNavComponent implements OnInit {
     }
   }
 
-  onItemClick(item: NavItem): void {
+  onItemClick(item: NavItemBds): void {
     if (item.action) {
       item.action();
     }
@@ -437,7 +256,7 @@ export class CollapsibleNavComponent implements OnInit {
   /**
    * Handler para clicks en modo rail
    */
-  onRailItemClick(item: NavItem): void {
+  onRailItemClick(item: NavItemBds): void {
     if (item.isModule) {
       this.activeModuleId = item.id;
 
@@ -459,7 +278,7 @@ export class CollapsibleNavComponent implements OnInit {
   /**
    * Obtiene los items a mostrar en el sidebar basado en el módulo activo
    */
-  get sidebarItems(): NavItem[] {
+  get sidebarItems(): NavItemBds[] {
     if (!this.activeModuleId) return [];
 
     const activeModule = this.sections.flatMap(s => s.items).find(i => i.id === this.activeModuleId);
@@ -480,7 +299,7 @@ export class CollapsibleNavComponent implements OnInit {
   // MÉTODOS DE ACCIONES RÁPIDAS
   // -------------------------------------------------------------------------
 
-  onQuickActionClick(action: QuickAction): void {
+  onQuickActionClick(action: QuickActionBds): void {
     if (action.action) {
       action.action();
     }
@@ -505,7 +324,7 @@ export class CollapsibleNavComponent implements OnInit {
   // MÉTODOS DE FAVORITOS
   // -------------------------------------------------------------------------
 
-  onFavoriteClick(item: NavItem): void {
+  onFavoriteClick(item: NavItemBds): void {
     if (item.action) {
       item.action();
     }
@@ -556,11 +375,11 @@ export class CollapsibleNavComponent implements OnInit {
   // GETTERS PARA ACCESO A CONFIGURACIÓN
   // -------------------------------------------------------------------------
 
-  get userConfig(): UserConfig {
+  get userConfig(): UserConfigBds {
     return this.config.user ?? { avatar: 'U', name: 'Usuario', show: true };
   }
 
-  get quickActionsConfig(): QuickActionsConfig {
+  get quickActionsConfig(): QuickActionsConfigBds {
     return (
       this.config.quickActions ?? {
         title: 'Acciones rápidas',
@@ -570,11 +389,11 @@ export class CollapsibleNavComponent implements OnInit {
     );
   }
 
-  get favoritesConfig(): FavoritesConfig {
+  get favoritesConfig(): FavoritesConfigBdsBds {
     return this.config.favorites ?? { title: 'Favoritos', items: [], show: false };
   }
 
-  get toggleButtonConfig(): ToggleButtonConfig {
+  get toggleButtonConfig(): ToggleButtonConfigBds {
     return (
       this.config.toggleButton ?? {
         icon: 'menu',
@@ -585,7 +404,7 @@ export class CollapsibleNavComponent implements OnInit {
     );
   }
 
-  get createButtonConfig(): CreateButtonConfig {
+  get createButtonConfig(): CreateButtonConfigBds {
     return (
       this.config.createButton ?? {
         show: false,
@@ -594,7 +413,7 @@ export class CollapsibleNavComponent implements OnInit {
     );
   }
 
-  get behaviorConfig(): BehaviorConfig {
+  get behaviorConfig(): BehaviorConfigBds {
     return (
       this.config.behavior ?? {
         closeOnClickOutside: true,
@@ -607,7 +426,7 @@ export class CollapsibleNavComponent implements OnInit {
     );
   }
 
-  get railConfig(): RailComponentConfig {
+  get railConfig(): RailComponentConfigBds {
     return (
       this.config.rail ?? {
         tooltipPosition: 'right',

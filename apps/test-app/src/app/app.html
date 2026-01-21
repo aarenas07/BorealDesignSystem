@@ -153,7 +153,7 @@
 
         <ng-template #roleTemplate let-row>
           <div>
-            <div [class]="'role-' + row.role"> {{ getRoleLabel(row.role) }} </div>
+            <div [class]="'role-' + row.role">{{ getRoleLabel(row.role) }}</div>
           </div>
         </ng-template>
 
@@ -258,14 +258,12 @@
   </section> -->
 
   <!-- Expasion Panel Section -->
-  <section class="component-section" style="width: 50%;">
+  <section class="component-section" style="width: 50%">
     <h2>Expasion Panel</h2>
     <bds-expansion-panel>
       <mat-expansion-panel [disabled]="false">
         <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ 'Este es el titulo' }}
-          </mat-panel-title>
+          <mat-panel-title> {{ 'Este es el titulo' }} </mat-panel-title>
           <mat-panel-description>
             {{ 'Esta es la descripción' }}
             <mat-icon>{{ 'star' }}</mat-icon>
@@ -280,9 +278,7 @@
       </mat-expansion-panel>
       <mat-expansion-panel [disabled]="false">
         <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ 'Este es el titulo' }}
-          </mat-panel-title>
+          <mat-panel-title> {{ 'Este es el titulo' }} </mat-panel-title>
           <mat-panel-description>
             {{ 'Esta es la descripción' }}
             <mat-icon>{{ 'star' }}</mat-icon>
@@ -337,9 +333,7 @@
             </div>
           </section>
         </ng-template>
-
       </bds-stepper>
-
     </div>
   </section>
 
@@ -596,7 +590,7 @@
 
   <!-- Form field Section -->
   <section class="component-section">
-    <h2>Form field </h2>
+    <h2>Form field</h2>
     <div class="demo-row">
       <bds-form-field [label]="'standar'" [placeholder]="'Placeholder'"></bds-form-field>
       <bds-form-field [label]="'email'" [placeholder]="'example@example.com'" [type]="'email'"
@@ -644,19 +638,17 @@
       <bds-datepicker [label]="'startDate'" [startDate]="startDate()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'startView'" [startView]="'year'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'valueRange'" [value]="valueDatepicker()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; flex-direction: column; gap: 8px">
         <bds-datepicker [label]="'valueChange'" (valueChange)="receiveDate($event)"></bds-datepicker>
         <span>change: {{ valueDatepickerChange() }}</span>
       </div>
       <bds-datepicker [label]="'filter'" [hint]="'MM/DD/YYYY'" [filter]="myFilter"></bds-datepicker>
-      <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 8px">
         <bds-datepicker #pickerRef [label]="'Programmatic Open'" [hiddenPicker]="true"
           [hint]="'MM/DD/YYYY'"></bds-datepicker>
         <bds-button label="Open Picker" (action)="pickerRef.open()"></bds-button>
       </div>
     </div>
-
-
 
     <h2>Datepicker range</h2>
     <div class="demo-row">
@@ -685,7 +677,7 @@
         [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'placeholder range'" [placeholderStartDate]="'Inicio'" [placeholderEndDate]="'Fin'"
         [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 8px">
         <bds-datepicker #pickerRefRange [label]="'Programmatic Open'" [hiddenPicker]="true" [rangeInputs]="true"
           [hint]="'MM/DD/YYYY'"></bds-datepicker>
         <bds-button label="Open Picker" (action)="pickerRefRange.open()"></bds-button>
@@ -755,9 +747,7 @@
         Move mouse inside me
       </div>
     </div>
-    <mat-checkbox [formControl]="enabled" class="example-enabled-checkbox">
-      Position at origin enabled
-    </mat-checkbox>
+    <mat-checkbox [formControl]="enabled" class="example-enabled-checkbox"> Position at origin enabled </mat-checkbox>
   </section>
 
   <!-- Tooltip Custom Template -->
@@ -769,11 +759,11 @@
     </div>
 
     <ng-template #myCustomTooltip let-context>
-      <div style="padding: 4px; display: flex; flex-direction: column; gap: 4px;">
-        <strong style="color: var(--mat-sys-primary);">Custom Header</strong>
+      <div style="padding: 4px; display: flex; flex-direction: column; gap: 4px">
+        <strong style="color: var(--mat-sys-primary)">Custom Header</strong>
         <span>{{ context }}</span>
-        <div style="display: flex; align-items: center; gap: 4px;">
-          <mat-icon style="font-size: 16px; width: 16px; height: 16px;">info</mat-icon>
+        <div style="display: flex; align-items: center; gap: 4px">
+          <mat-icon style="font-size: 16px; width: 16px; height: 16px">info</mat-icon>
           <small>Additional Info</small>
         </div>
         <bds-button label="Text" variant="text" size="md" (action)="handleAction($event)"></bds-button>
@@ -792,7 +782,6 @@
         (bdsTooltipClickAccept)="onTooltipAccept()"></bds-button>
     </div>
   </section>
-
 
   <!-- Form -->
   <section class="component-section">
@@ -884,7 +873,7 @@
     <div class="demo-row">
       <bds-radiobutton [ariaLabel]="'Radio Button 6'" [options]="optionsRadio()" [label]="'Change'"
         (change)="onRadioInput($event)"></bds-radiobutton>
-      <p style="margin-left: 10px;">Value radio: {{ valueRadio() }}</p>
+      <p style="margin-left: 10px">Value radio: {{ valueRadio() }}</p>
     </div>
   </section>
 
@@ -908,7 +897,7 @@
     </div>
     <div class="demo-row">
       <bds-checkbox [label]="'Change'" (change)="onCheckboxInput($event)"></bds-checkbox>
-      <p style="margin-left: 10px;">Value checkbox: {{ valueCheckbox() }}</p>
+      <p style="margin-left: 10px">Value checkbox: {{ valueCheckbox() }}</p>
     </div>
   </section>
 
@@ -916,57 +905,107 @@
   <section class="component-section">
     <h2>Tabs</h2>
   </section>
-  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
-    <bds-tabs [optionsNavTabs]="optionsTabs()" animationDuration="0ms"></bds-tabs>
+  <div style="display: block; border: 1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem">
+    <bds-tabs [optionsNavTabs]="optionsTabs()" [animationDuration]="'300ms'"></bds-tabs>
 
     <!-- Custom Templates -->
     <ng-template #contentTab1 let-context>
-      <div class="content-tab" style="padding: 1rem;">
+      <div class="content-tab" style="padding: 1rem">
         <p>Content Tab 1</p>
       </div>
     </ng-template>
     <ng-template #contentTab2 let-context>
-      <div class="content-tab" style="padding: 1rem;">
+      <div class="content-tab" style="padding: 1rem">
         <p>Content Tab 2</p>
       </div>
     </ng-template>
     <ng-template #contentTab3 let-context>
-      <div class="content-tab" style="padding: 1rem;">
+      <div class="content-tab" style="padding: 1rem">
         <p>Content Tab 3</p>
       </div>
     </ng-template>
   </div>
 
-  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+  <div style="display: block; border: 1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem">
     <bds-tabs [optionsNavTabs]="optionsTabsIcons()"></bds-tabs>
   </div>
 
-  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+  <div style="display: block; border: 1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem">
     <bds-tabs [optionsNavTabs]="optionsTabsDraggable()" animationDuration="0ms" [draggableTabs]="true"></bds-tabs>
   </div>
 
-  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+  <div style="display: block; border: 1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem">
     <bds-tabs [optionsNavTabs]="optionsTabsDisabled()"></bds-tabs>
   </div>
 
-  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+  <div style="display: block; border: 1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem">
     <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [stretchTabs]="true"></bds-tabs>
   </div>
 
-  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
-    <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [alignTabs]="'center'"></bds-tabs>
+  <div style="display: block; border: 1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem">
+    <bds-tabs [optionsNavTabs]="optionsTabs()" [alignTabs]="'center'"></bds-tabs>
+    <!-- Custom Templates -->
+    <ng-template #contentTab1 let-context>
+      <div class="content-tab" style="padding: 1rem">
+        <p>Content Tab 1</p>
+      </div>
+    </ng-template>
+    <ng-template #contentTab2 let-context>
+      <div class="content-tab" style="padding: 1rem">
+        <p>Content Tab 2</p>
+      </div>
+    </ng-template>
+    <ng-template #contentTab3 let-context>
+      <div class="content-tab" style="padding: 1rem">
+        <p>Content Tab 3</p>
+      </div>
+    </ng-template>
   </div>
 
-  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+  <div style="display: block; border: 1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem">
     <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [alignTabs]="'end'"></bds-tabs>
   </div>
 
+  <div style="display: block; border: 1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem">
+    <bds-tabs [optionsNavTabs]="optionsTabs()" [primaryTabs]="false"></bds-tabs>
+    <!-- Custom Templates -->
+    <ng-template #contentTab1 let-context>
+      <div class="content-tab" style="padding: 1rem">
+        <p>Content Tab 1</p>
+      </div>
+    </ng-template>
+    <ng-template #contentTab2 let-context>
+      <div class="content-tab" style="padding: 1rem">
+        <p>Content Tab 2</p>
+      </div>
+    </ng-template>
+    <ng-template #contentTab3 let-context>
+      <div class="content-tab" style="padding: 1rem">
+        <p>Content Tab 3</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <div style="display: block; border: 1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem">
+    <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [primaryTabs]="false"></bds-tabs>
+  </div>
+
+  <!-- example -->
+  <section class="component-section">
+    <h2>example</h2>
+    <div class="demo-row">
+      <bds-button label="Open Snackbar default" variant="filled" (action)="openSnackbarDefault()"></bds-button>
+      <bds-button label="Open Snackbar info" variant="filled" (action)="openSnackbarInfo()"></bds-button>
+      <bds-button label="Open Snackbar success" variant="filled" (action)="openSnackbarSuccess()"></bds-button>
+      <bds-button label="Open Snackbar warning" variant="filled" (action)="openSnackbarWarning()"></bds-button>
+      <bds-button label="Open Snackbar error" variant="filled" (action)="openSnackbarError()"></bds-button>
+      <bds-button label="Open Snackbar long" variant="filled" (action)="openSnackbarLong()"></bds-button>
+    </div>
+  </section>
+
+  <div class="layout-wrapper">
+    <app-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
+      [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()">
+    </app-collapsible-nav>
+  </div>
 </main>
-
-
-<div class=" layout-wrapper">
-  <app-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
-    [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()">
-  </app-collapsible-nav>
-
-</div>

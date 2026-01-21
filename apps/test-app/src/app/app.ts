@@ -12,6 +12,12 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { Observable, map, startWith } from 'rxjs';
 import {
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+  MatExpansionPanelDescription,
+} from '@angular/material/expansion';
+import {
   ButtonComponent,
   TableAction,
   TableColumn,
@@ -47,9 +53,9 @@ import {
   ExpansionPanelComponent,
   TabsComponent,
   TabsBds,
+  BdsSnackbarService,
 } from '@organizacion/ui-kit';
-import { USUARIOS_TEST_TWO, USUARIOS_TEST_ONE } from '../assets/files/data';
-import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from "@angular/material/expansion";
+import { USUARIOS_TEST_ONE } from '../assets/files/data';
 
 interface User {
   id: number;
@@ -140,7 +146,7 @@ export interface NavSection {
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
     MatExpansionPanelDescription,
-    TabsComponent
+    TabsComponent,
   ],
 
   providers: [provideNativeDateAdapter()],
@@ -149,6 +155,7 @@ export interface NavSection {
 })
 export class App {
   @ViewChild(TableComponent) table!: TableComponent;
+
   nameValue = '';
 
   // Autocomplete
@@ -526,6 +533,8 @@ export class App {
   @ViewChild('contentTab3') contentTab3!: TemplateRef<any>;
 
   private readonly themeService: ThemeService = inject(ThemeService);
+  private readonly bdsSnackbarService: BdsSnackbarService = inject(BdsSnackbarService);
+
   private readonly fb: FormBuilder = inject(FormBuilder);
 
   constructor() {
@@ -731,7 +740,7 @@ export class App {
         icon: 'download',
         variant: 'filled',
         onClick: () => console.log('Exporting data...'),
-      }
+      },
     ];
 
     this.selectionActions = [
@@ -739,7 +748,7 @@ export class App {
         label: 'Eliminar Seleccionados',
         variant: 'outlined',
         color: 'warn',
-        onClick: (selected) => {
+        onClick: selected => {
           if (confirm(`¿Eliminar ${selected.length} usuarios?`)) {
             console.log('Eliminando usuarios:', selected);
             // Implement delete logic here if needed
@@ -749,8 +758,8 @@ export class App {
       {
         label: 'Archivar',
         variant: 'filled',
-        onClick: (selected) => console.log('Archivando:', selected),
-      }
+        onClick: selected => console.log('Archivando:', selected),
+      },
     ];
   }
 
@@ -943,20 +952,20 @@ export class App {
                       label: 'Flujos de Aprobación',
                       children: [
                         { id: 'wf-1', label: 'Nivel 1: Gerencia', route: '/wf/1' },
-                        { id: 'wf-2', label: 'Nivel 2: Finanzas', route: '/wf/2' }
-                      ]
-                    }
-                  ]
-                }
-              ]
+                        { id: 'wf-2', label: 'Nivel 2: Finanzas', route: '/wf/2' },
+                      ],
+                    },
+                  ],
+                },
+              ],
             },
             {
               id: 'reportes-presupuesto',
               label: 'Reportes',
               icon: 'summarize',
-              route: '/presupuesto/reportes'
-            }
-          ]
+              route: '/presupuesto/reportes',
+            },
+          ],
         },
         {
           id: 'rentas',
@@ -965,44 +974,42 @@ export class App {
           isModule: true,
           children: [
             { id: 'dashboard-rentas', label: 'Dashboard', icon: 'dashboard', route: '/rentas/dashboard' },
-            { id: 'recaudos', label: 'Recaudos', icon: 'receipt_long', route: '/rentas/recaudos' }
-          ]
+            { id: 'recaudos', label: 'Recaudos', icon: 'receipt_long', route: '/rentas/recaudos' },
+          ],
         },
         {
           id: 'contabilidad',
           label: 'Contabilidad',
           icon: 'calculate',
           isModule: true,
-          children: [
-            { id: 'libros', label: 'Libros Contables', icon: 'menu_book', route: '/contabilidad/libros' }
-          ]
-        }
+          children: [{ id: 'libros', label: 'Libros Contables', icon: 'menu_book', route: '/contabilidad/libros' }],
+        },
       ],
-      tooltipType: 'dark'
-    }
+      tooltipType: 'dark',
+    },
   ];
 
   collapsibleConfig: CollapsibleNavConfig = {
     user: {
       avatar: 'U',
       name: 'Admin User',
-      show: true
+      show: true,
     },
     quickActions: {
       title: 'Acciones rápidas',
-      titleIcon: "",
+      titleIcon: '',
       actions: [
         { id: 'action1', label: 'Label', icon: 'star_outline' },
         { id: 'action2', label: 'Label', icon: 'star_outline' },
         { id: 'action3', label: 'Label', icon: 'star_outline' },
-        { id: 'action4', label: 'Label', icon: 'star_outline' }
+        { id: 'action4', label: 'Label', icon: 'star_outline' },
       ],
       show: true,
     },
     favorites: {
       title: 'Favoritos',
       items: [],
-      show: false
+      show: false,
     },
     toggleButton: {
       icon: 'menu',
@@ -1015,7 +1022,7 @@ export class App {
       icon: 'star',
       action: () => {
         console.log('Create Button Clicked');
-      }
+      },
     },
     behavior: {
       closeOnClickOutside: true,
@@ -1028,7 +1035,7 @@ export class App {
     rail: {
       tooltipPosition: 'right',
       showLabels: false,
-      labelMaxLength: 12
+      labelMaxLength: 12,
     },
     showCommandMenu: true,
   };
@@ -1037,54 +1044,54 @@ export class App {
     {
       label: 'Buscar Disponibilidad',
       icon: 'search',
-      options: [{ label: 'Ir a buscador', value: 'search-disp', routerLink: '/presupuesto/buscar' }]
+      options: [{ label: 'Ir a buscador', value: 'search-disp', routerLink: '/presupuesto/buscar' }],
     },
     {
       label: 'Panel de Control',
       icon: 'dashboard',
-      options: [{ label: 'Ver dashboard', value: 'view-dashboard', routerLink: '/dashboard' }]
+      options: [{ label: 'Ver dashboard', value: 'view-dashboard', routerLink: '/dashboard' }],
     },
     {
       label: 'Perfil de Usuario',
       icon: 'account_circle',
-      options: [{ label: 'Editar perfil', value: 'edit-profile', routerLink: '/perfil' }]
+      options: [{ label: 'Editar perfil', value: 'edit-profile', routerLink: '/perfil' }],
     },
     {
       label: 'Configuración',
       icon: 'settings',
-      options: [{ label: 'Ajustes generales', value: 'settings-app', action: () => console.log('Abrir configuración') }]
+      options: [{ label: 'Ajustes generales', value: 'settings-app', action: () => console.log('Abrir configuración') }],
     },
     {
       label: 'Reportes Financieros',
       icon: 'analytics',
-      options: [{ label: 'Ver reportes', value: 'view-reports', routerLink: '/reportes' }]
+      options: [{ label: 'Ver reportes', value: 'view-reports', routerLink: '/reportes' }],
     },
     {
       label: 'Gestión de Usuarios',
       icon: 'group',
-      options: [{ label: 'Administrar usuarios', value: 'manage-users', routerLink: '/usuarios' }]
+      options: [{ label: 'Administrar usuarios', value: 'manage-users', routerLink: '/usuarios' }],
     },
     {
       label: 'Notificaciones',
       icon: 'notifications',
-      options: [{ label: 'Ver alertas', value: 'view-notifications', action: () => console.log('Ver notificaciones') }]
+      options: [{ label: 'Ver alertas', value: 'view-notifications', action: () => console.log('Ver notificaciones') }],
     },
     {
       label: 'Historial de Cambios',
       icon: 'history',
-      options: [{ label: 'Ver auditoría', value: 'view-audit', routerLink: '/auditoria' }]
+      options: [{ label: 'Ver auditoría', value: 'view-audit', routerLink: '/auditoria' }],
     },
     {
       label: 'Imprimir Documento',
       icon: 'print',
-      options: [{ label: 'Imprimir vista actual', value: 'print-view', action: () => window.print() }]
+      options: [{ label: 'Imprimir vista actual', value: 'print-view', action: () => window.print() }],
     },
     {
       label: 'Cerrar Sesión',
       icon: 'logout',
-      options: [{ label: 'Salir del sistema', value: 'logout-app', action: () => console.log('Cerrando sesión...') }]
-    }
-  ]
+      options: [{ label: 'Salir del sistema', value: 'logout-app', action: () => console.log('Cerrando sesión...') }],
+    },
+  ];
 
   onCollapsibleCreate(): void {
     console.log('Create event emitted');
@@ -1287,11 +1294,98 @@ export class App {
   }
 
   onItemSelected(item: NavItem) {
-    console.log('Item', item.label)
+    console.log('Item', item.label);
   }
 
   commandItems: CommandItem[] = [];
   navSections: NavSection[] = [];
 
+  openSnackbarDefault() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
+  }
 
+  openSnackbarSuccess() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'success',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
+  }
+
+  openSnackbarInfo() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'info',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
+  }
+
+  openSnackbarWarning() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Existen inconvenientes al realizar el proceso.',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'warning',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
+  }
+
+  openSnackbarError() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Ha ocurrido un error crítico.',
+        action: 'Reintentar',
+        icon: 'error',
+        type: 'error',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
+  }
+
+  openSnackbarLong() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Texto de prueba para el snackbar con acción larga.',
+        action: 'Aceptar',
+        icon: 'close',
+        longerAction: true,
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      }
+    );
+  }
 }

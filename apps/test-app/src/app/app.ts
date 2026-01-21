@@ -37,6 +37,10 @@ import {
   SelectComponent,
   RadiobuttonComponent,
   CheckboxComponent,
+  CollapsibleNavComponent,
+  CollapsibleNavConfig,
+  CommandItem,
+  CommandMenuConfig,
   StepperComponent,
   StepperStep,
   StepContentDirective,
@@ -56,6 +60,46 @@ interface User {
   joinDate: Date;
   salary: number;
   department: string;
+}
+
+export interface NavItem {
+  /** Identificador único del item */
+  id: string;
+  /** Texto a mostrar */
+  label: string;
+  /** Icono de Material Symbols */
+  icon?: string;
+  /** Ruta de navegación */
+  route?: string;
+  /** Items hijos para crear submenús */
+  children?: NavItem[];
+  /** Estado de expansión para items con hijos */
+  isExpanded?: boolean;
+  /** Si el item está activo */
+  isActive?: boolean;
+  /** Badge numérico */
+  badge?: number;
+  /** Función a ejecutar al hacer clic */
+  action?: () => void;
+  /** Si es un módulo principal (aparece en el rail) */
+  isModule?: boolean;
+}
+
+export interface NavSection {
+  /** Clave identificadora de la sección */
+  key: string;
+  /** Título de la sección (visible solo en modo expandido) */
+  title?: string;
+  /** Lista de items en la sección */
+  items: NavItem[];
+  /** Tipo de tooltip para el modo rail */
+  tooltipType?: 'dark' | 'light' | 'error' | 'success';
+  /** Clase CSS adicional */
+  cssClass?: string;
+  /** Mostrar separador después de esta sección */
+  showSeparator?: boolean;
+  /** Estado de colapso de la sección */
+  isCollapsed?: boolean;
 }
 
 @Component({
@@ -88,6 +132,7 @@ interface User {
     SelectComponent,
     RadiobuttonComponent,
     CheckboxComponent,
+    CollapsibleNavComponent,
     ExpansionPanelComponent,
     StepperComponent,
     StepContentDirective,
@@ -96,7 +141,7 @@ interface User {
     MatExpansionPanelTitle,
     MatExpansionPanelDescription,
     TabsComponent
-],
+  ],
 
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',
@@ -246,7 +291,7 @@ export class App {
     selectable: true,
     expandable: false,
     showGlobalFilter: true,
-    zebraStriping: true,
+    zebraStriping: false,
     density: 'compact',
     pageSizeOptions: [5, 10, 25, 50],
     defaultPageSize: 10,
@@ -863,6 +908,190 @@ export class App {
     ],
     tooltipPosition: 'right',
   };
+
+  // -----------------------------------------------------------------------------------------------------
+  // Collapsible Nav Demo
+  // -----------------------------------------------------------------------------------------------------
+
+  collapsibleSections: NavSection[] = [
+    {
+      key: 'main',
+      items: [
+        {
+          id: 'presupuesto',
+          label: 'Presupuesto',
+          icon: 'savings',
+          isModule: true,
+          isExpanded: false,
+          children: [
+            {
+              id: 'disponibilidades',
+              label: 'Gestión de Disponibilidades',
+              icon: 'account_balance_wallet',
+              children: [
+                { id: 'listar-disp', label: 'Listar disponibilidades', icon: 'list', route: '/presupuesto/disponibilidades' },
+                { id: 'aprobar-disp', label: 'Aprobar disponibilidades', icon: 'check_circle', route: '/presupuesto/aprobar' },
+                { id: 'cancelar-disp', label: 'Cancelar disponibilidades', icon: 'cancel', route: '/presupuesto/cancelar' },
+                {
+                  id: 'config-disp',
+                  label: 'Configuración Avanzada',
+                  icon: 'settings',
+                  children: [
+                    { id: 'general-conf', label: 'General', route: '/presupuesto/conf/general' },
+                    {
+                      id: 'workflows',
+                      label: 'Flujos de Aprobación',
+                      children: [
+                        { id: 'wf-1', label: 'Nivel 1: Gerencia', route: '/wf/1' },
+                        { id: 'wf-2', label: 'Nivel 2: Finanzas', route: '/wf/2' }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              id: 'reportes-presupuesto',
+              label: 'Reportes',
+              icon: 'summarize',
+              route: '/presupuesto/reportes'
+            }
+          ]
+        },
+        {
+          id: 'rentas',
+          label: 'Rentas',
+          icon: 'monetization_on',
+          isModule: true,
+          children: [
+            { id: 'dashboard-rentas', label: 'Dashboard', icon: 'dashboard', route: '/rentas/dashboard' },
+            { id: 'recaudos', label: 'Recaudos', icon: 'receipt_long', route: '/rentas/recaudos' }
+          ]
+        },
+        {
+          id: 'contabilidad',
+          label: 'Contabilidad',
+          icon: 'calculate',
+          isModule: true,
+          children: [
+            { id: 'libros', label: 'Libros Contables', icon: 'menu_book', route: '/contabilidad/libros' }
+          ]
+        }
+      ],
+      tooltipType: 'dark'
+    }
+  ];
+
+  collapsibleConfig: CollapsibleNavConfig = {
+    user: {
+      avatar: 'U',
+      name: 'Admin User',
+      show: true
+    },
+    quickActions: {
+      title: 'Acciones rápidas',
+      titleIcon: "",
+      actions: [
+        { id: 'action1', label: 'Label', icon: 'star_outline' },
+        { id: 'action2', label: 'Label', icon: 'star_outline' },
+        { id: 'action3', label: 'Label', icon: 'star_outline' },
+        { id: 'action4', label: 'Label', icon: 'star_outline' }
+      ],
+      show: true,
+    },
+    favorites: {
+      title: 'Favoritos',
+      items: [],
+      show: false
+    },
+    toggleButton: {
+      icon: 'menu',
+      closeIcon: 'menu_open',
+      position: 'top',
+      show: true,
+    },
+    createButton: {
+      show: true,
+      icon: 'star',
+      action: () => {
+        console.log('Create Button Clicked');
+      }
+    },
+    behavior: {
+      closeOnClickOutside: true,
+      closeOnNavigation: true,
+      showOverlay: true,
+      overlayOpacity: 0.5,
+      animationDuration: 300,
+      initialExpanded: false,
+    },
+    rail: {
+      tooltipPosition: 'right',
+      showLabels: false,
+      labelMaxLength: 12
+    },
+    showCommandMenu: true,
+  };
+
+  collapsibleCommandItems: CommandItem[] = [
+    {
+      label: 'Buscar Disponibilidad',
+      icon: 'search',
+      options: [{ label: 'Ir a buscador', value: 'search-disp', routerLink: '/presupuesto/buscar' }]
+    },
+    {
+      label: 'Panel de Control',
+      icon: 'dashboard',
+      options: [{ label: 'Ver dashboard', value: 'view-dashboard', routerLink: '/dashboard' }]
+    },
+    {
+      label: 'Perfil de Usuario',
+      icon: 'account_circle',
+      options: [{ label: 'Editar perfil', value: 'edit-profile', routerLink: '/perfil' }]
+    },
+    {
+      label: 'Configuración',
+      icon: 'settings',
+      options: [{ label: 'Ajustes generales', value: 'settings-app', action: () => console.log('Abrir configuración') }]
+    },
+    {
+      label: 'Reportes Financieros',
+      icon: 'analytics',
+      options: [{ label: 'Ver reportes', value: 'view-reports', routerLink: '/reportes' }]
+    },
+    {
+      label: 'Gestión de Usuarios',
+      icon: 'group',
+      options: [{ label: 'Administrar usuarios', value: 'manage-users', routerLink: '/usuarios' }]
+    },
+    {
+      label: 'Notificaciones',
+      icon: 'notifications',
+      options: [{ label: 'Ver alertas', value: 'view-notifications', action: () => console.log('Ver notificaciones') }]
+    },
+    {
+      label: 'Historial de Cambios',
+      icon: 'history',
+      options: [{ label: 'Ver auditoría', value: 'view-audit', routerLink: '/auditoria' }]
+    },
+    {
+      label: 'Imprimir Documento',
+      icon: 'print',
+      options: [{ label: 'Imprimir vista actual', value: 'print-view', action: () => window.print() }]
+    },
+    {
+      label: 'Cerrar Sesión',
+      icon: 'logout',
+      options: [{ label: 'Salir del sistema', value: 'logout-app', action: () => console.log('Cerrando sesión...') }]
+    }
+  ]
+
+  onCollapsibleCreate(): void {
+    console.log('Create event emitted');
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+
   openSideSheetLevel() {
     this.isSideSheetOpenLevel = true;
   }
@@ -999,4 +1228,70 @@ export class App {
     console.log('onCheckboxInput: ', event);
     this.valueCheckbox.set(event.checked);
   }
+
+  // Configuración del CollapsibleNav
+  navConfig: CollapsibleNavConfig = {
+    user: {
+      avatar: 'U',
+      name: 'Usuario',
+      show: true,
+    },
+    quickActions: {
+      title: 'Acciones rápidas',
+      titleIcon: 'keyboard_arrow_down',
+      actions: [
+        { id: 'action1', label: 'Acción 1', icon: 'bolt' },
+        { id: 'action2', label: 'Acción 2', icon: 'star' },
+      ],
+      show: false,
+    },
+    favorites: {
+      title: 'Favoritos',
+      titleIcon: 'keyboard_arrow_down',
+      items: [],
+      show: false,
+    },
+    toggleButton: {
+      icon: 'menu',
+      closeIcon: 'menu_open',
+      position: 'top',
+      show: true,
+    },
+    behavior: {
+      closeOnClickOutside: true,
+      closeOnNavigation: true,
+      showOverlay: true,
+      overlayOpacity: 0.5,
+      animationDuration: 300,
+      initialExpanded: false,
+    },
+    rail: {
+      tooltipPosition: 'right',
+      showLabels: false,
+    },
+    showCommandMenu: true,
+  };
+
+  // Configuración del menú de comandos
+  commandMenuConfig: CommandMenuConfig = {
+    placeholder: 'Buscar...',
+    icon: 'search',
+    shortcut: 'Ctrl + K',
+    width: '400px',
+    buttonClass: 'command-menu-button',
+    disabled: false,
+  };
+
+  onNavToggle(expanded: boolean) {
+    console.log('Nav expanded:', expanded);
+  }
+
+  onItemSelected(item: NavItem) {
+    console.log('Item', item.label)
+  }
+
+  commandItems: CommandItem[] = [];
+  navSections: NavSection[] = [];
+
+
 }

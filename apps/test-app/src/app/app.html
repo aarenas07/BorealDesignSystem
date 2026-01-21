@@ -243,7 +243,7 @@
   </section>
 
   <!-- Side Bar Section -->
-  <section class="component-section">
+  <!-- <section class="component-section">
     <bds-side-bar [sidebarData]="[
         {
           title: 'Main Menu',
@@ -255,42 +255,42 @@
         }
       ]" [userAvatar]="'a'" [userName]="'John Doe'" [quickActions]="quickActions"
       (itemSelected)="onSidebarItemSelected($event)"></bds-side-bar>
-  </section>
+  </section> -->
 
   <!-- Expasion Panel Section -->
   <section class="component-section" style="width: 50%;">
     <h2>Expasion Panel</h2>
-      <bds-expansion-panel>
-         <mat-expansion-panel [disabled]="false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{ 'Este es el titulo' }}
-            </mat-panel-title>
-            <mat-panel-description>
-              {{ 'Esta es la descripción' }}
-              <mat-icon>{{ 'star' }}</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <h2>Datos básicos</h2>
-          <p>Ingresa la información principal del proyecto.</p>
-          <form class="demo-row">
-            <bds-textarea label="Nombre del proyecto" [rows]="1"></bds-textarea>
-            <bds-select [label]="'Categoría'" [options]="optionsSelect()"></bds-select>
-          </form>
-        </mat-expansion-panel>
-        <mat-expansion-panel [disabled]="false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{ 'Este es el titulo' }}
-            </mat-panel-title>
-            <mat-panel-description>
-              {{ 'Esta es la descripción' }}
-              <mat-icon>{{ 'star' }}</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <ng-content></ng-content>
-        </mat-expansion-panel>
-      </bds-expansion-panel>
+    <bds-expansion-panel>
+      <mat-expansion-panel [disabled]="false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Este es el titulo' }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ 'Esta es la descripción' }}
+            <mat-icon>{{ 'star' }}</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <h2>Datos básicos</h2>
+        <p>Ingresa la información principal del proyecto.</p>
+        <form class="demo-row">
+          <bds-textarea label="Nombre del proyecto" [rows]="1"></bds-textarea>
+          <bds-select [label]="'Categoría'" [options]="optionsSelect()"></bds-select>
+        </form>
+      </mat-expansion-panel>
+      <mat-expansion-panel [disabled]="false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Este es el titulo' }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ 'Esta es la descripción' }}
+            <mat-icon>{{ 'star' }}</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-content></ng-content>
+      </mat-expansion-panel>
+    </bds-expansion-panel>
   </section>
 
   <!-- Stepper Section -->
@@ -344,9 +344,11 @@
   </section>
 
   <!-- Rail Section -->
-  <section class="component-section">
+  <!-- <section class="component-section">
     <bds-rail [config]="railConfig"></bds-rail>
-  </section>
+  </section> -->
+
+  +
 
   <!-- Side Sheets Section -->
   <section class="component-section">
@@ -959,12 +961,14 @@
     <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [alignTabs]="'end'"></bds-tabs>
   </div>
 
-  <!-- example -->
-  <section class="component-section">
-    <h2>example</h2>
-    <div class="demo-row">
-
-    </div>
-  </section>
+</main>
+</div>
+</section>
 
 </main>
+<div class=" layout-wrapper">
+  <app-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
+    [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()">
+  </app-collapsible-nav>
+
+</div>

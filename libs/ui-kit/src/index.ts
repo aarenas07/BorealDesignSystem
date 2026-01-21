@@ -25,4 +25,4 @@ export * from './lib/interfaces';
 export * from './lib/components/collapsible-nav/collapsible-nav.component';
 export * from './lib/components/tabs/tabs';
 export * from './lib/components/snackbar/snackbar';
-export * from './lib/components/snackbar/services/bds-snackbar.service';
+export * from './lib/services/bds-snackbar.service';

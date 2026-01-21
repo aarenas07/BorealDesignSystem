@@ -2,20 +2,13 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
 import { CommandComponent } from '../command/command.component';
 import { CommandConfig, CommandItem, CommandMenuConfig } from '../../interfaces';
-import { FormFieldComponent } from '../form-field/form-field';
-
 
 @Component({
   selector: 'lib-ada-command-menu',
   standalone: true,
-  imports: [
-    CommonModule,
-    CommandComponent,
-    FormFieldComponent
-  ],
+  imports: [CommonModule, CommandComponent],
   templateUrl: './command-menu.component.html',
   styleUrl: './command-menu.component.scss',
 })
@@ -64,5 +57,3 @@ export class CommandMenuComponent implements OnInit {
     this.menuToggle.emit(false);
   }
 }
-
-

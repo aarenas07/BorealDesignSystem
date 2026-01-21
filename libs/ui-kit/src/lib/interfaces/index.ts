@@ -3,3 +3,4 @@ export * from './datepicker.interface';
 export * from './bds-appearance.enum';
 export * from './bds-options.interface';
 export * from './command-item.interface';
+export * from './bds-tabs.interface';

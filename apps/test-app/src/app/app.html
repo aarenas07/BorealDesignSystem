@@ -139,12 +139,16 @@
         </ng-template> -->
 
         <ng-template #statusTemplate let-row>
-          <mat-chip-set>
+          <!-- <mat-chip-set>
             <mat-chip [highlighted]="true" [class]="'status-' + row.status">
               <mat-icon [class]="'status-icon-' + row.status"> {{ getStatusIcon(row.status) }} </mat-icon>
               {{ getStatusLabel(row.status) }}
             </mat-chip>
-          </mat-chip-set>
+          </mat-chip-set> -->
+          <div [class]="'status-' + row.status">
+            <mat-icon [class]="'status-icon-' + row.status"> {{ getStatusIcon(row.status) }} </mat-icon>
+            {{ getStatusLabel(row.status) }}
+          </div>
         </ng-template>
 
         <ng-template #roleTemplate let-row>
@@ -252,6 +256,92 @@
       ]" [userAvatar]="'a'" [userName]="'John Doe'" [quickActions]="quickActions"
       (itemSelected)="onSidebarItemSelected($event)"></bds-side-bar>
   </section> -->
+
+  <!-- Expasion Panel Section -->
+  <section class="component-section" style="width: 50%;">
+    <h2>Expasion Panel</h2>
+    <bds-expansion-panel>
+      <mat-expansion-panel [disabled]="false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Este es el titulo' }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ 'Esta es la descripción' }}
+            <mat-icon>{{ 'star' }}</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <h2>Datos básicos</h2>
+        <p>Ingresa la información principal del proyecto.</p>
+        <form class="demo-row">
+          <bds-textarea label="Nombre del proyecto" [rows]="1"></bds-textarea>
+          <bds-select [label]="'Categoría'" [options]="optionsSelect()"></bds-select>
+        </form>
+      </mat-expansion-panel>
+      <mat-expansion-panel [disabled]="false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Este es el titulo' }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ 'Esta es la descripción' }}
+            <mat-icon>{{ 'star' }}</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-content></ng-content>
+      </mat-expansion-panel>
+    </bds-expansion-panel>
+  </section>
+
+  <!-- Stepper Section -->
+  <section class="component-section">
+    <h2>Stepper</h2>
+    <div class="demo-row">
+      <bds-stepper [steps]="steps" [(activeIndex)]="activeIndex" [linear]="false" orientation="vertical"
+        (stepChange)="onStepChange($event)">
+        <!-- PASO 0 -->
+        <ng-template bdsStepContent="0">
+          <section class="step-content">
+            <h2>Datos básicos</h2>
+            <p>Ingresa la información principal del proyecto.</p>
+            <form class="demo-row">
+              <bds-textarea label="Nombre del proyecto" [rows]="1"></bds-textarea>
+              <bds-select [label]="'Categoría'" [options]="optionsSelect()"></bds-select>
+            </form>
+          </section>
+        </ng-template>
+
+        <!-- PASO 1 -->
+        <ng-template bdsStepContent="1">
+          <section class="step-content">
+            <h2>Documentos</h2>
+            <p>Adjunta los archivos requeridos.</p>
+            <bds-button label="Continuar" variant="filled" size="md" (action)="activeIndex = 2"></bds-button>
+          </section>
+        </ng-template>
+
+        <!-- PASO 2 -->
+        <ng-template bdsStepContent="2">
+          <section class="step-content">
+            <h2>Confirmación</h2>
+            <p>Revisa la información antes de finalizar.</p>
+
+            <ul>
+              <li><strong>Proyecto:</strong> {{ projectName }}</li>
+              <li><strong>Categoría:</strong> {{ category }}</li>
+            </ul>
+
+            <div class="actions">
+              <bds-button label="Volver" variant="filled" size="md" (action)="activeIndex = 1"></bds-button>
+              <bds-button label="Finalizar" variant="filled" size="md"></bds-button>
+            </div>
+          </section>
+        </ng-template>
+
+      </bds-stepper>
+
+    </div>
+  </section>
 
   <!-- Rail Section -->
   <!-- <section class="component-section">
@@ -822,6 +912,58 @@
     </div>
   </section>
 
+  <!-- Tabs -->
+  <section class="component-section">
+    <h2>Tabs</h2>
+  </section>
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabs()" animationDuration="0ms"></bds-tabs>
+
+    <!-- Custom Templates -->
+    <ng-template #contentTab1 let-context>
+      <div class="content-tab" style="padding: 1rem;">
+        <p>Content Tab 1</p>
+      </div>
+    </ng-template>
+    <ng-template #contentTab2 let-context>
+      <div class="content-tab" style="padding: 1rem;">
+        <p>Content Tab 2</p>
+      </div>
+    </ng-template>
+    <ng-template #contentTab3 let-context>
+      <div class="content-tab" style="padding: 1rem;">
+        <p>Content Tab 3</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsIcons()"></bds-tabs>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsDraggable()" animationDuration="0ms" [draggableTabs]="true"></bds-tabs>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsDisabled()"></bds-tabs>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [stretchTabs]="true"></bds-tabs>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [alignTabs]="'center'"></bds-tabs>
+  </div>
+
+  <div style="display:block; border:1px solid #ccc; width: 100%; border-radius: 8px; margin-top: 20px; padding: 1rem;">
+    <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [alignTabs]="'end'"></bds-tabs>
+  </div>
+
+</main>
+</div>
+</section>
 
 </main>
 <div class=" layout-wrapper">

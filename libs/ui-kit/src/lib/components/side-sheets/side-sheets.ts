@@ -54,7 +54,7 @@ export class SideSheetsComponent {
 
   activateTrap() {
     this.previouslyFocused = document.activeElement;
-    this.focusTrap = this.focusTrapFactory.create(this.el.nativeElement.querySelector('.side-sheet'));
+    this.focusTrap = this.focusTrapFactory.create(this.el.nativeElement.querySelector('.bds-side-sheet'));
     this.focusTrap.focusInitialElement();
   }
 

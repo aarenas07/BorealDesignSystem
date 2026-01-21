@@ -1,0 +1,34 @@
+<mat-accordion class="bds-accordion" multi>
+   <!-- <mat-expansion-panel [disabled]="false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ 'Este es el titulo' }}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{ 'Esta es la descripción' }}
+              <mat-icon>{{ 'star' }}</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <h2>Datos básicos</h2>
+          <p>Ingresa la información principal del proyecto.</p>
+          <form class="demo-row">
+            <bds-textarea label="Nombre del proyecto" [rows]="1"></bds-textarea>
+            <bds-select [label]="'Categoría'" [options]="optionsSelect()"></bds-select>
+          </form>
+        </mat-expansion-panel>
+        <mat-expansion-panel [disabled]="false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ 'Este es el titulo' }}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{ 'Esta es la descripción' }}
+              <mat-icon>{{ 'star' }}</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-content></ng-content>
+        </mat-expansion-panel> -->
+  <div class="bds-panel-wrapper">
+    <ng-content></ng-content>
+  </div>
+</mat-accordion>

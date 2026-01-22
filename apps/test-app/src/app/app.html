@@ -704,6 +704,12 @@
         [options]="optionsAutocompleteGroup()"></bds-autocomplete>
       <bds-autocomplete [label]="'Autocomplete Img'" [options]="optionsAutocompleteImg()"></bds-autocomplete>
       <bds-autocomplete [label]="'Autocomplete Group Img'" [options]="optionsAutocompleteGroupImg()"></bds-autocomplete>
+      <bds-autocomplete [label]="'prefixIcon'" [options]="optionsAutocomplete()"
+        [prefixIcon]="'home'"></bds-autocomplete>
+      <bds-autocomplete [label]="'suffixIcon'" [options]="optionsAutocomplete()"
+        [suffixIcon]="'home'"></bds-autocomplete>
+      <bds-autocomplete [label]="'prefixIcon - suffixIcon'" [options]="optionsAutocomplete()" [prefixIcon]="'search'"
+        [suffixIcon]="'tune'"></bds-autocomplete>
     </div>
   </section>
 

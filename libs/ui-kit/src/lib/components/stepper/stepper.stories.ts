@@ -11,13 +11,11 @@ export default meta;
 type Story = StoryObj<StepperComponent>;
 
 export const Primary: Story = {
-  args: {
-  },
+  args: {},
 };
 
 export const Heading: Story = {
-  args: {
-  },
+  args: {},
   play: async ({ canvas }) => {
     await expect(canvas.getByText(/stepper/gi)).toBeTruthy();
   },

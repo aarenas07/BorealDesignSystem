@@ -47,7 +47,7 @@ export const Primary: Story = {
       },
       createButton: {
         show: false,
-        icon: 'add'
+        icon: 'add',
       },
       behavior: {
         closeOnClickOutside: true,
@@ -104,7 +104,7 @@ export const Heading: Story = {
       },
       createButton: {
         show: false,
-        icon: 'add'
+        icon: 'add',
       },
       behavior: {
         closeOnClickOutside: true,

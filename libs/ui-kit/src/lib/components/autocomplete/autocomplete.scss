@@ -23,6 +23,10 @@
   mat-form-field {
     // Transiciones suaves
     transition: all 0.2s ease-in-out;
+
+    mat-icon {
+      padding: 0 6px;
+    }
   }
 
   // ============================================

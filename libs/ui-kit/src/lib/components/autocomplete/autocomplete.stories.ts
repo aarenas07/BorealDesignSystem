@@ -17,6 +17,8 @@ const meta: Meta<AutocompleteComponent> = {
   args: {
     label: 'Label',
     placeholder: 'Placeholder',
+    prefixIcon: '',
+    suffixIcon: '',
     options: [
       { label: 'One', value: 'one' },
       { label: 'Two', value: 'two' },
@@ -34,6 +36,8 @@ const meta: Meta<AutocompleteComponent> = {
   argTypes: {
     label: { control: 'text' },
     placeholder: { control: 'text' },
+    prefixIcon: { control: 'text' },
+    suffixIcon: { control: 'text' },
     options: { control: 'object' },
     required: { control: 'boolean' },
     disabled: { control: 'boolean' },

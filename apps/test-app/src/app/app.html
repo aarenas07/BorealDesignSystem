@@ -562,10 +562,28 @@
 
   <!-- Alert Section -->
   <section class="component-section">
-    <bds-alert variant="info" title="info" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="success" title="success" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="warning" title="warning" message="Este es un alerta de información."></bds-alert>
-    <bds-alert variant="error" title="error" message="Este es un alerta de información."></bds-alert>
+    <h2>Alerts</h2>
+    <div style="max-width: 500px; display: flex; flex-direction: column; gap: 16px;">
+      <bds-alert type="info" title="Mantenimiento programado del servidor"
+        message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+        [actions]="alertActionsInfo" (close)="onAlertClose('info')">
+      </bds-alert>
+
+      <bds-alert type="success" title="Mantenimiento programado del servidor"
+        message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+        [actions]="alertActionsSuccess" (close)="onAlertClose('success')">
+      </bds-alert>
+
+      <bds-alert type="warning" title="Mantenimiento programado del servidor"
+        message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+        [actions]="alertActionsWarning" (close)="onAlertClose('warning')">
+      </bds-alert>
+
+      <bds-alert type="error" title="Mantenimiento programado del servidor"
+        message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+        [actions]="alertActionsError" (close)="onAlertClose('error')">
+      </bds-alert>
+    </div>
   </section>
 
   <!-- Textarea Section -->
@@ -961,12 +979,42 @@
     <bds-tabs [optionsNavTabs]="optionsTabsIcons()" [alignTabs]="'end'"></bds-tabs>
   </div>
 
+
+  <section class="component-section">
+    <h2>Checkbox</h2>
+    <div class="demo-row">
+      <bds-checkbox [label]="'Checkbox 1'"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'disabled'" [disabled]="true"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'value'" [value]="true"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'indeterminate'" [indeterminate]="true"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'positionLabel before'" [positionLabel]="'before'"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'Change'" (change)="onCheckboxInput($event)"></bds-checkbox>
+      <p style="margin-left: 10px;">Value checkbox: {{ valueCheckbox() }}</p>
+    </div>
+  </section>
+
+  <h2 class="extended-color">Extended colors: Positive</h2>
+  <bds-button class="button-extended-colors" label="Extended colors" variant="filled" size="lg"></bds-button>
+
+
 </main>
 
-
 <div class=" layout-wrapper">
-  <app-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
-    [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()">
-  </app-collapsible-nav>
+  <div class="layout-content">
+
+    <app-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
+      [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()">
+    </app-collapsible-nav>
+  </div>
 
 </div>

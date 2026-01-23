@@ -52,6 +52,7 @@ import {
   TabsBds,
   BdsSnackbarService,
   AlertAction,
+  AlertComponent,
 } from '@organizacion/ui-kit';
 import { USUARIOS_TEST_ONE } from '../assets/files/data';
 
@@ -142,6 +143,7 @@ export interface NavSectionBds {
     MatExpansionPanelTitle,
     MatExpansionPanelDescription,
     TabsComponent,
+    AlertComponent,
   ],
 
   providers: [provideNativeDateAdapter()],

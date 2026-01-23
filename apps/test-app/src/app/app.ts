@@ -20,7 +20,8 @@ import { ExampleSelect } from './components/example-select/example-select';
 import { ExampleRadioBtn } from './components/example-radio-btn/example-radio-btn';
 import { ExampleCheckbox } from './components/example-checkbox/example-checkbox';
 import { ExampleTabs } from './components/example-tabs/example-tabs';
-import { ExampleSnackbar } from "./components/example-snackbar/example-snackbar";
+import { ExampleSnackbar } from './components/example-snackbar/example-snackbar';
+import { ExampleCollapsibleNav } from './components/example-collapsible-nav/example-collapsible-nav';
 
 @Component({
   selector: 'app-root',
@@ -45,8 +46,9 @@ import { ExampleSnackbar } from "./components/example-snackbar/example-snackbar"
     ExampleRadioBtn,
     ExampleCheckbox,
     ExampleTabs,
-    ExampleSnackbar
-],
+    ExampleSnackbar,
+    ExampleCollapsibleNav,
+  ],
 
   providers: [provideNativeDateAdapter()],
   templateUrl: './app.html',

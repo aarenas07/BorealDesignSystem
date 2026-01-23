@@ -10,7 +10,7 @@ export * from './lib/components/rail/rail.component';
 export * from './lib/components/side-sheets/side-sheets';
 export * from './lib/components/breadcrumb/breadcrumb';
 export * from './lib/components/table/table';
-export * from './lib/components/alert';
+// export * from './lib/components/alert';
 export * from './lib/components/textarea/textarea';
 export * from './lib/components/datepicker/datepicker';
 export * from './lib/components/autocomplete/autocomplete';

@@ -1,52 +1,60 @@
 <mat-form-field [appearance]="appearance()" [class.full-width]="fullWidth()">
-    @if (label()) {
-    <mat-label>{{ label() }}</mat-label>
-    }
+  @if (label()) {
+  <mat-label>{{ label() }}</mat-label>
+  }
 
-    <!-- prefixIcon -->
-    @if (prefixIcon()) {
-    <mat-icon class="material-symbols-rounded" matPrefix>{{ prefixIcon() }}</mat-icon>
-    }
+  <!-- prefixIcon -->
+  @if (prefixIcon()) {
+  <mat-icon class="material-symbols-rounded" matPrefix>{{ prefixIcon() }}</mat-icon>
+  }
 
-    <input #input type="text" matInput aria-label="{{label()}}" [placeholder]="placeholder()" [required]="required()"
-        [formControl]="formControl" [matAutocomplete]="auto" (input)="filter()" (focus)="filter()"
-        [matAutocompleteDisabled]="autocompleteDisabled()" (blur)="handleBlur()">
+  <input
+    #input
+    type="text"
+    matInput
+    aria-label="{{label()}}"
+    [placeholder]="placeholder()"
+    [required]="required()"
+    [formControl]="formControl"
+    [matAutocomplete]="auto"
+    (input)="filter()"
+    (focus)="filter()"
+    [matAutocompleteDisabled]="autocompleteDisabled()"
+    (blur)="handleBlur()"
+  />
 
-    <!-- suffixIcon -->
-    @if (suffixIcon()) {
-    <mat-icon class="material-symbols-rounded" matSuffix>{{ suffixIcon() }}</mat-icon>
-    }
+  <!-- suffixIcon -->
+  @if (suffixIcon()) {
+  <mat-icon class="material-symbols-rounded" matSuffix>{{ suffixIcon() }}</mat-icon>
+  }
 
-    <mat-autocomplete [autoActiveFirstOption]="autoActiveFirstOption()" #auto="matAutocomplete"
-        [displayWith]="displayFn">
-        @for (item of filteredOptions(); track item) {
-        @if (item.group) {
-        <mat-optgroup [label]="item.label + ''">
-            @for (itemGroup of item.group; track itemGroup) {
-            <mat-option [value]="itemGroup">
-                @if (itemGroup.img) {
-                <img [alt]="itemGroup.label" class="autocomplete-option-img" [src]="itemGroup.img" height="20">
-                }
-                <span>{{itemGroup.label}}</span>
-            </mat-option>
-            }
-        </mat-optgroup>
-        } @else {
-        <mat-option [value]="item">
-            @if (item.img) {
-            <img [alt]="item.label" class="autocomplete-option-img" [src]="item.img" height="20">
-            }
-            <span>{{item.label}}</span>
-        </mat-option>
+  <mat-autocomplete [autoActiveFirstOption]="autoActiveFirstOption()" #auto="matAutocomplete" [displayWith]="displayFn">
+    @for (item of filteredOptions(); track item) { @if (item.group) {
+    <mat-optgroup [label]="item.label + ''">
+      @for (itemGroup of item.group; track itemGroup) {
+      <mat-option [value]="itemGroup">
+        @if (itemGroup.img) {
+        <img [alt]="itemGroup.label" class="autocomplete-option-img" [src]="itemGroup.img" height="20" />
         }
-        }
-    </mat-autocomplete>
-    <!-- hint -->
-    @if (hint() ) {
-    <mat-hint>{{ hint() }}</mat-hint>
-    }
-    <!-- error -->
-    @if (errorMessage()) {
-    <mat-error>{{ errorMessage() }}</mat-error>
-    }
+        <span>{{itemGroup.label}}</span>
+      </mat-option>
+      }
+    </mat-optgroup>
+    } @else {
+    <mat-option [value]="item">
+      @if (item.img) {
+      <img [alt]="item.label" class="autocomplete-option-img" [src]="item.img" height="20" />
+      }
+      <span>{{item.label}}</span>
+    </mat-option>
+    } }
+  </mat-autocomplete>
+  <!-- hint -->
+  @if (hint() ) {
+  <mat-hint>{{ hint() }}</mat-hint>
+  }
+  <!-- error -->
+  @if (errorMessage()) {
+  <mat-error>{{ errorMessage() }}</mat-error>
+  }
 </mat-form-field>

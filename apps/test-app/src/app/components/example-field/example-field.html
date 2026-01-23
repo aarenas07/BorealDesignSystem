@@ -1,0 +1,21 @@
+<!-- Form field Section -->
+<section class="component-section">
+  <h2>Form field</h2>
+  <div class="demo-row">
+    <bds-form-field [label]="'standar'" [placeholder]="'Placeholder'"></bds-form-field>
+    <bds-form-field [label]="'email'" [placeholder]="'example@example.com'" [type]="'email'" prefixIcon="email"></bds-form-field>
+    <bds-form-field [label]="'password'" [type]="'password'" suffixIcon="visibility"></bds-form-field>
+    <bds-form-field [label]="'number'" [type]="'number'" min="0" max="120" prefixIcon="cake"></bds-form-field>
+    <bds-form-field [label]="'Variante Rellena'" appearance="fill"></bds-form-field>
+    <bds-form-field [label]="'Hint'" [hint]="'Texto de ayuda'"></bds-form-field>
+    <bds-form-field [label]="'readonly'" [readonly]="true" [value]="'test'"></bds-form-field>
+    <bds-form-field [label]="'disabled'" [disabled]="true" [value]="'test'"></bds-form-field>
+    <bds-form-field [label]="'required'" [required]="true"></bds-form-field>
+    <bds-form-field [label]="'fullWidth'" [fullWidth]="true"></bds-form-field>
+    <bds-form-field [label]="'clearable'" [clearable]="true" [value]="'test'"></bds-form-field>
+    <bds-form-field [label]="'value'" [value]="'test'"></bds-form-field>
+    <bds-form-field [label]="'prefixIcon'" prefixIcon="home"></bds-form-field>
+    <bds-form-field [label]="'suffixIcon'" suffixIcon="home"></bds-form-field>
+    <bds-form-field label="customError" [customError]="errorCustomFormField()" (valueChange)="onFormFieldInput($event)"></bds-form-field>
+  </div>
+</section>

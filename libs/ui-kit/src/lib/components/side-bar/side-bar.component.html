@@ -1,21 +1,32 @@
-<div class="sidebar-wrapper" style="position: relative;">
+<div class="sidebar-wrapper" style="position: relative">
   <!-- Botón SIEMPRE visible, alineado al contenedor del sidebar -->
-  <button class="sidebar-expand-toggle" (mouseenter)="onExpandButtonHover()" (mouseleave)="onExpandButtonLeave()"
-    (click)="toggleExpand()" [attr.aria-label]="isExpanded ? 'Encoger sidebar' : 'Expandir sidebar'"
-    style="position: absolute; top: 12px; right: 12px; z-index: 2;">
+  <button
+    class="sidebar-expand-toggle"
+    (mouseenter)="onExpandButtonHover()"
+    (mouseleave)="onExpandButtonLeave()"
+    (click)="toggleExpand()"
+    [attr.aria-label]="isExpanded ? 'Encoger sidebar' : 'Expandir sidebar'"
+    style="position: absolute; top: 12px; right: 12px; z-index: 2"
+  >
     <span class="material-symbols-rounded">
       {{ isExpanded ? 'left_panel_open' : 'left_panel_close' }}
     </span>
   </button>
 
-  <div class="sidebar-container" [class.expanded]="isExpanded" [class.pinned]="isPinned"
-    [class.closed]="!isExpanded && !isPinned" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+  <div
+    class="sidebar-container"
+    [class.expanded]="isExpanded"
+    [class.pinned]="isPinned"
+    [class.closed]="!isExpanded && !isPinned"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLeave()"
+  >
     <!-- Header -->
     <div class="sidebar-header">
       <div class="user-section">
         @if (isExpanded || isPinned) {
-        <div class="user-avatar">{{ userAvatar }}</div>
-        <span class="user-name">{{ userName }}</span>
+          <div class="user-avatar">{{ userAvatar }}</div>
+          <span class="user-name">{{ userName }}</span>
         }
 
         <!-- Elimina el botón expand/collapse de aquí -->
@@ -36,86 +47,81 @@
 
       <!-- Search Bar -->
       @if (isExpanded || isPinned) {
-      <div class="search-section">
-        <!-- TODO: COMMAND COMPONENT -->
-      </div>
+        <div class="search-section">
+          <!-- TODO: COMMAND COMPONENT -->
+        </div>
       }
     </div>
 
     @if (isExpanded || isPinned) {
-    <div class="command-menu-container">
-      <!-- <bds-ada-command-menu
+      <div class="command-menu-container">
+        <!-- <bds-ada-command-menu
           [commandItems]="adminCommandItems"
           [config]="adminMenuConfig"
           [showSearchIcon]="true"
           (commandAction)="handleAdminAction($event)"
         >
         </bds-ada-command-menu> -->
-    </div>
-    <div class="quick-actions">
-      @for (action of quickActions; track action.label) {
-      <div class="action-item" (click)="onQuickActionClick(action.action)">
-        {{ action.label }}
       </div>
-      }
-    </div>
-    <div>
-      <div class="section-title">
-        <span class="material-symbols-rounded">keyboard_arrow_down</span>
-        Favoritos
+      <div class="quick-actions">
+        @for (action of quickActions; track action.label) {
+          <div class="action-item" (click)="onQuickActionClick(action.action)">
+            {{ action.label }}
+          </div>
+        }
       </div>
-    </div>
+      <div>
+        <div class="section-title">
+          <span class="material-symbols-rounded">keyboard_arrow_down</span>
+          Favoritos
+        </div>
+      </div>
     }
 
     <div class="sidebar-content">
       @for (section of sidebarData; track $index) {
-      @if (section.title && (isExpanded || isPinned)) {
-      <div class="section-title" (click)="toggleSection(section)">
-        <span [class.collapsed]="section.isCollapsed" class="material-symbols-rounded">
-          keyboard_arrow_down
-        </span>
-        {{ section.title }}
-      </div>
-      }
-
-      <!-- Section Items -->
-      <div class="section-items" [class.collapsed]="section.isCollapsed">
-        @for (item of section.items; track item.id) {
-        <div class="sidebar-item" [class.has-children]="item.children?.length">
-          <!-- Main Item -->
-          <div class="item-content" [class.expanded]="item.isExpanded"
-            (click)="item.url ? onItemClick(item) : toggleItem(item)">
-            @if (item.icon) {
-            <span class="item-icon material-symbols-rounded">{{ item.icon }}</span>
-            }
-            @if (isExpanded || isPinned) {
-            <span class="item-label">{{ item.label }}</span>
-            }
-            @if (item.children?.length && (isExpanded || isPinned)) {
-            <span class="material-symbols-rounded expand-arrow" [class.rotated]="item.isExpanded">
-              keyboard_arrow_right
-            </span>
-            }
+        @if (section.title && (isExpanded || isPinned)) {
+          <div class="section-title" (click)="toggleSection(section)">
+            <span [class.collapsed]="section.isCollapsed" class="material-symbols-rounded"> keyboard_arrow_down </span>
+            {{ section.title }}
           </div>
+        }
 
-          <!-- Children Items -->
-          @if (item.children?.length && item.isExpanded && (isExpanded || isPinned)) {
-          <div class="children-items">
-            @for (child of item.children; track $index) {
-            <div class="childs-container">
-              <div class="child-item" (click)="onItemClick(child)">
-                @if (child.icon) {
-                <span class="child-icon material-symbols-rounded">{{ child.icon }}</span>
+        <!-- Section Items -->
+        <div class="section-items" [class.collapsed]="section.isCollapsed">
+          @for (item of section.items; track item.id) {
+            <div class="sidebar-item" [class.has-children]="item.children?.length">
+              <!-- Main Item -->
+              <div class="item-content" [class.expanded]="item.isExpanded" (click)="item.url ? onItemClick(item) : toggleItem(item)">
+                @if (item.icon) {
+                  <span class="item-icon material-symbols-rounded">{{ item.icon }}</span>
                 }
-                {{ child.label }}
+                @if (isExpanded || isPinned) {
+                  <span class="item-label">{{ item.label }}</span>
+                }
+                @if (item.children?.length && (isExpanded || isPinned)) {
+                  <span class="material-symbols-rounded expand-arrow" [class.rotated]="item.isExpanded"> keyboard_arrow_right </span>
+                }
               </div>
+
+              <!-- Children Items -->
+              @if (item.children?.length && item.isExpanded && (isExpanded || isPinned)) {
+                <div class="children-items">
+                  @for (child of item.children; track $index) {
+                    <div class="childs-container">
+                      <div class="child-item" (click)="onItemClick(child)">
+                        @if (child.icon) {
+                          <span class="child-icon material-symbols-rounded">{{ child.icon }}</span>
+                        }
+                        {{ child.label }}
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
             </div>
-            }
-          </div>
           }
         </div>
-        }
-      </div>
       }
     </div>
   </div>

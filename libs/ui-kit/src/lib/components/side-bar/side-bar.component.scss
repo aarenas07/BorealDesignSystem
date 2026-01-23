@@ -3,8 +3,8 @@
   top: 0;
   height: 100vh;
   width: 60px;
-  background: var(--mat-sys-surface-container-highest); 
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+  background: var(--mat-sys-surface-container-highest);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   z-index: 1000;
 }
@@ -15,9 +15,9 @@
   display: flex;
   padding-top: 5px;
   left: 4rem;
-  background: var(--mat-sys-surface-container-highest); 
-  border: 1px solid var(--mat-sys-outline-variant); 
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+  background: var(--mat-sys-surface-container-highest);
+  border: 1px solid var(--mat-sys-outline-variant);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   .sidebar-header {
     padding: 8px;
@@ -41,8 +41,8 @@
 .sidebar-container.expanded,
 .sidebar-container.pinned {
   width: 280px;
-  background: var(--mat-sys-surface-container); 
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+  background: var(--mat-sys-surface-container);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar-container.expanded.closed,
@@ -52,12 +52,12 @@
 }
 
 .sidebar-header {
-  padding: 16px 12px var(--sds-size-space-600); ;
-  background: var(--mat-sys-surface-container-highest); 
+  padding: 16px 12px var(--sds-size-space-600);
+  background: var(--mat-sys-surface-container-highest);
 }
 
 .left-panel {
-  color: var(--mat-sys-secondary); 
+  color: var(--mat-sys-secondary);
 }
 
 .user-section {
@@ -76,7 +76,7 @@
   align-items: center;
   gap: 8px;
   color: var(--mat-button-filled-label-text-color, var(--mat-sys-on-primary));
-  background: var(--mat-button-filled-container-color, var(--mat-sys-primary)); 
+  background: var(--mat-button-filled-container-color, var(--mat-sys-primary));
   font-family: var(--sds-typography-subheading-font-family);
   font-size: var(--sds-typography-subheading-size-medium);
   font-style: normal;
@@ -85,7 +85,7 @@
 }
 
 .user-name {
-  color: var(--mat-sys-on-surface); 
+  color: var(--mat-sys-on-surface);
   font-family: var(--sds-typography-subheading-font-family);
   font-size: var(--sds-typography-subheading-size-medium);
   font-style: normal;
@@ -202,9 +202,7 @@
   transition: background 0.2s;
   color: var(--mat-sys-on-surface);
   font-family: var(--sds-typography-body-font-family);
-  font-size: var(
-    --sds-typography-body-size-medium
-  ); 
+  font-size: var(--sds-typography-body-size-medium);
   font-weight: var(--sds-typography-body-font-weight-regular);
   cursor: pointer;
 }
@@ -314,9 +312,9 @@
 }
 
 .sidebar-expand-toggle {
-    background: transparent;
-    border: none;
-  }
+  background: transparent;
+  border: none;
+}
 
 // Asegúrate de importar la fuente en tu global styles (ejemplo en styles.scss):
 // @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded');

@@ -3,35 +3,35 @@
 
 :root {
   // --- CORE COLORS (Desde el nuevo JSON) ---
-  
+
   // ERROR 1 CORREGIDO:
   // Antes: map.get(p.$brand-blue-palette, 500)
   // Ahora: map.get(p.$primary-palette, 40)  <-- 40 es el nuevo estandar
   --sys-color-primary: #{map.get(p.$primary-palette, 40)};
-  
+
   // Opcional: Si quieres exponer más variables del sistema base
   --sys-color-secondary: #{map.get(p.$secondary-palette, 40)};
   --sys-color-tertiary: #{map.get(p.$tertiary-palette, 40)};
   --sys-color-error: #{map.get(p.$error-palette, 40)};
 
   // --- EXTENDED COLORS (Tus colores personalizados) ---
-  
+
   // 1. Warning
-  --sicof-color-warning: #E5A000;
+  --sicof-color-warning: #e5a000;
   --sicof-color-on-warning: #ffffff;
-  --sicof-color-warning-container: #FFDCC2;
-  
+  --sicof-color-warning-container: #ffdcc2;
+
   // 2. Positive
-  --sicof-color-positive: #14AE5C;
+  --sicof-color-positive: #14ae5c;
   --sicof-color-on-positive: #ffffff;
-  --sicof-color-positive-container: #D1F8E3;
-  
+  --sicof-color-positive-container: #d1f8e3;
+
   // 3. Measurement
-  --sicof-color-measurement: #EA3FB8;
+  --sicof-color-measurement: #ea3fb8;
   --sicof-color-on-measurement: #ffffff;
-  
+
   // 4. Accent
-  --sicof-color-accent: #5CBEB5;
+  --sicof-color-accent: #5cbeb5;
   --sicof-color-on-accent: #000000;
 
   // Sistema

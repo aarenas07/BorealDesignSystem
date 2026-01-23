@@ -1,0 +1,23 @@
+<!-- Checkbox -->
+<section class="component-section">
+  <h2>Checkbox</h2>
+  <div class="demo-row">
+    <bds-checkbox [label]="'Checkbox 1'"></bds-checkbox>
+  </div>
+  <div class="demo-row">
+    <bds-checkbox [label]="'disabled'" [disabled]="true"></bds-checkbox>
+  </div>
+  <div class="demo-row">
+    <bds-checkbox [label]="'value'" [value]="true"></bds-checkbox>
+  </div>
+  <div class="demo-row">
+    <bds-checkbox [label]="'indeterminate'" [indeterminate]="true"></bds-checkbox>
+  </div>
+  <div class="demo-row">
+    <bds-checkbox [label]="'positionLabel before'" [positionLabel]="'before'"></bds-checkbox>
+  </div>
+  <div class="demo-row">
+    <bds-checkbox [label]="'Change'" (change)="onCheckboxInput($event)"></bds-checkbox>
+    <p style="margin-left: 10px">Value checkbox: {{ valueCheckbox() }}</p>
+  </div>
+</section>

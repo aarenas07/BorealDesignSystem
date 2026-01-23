@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button';
 
@@ -16,22 +16,22 @@ export interface AlertAction {
   templateUrl: './alert.html',
   styleUrl: './alert.scss',
   host: {
-    '[class.alert-info]': 'type === "info"',
-    '[class.alert-success]': 'type === "success"',
-    '[class.alert-warning]': 'type === "warning"',
-    '[class.alert-error]': 'type === "error"',
+    '[class.alert-info]': 'type() === "info"',
+    '[class.alert-success]': 'type() === "success"',
+    '[class.alert-warning]': 'type() === "warning"',
+    '[class.alert-error]': 'type() === "error"',
   },
 })
 export class AlertComponent {
-  @Input() type: AlertType = 'info';
-  @Input() title: string = '';
-  @Input() message: string = '';
-  @Input() showClose: boolean = true;
-  @Input() actions: AlertAction[] = [];
-  @Output() close = new EventEmitter<void>();
+  type = input<AlertType>('info');
+  title = input<string>('');
+  message = input<string>('');
+  showClose = input<boolean>(true);
+  actions = input<AlertAction[]>([]);
+  close = output<void>();
 
   getIcon(): string {
-    switch (this.type) {
+    switch (this.type()) {
       case 'info':
         return 'info';
       case 'success':

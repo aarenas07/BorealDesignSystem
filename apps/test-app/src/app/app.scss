@@ -255,6 +255,27 @@ mat-form-field {
   margin: 0;
   padding: 0;
   display: flex;
-  min-height: 100%;
-  background: var(--mat-sys-surface);
+  height: 100vh;
+  background: var(--sds-color-background-default-default);
+}
+
+
+.layout-content {
+  flex: 1;
+  height: 100%;
+}
+
+
+/* Color palette */
+.extended-color {
+  color: var(--mat-sys-on-positive-container);
+}
+
+
+.button-extended-colors {
+  ::ng-deep {
+    .mat-mdc-unelevated-button:not(:disabled) {
+      background-color: var(--mat-sys-error);
+    }
+  }
 }

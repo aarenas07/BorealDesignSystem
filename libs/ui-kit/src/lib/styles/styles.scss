@@ -52,7 +52,25 @@ $light-scheme: (
     surface-container-low: #EFF5F3,
     surface-container: #E9EFED,
     surface-container-high: #E3EAE7,
-    surface-container-highest: #DDE4E2
+    surface-container-highest: #DDE4E2,
+
+    /* TODO: Validar fucionalidad de los extended colors */
+    warning: #715C0C,
+    on-warning: #FFFFFF,
+    warning-container: #FEE086,
+    on-warning-container: #564500,
+    positive: #1C6B51,
+    on-positive: #FFFFFF,
+    positive-container: #A6F2D1,
+    on-positive-container: #00513B,
+    measurement: #864B6F,
+    on-measurement: #FFFFFF,
+    measurement-container: #FFD8EB,
+    on-measurement-container: #6B3456,
+    accent: #006A63,
+    on-accent: #FFFFFF,
+    accent-container: #9DF2E8,
+    on-accent-container: #00504A
 );
 
 $light-medium-contrast-scheme: (

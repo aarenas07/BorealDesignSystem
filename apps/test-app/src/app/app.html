@@ -14,8 +14,7 @@
       <bds-button label="Outlined" variant="outlined" size="md" (action)="handleAction($event)"></bds-button>
       <bds-button label="Icon" variant="icon" icon="favorite" size="md" (action)="handleAction($event)"></bds-button>
       <bds-button label="Disabled" variant="filled" size="md" [disabled]="true"></bds-button>
-      <bds-button label="Icon" variant="elevated" icon="favorite" size="md"
-        (action)="handleAction($event)"></bds-button>
+      <bds-button label="Icon" variant="elevated" icon="favorite" size="md" (action)="handleAction($event)"></bds-button>
     </div>
   </section>
 
@@ -24,8 +23,7 @@
     <h2>Cards - Componente Personalizado</h2>
 
     <h3>Variantes de Elevación</h3>
-    <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
       <bds-card elevation="flat" size="md">
         <mat-card-title card-title>Card Flat</mat-card-title>
         <mat-card-subtitle card-subtitle>Sin sombra, con borde sutil</mat-card-subtitle>
@@ -61,8 +59,7 @@
     </div>
 
     <h3>Variantes de Tamaño</h3>
-    <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px">
       <bds-card elevation="raised" size="sm">
         <mat-card-title card-title>Card Pequeña</mat-card-title>
         <div card-content>
@@ -95,8 +92,7 @@
     </div>
 
     <h3>Card Clickeable</h3>
-    <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px">
       <bds-card elevation="raised" size="md" [clickable]="true">
         <mat-card-title card-title>Card Interactiva</mat-card-title>
         <mat-card-subtitle card-subtitle>Pasa el mouse para ver el efecto</mat-card-subtitle>
@@ -120,10 +116,19 @@
     <h2>Table</h2>
     <div class="demo-row">
       <div class="user-management">
-        <bds-table [columns]="tableColumns" [actions]="tableActions" [headerActions]="headerActions"
-          [selectionActions]="selectionActions" [config]="tableConfig" [data]="users"
-          [expandedRowTemplate]="expandedRowTemplate" (sortChange)="onSort($event)" (pageChange)="onPageChange($event)"
-          (selectionChange)="onSelectionChange($event)" (actionClick)="onActionClick($event)">
+        <bds-table
+          [columns]="tableColumns"
+          [actions]="tableActions"
+          [headerActions]="headerActions"
+          [selectionActions]="selectionActions"
+          [config]="tableConfig"
+          [data]="users"
+          [expandedRowTemplate]="expandedRowTemplate"
+          (sortChange)="onSort($event)"
+          (pageChange)="onPageChange($event)"
+          (selectionChange)="onSelectionChange($event)"
+          (actionClick)="onActionClick($event)"
+        >
         </bds-table>
 
         <!-- Custom Templates -->
@@ -293,8 +298,13 @@
   <section class="component-section">
     <h2>Stepper</h2>
     <div class="demo-row">
-      <bds-stepper [steps]="steps" [(activeIndex)]="activeIndex" [linear]="false" orientation="vertical"
-        (stepChange)="onStepChange($event)">
+      <bds-stepper
+        [steps]="steps"
+        [(activeIndex)]="activeIndex"
+        [linear]="false"
+        orientation="vertical"
+        (stepChange)="onStepChange($event)"
+      >
         <!-- PASO 0 -->
         <ng-template bdsStepContent="0">
           <section class="step-content">
@@ -349,20 +359,16 @@
     <h2>Side Sheets</h2>
     <div class="demo-row">
       <!-- Side Sheets Multi-level -->
-      <bds-button label="Side Sheet Modal Multi-level" variant="filled" size="md"
-        (action)="openSideSheetLevel()"></bds-button>
+      <bds-button label="Side Sheet Modal Multi-level" variant="filled" size="md" (action)="openSideSheetLevel()"></bds-button>
 
       <!-- Side Sheets One -->
-      <bds-button label="Side Sheet Modal (start)" variant="filled" size="md"
-        (action)="openSideSheetOne()"></bds-button>
+      <bds-button label="Side Sheet Modal (start)" variant="filled" size="md" (action)="openSideSheetOne()"></bds-button>
 
       <!-- Side Sheets Two-->
-      <bds-button label="Side Sheet Modal (end)" variant="filled" size="md"
-        (action)="openSideSheetThree()"></bds-button>
+      <bds-button label="Side Sheet Modal (end)" variant="filled" size="md" (action)="openSideSheetThree()"></bds-button>
 
       <!-- Side Sheets Four-->
-      <bds-button label="Side Sheet standard (start)" variant="filled" size="md"
-        (action)="openSideSheetFour()"></bds-button>
+      <bds-button label="Side Sheet standard (start)" variant="filled" size="md" (action)="openSideSheetFour()"></bds-button>
     </div>
   </section>
 
@@ -370,20 +376,16 @@
   <bds-side-sheets position="start" [(open)]="isSideSheetOpenLevel" [modal]="true" [header]="'Multi-level'" size="lg">
     <div>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
-        consectetur adipisicing
-        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
-        quis dignissimos!
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
         Similique aut ratione facilis voluptas nostrum?
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
     </div>
@@ -405,20 +407,16 @@
   <bds-side-sheets position="start" [(open)]="isSideSheetOpenOne" [modal]="true" [header]="'Title 1'">
     <div>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
-        consectetur adipisicing
-        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
-        quis dignissimos!
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
         Similique aut ratione facilis voluptas nostrum?
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
     </div>
@@ -432,15 +430,12 @@
   <bds-side-sheets position="start" [(open)]="isSideSheetOpenTwo" [modal]="true" [header]="'Title 2'">
     <div>
       <p>
-        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
-        consectetur adipisicing
-        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
-        quis dignissimos!
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
         Similique aut ratione facilis voluptas nostrum?
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
     </div>
@@ -450,45 +445,36 @@
   <bds-side-sheets position="end" [(open)]="isSideSheetOpenThree" [modal]="true" [header]="'Title 3'">
     <div>
       <p>
-        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet
-        consectetur adipisicing
-        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas
-        quis dignissimos!
+        Este es el contenido del side sheet. Puedes agregar cualquier contenido aquí. Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Obcaecati tenetur a eos atque ea earum quod maiores, exercitationem repudiandae at! Quibusdam voluptas quis dignissimos!
         Similique aut ratione facilis voluptas nostrum?
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
     </div>
@@ -503,13 +489,11 @@
   <bds-side-sheets position="start" [(open)]="isSideSheetOpenFour" [modal]="false" [header]="'Title 4'">
     <div>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci
-        debitis quas ut
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil doloribus quos cumque placeat fugit ea adipisci debitis quas ut
         perferendis iure totam, ipsa, atque quod voluptate natus quisquam, alias repudiandae.
       </p>
     </div>
@@ -555,6 +539,47 @@
   </section>
 
   <!-- Alert Section -->
+  <section class="component-section">
+    <h2>Alerts</h2>
+    <div style="max-width: 500px; display: flex; flex-direction: column; gap: 16px">
+      <bds-alert
+        type="info"
+        title="Mantenimiento programado del servidor"
+        message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+        [actions]="alertActionsInfo"
+        (close)="onAlertClose('info')"
+      >
+      </bds-alert>
+
+      <bds-alert
+        type="success"
+        title="Mantenimiento programado del servidor"
+        message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+        [actions]="alertActionsSuccess"
+        (close)="onAlertClose('success')"
+      >
+      </bds-alert>
+
+      <bds-alert
+        type="warning"
+        title="Mantenimiento programado del servidor"
+        message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+        [actions]="alertActionsWarning"
+        (close)="onAlertClose('warning')"
+      >
+      </bds-alert>
+
+      <bds-alert
+        type="error"
+        title="Mantenimiento programado del servidor"
+        message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+        [actions]="alertActionsError"
+        (close)="onAlertClose('error')"
+      >
+      </bds-alert>
+    </div>
+  </section>
+
   <!-- Textarea Section -->
   <section class="component-section">
     <h2>Textarea</h2>
@@ -563,8 +588,7 @@
       <bds-textarea label="standard"></bds-textarea>
       <bds-textarea label="required" [required]="true"></bds-textarea>
       <bds-textarea label="hint" [hint]="'Texto de ayuda'"></bds-textarea>
-      <bds-textarea label="customError" [customError]="errorCustomTextarea()"
-        (valueChange)="onTextareaInput($event)"></bds-textarea>
+      <bds-textarea label="customError" [customError]="errorCustomTextarea()" (valueChange)="onTextareaInput($event)"></bds-textarea>
       <bds-textarea label="clearable" [clearable]="true" [value]="'clearable'"></bds-textarea>
       <bds-textarea label="fullWidth" [fullWidth]="true"></bds-textarea>
       <bds-textarea label="disabled" [disabled]="true"></bds-textarea>
@@ -586,8 +610,7 @@
     <h2>Form field</h2>
     <div class="demo-row">
       <bds-form-field [label]="'standar'" [placeholder]="'Placeholder'"></bds-form-field>
-      <bds-form-field [label]="'email'" [placeholder]="'example@example.com'" [type]="'email'"
-        prefixIcon="email"></bds-form-field>
+      <bds-form-field [label]="'email'" [placeholder]="'example@example.com'" [type]="'email'" prefixIcon="email"></bds-form-field>
       <bds-form-field [label]="'password'" [type]="'password'" suffixIcon="visibility"></bds-form-field>
       <bds-form-field [label]="'number'" [type]="'number'" min="0" max="120" prefixIcon="cake"></bds-form-field>
       <bds-form-field [label]="'Variante Rellena'" appearance="fill"></bds-form-field>
@@ -600,8 +623,7 @@
       <bds-form-field [label]="'value'" [value]="'test'"></bds-form-field>
       <bds-form-field [label]="'prefixIcon'" prefixIcon="home"></bds-form-field>
       <bds-form-field [label]="'suffixIcon'" suffixIcon="home"></bds-form-field>
-      <bds-form-field label="customError" [customError]="errorCustomFormField()"
-        (valueChange)="onFormFieldInput($event)"></bds-form-field>
+      <bds-form-field label="customError" [customError]="errorCustomFormField()" (valueChange)="onFormFieldInput($event)"></bds-form-field>
     </div>
   </section>
 
@@ -613,19 +635,31 @@
       <bds-datepicker [appearance]="'fill'" [placeholder]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [hint]="'MM/DD/YYYY'" [placeholder]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'standard'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'standard with placeholder'" [hint]="'MM/DD/YYYY'"
-        [placeholder]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'standard with placeholder'" [hint]="'MM/DD/YYYY'" [placeholder]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'touchUi'" [touchUi]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'fullWidth'" [fullWidth]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'readonlyInput'" [readonlyInput]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'disabledPicker'" [disabledPicker]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'disabled[Input-Picker]'" [disabledInput]="true" [disabledPicker]="true"
-        [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker
+        [label]="'disabled[Input-Picker]'"
+        [disabledInput]="true"
+        [disabledPicker]="true"
+        [hint]="'MM/DD/YYYY'"
+      ></bds-datepicker>
       <bds-datepicker [label]="'required'" [required]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'actions'" [actionButtons]="true" [nameButtonsCancel]="'Cancel'"
-        [nameButtonsApply]="'OK'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'errorCustom'" [customError]="errorCustomDatepicker()"
-        (dateChange)="onDatepickerInput($event)" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker
+        [label]="'actions'"
+        [actionButtons]="true"
+        [nameButtonsCancel]="'Cancel'"
+        [nameButtonsApply]="'OK'"
+        [hint]="'MM/DD/YYYY'"
+      ></bds-datepicker>
+      <bds-datepicker
+        [label]="'errorCustom'"
+        [customError]="errorCustomDatepicker()"
+        (dateChange)="onDatepickerInput($event)"
+        [hint]="'MM/DD/YYYY'"
+      ></bds-datepicker>
       <bds-datepicker [label]="'minDate'" [minDate]="minDate()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'maxDate'" [maxDate]="maxDate()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
       <bds-datepicker [label]="'startDate'" [startDate]="startDate()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
@@ -637,8 +671,7 @@
       </div>
       <bds-datepicker [label]="'filter'" [hint]="'MM/DD/YYYY'" [filter]="myFilter"></bds-datepicker>
       <div style="display: flex; align-items: center; gap: 8px">
-        <bds-datepicker #pickerRef [label]="'Programmatic Open'" [hiddenPicker]="true"
-          [hint]="'MM/DD/YYYY'"></bds-datepicker>
+        <bds-datepicker #pickerRef [label]="'Programmatic Open'" [hiddenPicker]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
         <bds-button label="Open Picker" (action)="pickerRef.open()"></bds-button>
       </div>
     </div>
@@ -646,33 +679,61 @@
     <h2>Datepicker range</h2>
     <div class="demo-row">
       <bds-datepicker [label]="'standard range'" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'standard range'" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"
-        [appearance]="'fill'"></bds-datepicker>
-      <bds-datepicker [label]="'touchUi range'" [rangeInputs]="true" [touchUi]="true"
-        [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'fullWidth range'" [fullWidth]="true" [rangeInputs]="true"
-        [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'readonlyInput range'" [readonlyInput]="true" [rangeInputs]="true"
-        [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'disabledPicker range'" [disabledPicker]="true" [rangeInputs]="true"
-        [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'disabled[Input-Picker] range'" [disabledInput]="true" [disabledPicker]="true"
-        [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'required range'" [required]="true" [rangeInputs]="true"
-        [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'actions range'" [actionButtons]="true" [rangeInputs]="true"
-        [nameButtonsCancel]="'Cancel'" [nameButtonsApply]="'OK'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'minDate & maxDate range'" [minDate]="minDate()" [maxDate]="maxDate()"
-        [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'valueRange'" [valueRange]="valueDatepickerRange()" [rangeInputs]="true"
-        [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'valueRangeChange'" (valueRangeChange)="receiveDateRange($event)" [rangeInputs]="true"
-        [hint]="'MM/DD/YYYY'"></bds-datepicker>
-      <bds-datepicker [label]="'placeholder range'" [placeholderStartDate]="'Inicio'" [placeholderEndDate]="'Fin'"
-        [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'standard range'" [rangeInputs]="true" [hint]="'MM/DD/YYYY'" [appearance]="'fill'"></bds-datepicker>
+      <bds-datepicker [label]="'touchUi range'" [rangeInputs]="true" [touchUi]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'fullWidth range'" [fullWidth]="true" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'readonlyInput range'" [readonlyInput]="true" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker [label]="'disabledPicker range'" [disabledPicker]="true" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker
+        [label]="'disabled[Input-Picker] range'"
+        [disabledInput]="true"
+        [disabledPicker]="true"
+        [rangeInputs]="true"
+        [hint]="'MM/DD/YYYY'"
+      ></bds-datepicker>
+      <bds-datepicker [label]="'required range'" [required]="true" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-datepicker
+        [label]="'actions range'"
+        [actionButtons]="true"
+        [rangeInputs]="true"
+        [nameButtonsCancel]="'Cancel'"
+        [nameButtonsApply]="'OK'"
+        [hint]="'MM/DD/YYYY'"
+      ></bds-datepicker>
+      <bds-datepicker
+        [label]="'minDate & maxDate range'"
+        [minDate]="minDate()"
+        [maxDate]="maxDate()"
+        [rangeInputs]="true"
+        [hint]="'MM/DD/YYYY'"
+      ></bds-datepicker>
+      <bds-datepicker
+        [label]="'valueRange'"
+        [valueRange]="valueDatepickerRange()"
+        [rangeInputs]="true"
+        [hint]="'MM/DD/YYYY'"
+      ></bds-datepicker>
+      <bds-datepicker
+        [label]="'valueRangeChange'"
+        (valueRangeChange)="receiveDateRange($event)"
+        [rangeInputs]="true"
+        [hint]="'MM/DD/YYYY'"
+      ></bds-datepicker>
+      <bds-datepicker
+        [label]="'placeholder range'"
+        [placeholderStartDate]="'Inicio'"
+        [placeholderEndDate]="'Fin'"
+        [rangeInputs]="true"
+        [hint]="'MM/DD/YYYY'"
+      ></bds-datepicker>
       <div style="display: flex; align-items: center; gap: 8px">
-        <bds-datepicker #pickerRefRange [label]="'Programmatic Open'" [hiddenPicker]="true" [rangeInputs]="true"
-          [hint]="'MM/DD/YYYY'"></bds-datepicker>
+        <bds-datepicker
+          #pickerRefRange
+          [label]="'Programmatic Open'"
+          [hiddenPicker]="true"
+          [rangeInputs]="true"
+          [hint]="'MM/DD/YYYY'"
+        ></bds-datepicker>
         <bds-button label="Open Picker" (action)="pickerRefRange.open()"></bds-button>
       </div>
     </div>
@@ -685,31 +746,36 @@
       <bds-autocomplete [label]="'Empty'" [options]="[]"></bds-autocomplete>
       <bds-autocomplete [placeholder]="'Placeholder'" [options]="optionsAutocomplete()"></bds-autocomplete>
       <bds-autocomplete [label]="'Autocomplete'" [options]="optionsAutocomplete()"></bds-autocomplete>
-      <bds-autocomplete [label]="'appearance'" [appearance]="'fill'"
-        [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'appearance'" [appearance]="'fill'" [options]="optionsAutocomplete()"></bds-autocomplete>
       <bds-autocomplete [label]="'fullWidth'" [fullWidth]="true" [options]="optionsAutocomplete()"></bds-autocomplete>
-      <bds-autocomplete [label]="'autoActiveFirstOption'" [autoActiveFirstOption]="true"
-        [options]="optionsAutocomplete()"></bds-autocomplete>
-      <bds-autocomplete [label]="'autocompleteDisabled'" [autocompleteDisabled]="true"
-        [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete
+        [label]="'autoActiveFirstOption'"
+        [autoActiveFirstOption]="true"
+        [options]="optionsAutocomplete()"
+      ></bds-autocomplete>
+      <bds-autocomplete [label]="'autocompleteDisabled'" [autocompleteDisabled]="true" [options]="optionsAutocomplete()"></bds-autocomplete>
       <bds-autocomplete [label]="'disabled'" [disabled]="true" [options]="optionsAutocomplete()"></bds-autocomplete>
       <bds-autocomplete [label]="'required'" [required]="true" [options]="optionsAutocomplete()"></bds-autocomplete>
-      <bds-autocomplete [label]="'hint'" [hint]="'Texto de ejemplo'"
-        [options]="optionsAutocomplete()"></bds-autocomplete>
-      <bds-autocomplete [label]="'customError'" [customError]="errorCustomAutocomplete()"
-        (valueChange)="onAutocompleteInput($event)" [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete [label]="'hint'" [hint]="'Texto de ejemplo'" [options]="optionsAutocomplete()"></bds-autocomplete>
+      <bds-autocomplete
+        [label]="'customError'"
+        [customError]="errorCustomAutocomplete()"
+        (valueChange)="onAutocompleteInput($event)"
+        [options]="optionsAutocomplete()"
+      ></bds-autocomplete>
       <bds-autocomplete [label]="'value'" [value]="'One'" [options]="optionsAutocomplete()"></bds-autocomplete>
       <bds-autocomplete [label]="'Autocomplete Group'" [options]="optionsAutocompleteGroup()"></bds-autocomplete>
-      <bds-autocomplete [label]="'value group'" [value]="'num 3'"
-        [options]="optionsAutocompleteGroup()"></bds-autocomplete>
+      <bds-autocomplete [label]="'value group'" [value]="'num 3'" [options]="optionsAutocompleteGroup()"></bds-autocomplete>
       <bds-autocomplete [label]="'Autocomplete Img'" [options]="optionsAutocompleteImg()"></bds-autocomplete>
       <bds-autocomplete [label]="'Autocomplete Group Img'" [options]="optionsAutocompleteGroupImg()"></bds-autocomplete>
-      <bds-autocomplete [label]="'prefixIcon'" [options]="optionsAutocomplete()"
-        [prefixIcon]="'home'"></bds-autocomplete>
-      <bds-autocomplete [label]="'suffixIcon'" [options]="optionsAutocomplete()"
-        [suffixIcon]="'home'"></bds-autocomplete>
-      <bds-autocomplete [label]="'prefixIcon - suffixIcon'" [options]="optionsAutocomplete()" [prefixIcon]="'search'"
-        [suffixIcon]="'tune'"></bds-autocomplete>
+      <bds-autocomplete [label]="'prefixIcon'" [options]="optionsAutocomplete()" [prefixIcon]="'home'"></bds-autocomplete>
+      <bds-autocomplete [label]="'suffixIcon'" [options]="optionsAutocomplete()" [suffixIcon]="'home'"></bds-autocomplete>
+      <bds-autocomplete
+        [label]="'prefixIcon - suffixIcon'"
+        [options]="optionsAutocomplete()"
+        [prefixIcon]="'search'"
+        [suffixIcon]="'tune'"
+      ></bds-autocomplete>
     </div>
   </section>
 
@@ -717,23 +783,43 @@
   <section class="component-section">
     <h2>Tooltip</h2>
     <div class="demo-row">
-      <bds-button label="tooltip top" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
-        bdsTooltipPosition="top"></bds-button>
+      <bds-button label="tooltip top" variant="elevated" size="md" bdsTooltip="Este es un tooltip" bdsTooltipPosition="top"></bds-button>
 
-      <bds-button label="tooltip bottom" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
-        bdsTooltipPosition="bottom"></bds-button>
+      <bds-button
+        label="tooltip bottom"
+        variant="elevated"
+        size="md"
+        bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="bottom"
+      ></bds-button>
 
-      <bds-button label="tooltip left" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
-        bdsTooltipPosition="left"></bds-button>
+      <bds-button label="tooltip left" variant="elevated" size="md" bdsTooltip="Este es un tooltip" bdsTooltipPosition="left"></bds-button>
 
-      <bds-button label="tooltip right" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
-        bdsTooltipPosition="right"></bds-button>
+      <bds-button
+        label="tooltip right"
+        variant="elevated"
+        size="md"
+        bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="right"
+      ></bds-button>
 
-      <bds-button label="tooltip delay 2000" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
-        bdsTooltipPosition="top" [bdsTooltipDelay]="2000"></bds-button>
+      <bds-button
+        label="tooltip delay 2000"
+        variant="elevated"
+        size="md"
+        bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="top"
+        [bdsTooltipDelay]="2000"
+      ></bds-button>
 
-      <bds-button label="tooltip disabled" variant="elevated" size="md" bdsTooltip="Este es un tooltip"
-        bdsTooltipPosition="top" [bdsTooltipDisabled]="true"></bds-button>
+      <bds-button
+        label="tooltip disabled"
+        variant="elevated"
+        size="md"
+        bdsTooltip="Este es un tooltip"
+        bdsTooltipPosition="top"
+        [bdsTooltipDisabled]="true"
+      ></bds-button>
     </div>
   </section>
 
@@ -741,8 +827,12 @@
   <section class="component-section">
     <h2>Tooltip Position at Origin</h2>
     <div class="demo-row">
-      <div class="tooltip-container" bdsTooltip="Positioned at mouse origin"
-        [bdsTooltipPositionAtOrigin]="enabled.value ? true : false" bdsTooltipPosition="top">
+      <div
+        class="tooltip-container"
+        bdsTooltip="Positioned at mouse origin"
+        [bdsTooltipPositionAtOrigin]="enabled.value ? true : false"
+        bdsTooltipPosition="top"
+      >
         Move mouse inside me
       </div>
     </div>
@@ -753,8 +843,13 @@
   <section class="component-section">
     <h2>Tooltip Custom Template</h2>
     <div class="demo-row">
-      <bds-button label="Custom Template Tooltip" variant="filled" bdsTooltip="Este es el contexto"
-        bdsTooltipType="layout" [templateCustom]="myCustomTooltip"></bds-button>
+      <bds-button
+        label="Custom Template Tooltip"
+        variant="filled"
+        bdsTooltip="Este es el contexto"
+        bdsTooltipType="layout"
+        [templateCustom]="myCustomTooltip"
+      ></bds-button>
     </div>
 
     <ng-template #myCustomTooltip let-context>
@@ -774,11 +869,17 @@
   <section class="component-section">
     <h2>Tooltip Defined Template (Rich)</h2>
     <div class="demo-row">
-      <bds-button label="Custom Rich Tooltip" variant="filled"
+      <bds-button
+        label="Custom Rich Tooltip"
+        variant="filled"
         bdsTooltip="Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod"
-        bdsTooltipType="rich" [bdsTooltipHeader]="'Custom Header'" [bdsTooltipBtnCancelName]="'Cancel'"
-        [bdsTooltipBtnAcceptName]="'Ok'" (bdsTooltipClickCancel)="onTooltipCancel()"
-        (bdsTooltipClickAccept)="onTooltipAccept()"></bds-button>
+        bdsTooltipType="rich"
+        [bdsTooltipHeader]="'Custom Header'"
+        [bdsTooltipBtnCancelName]="'Cancel'"
+        [bdsTooltipBtnAcceptName]="'Ok'"
+        (bdsTooltipClickCancel)="onTooltipCancel()"
+        (bdsTooltipClickAccept)="onTooltipAccept()"
+      ></bds-button>
     </div>
   </section>
 
@@ -787,34 +888,70 @@
     <h2>Form</h2>
     <div class="demo-row">
       <form [formGroup]="formTesting" (ngSubmit)="onSubmitForm()" class="form-container">
-        <bds-form-field [label]="'email'" [placeholder]="'example@example.com'" [type]="'email'" prefixIcon="email"
-          [required]="true" formControlName="email"></bds-form-field>
-        <bds-form-field [label]="'password'" [placeholder]="'******'" [type]="'password'" prefixIcon="lock"
-          [required]="true" formControlName="password"></bds-form-field>
-        <bds-autocomplete [label]="'autocomplete'" prefixIcon="calendar" [options]="optionsAutocomplete()"
-          [required]="true" formControlName="autocomplete"></bds-autocomplete>
-        <bds-autocomplete [label]="'autocompleteGroupImg'" prefixIcon="calendar"
-          [options]="optionsAutocompleteGroupImg()" [required]="true"
-          formControlName="autocompleteGroupImg"></bds-autocomplete>
-        <bds-select [label]="'select'" [options]="optionsSelect()" [required]="true"
-          formControlName="select"></bds-select>
-        <bds-select [label]="'selectGroupImg'" [options]="optionsSelectGroupImg()" [required]="true"
-          formControlName="selectGroupImg"></bds-select>
-        <bds-select [label]="'Seleccion Multiple'" [multiple]="true" [options]="optionsSelect()" [required]="true"
-          formControlName="selectMultiple"></bds-select>
-        <bds-select [label]="'Seleccion Multiple Group'" [multiple]="true" [options]="optionsSelectGroup()"
-          [required]="true" formControlName="selectMultipleGroup"></bds-select>
-        <bds-datepicker [label]="'fechaNacimiento'" prefixIcon="calendar" [required]="true"
-          formControlName="fechaNacimiento"></bds-datepicker>
-        <bds-radiobutton [ariaLabel]="'Sexo'" [options]="groupSexo()" [required]="true"
-          formControlName="sexo"></bds-radiobutton>
+        <bds-form-field
+          [label]="'email'"
+          [placeholder]="'example@example.com'"
+          [type]="'email'"
+          prefixIcon="email"
+          [required]="true"
+          formControlName="email"
+        ></bds-form-field>
+        <bds-form-field
+          [label]="'password'"
+          [placeholder]="'******'"
+          [type]="'password'"
+          prefixIcon="lock"
+          [required]="true"
+          formControlName="password"
+        ></bds-form-field>
+        <bds-autocomplete
+          [label]="'autocomplete'"
+          prefixIcon="calendar"
+          [options]="optionsAutocomplete()"
+          [required]="true"
+          formControlName="autocomplete"
+        ></bds-autocomplete>
+        <bds-autocomplete
+          [label]="'autocompleteGroupImg'"
+          prefixIcon="calendar"
+          [options]="optionsAutocompleteGroupImg()"
+          [required]="true"
+          formControlName="autocompleteGroupImg"
+        ></bds-autocomplete>
+        <bds-select [label]="'select'" [options]="optionsSelect()" [required]="true" formControlName="select"></bds-select>
+        <bds-select
+          [label]="'selectGroupImg'"
+          [options]="optionsSelectGroupImg()"
+          [required]="true"
+          formControlName="selectGroupImg"
+        ></bds-select>
+        <bds-select
+          [label]="'Seleccion Multiple'"
+          [multiple]="true"
+          [options]="optionsSelect()"
+          [required]="true"
+          formControlName="selectMultiple"
+        ></bds-select>
+        <bds-select
+          [label]="'Seleccion Multiple Group'"
+          [multiple]="true"
+          [options]="optionsSelectGroup()"
+          [required]="true"
+          formControlName="selectMultipleGroup"
+        ></bds-select>
+        <bds-datepicker
+          [label]="'fechaNacimiento'"
+          prefixIcon="calendar"
+          [required]="true"
+          formControlName="fechaNacimiento"
+        ></bds-datepicker>
+        <bds-radiobutton [ariaLabel]="'Sexo'" [options]="groupSexo()" [required]="true" formControlName="sexo"></bds-radiobutton>
         <div formArrayName="hobbies">
           @for (item of listHobbies(); track $index) {
           <bds-checkbox [label]="item.label+''" [formControlName]="$index"></bds-checkbox>
           }
         </div>
-        <bds-textarea [label]="'descripcion'" prefixIcon="description" [required]="true"
-          formControlName="descripcion"></bds-textarea>
+        <bds-textarea [label]="'descripcion'" prefixIcon="description" [required]="true" formControlName="descripcion"></bds-textarea>
 
         <bds-button [fullWidth]="true" label="Enviar" variant="filled" type="submit"></bds-button>
       </form>
@@ -854,24 +991,29 @@
       <bds-radiobutton [ariaLabel]="'Radio Button 2'" [options]="optionsRadio()" [label]="'Label'"></bds-radiobutton>
     </div>
     <div class="demo-row">
-      <bds-radiobutton [ariaLabel]="'Radio Button 3'" [options]="optionsRadio()" [label]="'Disabled'"
-        [disabled]="true"></bds-radiobutton>
+      <bds-radiobutton [ariaLabel]="'Radio Button 3'" [options]="optionsRadio()" [label]="'Disabled'" [disabled]="true"></bds-radiobutton>
     </div>
     <div class="demo-row">
-      <bds-radiobutton [ariaLabel]="'Radio Button 4'" [options]="optionsRadio()" [label]="'Column'"
-        [column]="false"></bds-radiobutton>
+      <bds-radiobutton [ariaLabel]="'Radio Button 4'" [options]="optionsRadio()" [label]="'Column'" [column]="false"></bds-radiobutton>
     </div>
     <div class="demo-row">
-      <bds-radiobutton [ariaLabel]="'Radio Button 5'" [options]="optionsRadio()" [label]="'Column'"
-        [positionLabel]="'before'"></bds-radiobutton>
+      <bds-radiobutton
+        [ariaLabel]="'Radio Button 5'"
+        [options]="optionsRadio()"
+        [label]="'Column'"
+        [positionLabel]="'before'"
+      ></bds-radiobutton>
     </div>
     <div class="demo-row">
-      <bds-radiobutton [ariaLabel]="'Radio Button 5'" [options]="optionsRadio()" [label]="'Value'"
-        [value]="'one'"></bds-radiobutton>
+      <bds-radiobutton [ariaLabel]="'Radio Button 5'" [options]="optionsRadio()" [label]="'Value'" [value]="'one'"></bds-radiobutton>
     </div>
     <div class="demo-row">
-      <bds-radiobutton [ariaLabel]="'Radio Button 6'" [options]="optionsRadio()" [label]="'Change'"
-        (change)="onRadioInput($event)"></bds-radiobutton>
+      <bds-radiobutton
+        [ariaLabel]="'Radio Button 6'"
+        [options]="optionsRadio()"
+        [label]="'Change'"
+        (change)="onRadioInput($event)"
+      ></bds-radiobutton>
       <p style="margin-left: 10px">Value radio: {{ valueRadio() }}</p>
     </div>
   </section>
@@ -901,8 +1043,12 @@
   </section>
 
   <div class="layout-wrapper">
-    <bds-collapsible-nav [sections]="collapsibleSections" [config]="collapsibleConfig"
-      [commandItems]="collapsibleCommandItems" (createActionClick)="onCollapsibleCreate()">
+    <bds-collapsible-nav
+      [sections]="collapsibleSections"
+      [config]="collapsibleConfig"
+      [commandItems]="collapsibleCommandItems"
+      (createActionClick)="onCollapsibleCreate()"
+    >
     </bds-collapsible-nav>
   </div>
 
@@ -1008,5 +1154,41 @@
     </div>
   </section>
 
+  <section class="component-section">
+    <h2>Checkbox</h2>
+    <div class="demo-row">
+      <bds-checkbox [label]="'Checkbox 1'"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'disabled'" [disabled]="true"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'value'" [value]="true"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'indeterminate'" [indeterminate]="true"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'positionLabel before'" [positionLabel]="'before'"></bds-checkbox>
+    </div>
+    <div class="demo-row">
+      <bds-checkbox [label]="'Change'" (change)="onCheckboxInput($event)"></bds-checkbox>
+      <p style="margin-left: 10px">Value checkbox: {{ valueCheckbox() }}</p>
+    </div>
+  </section>
 
+  <h2 class="extended-color">Extended colors: Positive</h2>
+  <bds-button class="button-extended-colors" label="Extended colors" variant="filled" size="lg"></bds-button>
 </main>
+
+<div class="layout-wrapper">
+  <div class="layout-content">
+    <bds-collapsible-nav
+      [sections]="collapsibleSections"
+      [config]="collapsibleConfig"
+      [commandItems]="collapsibleCommandItems"
+      (createActionClick)="onCollapsibleCreate()"
+    >
+    </bds-collapsible-nav>
+  </div>
+</div>

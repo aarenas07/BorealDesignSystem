@@ -51,6 +51,7 @@ import {
   TabsComponent,
   TabsBds,
   BdsSnackbarService,
+  AlertAction,
 } from '@organizacion/ui-kit';
 import { USUARIOS_TEST_ONE } from '../assets/files/data';
 
@@ -505,6 +506,27 @@ export class App {
 
   //Checkbox
   valueCheckbox = signal<boolean>(false);
+
+  // Alert Actions
+  alertActionsInfo: AlertAction[] = [
+    { label: 'Detalles técnicos', variant: 'filled', action: () => console.log('Info - Detalles técnicos') },
+    { label: 'Recodarme luego', variant: 'text', action: () => console.log('Info - Recordarme luego') },
+  ];
+
+  alertActionsSuccess: AlertAction[] = [
+    { label: 'Detalles técnicos', variant: 'filled', action: () => console.log('Success - Detalles técnicos') },
+    { label: 'Recodarme luego', variant: 'text', action: () => console.log('Success - Recordarme luego') },
+  ];
+
+  alertActionsWarning: AlertAction[] = [
+    { label: 'Detalles técnicos', variant: 'filled', action: () => console.log('Warning - Detalles técnicos') },
+    { label: 'Recodarme luego', variant: 'text', action: () => console.log('Warning - Recordarme luego') },
+  ];
+
+  alertActionsError: AlertAction[] = [
+    { label: 'Detalles técnicos', variant: 'filled', action: () => console.log('Error - Detalles técnicos') },
+    { label: 'Recodarme luego', variant: 'text', action: () => console.log('Error - Recordarme luego') },
+  ];
 
   //Tabs
   optionsTabs = signal<TabsBds[]>([]);
@@ -1018,14 +1040,6 @@ export class App {
         console.log('Create Button Clicked');
       },
     },
-    behavior: {
-      closeOnClickOutside: true,
-      closeOnNavigation: true,
-      showOverlay: true,
-      overlayOpacity: 0.5,
-      animationDuration: 300,
-      initialExpanded: false,
-    },
     rail: {
       tooltipPosition: 'right',
       showLabels: false,
@@ -1258,14 +1272,6 @@ export class App {
       position: 'top',
       show: true,
     },
-    behavior: {
-      closeOnClickOutside: true,
-      closeOnNavigation: true,
-      showOverlay: true,
-      overlayOpacity: 0.5,
-      animationDuration: 300,
-      initialExpanded: false,
-    },
     rail: {
       tooltipPosition: 'right',
       showLabels: false,
@@ -1307,6 +1313,22 @@ export class App {
       }
     );
   }
+  onAlertClose(event: any) {
+    console.log('onAlertChange: ', event);
+  }
+
+  alertActions: AlertAction[] = [
+    {
+      label: 'Action 1',
+      variant: 'filled',
+      action: () => console.log('Action 1 clicked'),
+    },
+    {
+      label: 'Action 2',
+      variant: 'text',
+      action: () => console.log('Action 2 clicked'),
+    },
+  ];
 
   openSnackbarSuccess() {
     this.bdsSnackbarService.openSnackbar(

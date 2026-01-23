@@ -1,34 +1,25 @@
 <div class="tooltip tooltip-{{typeTooltip()}} show">
-    @switch (typeTooltip()) {
-    @case ('rich') {
-    <div class="tooltip-container">
-        @if (contentHeader()) {
-        <header class="tooltip-header">
-            <h2>{{ contentHeader() }}</h2>
-        </header>
-        }
-        <section class="tooltip-content">
-            <p class="tooltip-content-text">
-                {{content()}}
-            </p>
-        </section>
-        @if (btnCancelName() || btnAcceptName()) {
-        <footer class="tooltip-footer">
-            @if (btnCancelName()) {
-            <bds-button [label]="btnCancelName()" variant="outlined" (action)="btnClickCancel()"></bds-button>
-            }
-            @if (btnAcceptName()) {
-            <bds-button [label]="btnAcceptName()" (action)="btnClickAccept()"></bds-button>
-            }
-        </footer>
-        }
-    </div>
+  @switch (typeTooltip()) { @case ('rich') {
+  <div class="tooltip-container">
+    @if (contentHeader()) {
+    <header class="tooltip-header">
+      <h2>{{ contentHeader() }}</h2>
+    </header>
     }
-    @case ('layout') {
-    <ng-container *ngTemplateOutlet="templateCustom(); context: { $implicit: content() }"> </ng-container>
+    <section class="tooltip-content">
+      <p class="tooltip-content-text">{{content()}}</p>
+    </section>
+    @if (btnCancelName() || btnAcceptName()) {
+    <footer class="tooltip-footer">
+      @if (btnCancelName()) {
+      <bds-button [label]="btnCancelName()" variant="outlined" (action)="btnClickCancel()"></bds-button>
+      } @if (btnAcceptName()) {
+      <bds-button [label]="btnAcceptName()" (action)="btnClickAccept()"></bds-button>
+      }
+    </footer>
     }
-    @default {
-    {{ content() }}
-    }
-    }
+  </div>
+  } @case ('layout') {
+  <ng-container *ngTemplateOutlet="templateCustom(); context: { $implicit: content() }"> </ng-container>
+  } @default { {{ content() }} } }
 </div>

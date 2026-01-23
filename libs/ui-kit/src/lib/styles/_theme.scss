@@ -8,18 +8,24 @@
 // 1. EL TRUCO:
 // Usamos paletas NATIVAS de Material ($azure, $magenta) para satisfacer al compilador.
 // No importa que sean azules, porque en el paso 2 las vamos a reemplazar.
-$my-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$azure-palette,    // Paleta válida garantizada
-    tertiary: mat.$magenta-palette, // Paleta válida garantizada
-  ),
-  typography: (
-    brand-family: 'Roboto',
-    plain-family: 'Roboto',
-  ),
-  density: ( scale: 0 )
-));
+$my-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      // Paleta válida garantizada
+      tertiary: mat.$magenta-palette,
+      // Paleta válida garantizada
+    ),
+    typography: (
+      brand-family: 'Roboto',
+      plain-family: 'Roboto',
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
 
 @mixin apply-theme() {
   // Genera la estructura base (bordes, sombras, etc.)

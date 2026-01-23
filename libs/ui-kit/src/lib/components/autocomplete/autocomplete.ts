@@ -17,11 +17,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Subject, takeUntil } from 'rxjs';
 import { AppearanceComponentBds, MenuOptionBds } from '../../interfaces';
-
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'bds-autocomplete',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, MatIconModule, MatIcon],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

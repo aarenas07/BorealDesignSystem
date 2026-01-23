@@ -14,6 +14,5 @@ export class ThemeToggleComponent {
 
   themeChange(theme: ITheme): void {
     this.themeService.setTheme(theme);
-    console.log('theme_1: ', this.themeService.defaultTheme);
   }
 }

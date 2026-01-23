@@ -1,37 +1,41 @@
 <mat-form-field [appearance]="appearance()" [class.full-width]="fullWidth()">
-    @if (label()) {
-    <mat-label>{{ label() }}</mat-label>
-    }
-    <mat-select [formControl]="formControl" [disabled]="disabled()" [placeholder]="placeholder()"
-        [required]="required()" [multiple]="multiple()" (blur)="handleBlur()">
-        @for (item of options(); track item) {
-        @if (item.group) {
-        <mat-optgroup [label]="item.label + ''">
-            @for (itemGroup of item.group; track itemGroup) {
-            <mat-option [value]="itemGroup.value">
-                @if (itemGroup.img) {
-                <img [alt]="itemGroup.label" class="select-option-img" [src]="itemGroup.img" height="20">
-                }
-                <span>{{itemGroup.label}}</span>
-            </mat-option>
-            }
-        </mat-optgroup>
-        } @else {
-        <mat-option [value]="item.value">
-            @if (item.img) {
-            <img [alt]="item.label" class="select-option-img" [src]="item.img" height="20">
-            }
-            <span>{{item.label}}</span>
-        </mat-option>
+  @if (label()) {
+  <mat-label>{{ label() }}</mat-label>
+  }
+  <mat-select
+    [formControl]="formControl"
+    [disabled]="disabled()"
+    [placeholder]="placeholder()"
+    [required]="required()"
+    [multiple]="multiple()"
+    (blur)="handleBlur()"
+  >
+    @for (item of options(); track item) { @if (item.group) {
+    <mat-optgroup [label]="item.label + ''">
+      @for (itemGroup of item.group; track itemGroup) {
+      <mat-option [value]="itemGroup.value">
+        @if (itemGroup.img) {
+        <img [alt]="itemGroup.label" class="select-option-img" [src]="itemGroup.img" height="20" />
         }
-        }
-    </mat-select>
-    <!-- hint -->
-    @if (hint() ) {
-    <mat-hint>{{ hint() }}</mat-hint>
-    }
-    <!-- error -->
-    @if (errorMessage()) {
-    <mat-error>{{ errorMessage() }}</mat-error>
-    }
+        <span>{{itemGroup.label}}</span>
+      </mat-option>
+      }
+    </mat-optgroup>
+    } @else {
+    <mat-option [value]="item.value">
+      @if (item.img) {
+      <img [alt]="item.label" class="select-option-img" [src]="item.img" height="20" />
+      }
+      <span>{{item.label}}</span>
+    </mat-option>
+    } }
+  </mat-select>
+  <!-- hint -->
+  @if (hint() ) {
+  <mat-hint>{{ hint() }}</mat-hint>
+  }
+  <!-- error -->
+  @if (errorMessage()) {
+  <mat-error>{{ errorMessage() }}</mat-error>
+  }
 </mat-form-field>

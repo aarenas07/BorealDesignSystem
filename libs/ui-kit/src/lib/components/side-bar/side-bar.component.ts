@@ -21,8 +21,6 @@ export interface SidebarSection {
   isCollapsed?: boolean;
 }
 
-
-
 @Component({
   selector: 'bds-side-bar',
   standalone: true, // Hacer el componente standalone
@@ -51,7 +49,7 @@ export class SideBarComponent {
     private elementRef: ElementRef,
     private sidebarStateService: SidebarStateService,
     private cdr: ChangeDetectorRef // Inyectar ChangeDetectorRef
-  ) { }
+  ) {}
 
   onMouseEnter() {
     if (!this.isPinned && !this.isExpanded && !this.hoveringExpandButton) {

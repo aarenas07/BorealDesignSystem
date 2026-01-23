@@ -60,6 +60,10 @@ export class AutocompleteComponent implements OnInit, ControlValueAccessor, Vali
   options = input<MenuOptionBds[]>([]);
   filteredOptions = signal<MenuOptionBds[]>([]);
 
+  // Iconos
+  prefixIcon = input<string | null>(null);
+  suffixIcon = input<string | null>(null);
+
   value = model<any | null>(null);
 
   private readonly destroy$ = new Subject<void>();

@@ -1,5 +1,4 @@
 import { Component, input, model, computed, effect, ChangeDetectionStrategy, forwardRef, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   FormControl,
   ReactiveFormsModule,
@@ -27,7 +26,7 @@ export type FormFieldType = 'text' | 'email' | 'password' | 'number' | 'tel' | '
 @Component({
   selector: 'bds-form-field',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatInputModule, MatIconModule, MatButtonModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatInputModule, MatIconModule, MatButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {

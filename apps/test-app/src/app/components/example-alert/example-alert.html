@@ -1,0 +1,41 @@
+<!-- Alert Section -->
+<section class="component-section">
+  <h2>Alerts</h2>
+  <div class="demo-row">
+    <bds-alert
+      type="info"
+      title="Mantenimiento programado del servidor"
+      message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+      [actions]="alertActionsInfo"
+      (close)="onAlertClose('info')"
+    >
+    </bds-alert>
+
+    <bds-alert
+      type="success"
+      title="Mantenimiento programado del servidor"
+      message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+      [actions]="alertActionsSuccess"
+      (close)="onAlertClose('success')"
+    >
+    </bds-alert>
+
+    <bds-alert
+      type="warning"
+      title="Mantenimiento programado del servidor"
+      message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+      [actions]="alertActionsWarning"
+      (close)="onAlertClose('warning')"
+    >
+    </bds-alert>
+
+    <bds-alert
+      type="error"
+      title="Mantenimiento programado del servidor"
+      message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+      [actions]="alertActionsError"
+      (close)="onAlertClose('error')"
+    >
+    </bds-alert>
+  </div>
+</section>

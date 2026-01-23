@@ -1,0 +1,111 @@
+<!-- Datepicker Section -->
+<section class="component-section">
+  <h2>Datepicker standard</h2>
+  <div class="demo-row">
+    <bds-datepicker [placeholder]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [appearance]="'fill'" [placeholder]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [hint]="'MM/DD/YYYY'" [placeholder]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'standard'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'standard with placeholder'" [hint]="'MM/DD/YYYY'" [placeholder]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'touchUi'" [touchUi]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'fullWidth'" [fullWidth]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'readonlyInput'" [readonlyInput]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'disabledPicker'" [disabledPicker]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker
+      [label]="'disabled[Input-Picker]'"
+      [disabledInput]="true"
+      [disabledPicker]="true"
+      [hint]="'MM/DD/YYYY'"
+    ></bds-datepicker>
+    <bds-datepicker [label]="'required'" [required]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker
+      [label]="'actions'"
+      [actionButtons]="true"
+      [nameButtonsCancel]="'Cancel'"
+      [nameButtonsApply]="'OK'"
+      [hint]="'MM/DD/YYYY'"
+    ></bds-datepicker>
+    <bds-datepicker
+      [label]="'errorCustom'"
+      [customError]="errorCustomDatepicker()"
+      (dateChange)="onDatepickerInput($event)"
+      [hint]="'MM/DD/YYYY'"
+    ></bds-datepicker>
+    <bds-datepicker [label]="'minDate'" [minDate]="minDate()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'maxDate'" [maxDate]="maxDate()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'startDate'" [startDate]="startDate()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'startView'" [startView]="'year'" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'valueRange'" [value]="valueDatepicker()" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <bds-datepicker [label]="'valueChange'" (valueChange)="receiveDate($event)"></bds-datepicker>
+      <span>change: {{ valueDatepickerChange() }}</span>
+    </div>
+    <bds-datepicker [label]="'filter'" [hint]="'MM/DD/YYYY'" [filter]="myFilter"></bds-datepicker>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <bds-datepicker #pickerRef [label]="'Programmatic Open'" [hiddenPicker]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+      <bds-button label="Open Picker" (action)="pickerRef.open()"></bds-button>
+    </div>
+  </div>
+
+  <h2 style="margin-top: 2rem">Datepicker range</h2>
+  <div class="demo-row">
+    <bds-datepicker [label]="'standard range'" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'standard range'" [rangeInputs]="true" [hint]="'MM/DD/YYYY'" [appearance]="'fill'"></bds-datepicker>
+    <bds-datepicker [label]="'touchUi range'" [rangeInputs]="true" [touchUi]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'fullWidth range'" [fullWidth]="true" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'readonlyInput range'" [readonlyInput]="true" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker [label]="'disabledPicker range'" [disabledPicker]="true" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker
+      [label]="'disabled[Input-Picker] range'"
+      [disabledInput]="true"
+      [disabledPicker]="true"
+      [rangeInputs]="true"
+      [hint]="'MM/DD/YYYY'"
+    ></bds-datepicker>
+    <bds-datepicker [label]="'required range'" [required]="true" [rangeInputs]="true" [hint]="'MM/DD/YYYY'"></bds-datepicker>
+    <bds-datepicker
+      [label]="'actions range'"
+      [actionButtons]="true"
+      [rangeInputs]="true"
+      [nameButtonsCancel]="'Cancel'"
+      [nameButtonsApply]="'OK'"
+      [hint]="'MM/DD/YYYY'"
+    ></bds-datepicker>
+    <bds-datepicker
+      [label]="'minDate & maxDate range'"
+      [minDate]="minDate()"
+      [maxDate]="maxDate()"
+      [rangeInputs]="true"
+      [hint]="'MM/DD/YYYY'"
+    ></bds-datepicker>
+    <bds-datepicker
+      [label]="'valueRange'"
+      [valueRange]="valueDatepickerRange()"
+      [rangeInputs]="true"
+      [hint]="'MM/DD/YYYY'"
+    ></bds-datepicker>
+    <bds-datepicker
+      [label]="'valueRangeChange'"
+      (valueRangeChange)="receiveDateRange($event)"
+      [rangeInputs]="true"
+      [hint]="'MM/DD/YYYY'"
+    ></bds-datepicker>
+    <bds-datepicker
+      [label]="'placeholder range'"
+      [placeholderStartDate]="'Inicio'"
+      [placeholderEndDate]="'Fin'"
+      [rangeInputs]="true"
+      [hint]="'MM/DD/YYYY'"
+    ></bds-datepicker>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <bds-datepicker
+        #pickerRefRange
+        [label]="'Programmatic Open'"
+        [hiddenPicker]="true"
+        [rangeInputs]="true"
+        [hint]="'MM/DD/YYYY'"
+      ></bds-datepicker>
+      <bds-button label="Open Picker" (action)="pickerRefRange.open()"></bds-button>
+    </div>
+  </div>
+</section>

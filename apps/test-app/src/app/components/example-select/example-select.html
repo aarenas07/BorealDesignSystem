@@ -1,0 +1,22 @@
+<!-- Select -->
+<section class="component-section">
+  <h2>Select</h2>
+  <div class="demo-row">
+    <bds-select [label]="'Empty'" [options]="[]"></bds-select>
+    <bds-select [label]="'Label'" [placeholder]="'Placeholder'" [options]="optionsSelect()"></bds-select>
+    <bds-select [label]="'Select'" [options]="optionsSelect()"></bds-select>
+    <bds-select [label]="'appearance'" [appearance]="'fill'" [options]="optionsSelect()"></bds-select>
+    <bds-select [label]="'fullWidth'" [fullWidth]="true" [options]="optionsSelect()"></bds-select>
+    <bds-select [label]="'disabled'" [disabled]="true" [options]="optionsSelect()"></bds-select>
+    <bds-select [label]="'required'" [required]="true" [options]="optionsSelect()"></bds-select>
+    <bds-select [label]="'hint'" [hint]="'Texto de ejemplo'" [options]="optionsSelect()"></bds-select>
+    <!-- <bds-select [label]="'customError'" [customError]="errorCustomSelect()" (valueChange)="onSelectInput($event)"
+        [options]="optionsSelect()"></bds-select> -->
+    <bds-select [label]="'value'" [value]="'option3'" [options]="optionsSelect()"></bds-select>
+    <bds-select [label]="'Select Group'" [options]="optionsSelectGroup()"></bds-select>
+    <bds-select [label]="'value group'" [value]="'num-3'" [options]="optionsSelectGroup()"></bds-select>
+    <bds-select [label]="'Select Img'" [options]="optionsSelectImg()"></bds-select>
+    <bds-select [label]="'Multiple'" [multiple]="true" [options]="optionsSelect()"></bds-select>
+    <bds-select [label]="'Multiple Group'" [multiple]="true" [options]="optionsSelectGroup()"></bds-select>
+  </div>
+</section>

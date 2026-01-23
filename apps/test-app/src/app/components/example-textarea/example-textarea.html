@@ -1,0 +1,24 @@
+<!-- Textarea Section -->
+<section class="component-section">
+  <h2>Textarea</h2>
+  <div class="demo-row">
+    <!-- Textarea  -->
+    <bds-textarea label="standard"></bds-textarea>
+    <bds-textarea label="required" [required]="true"></bds-textarea>
+    <bds-textarea label="hint" [hint]="'Texto de ayuda'"></bds-textarea>
+    <bds-textarea label="customError" [customError]="errorCustomTextarea()" (valueChange)="onTextareaInput($event)"></bds-textarea>
+    <bds-textarea label="clearable" [clearable]="true" [value]="'clearable'"></bds-textarea>
+    <bds-textarea label="fullWidth" [fullWidth]="true"></bds-textarea>
+    <bds-textarea label="disabled" [disabled]="true"></bds-textarea>
+    <bds-textarea label="readonly" [readonly]="true"></bds-textarea>
+    <bds-textarea label="maxlength 10" [maxlength]="10"></bds-textarea>
+    <bds-textarea label="rows 1" [rows]="1"></bds-textarea>
+    <bds-textarea label="rows 2" [rows]="2"></bds-textarea>
+    <bds-textarea label="cols 30" [cols]="30"></bds-textarea>
+    <bds-textarea label="pattern" [pattern]="'^[a-zA-Z0-9]*$'"></bds-textarea>
+    <bds-textarea label="prefixIcon" [prefixIcon]="'home'"></bds-textarea>
+    <bds-textarea label="suffixIcon" [suffixIcon]="'home'"></bds-textarea>
+    <bds-textarea label="Variante Rellena" [appearance]="'fill'"></bds-textarea>
+    <bds-textarea label="value" [value]="'test'"></bds-textarea>
+  </div>
+</section>

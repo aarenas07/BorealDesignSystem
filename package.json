@@ -15,8 +15,10 @@
     "storybook:build": "npm run rm:dist:storybook && npx nx build-storybook ui-kit",
     "chromatic": "npx chromatic --project-token=chpt_58de64779923b46 --storybook-build-dir dist/storybook/ui-kit",
     "release": "npx nx release version",
-    "format:write": "prettier --write \"**/apps/**/*.{ts,js,json,html,css,scss,md}\"",
-    "format:check": "prettier --check \"**/apps/**/*.{ts,js,json,html,css,scss,md}\""
+    "format:write:lib": "prettier --write \"**/libs/**/*.{ts,js,json,html,css,scss,md}\"",
+    "format:check:lib": "prettier --check \"**/libs/**/*.{ts,js,json,html,css,scss,md}\"",
+    "format:write:apps": "prettier --write \"**/apps/**/*.{ts,js,json,html,css,scss,md}\"",
+    "format:check:apps": "prettier --check \"**/apps/**/*.{ts,js,json,html,css,scss,md}\""
   },
   "private": true,
   "dependencies": {

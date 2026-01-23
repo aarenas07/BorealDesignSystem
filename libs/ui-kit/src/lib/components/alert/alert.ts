@@ -20,7 +20,7 @@ export interface AlertAction {
     '[class.alert-success]': 'type === "success"',
     '[class.alert-warning]': 'type === "warning"',
     '[class.alert-error]': 'type === "error"',
-  }
+  },
 })
 export class AlertComponent {
   @Input() type: AlertType = 'info';

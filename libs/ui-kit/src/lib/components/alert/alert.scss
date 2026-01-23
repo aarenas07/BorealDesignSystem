@@ -4,7 +4,6 @@
   margin-bottom: 16px;
 
   &.alert-info {
-
     .primary-button {
       ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
         border-radius: 28px;
@@ -45,7 +44,6 @@
         }
       }
     }
-
 
     .alert__icon {
       background-color: var(--mat-sys-positive);
@@ -99,7 +97,6 @@
       }
     }
 
-
     .alert__text-btn {
       color: var(--mat-sys-error);
     }
@@ -111,24 +108,22 @@
   }
 }
 
-
 .alert {
   display: flex;
   padding: 16px 12px;
   border-radius: 12px;
   gap: 12px;
   background-color: var(--mat-sys-surface);
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 
   .alert__title {
     color: var(--mat-sys-on-surface);
-    font-family: "Roboto", sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
   }
-
 
   &__icon-wrapper {
     flex-shrink: 0;
@@ -145,7 +140,6 @@
     justify-content: center;
     font-size: 18px;
   }
-
 
   &__content {
     flex: 1;
@@ -179,7 +173,7 @@
   &__body {
     p {
       color: var(--mat-sys-on-surface);
-      font-family: "Roboto", sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 14px;
       font-style: normal;
       font-weight: 400;

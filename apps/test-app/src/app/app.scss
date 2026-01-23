@@ -78,9 +78,7 @@ mat-form-field {
   gap: 12px;
 }
 
-
 /* Status Chips */
-
 
 /* Expanded Row */
 .expanded-row-content {
@@ -145,10 +143,7 @@ mat-form-field {
   color: white;
 
   font-size: 14px;
-
 }
-
-
 
 .info-item {
   display: flex;
@@ -164,8 +159,6 @@ mat-form-field {
     border-color: var(--mat-sys-primary);
     box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
   }
-
-
 
   div {
     flex: 1;
@@ -247,9 +240,8 @@ mat-form-field {
   justify-content: center;
   gap: 4px;
   border-radius: 28px;
-  background-color: var(--mat-sys-primary)
+  background-color: var(--mat-sys-primary);
 }
-
 
 .layout-wrapper {
   margin: 0;
@@ -259,18 +251,15 @@ mat-form-field {
   background: var(--sds-color-background-default-default);
 }
 
-
 .layout-content {
   flex: 1;
   height: 100%;
 }
 
-
 /* Color palette */
 .extended-color {
   color: var(--mat-sys-on-positive-container);
 }
-
 
 .button-extended-colors {
   ::ng-deep {

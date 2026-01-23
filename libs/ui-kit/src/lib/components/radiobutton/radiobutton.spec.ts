@@ -7,7 +7,7 @@ describe('Radiobutton', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Radiobutton]
+      imports: [Radiobutton],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Radiobutton);

@@ -1,0 +1,50 @@
+.component-section {
+  margin: 2rem 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-outline-variant);
+}
+
+.component-section h2 {
+  margin-top: 0;
+  color: var(--mat-sys-primary);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  padding-bottom: 8px;
+}
+
+.demo-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.user-management {
+  padding: 24px;
+  margin: 0 auto;
+}
+
+/* Avatar Cell */
+.user-avatar-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-active {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 28px;
+  background-color: var(--mat-sys-primary);
+}
+
+.status-icon-active {
+  color: white;
+  font-size: 14px;
+}

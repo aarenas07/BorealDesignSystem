@@ -9,7 +9,7 @@
 }
 
 ::ng-deep.mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  background-color: transparent !important
+  background-color: transparent !important;
 }
 
 // Material Symbols Rounded font settings
@@ -28,7 +28,11 @@
   -webkit-font-feature-settings: 'liga';
   font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
 }
 
 .table-toolbar {
@@ -39,7 +43,7 @@
   border-bottom: 1px solid #f0f0f0;
 
   .global-filter-container {
-    width: 50%
+    width: 50%;
   }
 
   .actions-container {
@@ -52,13 +56,11 @@
 
 /* Se modifican los colores de los iconos de accion de las tablas solo para este componente */
 ::ng-deep .mat-mdc-icon-button {
-
   .mdc-button__label,
   .mat-icon {
     color: var(--mat-sys-primary);
   }
 }
-
 
 /* Modific */
 
@@ -68,7 +70,7 @@
   margin: 8px 0;
   justify-content: space-between;
   width: 97%;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   padding: 8px 20px;
 }
 
@@ -182,7 +184,6 @@ table {
 
 /* Density Variants */
 [data-density='compact'] {
-
   .mat-mdc-cell,
   .mat-mdc-header-cell {
     padding: 8px 12px;
@@ -190,7 +191,6 @@ table {
 }
 
 [data-density='comfortable'] {
-
   .mat-mdc-cell,
   .mat-mdc-header-cell {
     padding: 12px 16px;
@@ -198,7 +198,6 @@ table {
 }
 
 [data-density='spacious'] {
-
   .mat-mdc-cell,
   .mat-mdc-header-cell {
     padding: 16px 20px;
@@ -215,8 +214,6 @@ table {
   justify-content: center;
   padding: 64px 24px;
   text-align: center;
-
-
 
   h3 {
     margin: 0 0 8px 0;

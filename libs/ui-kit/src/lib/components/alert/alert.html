@@ -1,0 +1,44 @@
+<div class="alert" [class]="'alert--' + type()">
+  <!-- Icon -->
+  <div class="alert__icon-wrapper">
+    <span class="material-symbols-rounded alert__icon">{{ getIcon() }}</span>
+  </div>
+
+  <!-- Content -->
+  <div class="alert__content">
+    <div class="alert__header">
+      <div class="alert__text">
+        @if (title()) {
+        <h4 class="alert__title">{{ title() }}</h4>
+        }
+        <div class="alert__body">
+          <p>{{ message() }}</p>
+        </div>
+      </div>
+
+      <!-- Close Button -->
+      @if (showClose()) {
+      <button class="alert__close-btn" (click)="onClose()" aria-label="Cerrar alerta">
+        <span class="material-symbols-rounded">close</span>
+      </button>
+      }
+    </div>
+
+    <!-- Actions -->
+    @if (actions().length > 0) {
+    <div class="alert__actions">
+      @for (action of actions(); track $index) {
+      <bds-button
+        class="primary-button"
+        *ngIf="action.variant === 'filled'"
+        [label]="action.label"
+        variant="filled"
+        (action)="onActionClick(action)"
+      ></bds-button>
+      @if (action.variant === 'text') {
+      <bds-button class="secondary-button" variant="text" (click)="onActionClick(action)"> {{ action.label }} </bds-button>
+      } }
+    </div>
+    }
+  </div>
+</div>

@@ -1,31 +1,40 @@
 <mat-form-field [appearance]="appearance()" [class.full-width]="fullWidth()">
-    @if (label()) {
-    <mat-label>{{ label() }}</mat-label>
-    }
-    <!-- prefixIcon -->
-    @if (prefixIcon()) {
-    <mat-icon class="material-symbols-rounded" matPrefix>{{ prefixIcon() }}</mat-icon>
-    }
+  @if (label()) {
+  <mat-label>{{ label() }}</mat-label>
+  }
+  <!-- prefixIcon -->
+  @if (prefixIcon()) {
+  <mat-icon class="material-symbols-rounded" matPrefix>{{ prefixIcon() }}</mat-icon>
+  }
 
-    <textarea matInput [formControl]="formControl" [readonly]="readonly()" [disabled]="disabled()"
-        [placeholder]="placeholder()" [maxlength]="maxlength()" [rows]="rows()" [cols]="cols()" [pattern]="pattern()"
-        (blur)="handleBlur()"></textarea>
+  <textarea
+    matInput
+    [formControl]="formControl"
+    [readonly]="readonly()"
+    [disabled]="disabled()"
+    [placeholder]="placeholder()"
+    [maxlength]="maxlength()"
+    [rows]="rows()"
+    [cols]="cols()"
+    [pattern]="pattern()"
+    (blur)="handleBlur()"
+  ></textarea>
 
-    @if (clearable() && value()) {
-    <button mat-icon-button matSuffix (click)="clear($event)">
-        <mat-icon class="material-symbols-rounded">close</mat-icon>
-    </button>
-    }
-    <!-- suffixIcon -->
-    @if (suffixIcon()) {
-    <mat-icon class="material-symbols-rounded" matSuffix>{{ suffixIcon() }}</mat-icon>
-    }
-    <!-- hint -->
-    @if (hint() && !errorMessage()) {
-    <mat-hint>{{ hint() }}</mat-hint>
-    }
-    <!-- error -->
-    @if (errorMessage()) {
-    <mat-error>{{ errorMessage() }}</mat-error>
-    }
+  @if (clearable() && value()) {
+  <button mat-icon-button matSuffix (click)="clear($event)">
+    <mat-icon class="material-symbols-rounded">close</mat-icon>
+  </button>
+  }
+  <!-- suffixIcon -->
+  @if (suffixIcon()) {
+  <mat-icon class="material-symbols-rounded" matSuffix>{{ suffixIcon() }}</mat-icon>
+  }
+  <!-- hint -->
+  @if (hint() && !errorMessage()) {
+  <mat-hint>{{ hint() }}</mat-hint>
+  }
+  <!-- error -->
+  @if (errorMessage()) {
+  <mat-error>{{ errorMessage() }}</mat-error>
+  }
 </mat-form-field>

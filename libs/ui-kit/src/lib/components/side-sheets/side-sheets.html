@@ -2,7 +2,9 @@
 <div class="bds-sheet-backdrop" aria-hidden="true" (click)="onBackdropClick()"></div>
 }
 
-<aside class="bds-side-sheet" [class]="{
+<aside
+  class="bds-side-sheet"
+  [class]="{
       'bds-open': open(),
       'bds-modal': modal(),
       'bds-position-start': position() === 'start',
@@ -11,7 +13,12 @@
       'bds-size-md': size() === 'md',
       'bds-size-lg': size() === 'lg',
       'bds-size-full': fullWidth(),
-    }" [aria-modal]="modal()" aria-label="Side sheets" role="dialog" tabindex="-1">
+    }"
+  [aria-modal]="modal()"
+  aria-label="Side sheets"
+  role="dialog"
+  tabindex="-1"
+>
   <header class="bds-sheet-header">
     @if (header()) {
     <h2>{{ header() }}</h2>

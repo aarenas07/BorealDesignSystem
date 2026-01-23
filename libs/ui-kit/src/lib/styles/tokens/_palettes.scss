@@ -8,61 +8,70 @@
 // 1. Paleta Primaria
 $primary-palette: (
   0: #000000,
-  10: #00201D,
+  10: #00201d,
   20: #003733,
-  25: #00433E, // <--- Requerido
-  30: #00504A,
-  35: #005D56, // <--- Requerido
-  40: #006A62,
-  50: #0D857C,
-  60: #39A095,
-  70: #58BBB0,
-  80: #75D7CB,
-  90: #92F4E7,
-  95: #B3FFF4,
-  98: #E4FFFA, // <--- Requerido
-  99: #F2FFFC,
-  100: #FFFFFF
+  25: #00433e,
+  // <--- Requerido
+  30: #00504a,
+  35: #005d56,
+  // <--- Requerido
+  40: #006a62,
+  50: #0d857c,
+  60: #39a095,
+  70: #58bbb0,
+  80: #75d7cb,
+  90: #92f4e7,
+  95: #b3fff4,
+  98: #e4fffa,
+  // <--- Requerido
+  99: #f2fffc,
+  100: #ffffff,
 );
 
 // 2. Paleta Secundaria
 $secondary-palette: (
   0: #000000,
-  10: #0B1F1C,
+  10: #0b1f1c,
   20: #213431,
-  25: #2C3F3C, // <--- Requerido
-  30: #374A48,
-  35: #435653, // <--- Requerido
-  40: #4F625F,
-  50: #677B78,
+  25: #2c3f3c,
+  // <--- Requerido
+  30: #374a48,
+  35: #435653,
+  // <--- Requerido
+  40: #4f625f,
+  50: #677b78,
   60: #809591,
-  70: #9BB0AC,
-  80: #B6CBC7,
-  90: #D1E7E3,
-  95: #E0F5F1,
-  98: #E8FEFA, // <--- Requerido
-  99: #F2FFFC,
-  100: #FFFFFF
+  70: #9bb0ac,
+  80: #b6cbc7,
+  90: #d1e7e3,
+  95: #e0f5f1,
+  98: #e8fefa,
+  // <--- Requerido
+  99: #f2fffc,
+  100: #ffffff,
 );
 
 // 3. Paleta Terciaria
 $tertiary-palette: (
   0: #000000,
-  10: #071D2E,
-  20: #1E3244,
-  25: #293D50, // <--- Requerido
-  30: #35495C,
-  35: #405468, // <--- Requerido
-  40: #4C6074,
-  50: #65798E,
-  60: #7E93A8,
-  70: #99ADC4,
-  80: #B4C9E0,
-  90: #D0E5FD,
-  95: #E8F2FF,
-  98: #F7F9FF, // <--- Requerido
-  99: #FCFCFF,
-  100: #FFFFFF
+  10: #071d2e,
+  20: #1e3244,
+  25: #293d50,
+  // <--- Requerido
+  30: #35495c,
+  35: #405468,
+  // <--- Requerido
+  40: #4c6074,
+  50: #65798e,
+  60: #7e93a8,
+  70: #99adc4,
+  80: #b4c9e0,
+  90: #d0e5fd,
+  95: #e8f2ff,
+  98: #f7f9ff,
+  // <--- Requerido
+  99: #fcfcff,
+  100: #ffffff,
 );
 
 // 4. Error (Ajustado al estándar)
@@ -71,16 +80,16 @@ $error-palette: (
   10: #410002,
   20: #690005,
   25: #800007,
-  30: #93000A,
-  35: #A60C12,
-  40: #BA1A1A,
-  50: #DE3730,
-  60: #FF5449,
-  70: #FF897D,
-  80: #FFB4AB,
-  90: #FFDAD6,
-  95: #FFEDE9,
-  98: #FFF8F6,
-  99: #FFFBFF,
-  100: #FFFFFF
+  30: #93000a,
+  35: #a60c12,
+  40: #ba1a1a,
+  50: #de3730,
+  60: #ff5449,
+  70: #ff897d,
+  80: #ffb4ab,
+  90: #ffdad6,
+  95: #ffede9,
+  98: #fff8f6,
+  99: #fffbff,
+  100: #ffffff,
 );

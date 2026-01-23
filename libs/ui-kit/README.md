@@ -18,10 +18,10 @@ Los nombres se generan automáticamente en `libs/ui-kit/src/lib/styles/styles.sc
 
 ```scss
 @mixin apply-sys-variables($scheme) {
-    @each $key, $value in $scheme {
-        // Toma la llave (ej. "primary") y le agrega el prefijo "--mat-sys-"
-        --mat-sys-#{$key}: #{$value};
-    }
+  @each $key, $value in $scheme {
+    // Toma la llave (ej. "primary") y le agrega el prefijo "--mat-sys-"
+    --mat-sys-#{$key}: #{$value};
+  }
 }
 ```
 
@@ -37,26 +37,26 @@ Aquí tienes todas las variables disponibles generadas por tu sistema de diseño
 
 Estos son los colores semánticos principales. Cada uno tiene su par "On" (texto/icono sobre ese color) y su "Container" (versión más suave).
 
-| Rol | Color Base | Texto Sobre Color (`On`) | Contenedor (`Container`) | Texto Sobre Contenedor (`On-Container`) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Primary** | `--mat-sys-primary` | `--mat-sys-on-primary` | `--mat-sys-primary-container` | `--mat-sys-on-primary-container` |
-| **Secondary** | `--mat-sys-secondary` | `--mat-sys-on-secondary` | `--mat-sys-secondary-container` | `--mat-sys-on-secondary-container` |
-| **Tertiary** | `--mat-sys-tertiary` | `--mat-sys-on-tertiary` | `--mat-sys-tertiary-container` | `--mat-sys-on-tertiary-container` |
-| **Error** | `--mat-sys-error` | `--mat-sys-on-error` | `--mat-sys-error-container` | `--mat-sys-on-error-container` |
+| Rol           | Color Base            | Texto Sobre Color (`On`) | Contenedor (`Container`)        | Texto Sobre Contenedor (`On-Container`) |
+| :------------ | :-------------------- | :----------------------- | :------------------------------ | :-------------------------------------- |
+| **Primary**   | `--mat-sys-primary`   | `--mat-sys-on-primary`   | `--mat-sys-primary-container`   | `--mat-sys-on-primary-container`        |
+| **Secondary** | `--mat-sys-secondary` | `--mat-sys-on-secondary` | `--mat-sys-secondary-container` | `--mat-sys-on-secondary-container`      |
+| **Tertiary**  | `--mat-sys-tertiary`  | `--mat-sys-on-tertiary`  | `--mat-sys-tertiary-container`  | `--mat-sys-on-tertiary-container`       |
+| **Error**     | `--mat-sys-error`     | `--mat-sys-on-error`     | `--mat-sys-error-container`     | `--mat-sys-on-error-container`          |
 
 ### 2. Superficies y Fondos (Surfaces)
 
 Material 3 introduce varios niveles de superficie para dar profundidad.
 
-| Variable | Descripción |
-| :--- | :--- |
-| `--mat-sys-background` | Fondo general de la aplicación. |
-| `--mat-sys-on-background` | Texto principal sobre el fondo. |
-| `--mat-sys-surface` | Superficie estándar (tarjetas, hojas). |
-| `--mat-sys-on-surface` | Texto sobre superficie estándar. |
-| `--mat-sys-surface-variant` | Variante de superficie (ej. encabezados de tablas). |
+| Variable                       | Descripción                                            |
+| :----------------------------- | :----------------------------------------------------- |
+| `--mat-sys-background`         | Fondo general de la aplicación.                        |
+| `--mat-sys-on-background`      | Texto principal sobre el fondo.                        |
+| `--mat-sys-surface`            | Superficie estándar (tarjetas, hojas).                 |
+| `--mat-sys-on-surface`         | Texto sobre superficie estándar.                       |
+| `--mat-sys-surface-variant`    | Variante de superficie (ej. encabezados de tablas).    |
 | `--mat-sys-on-surface-variant` | Texto sobre variante de superficie (texto secundario). |
-| `--mat-sys-surface-tint` | Tinte de superficie (usado para elevación visual). |
+| `--mat-sys-surface-tint`       | Tinte de superficie (usado para elevación visual).     |
 
 #### Contenedores de Superficie (Niveles de Profundidad)
 
@@ -70,30 +70,30 @@ Material 3 introduce varios niveles de superficie para dar profundidad.
 
 #### Variantes de Superficie
 
-*   `--mat-sys-surface-dim`: Superficie atenuada.
-*   `--mat-sys-surface-bright`: Superficie brillante.
+- `--mat-sys-surface-dim`: Superficie atenuada.
+- `--mat-sys-surface-bright`: Superficie brillante.
 
 ### 3. Colores Fijos (Fixed Colors)
 
 Colores que no cambian tanto entre temas claros y oscuros, útiles para elementos que necesitan mantener su tono.
 
-| Rol | Color Fijo | Dim (Atenuado) | On Fixed | On Fixed Variant |
-| :--- | :--- | :--- | :--- | :--- |
-| **Primary** | `--mat-sys-primary-fixed` | `--mat-sys-primary-fixed-dim` | `--mat-sys-on-primary-fixed` | `--mat-sys-on-primary-fixed-variant` |
+| Rol           | Color Fijo                  | Dim (Atenuado)                  | On Fixed                       | On Fixed Variant                       |
+| :------------ | :-------------------------- | :------------------------------ | :----------------------------- | :------------------------------------- |
+| **Primary**   | `--mat-sys-primary-fixed`   | `--mat-sys-primary-fixed-dim`   | `--mat-sys-on-primary-fixed`   | `--mat-sys-on-primary-fixed-variant`   |
 | **Secondary** | `--mat-sys-secondary-fixed` | `--mat-sys-secondary-fixed-dim` | `--mat-sys-on-secondary-fixed` | `--mat-sys-on-secondary-fixed-variant` |
-| **Tertiary** | `--mat-sys-tertiary-fixed` | `--mat-sys-tertiary-fixed-dim` | `--mat-sys-on-tertiary-fixed` | `--mat-sys-on-tertiary-fixed-variant` |
+| **Tertiary**  | `--mat-sys-tertiary-fixed`  | `--mat-sys-tertiary-fixed-dim`  | `--mat-sys-on-tertiary-fixed`  | `--mat-sys-on-tertiary-fixed-variant`  |
 
 ### 4. Utilidades y Bordes
 
-| Variable | Uso |
-| :--- | :--- |
-| `--mat-sys-outline` | Bordes importantes (inputs, tarjetas). |
-| `--mat-sys-outline-variant` | Bordes decorativos o divisores sutiles. |
-| `--mat-sys-shadow` | Color de la sombra. |
-| `--mat-sys-scrim` | Color del velo (overlay) para modales. |
-| `--mat-sys-inverse-surface` | Superficie invertida (ej. Snackbars). |
-| `--mat-sys-inverse-on-surface` | Texto sobre superficie invertida. |
-| `--mat-sys-inverse-primary` | Color primario invertido. |
+| Variable                       | Uso                                     |
+| :----------------------------- | :-------------------------------------- |
+| `--mat-sys-outline`            | Bordes importantes (inputs, tarjetas).  |
+| `--mat-sys-outline-variant`    | Bordes decorativos o divisores sutiles. |
+| `--mat-sys-shadow`             | Color de la sombra.                     |
+| `--mat-sys-scrim`              | Color del velo (overlay) para modales.  |
+| `--mat-sys-inverse-surface`    | Superficie invertida (ej. Snackbars).   |
+| `--mat-sys-inverse-on-surface` | Texto sobre superficie invertida.       |
+| `--mat-sys-inverse-primary`    | Color primario invertido.               |
 
 ---
 
@@ -103,11 +103,11 @@ Si quieres usar el color `surface-container-high` que viste en el archivo SCSS:
 
 ```scss
 .mi-panel-destacado {
-    // SCSS map key: surface-container-high
-    // CSS Variable: --mat-sys-surface-container-high
-    background-color: var(--mat-sys-surface-container-high);
-    
-    // Para el texto, usa el par correspondiente o on-surface
-    color: var(--mat-sys-on-surface);
+  // SCSS map key: surface-container-high
+  // CSS Variable: --mat-sys-surface-container-high
+  background-color: var(--mat-sys-surface-container-high);
+
+  // Para el texto, usa el par correspondiente o on-surface
+  color: var(--mat-sys-on-surface);
 }
 ```

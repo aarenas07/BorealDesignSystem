@@ -1,12 +1,19 @@
 <div class="bds-radio-group-container" [class.is-disabled]="disabled()">
-    @if (label()) {
-    <label class="bds-radio-group-label" [id]="label()">{{ label() }}</label>
+  @if (label()) {
+  <label class="bds-radio-group-label" [id]="label()">{{ label() }}</label>
+  }
+  <mat-radio-group
+    class="bds-radio-group"
+    [class.column]="column()"
+    [aria-label]="ariaLabel()"
+    [name]="name()"
+    [disabled]="disabled()"
+    [formControl]="formControl"
+    (change)="handleChange($event)"
+    [labelPosition]="positionLabel()"
+  >
+    @for (option of options(); track option.value) {
+    <mat-radio-button [value]="option.value">{{option.label}}</mat-radio-button>
     }
-    <mat-radio-group class="bds-radio-group" [class.column]="column()" [aria-label]="ariaLabel()" [name]="name()"
-        [disabled]="disabled()" [formControl]="formControl" (change)="handleChange($event)"
-        [labelPosition]="positionLabel()">
-        @for (option of options(); track option.value) {
-        <mat-radio-button [value]="option.value">{{option.label}}</mat-radio-button>
-        }
-    </mat-radio-group>
+  </mat-radio-group>
 </div>

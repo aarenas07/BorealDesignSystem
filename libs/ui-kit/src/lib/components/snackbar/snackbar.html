@@ -1,16 +1,10 @@
-<span class="bds-snackbar-label" matSnackBarLabel>
-    {{message}}
-</span>
+<span class="bds-snackbar-label" matSnackBarLabel> {{message}} </span>
 <span matSnackBarActions>
-    @if(action != ''){
-    <button matButton matSnackBarAction (click)="bdsSnackBarRef.dismissWithAction()">
-        {{action}}
-    </button>
-    }
-
-    @if(icon != ''){
-    <button matButton matSnackBarAction (click)="bdsSnackBarRef.dismissWithAction()">
-        <mat-icon>{{icon}}</mat-icon>
-    </button>
-    }
+  @if(action != ''){
+  <button matButton matSnackBarAction (click)="bdsSnackBarRef.dismissWithAction()">{{action}}</button>
+  } @if(icon != ''){
+  <button matButton matSnackBarAction (click)="bdsSnackBarRef.dismissWithAction()">
+    <mat-icon>{{icon}}</mat-icon>
+  </button>
+  }
 </span>

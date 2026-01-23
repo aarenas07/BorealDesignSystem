@@ -8,7 +8,7 @@
 
 .component-section h2 {
   margin-top: 0;
-  color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-positive-container);
   border-bottom: 1px solid var(--mat-sys-outline-variant);
   padding-bottom: 8px;
 }
@@ -23,17 +23,19 @@
   width: 100%;
 }
 
-bds-form-field,
-bds-autocomplete,
-bds-select,
-bds-datepicker {
+bds-form-field {
   margin: 0.5rem;
 }
 
-.container-btn {
-  width: 100%;
-  max-width: 15rem;
-  display: flex;
-  justify-content: center;
-  text-align: center;
+/* Color palette */
+.extended-color {
+  color: var(--mat-sys-on-positive-container);
+}
+
+.button-extended-colors {
+  ::ng-deep {
+    .mat-mdc-unelevated-button:not(:disabled) {
+      background-color: var(--mat-sys-error);
+    }
+  }
 }

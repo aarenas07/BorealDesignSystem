@@ -2,9 +2,9 @@ import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button';
 
-export type AlertType = 'info' | 'success' | 'warning' | 'error';
+export type AlertTypeBds = 'info' | 'success' | 'warning' | 'error';
 
-export interface AlertAction {
+export interface AlertActionBds {
   label: string;
   variant: 'filled' | 'text';
   action: () => void;
@@ -23,11 +23,11 @@ export interface AlertAction {
   },
 })
 export class AlertComponent {
-  type = input<AlertType>('info');
+  type = input<AlertTypeBds>('info');
   title = input<string>('');
   message = input<string>('');
   showClose = input<boolean>(true);
-  actions = input<AlertAction[]>([]);
+  actions = input<AlertActionBds[]>([]);
   close = output<void>();
 
   getIcon(): string {
@@ -49,7 +49,7 @@ export class AlertComponent {
     this.close.emit();
   }
 
-  onActionClick(action: AlertAction) {
+  onActionClick(action: AlertActionBds) {
     action.action();
   }
 }

@@ -8,7 +8,7 @@
     "start:app:open": "npx nx serve test-app --open",
     "rm:dist:lib": "rm -rf dist/libs",
     "rm:dist:storybook": "rm -rf dist/storybook",
-    "build": "nx build",
+    "build": "npx nx build test-app",
     "build:lib": "npm run rm:dist:lib && npx nx build ui-kit",
     "test": "nx test",
     "storybook": "nx storybook ui-kit",

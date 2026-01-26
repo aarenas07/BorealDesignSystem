@@ -3,15 +3,15 @@
   display: block;
   margin-bottom: 16px;
 
-  &.alert-info {
-    .primary-button {
+  &.bds-alert-info {
+    .bds-primary-button {
       ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
         border-radius: 28px;
         background-color: var(--mat-sys-positive);
       }
     }
 
-    .secondary-button {
+    .bds-secondary-button {
       ::ng-deep .mat-mdc-button:not(:disabled) {
         border-radius: 28px;
 
@@ -21,21 +21,21 @@
       }
     }
 
-    .alert__icon {
+    .bds-alert__icon {
       background-color: var(--mat-sys-primary);
       color: var(--mat-sys-on-primary);
     }
   }
 
-  &.alert-success {
-    .primary-button {
+  &.bds-alert-success {
+    .bds-primary-button {
       ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
         border-radius: 28px;
         background-color: var(--mat-sys-positive);
       }
     }
 
-    .secondary-button {
+    .bds-secondary-button {
       ::ng-deep .mat-mdc-button:not(:disabled) {
         border-radius: 28px;
 
@@ -45,21 +45,21 @@
       }
     }
 
-    .alert__icon {
+    .bds-alert__icon {
       background-color: var(--mat-sys-positive);
       color: var(--mat-sys-on-positive);
     }
   }
 
-  &.alert-warning {
-    .primary-button {
+  &.bds-alert-warning {
+    .bds-primary-button {
       ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
         border-radius: 28px;
         background-color: var(--mat-sys-warning);
       }
     }
 
-    .secondary-button {
+    .bds-secondary-button {
       ::ng-deep .mat-mdc-button:not(:disabled) {
         border-radius: 28px;
 
@@ -69,25 +69,25 @@
       }
     }
 
-    .alert__text-btn {
+    .bds-alert__text-btn {
       color: var(--mat-sys-warning);
     }
 
-    .alert__icon {
+    .bds-alert__icon {
       background-color: var(--mat-sys-warning);
       color: var(--mat-sys-on-warning);
     }
   }
 
-  &.alert-error {
-    .primary-button {
+  &.bds-alert-error {
+    .bds-primary-button {
       ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
         border-radius: 28px;
         background-color: var(--mat-sys-error);
       }
     }
 
-    .secondary-button {
+    .bds-secondary-button {
       ::ng-deep .mat-mdc-button:not(:disabled) {
         border-radius: 28px;
 
@@ -97,18 +97,18 @@
       }
     }
 
-    .alert__text-btn {
+    .bds-alert__text-btn {
       color: var(--mat-sys-error);
     }
 
-    .alert__icon {
+    .bds-alert__icon {
       background-color: var(--mat-sys-error);
       color: var(--mat-sys-on-error);
     }
   }
 }
 
-.alert {
+.bds-alert {
   display: flex;
   padding: 16px 12px;
   border-radius: 12px;
@@ -116,7 +116,7 @@
   background-color: var(--mat-sys-surface);
   font-family: 'Roboto', sans-serif;
 
-  .alert__title {
+  .bds-alert__title {
     color: var(--mat-sys-on-surface);
     font-family: 'Roboto', sans-serif;
     font-size: 16px;

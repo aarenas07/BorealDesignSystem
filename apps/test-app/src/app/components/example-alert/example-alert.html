@@ -37,5 +37,32 @@
       (close)="onAlertClose('error')"
     >
     </bds-alert>
+
+    <bds-alert
+      type="info"
+      title="Mantenimiento programado del servidor"
+      message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
+    >
+    </bds-alert>
+  </div>
+  <h2>Timed Alert (3 seconds)</h2>
+  <div class="demo-row">
+    @if (showTimedAlert) {
+    <bds-alert
+      type="success"
+      title="Cierre automático"
+      message="Esta alerta se cerrará automáticamente en 3 segundos."
+      [duration]="3000"
+      (close)="onTimedAlertClose()"
+    >
+    </bds-alert>
+    }
+  </div>
+  <h2>Cierre manual del alert</h2>
+  <div class="demo-row">
+    @if (showTimedAlert2) {
+    <bds-alert type="success" title="Cierre manual" message="Esta alerta se cerrará manualmente." (close)="onTimedAlertClose2()">
+    </bds-alert>
+    }
   </div>
 </section>

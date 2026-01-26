@@ -3,6 +3,17 @@
 @case('chip'){
 <mat-chip-set aria-label="{{type()}}">
   @for (item of options(); track item) {
+  <!-- list at removed -->
+  @if (removed()) {
+  <mat-chip-row [highlighted]="item.selected" (removed)="_onRemoved(item)">
+    <span>{{item.label}}</span>
+    <button matChipRemove [attr.aria-label]="'remove item' + item">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-chip-row>
+  }
+  <!-- list not removed -->
+  @else {
   <mat-chip [highlighted]="item.selected" [disabled]="item.disabled">
     @if (item.icon && preffixIcon()) {
     <mat-icon>{{item.icon}}</mat-icon>
@@ -12,7 +23,7 @@
     <mat-icon>{{item.icon}}</mat-icon>
     }
   </mat-chip>
-  }
+  } }
 </mat-chip-set>
 }
 

@@ -39,9 +39,11 @@ export class ChipsComponent {
   horizontal = input<boolean>(true);
   appearance = input<AppearanceComponentBds>('outline');
   fullWidth = input<boolean>(false);
+  removed = input<boolean>(false);
 
   onChangeList = output<ChipsListBds | undefined>();
   onChangeRow = output<ChipsListBds[]>();
+  onRemoved = output<ChipsListBds>();
 
   readonly formControl = new FormControl();
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -58,6 +60,10 @@ export class ChipsComponent {
 
   private _onChangeRow() {
     this.onChangeRow.emit(this.formControl.value);
+  }
+
+  _onRemoved(event: ChipsListBds) {
+    this.onRemoved.emit(event);
   }
 
   removeReactiveOption(item: ChipsListBds) {

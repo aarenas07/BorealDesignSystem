@@ -4,6 +4,12 @@
   <div class="demo-row">
     <bds-chips [options]="options()"></bds-chips>
   </div>
+
+  <h2>Chips removed</h2>
+  <div class="demo-row">
+    <bds-chips [options]="options()" [removed]="true" (onRemoved)="onRemoveOption($event)"></bds-chips>
+  </div>
+
   <h2>Chips row</h2>
   <div class="demo-row">
     <bds-chips
@@ -26,6 +32,7 @@
       (onChangeRow)="onChangeOptions($event, 'row')"
     ></bds-chips>
   </div>
+
   <h2>Chips list preffixIcon</h2>
   <div class="demo-row">
     <bds-chips type="list" [preffixIcon]="true" [options]="optionsIcon()" (onChangeList)="onChangeOptions($event,'list')"></bds-chips>
@@ -34,14 +41,17 @@
   <div class="demo-row">
     <bds-chips type="list" [sufixIcon]="true" [options]="optionsIcon()" (onChangeList)="onChangeOptions($event,'list')"></bds-chips>
   </div>
+
   <h2>Chips list horizontal</h2>
   <div class="demo-row">
     <bds-chips type="list" [horizontal]="false" [options]="options()" (onChangeList)="onChangeOptions($event,'list')"></bds-chips>
   </div>
+
   <h2>Chips icon prefix</h2>
   <div class="demo-row">
     <bds-chips [options]="optionsIcon()" [preffixIcon]="true"></bds-chips>
   </div>
+
   <h2>Chips icon suffix</h2>
   <div class="demo-row">
     <bds-chips [options]="optionsIcon()" [sufixIcon]="true"></bds-chips>

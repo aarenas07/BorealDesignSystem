@@ -26,4 +26,8 @@ export class ExampleChips {
     console.log('event: ', event);
     console.log('type: ', type);
   }
+
+  onRemoveOption(event: ChipsListBds) {
+    console.log('onRemoveOption: ', event);
+  }
 }

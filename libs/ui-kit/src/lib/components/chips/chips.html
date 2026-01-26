@@ -1,0 +1,54 @@
+@switch (type()) {
+<!-- chip --->
+@case('chip'){
+<mat-chip-set aria-label="{{type()}}">
+  @for (item of options(); track item) {
+  <mat-chip [disabled]="item.disabled">
+    @if (item.icon && preffixIcon()) {
+    <mat-icon>{{item.icon}}</mat-icon>
+    }
+    <span>{{item.label}}</span>
+    @if (item.icon && sufixIcon()) {
+    <mat-icon>{{item.icon}}</mat-icon>
+    }
+  </mat-chip>
+  }
+</mat-chip-set>
+}
+
+<!-- row --->
+@case('row'){
+<mat-form-field class="example-form-field">
+  @if (labelChipsRow()) {
+  <mat-label>{{labelChipsRow()}}</mat-label>
+  }
+  <input placeholder="{{placeholderChipsRow()}}" [matChipInputFor]="reactiveChipGrid" (matChipInputTokenEnd)="addReactiveOption($event)" />
+  <mat-chip-grid #reactiveChipGrid aria-label="{{type()}}" [formControl]="formControl">
+    @for (item of optionsSelected(); track item) {
+    <mat-chip-row [highlighted]="true" (removed)="removeReactiveOption(item)">
+      {{item.label}}
+      <button matChipRemove [attr.aria-label]="'remove reactive form' + item.label">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+    }
+  </mat-chip-grid>
+</mat-form-field>
+}
+
+<!-- list --->
+@case('list'){
+<mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="{{type()}}" (change)="_onChangeList($event)" aria-orientation="horizontal">
+  @for (item of options(); track item) {
+  <mat-chip-option [selected]="item.selected" [disabled]="item.disabled">
+    @if (item.icon && preffixIcon()) {
+    <mat-icon>{{item.icon}}</mat-icon>
+    }
+    <span>{{item.label}}</span>
+    @if (item.icon && sufixIcon()) {
+    <mat-icon>{{item.icon}}</mat-icon>
+    }
+  </mat-chip-option>
+  }
+</mat-chip-listbox>
+} }

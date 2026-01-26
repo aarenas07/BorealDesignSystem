@@ -1,0 +1,25 @@
+<!-- Buttons Section -->
+<section class="component-section">
+  <h2>Chips</h2>
+  <div class="demo-row">
+    <bds-chips [options]="options()"></bds-chips>
+  </div>
+  <h2>Chips row</h2>
+  <div class="demo-row">
+    <bds-chips
+      type="row"
+      [options]="options()"
+      labelChipsRow="Options"
+      placeholderChipsRow="Digite la opcion"
+      (onChangeRow)="onChangeOptions($event, 'row')"
+    ></bds-chips>
+  </div>
+  <h2>Chips list</h2>
+  <div class="demo-row">
+    <bds-chips type="list" [preffixIcon]="true" [options]="optionsIcon()" (onChangeList)="onChangeOptions($event,'list')"></bds-chips>
+  </div>
+  <h2>Chips icon</h2>
+  <div class="demo-row">
+    <bds-chips [options]="optionsIcon()" [preffixIcon]="true"></bds-chips>
+  </div>
+</section>

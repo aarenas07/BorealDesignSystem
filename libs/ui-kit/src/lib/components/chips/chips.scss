@@ -1,18 +1,30 @@
-/* :host {
-  .bds-chip {
-    background-color: red;
+:host {
+  &.full-width {
+    display: block;
+    width: 100%;
+
+    mat-form-field {
+      width: 100%;
+    }
   }
 
-  .mat-mdc-chip {
-    .mdc-evolution-chip {
-      &__cell {
-        border: 1px solid red;
-        .mdc-evolution-chip__text-label {
-          display: flex;
-          align-items: center;
-        }
+  ::ng-deep {
+    mat-chip,
+    mat-chip-option,
+    mat-chip-row {
+      .mdc-evolution-chip__cell--primary,
+      .mdc-evolution-chip__action--primary {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 8px;
+      }
+
+      .mat-mdc-chip-action-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
       }
     }
   }
 }
- */

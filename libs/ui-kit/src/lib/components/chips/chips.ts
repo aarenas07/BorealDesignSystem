@@ -4,9 +4,11 @@ import { MatChipInputEvent, MatChipListboxChange, MatChipsModule } from '@angula
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 import { ChipsTypeBds } from '../../interfaces/bds-chips.enum';
 import { ChipsListBds } from '../../interfaces/bds-chips.interface';
+import { AppearanceComponentBds } from '../../interfaces';
 
 @Component({
   selector: 'bds-chips',
@@ -23,7 +25,7 @@ import { ChipsListBds } from '../../interfaces/bds-chips.interface';
   templateUrl: './chips.html',
   styleUrl: './chips.scss',
   host: {
-    '[class.bds-chip]': '"default"',
+    '[class.full-width]': 'fullWidth()',
   },
 })
 export class ChipsComponent {
@@ -34,11 +36,15 @@ export class ChipsComponent {
   optionsSelected = model<ChipsListBds[]>([]);
   preffixIcon = input<boolean>(false);
   sufixIcon = input<boolean>(false);
+  horizontal = input<boolean>(false);
+  appearance = input<AppearanceComponentBds>('outline');
+  fullWidth = input<boolean>(false);
 
   onChangeList = output<MatChipListboxChange>();
   onChangeRow = output<ChipsListBds[]>();
 
   readonly formControl = new FormControl();
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   constructor() {
     effect(() => {
@@ -74,7 +80,7 @@ export class ChipsComponent {
 
     // Add our option
     if (value) {
-      this.optionsSelected.update(option => [...option, { label: value }]);
+      this.optionsSelected.update(option => [...option, { label: value, disabled: false, selected: false }]);
       this.formControl.setValue(this.optionsSelected());
     }
 

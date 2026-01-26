@@ -9,15 +9,15 @@ import { ChipsComponent, ChipsListBds } from '@organizacion/ui-kit';
 })
 export class ExampleChips {
   options = signal<ChipsListBds[]>([
-    { label: 'Samoyed', selected: false, disabled: false },
-    { label: 'Akita Inu', selected: false, disabled: false },
+    { label: 'Samoyed', selected: true, disabled: false },
+    { label: 'Akita Inu', selected: true, disabled: false },
     { label: 'Alaskan Malamute', selected: false, disabled: false },
     { label: 'Siberian Husky', selected: false, disabled: true },
   ]);
 
   optionsIcon = signal<ChipsListBds[]>([
-    { label: 'Samoyed', selected: false, disabled: false, icon: 'home' },
-    { label: 'Akita Inu', selected: false, disabled: false, icon: 'home' },
+    { label: 'Samoyed', selected: true, disabled: false, icon: 'home' },
+    { label: 'Akita Inu', selected: true, disabled: false, icon: 'home' },
     { label: 'Alaskan Malamute', selected: false, disabled: false, icon: 'home' },
     { label: 'Siberian Husky', selected: false, disabled: true, icon: 'home' },
   ]);

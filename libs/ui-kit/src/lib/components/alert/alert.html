@@ -1,7 +1,7 @@
 <div class="bds-alert" [class]="'bds-alert--' + type()">
   <!-- Icon -->
   <div class="bds-alert__icon-wrapper">
-    <span class="material-symbols-rounded bds-alert__icon">{{ getIcon() }}</span>
+    <mat-icon class="bds-alert__icon">{{ getIcon() }}</mat-icon>
   </div>
 
   <!-- Content -->
@@ -19,7 +19,7 @@
       <!-- Close Button -->
       @if (showClose()) {
       <button class="bds-alert__close-btn" (click)="onClose()" aria-label="Cerrar alerta">
-        <span class="material-symbols-rounded">close</span>
+        <mat-icon>close</mat-icon>
       </button>
       }
     </div>

@@ -28,6 +28,8 @@
     @if (actions().length > 0) {
     <div class="alert__actions">
       @for (action of actions(); track $index) {
+      <!-- filled -->
+      @if (action.variant === 'filled') {
       <bds-button
         class="primary-button"
         *ngIf="action.variant === 'filled'"
@@ -35,6 +37,8 @@
         variant="filled"
         (action)="onActionClick(action)"
       ></bds-button>
+      }
+      <!-- text -->
       @if (action.variant === 'text') {
       <bds-button class="secondary-button" variant="text" (click)="onActionClick(action)"> {{ action.label }} </bds-button>
       } }

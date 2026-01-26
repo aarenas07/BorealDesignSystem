@@ -1,14 +1,7 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button';
-
-export type AlertTypeBds = 'info' | 'success' | 'warning' | 'error';
-
-export interface AlertActionBds {
-  label: string;
-  variant: 'filled' | 'text';
-  action: () => void;
-}
+import { AlertActionBds, AlertTypeBds } from '../../interfaces';
 
 @Component({
   selector: 'bds-alert',
@@ -16,19 +9,34 @@ export interface AlertActionBds {
   templateUrl: './alert.html',
   styleUrl: './alert.scss',
   host: {
-    '[class.alert-info]': 'type() === "info"',
-    '[class.alert-success]': 'type() === "success"',
-    '[class.alert-warning]': 'type() === "warning"',
-    '[class.alert-error]': 'type() === "error"',
+    '[class.bds-alert-info]': 'type() === "info"',
+    '[class.bds-alert-success]': 'type() === "success"',
+    '[class.bds-alert-warning]': 'type() === "warning"',
+    '[class.bds-alert-error]': 'type() === "error"',
   },
 })
-export class AlertComponent {
+export class AlertComponent implements OnInit, OnDestroy {
   type = input<AlertTypeBds>('info');
   title = input<string>('');
   message = input<string>('');
   showClose = input<boolean>(true);
   actions = input<AlertActionBds[]>([]);
+  duration = input<number | undefined>(undefined);
   close = output<void>();
+
+  private timer?: any;
+
+  ngOnInit() {
+    if (this.duration()) {
+      this.timer = setTimeout(() => {
+        this.onClose();
+      }, this.duration());
+    }
+  }
+
+  ngOnDestroy() {
+    this.clearTimer();
+  }
 
   getIcon(): string {
     switch (this.type()) {
@@ -46,10 +54,18 @@ export class AlertComponent {
   }
 
   onClose() {
+    this.clearTimer();
     this.close.emit();
   }
 
   onActionClick(action: AlertActionBds) {
     action.action();
+  }
+
+  private clearTimer() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = undefined;
+    }
   }
 }

@@ -29,7 +29,20 @@ export class ExampleAlert {
     { label: 'Recodarme luego', variant: 'text', action: () => console.log('Error - Recordarme luego') },
   ];
 
+  showTimedAlert = true;
+  showTimedAlert2 = true;
+
   onAlertClose(event: any) {
     console.log('onAlertChange: ', event);
+  }
+
+  onTimedAlertClose() {
+    this.showTimedAlert = false;
+    console.log('Timed alert closed automatically or manually');
+  }
+
+  onTimedAlertClose2() {
+    this.showTimedAlert2 = false;
+    console.log('Timed alert closed automatically or manually');
   }
 }

@@ -5,3 +5,5 @@ export * from './bds-options.interface';
 export * from './command-item.interface';
 export * from './bds-tabs.interface';
 export * from './bds-collapsible-nav.interface';
+export * from './bds-alert.enum';
+export * from './bds-alert.interface';

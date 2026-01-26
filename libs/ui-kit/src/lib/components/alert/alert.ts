@@ -1,14 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button';
-
-export type AlertTypeBds = 'info' | 'success' | 'warning' | 'error';
-
-export interface AlertActionBds {
-  label: string;
-  variant: 'filled' | 'text';
-  action: () => void;
-}
+import { AlertActionBds, AlertTypeBds } from '../../interfaces';
 
 @Component({
   selector: 'bds-alert',
@@ -16,10 +9,10 @@ export interface AlertActionBds {
   templateUrl: './alert.html',
   styleUrl: './alert.scss',
   host: {
-    '[class.alert-info]': 'type() === "info"',
-    '[class.alert-success]': 'type() === "success"',
-    '[class.alert-warning]': 'type() === "warning"',
-    '[class.alert-error]': 'type() === "error"',
+    '[class.bds-alert-info]': 'type() === "info"',
+    '[class.bds-alert-success]': 'type() === "success"',
+    '[class.bds-alert-warning]': 'type() === "warning"',
+    '[class.bds-alert-error]': 'type() === "error"',
   },
 })
 export class AlertComponent {
@@ -29,6 +22,7 @@ export class AlertComponent {
   showClose = input<boolean>(true);
   actions = input<AlertActionBds[]>([]);
   close = output<void>();
+  duration = input<number>(5000);
 
   getIcon(): string {
     switch (this.type()) {
@@ -51,5 +45,13 @@ export class AlertComponent {
 
   onActionClick(action: AlertActionBds) {
     action.action();
+  }
+
+  showBdsAlert(message: string) {
+    setTimeout(() => this.closeBdsAlert(), this.duration());
+  }
+
+  closeBdsAlert() {
+    this.close.emit();
   }
 }

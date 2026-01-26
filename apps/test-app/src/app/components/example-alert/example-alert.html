@@ -44,5 +44,29 @@
       message="El sistema ERP entrará en modo de mantenimiento el Domingo a las 02:00 AM UTC. Se espera una inactividad de aproximadamente 45 minutos. Los procesos batch se pausarán automáticamente. Las sesiones activas se cerrarán."
     >
     </bds-alert>
+
+    <h3>Timed Alert (3 seconds)</h3>
+    @if (showTimedAlert) {
+    <bds-alert
+      type="success"
+      title="Cierre automático"
+      message="Esta alerta se cerrará automáticamente en 3 segundos."
+      [duration]="3000"
+      (close)="onTimedAlertClose()"
+    >
+    </bds-alert>
+    }
+
+    <h3>Timed Alert (4 seconds)</h3>
+    @if (showTimedAlert2) {
+    <bds-alert
+      type="success"
+      title="Cierre automático"
+      message="Esta alerta se cerrará automáticamente en 4 segundos."
+      [duration]="4000"
+      (close)="onTimedAlertClose2()"
+    >
+    </bds-alert>
+    }
   </div>
 </section>

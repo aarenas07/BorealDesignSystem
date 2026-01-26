@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button';
 import { AlertActionBds, AlertTypeBds } from '../../interfaces';
@@ -15,14 +15,28 @@ import { AlertActionBds, AlertTypeBds } from '../../interfaces';
     '[class.bds-alert-error]': 'type() === "error"',
   },
 })
-export class AlertComponent {
+export class AlertComponent implements OnInit, OnDestroy {
   type = input<AlertTypeBds>('info');
   title = input<string>('');
   message = input<string>('');
   showClose = input<boolean>(true);
   actions = input<AlertActionBds[]>([]);
+  duration = input<number | undefined>(undefined);
   close = output<void>();
-  duration = input<number>(5000);
+
+  private timer?: any;
+
+  ngOnInit() {
+    if (this.duration()) {
+      this.timer = setTimeout(() => {
+        this.onClose();
+      }, this.duration());
+    }
+  }
+
+  ngOnDestroy() {
+    this.clearTimer();
+  }
 
   getIcon(): string {
     switch (this.type()) {
@@ -40,6 +54,7 @@ export class AlertComponent {
   }
 
   onClose() {
+    this.clearTimer();
     this.close.emit();
   }
 
@@ -47,11 +62,10 @@ export class AlertComponent {
     action.action();
   }
 
-  showBdsAlert(message: string) {
-    setTimeout(() => this.closeBdsAlert(), this.duration());
-  }
-
-  closeBdsAlert() {
-    this.close.emit();
+  private clearTimer() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = undefined;
+    }
   }
 }

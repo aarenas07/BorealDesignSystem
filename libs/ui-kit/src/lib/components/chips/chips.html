@@ -45,13 +45,13 @@
 <!-- list --->
 @case('list'){
 <mat-chip-listbox
-  [class]="{'mat-mdc-chip-set-stacked':horizontal()}"
-  aria-label="{{type()}}"
+  [class]="{'mat-mdc-chip-set-stacked':!horizontal()}"
   (change)="_onChangeList($event)"
-  aria-orientation="horizontal"
+  aria-label="{{type()}}"
+  [aria-orientation]="horizontal() ? 'horizontal' : 'vertical'"
 >
   @for (item of options(); track item) {
-  <mat-chip-option [selected]="item.selected" [disabled]="item.disabled">
+  <mat-chip-option [selected]="item.selected" [disabled]="item.disabled" [value]="item">
     @if (item.icon && preffixIcon()) {
     <mat-icon>{{item.icon}}</mat-icon>
     }

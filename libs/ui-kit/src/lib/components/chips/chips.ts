@@ -36,11 +36,11 @@ export class ChipsComponent {
   optionsSelected = model<ChipsListBds[]>([]);
   preffixIcon = input<boolean>(false);
   sufixIcon = input<boolean>(false);
-  horizontal = input<boolean>(false);
+  horizontal = input<boolean>(true);
   appearance = input<AppearanceComponentBds>('outline');
   fullWidth = input<boolean>(false);
 
-  onChangeList = output<MatChipListboxChange>();
+  onChangeList = output<ChipsListBds | undefined>();
   onChangeRow = output<ChipsListBds[]>();
 
   readonly formControl = new FormControl();
@@ -53,7 +53,7 @@ export class ChipsComponent {
   }
 
   _onChangeList(event: MatChipListboxChange) {
-    this.onChangeList.emit(event);
+    this.onChangeList.emit(event.value);
   }
 
   private _onChangeRow() {
@@ -80,7 +80,7 @@ export class ChipsComponent {
 
     // Add our option
     if (value) {
-      this.optionsSelected.update(option => [...option, { label: value, disabled: false, selected: false }]);
+      this.optionsSelected.update(option => [...option, { label: value, value: value, disabled: false, selected: false }]);
       this.formControl.setValue(this.optionsSelected());
     }
 

@@ -1,0 +1,69 @@
+<!-- Textarea Section -->
+<section class="component-section">
+  <div class="demo-container">
+    <h1>OTP Input Component - Demo Completo</h1>
+    <p class="subtitle">Componente reutilizable para Angular 20 con Material Design 3</p>
+
+    <mat-tab-group>
+      <!-- Tab 3: Variaciones -->
+      <mat-tab label="Variaciones">
+        <div class="tab-content">
+          <div class="variations-grid">
+            <!-- 4 dígitos -->
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>PIN de 4 dígitos</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <bds-otp-input [length]="4" [gap]="16" label="PIN" hint="Ingresa tu PIN" />
+              </mat-card-content>
+            </mat-card>
+
+            <!-- 8 dígitos -->
+            <!--     <mat-card>
+              <mat-card-header>
+                <mat-card-title>Código de 8 dígitos</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <bds-otp-input [length]="8" [gap]="8" label="Código extendido" />
+              </mat-card-content>
+            </mat-card> -->
+
+            <!-- Con error -->
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Con error</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <bds-otp-input #errorOtp [length]="6" label="Código con error" errorMessage="El código ingresado es incorrecto" />
+                <div class="actions" style="margin-top: 12px">
+                  <button mat-stroked-button (click)="errorOtp.setError(true)">Mostrar Error</button>
+                  <button mat-stroked-button (click)="errorOtp.setError(false)">Quitar Error</button>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <!-- Deshabilitado -->
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Deshabilitado</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <form [formGroup]="disabledForm">
+                  <bds-otp-input formControlName="otp" [length]="6" label="OTP deshabilitado" hint="Este campo está deshabilitado" />
+                  <div class="actions" style="margin-top: 12px">
+                    <button mat-stroked-button (click)="toggleDisabled()">
+                      {{ disabledForm.get('otp')?.disabled ? 'Habilitar' : 'Deshabilitar' }}
+                    </button>
+                  </div>
+                </form>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- Tab 4: Estilos Personalizados -->
+    </mat-tab-group>
+  </div>
+</section>

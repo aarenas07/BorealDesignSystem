@@ -23,6 +23,8 @@ import { ExampleTabs } from './components/example-tabs/example-tabs';
 import { ExampleSnackbar } from './components/example-snackbar/example-snackbar';
 import { ExampleCollapsibleNav } from './components/example-collapsible-nav/example-collapsible-nav';
 import { ExampleExtendsColor } from './components/example-extends-color/example-extends-color';
+import { ExampleUploader } from './components/example-uploader/example-uploader';
+import { ExampleOtpInput } from './components/example-otp-input/example-otp-input';
 
 @Component({
   selector: 'app-root',
@@ -50,6 +52,8 @@ import { ExampleExtendsColor } from './components/example-extends-color/example-
     ExampleSnackbar,
     ExampleCollapsibleNav,
     ExampleExtendsColor,
+    ExampleUploader,
+    ExampleOtpInput,
   ],
 
   providers: [provideNativeDateAdapter()],

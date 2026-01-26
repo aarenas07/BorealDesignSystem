@@ -23,3 +23,5 @@ export * from './lib/components/expasion-panel/expansion-panel';
 export * from './lib/components/tabs/tabs';
 export * from './lib/components/snackbar/snackbar';
 export * from './lib/components/alert/alert';
+/* export * from './lib/components/file-attachment/file-attachment.component'; */
+export * from './lib/components/otp-input/otp-input';

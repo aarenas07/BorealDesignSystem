@@ -25,11 +25,6 @@
       (error)="onError($event)"
     ></bds-uploader>
     
-    @if (singleFiles().length > 0) {
-      <div class="file-info">
-        <p><strong>Archivo seleccionado:</strong> {{ singleFiles()[0].file.name }}</p>
-      </div>
-    }
   </div>
 
   <!-- Uploader múltiple -->
@@ -48,16 +43,7 @@
       (error)="onError($event)"
     ></bds-uploader>
     
-    @if (multipleFiles().length > 0) {
-      <div class="file-info">
-        <p><strong>Total de archivos:</strong> {{ multipleFiles().length }}</p>
-        <ul>
-          @for (file of multipleFiles(); track file.id) {
-            <li>{{ file.file.name }} ({{ file.file.size }} bytes)</li>
-          }
-        </ul>
-      </div>
-    }
+
   </div>
 
   <!-- Uploader solo imágenes -->
@@ -76,11 +62,6 @@
       (error)="onError($event)"
     ></bds-uploader>
     
-    @if (imageFiles().length > 0) {
-      <div class="file-info">
-        <p><strong>Imágenes cargadas:</strong> {{ imageFiles().length }}</p>
-      </div>
-    }
   </div>
 
   <!-- Uploader solo PDF -->
@@ -98,12 +79,7 @@
       (fileRemoved)="onFileRemoved($event)"
       (error)="onError($event)"
     ></bds-uploader>
-    
-    @if (pdfFiles().length > 0) {
-      <div class="file-info">
-        <p><strong>PDFs cargados:</strong> {{ pdfFiles().length }}</p>
-      </div>
-    }
+
   </div>
 
   <!-- Uploader deshabilitado -->

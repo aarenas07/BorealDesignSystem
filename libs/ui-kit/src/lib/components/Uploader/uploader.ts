@@ -84,8 +84,16 @@ export class UploaderComponent {
   private processFiles(files: File[]): void {
     const validFiles: UploadedFile[] = [];
     let pendingReads = 0;
+    const alreadyUploaded = this.uploadedFiles();
 
     files.forEach(file => {
+      // Validar si ya existe (por nombre y tamaño)
+      const exists = alreadyUploaded.some(f => f.file.name === file.name && f.file.size === file.size);
+      if (exists) {
+        this.error.emit(`El archivo ${file.name} ya fue subido.`);
+        return;
+      }
+
       // Validar tamaño
       if (file.size > this.maxSize()) {
         this.error.emit(`El archivo ${file.name} excede el tamaño máximo permitido`);
@@ -114,7 +122,6 @@ export class UploaderComponent {
         reader.onload = (e) => {
           uploadedFile.preview = e.target?.result as string;
           pendingReads--;
-          
           // Actualizar cuando todas las lecturas terminen
           if (pendingReads === 0) {
             this.updateFiles(validFiles);

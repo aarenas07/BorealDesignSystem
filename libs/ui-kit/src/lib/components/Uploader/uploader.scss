@@ -9,6 +9,35 @@
   gap: 16px;
   font-family: 'Roboto', sans-serif;
 
+  &__collapse-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    background: var(--mat-sys-surface-container);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 4px;
+    user-select: none;
+    border: 1px solid var(--mat-sys-outline-variant);
+    transition: background 0.2s;
+    &:hover {
+      background: var(--mat-sys-surface-container-high);
+    }
+  }
+
+  &__collapse-icon {
+    font-size: 20px;
+    color: var(--mat-sys-on-surface-variant);
+    transition: transform 0.2s;
+  }
+
+  &__collapse-label {
+    color: var(--mat-sys-on-surface);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
   // Dropzone (área de drag & drop)
   &__dropzone {
     border: 2px dashed var(--mat-sys-outline-variant);

@@ -36,11 +36,42 @@
   </div>
 
   <!-- Preview de archivos subidos -->
-  @if (uploadedFiles().length > 0) {
+  @if (uploadedFiles().length === 1) {
+    <div class="bds-uploader__preview-list">
+      <div class="bds-uploader__preview-item">
+        <div class="bds-uploader__preview-thumbnail">
+          @if (uploadedFiles()[0].preview) {
+            <img [src]="uploadedFiles()[0].preview" [alt]="uploadedFiles()[0].file.name" />
+          } @else {
+            <mat-icon class="bds-uploader__preview-icon">{{ getFileIcon(uploadedFiles()[0].file) }}</mat-icon>
+          }
+        </div>
+        <div class="bds-uploader__preview-info">
+          <p class="bds-uploader__preview-name">{{ uploadedFiles()[0].file.name }}</p>
+          <p class="bds-uploader__preview-size">{{ formatFileSize(uploadedFiles()[0].file.size) }}</p>
+        </div>
+        <button 
+          class="bds-uploader__preview-remove"
+          (click)="removeFile(uploadedFiles()[0])"
+          aria-label="Eliminar archivo"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  } @else if (uploadedFiles().length > 1) {
+    <div class="bds-uploader__collapse-header" (click)="toggleCollapse()">
+      <mat-icon class="bds-uploader__collapse-icon">
+        {{ collapsed() ? 'expand_more' : 'expand_less' }}
+      </mat-icon>
+      <span class="bds-uploader__collapse-label">
+        Archivos seleccionados ({{ uploadedFiles().length }})
+      </span>
+    </div>
+    @if(!collapsed()) {
     <div class="bds-uploader__preview-list">
       @for (uploadedFile of uploadedFiles(); track uploadedFile.id) {
         <div class="bds-uploader__preview-item">
-          <!-- Imagen preview o icono -->
           <div class="bds-uploader__preview-thumbnail">
             @if (uploadedFile.preview) {
               <img [src]="uploadedFile.preview" [alt]="uploadedFile.file.name" />
@@ -48,14 +79,10 @@
               <mat-icon class="bds-uploader__preview-icon">{{ getFileIcon(uploadedFile.file) }}</mat-icon>
             }
           </div>
-
-          <!-- Info del archivo -->
           <div class="bds-uploader__preview-info">
             <p class="bds-uploader__preview-name">{{ uploadedFile.file.name }}</p>
             <p class="bds-uploader__preview-size">{{ formatFileSize(uploadedFile.file.size) }}</p>
           </div>
-
-          <!-- Botón eliminar -->
           <button 
             class="bds-uploader__preview-remove"
             (click)="removeFile(uploadedFile)"
@@ -66,5 +93,6 @@
         </div>
       }
     </div>
+  }
   }
 </div>

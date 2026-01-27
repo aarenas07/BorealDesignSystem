@@ -36,6 +36,10 @@ export class UploaderComponent {
   // Estado
   uploadedFiles = signal<UploadedFile[]>([]);
   isDragging = signal<boolean>(false);
+  collapsed = signal<boolean>(true); // Estado para colapsar/expandir
+  toggleCollapse(): void {
+    this.collapsed.set(!this.collapsed());
+  }
 
   // Métodos
   onFileSelect(event: Event): void {

@@ -1,0 +1,181 @@
+@use '../../styles/sicoferp-theme/theme' as sicoferp-theme;
+@use '../../styles/variables' as bds;
+
+.bds-toast-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  pointer-events: none;
+  z-index: 1000;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+
+  &--bottom {
+    bottom: 0;
+    flex-direction: column-reverse;
+  }
+
+  &--top {
+    top: 0;
+  }
+
+  &--left {
+    left: 0;
+    align-items: flex-start;
+  }
+
+  &--right {
+    right: 0;
+    align-items: flex-end;
+  }
+
+  &--center {
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+  }
+}
+
+.bds-toast-item {
+  pointer-events: auto;
+  width: fit-content;
+  min-width: 344px;
+  max-width: 100%;
+  animation: bds-toast-in 250ms ease-out;
+
+  .longer-action {
+    flex-direction: column;
+    padding-top: 1rem;
+    color: var(--mat-sys-inverse-on-surface);
+
+    .mat-mdc-snack-bar-label {
+      font-family: var(--mat-snack-bar-supporting-text-font, var(--mat-sys-body-medium-font));
+      font-size: var(--mat-snack-bar-supporting-text-size, var(--mat-sys-body-medium-size));
+      font-weight: var(--mat-snack-bar-supporting-text-weight, var(--mat-sys-body-medium-weight));
+      line-height: var(--mat-snack-bar-supporting-text-line-height, var(--mat-sys-body-medium-line-height));
+      padding: 0.5rem 0.2rem;
+      box-sizing: border-box;
+      margin: 0;
+    }
+
+    .mat-mdc-snack-bar-actions {
+      justify-content: flex-end;
+      padding-bottom: 0.5rem;
+      margin-left: auto;
+
+      .mdc-snackbar__label,
+      .mat-mdc-button,
+      .mat-icon {
+        color: var(--mat-sys-inverse-primary);
+      }
+    }
+  }
+
+  .mdc-snackbar__surface {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding: 0 8px 0 16px;
+    border-radius: 4px;
+    box-shadow:
+      0 3px 5px -1px rgba(0, 0, 0, 0.2),
+      0 6px 10px 0 rgba(0, 0, 0, 0.14),
+      0 1px 18px 0 rgba(0, 0, 0, 0.12);
+    min-height: 48px;
+    background: var(--mat-sys-inverse-surface);
+    color: var(--mat-sys-inverse-on-surface);
+    font-family: var(--mat-snack-bar-supporting-text-font, var(--mat-sys-body-medium-font));
+    font-size: var(--mat-snack-bar-supporting-text-size, var(--mat-sys-body-medium-size));
+    font-weight: var(--mat-snack-bar-supporting-text-weight, var(--mat-sys-body-medium-weight));
+    line-height: var(--mat-snack-bar-supporting-text-line-height, var(--mat-sys-body-medium-line-height));
+  }
+
+  // Reuse existing snackbar styles by ensuring the classes are applied
+}
+
+@keyframes bds-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@at-root {
+  .bds-snackbar {
+    .mat-mdc-button:not(:disabled) {
+      color: var(--mat-sys-inverse-primary);
+    }
+
+    &--info .mdc-snackbar__surface {
+      background-color: bds.$color-accent-container;
+
+      .mdc-snackbar__label,
+      .mat-mdc-button,
+      .mat-icon {
+        color: bds.$color-accent;
+      }
+
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: bds.$color-accent;
+        }
+      }
+    }
+
+    &--success .mdc-snackbar__surface {
+      background-color: bds.$color-positive-container;
+
+      .mdc-snackbar__label,
+      .mat-mdc-button,
+      .mat-icon {
+        color: bds.$color-positive;
+      }
+
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: bds.$color-positive;
+        }
+      }
+    }
+
+    &--warning .mdc-snackbar__surface {
+      background-color: bds.$color-warning-container;
+
+      .mdc-snackbar__label,
+      .mat-mdc-button,
+      .mat-icon {
+        color: bds.$color-warning;
+      }
+
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: bds.$color-warning;
+        }
+      }
+    }
+
+    &--error .mdc-snackbar__surface {
+      background-color: var(--mat-sys-error-container);
+
+      .mdc-snackbar__label,
+      .mat-mdc-button,
+      .mat-icon {
+        color: var(--mat-sys-error);
+      }
+
+      .mat-mdc-button {
+        .mdc-button__label {
+          color: var(--mat-sys-primary);
+        }
+      }
+    }
+  }
+}

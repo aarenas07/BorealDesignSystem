@@ -10,6 +10,7 @@ export interface SnackbarDataBds {
 }
 
 export interface SnackbarConfigBds {
+  stacking: boolean;
   duration?: number;
   horizontalPosition?: MatSnackBarHorizontalPosition;
   verticalPosition?: MatSnackBarVerticalPosition;

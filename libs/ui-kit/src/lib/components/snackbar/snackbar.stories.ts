@@ -48,6 +48,7 @@ const meta: Meta = {
       control: 'select',
       options: ['top', 'bottom'],
     },
+    stacking: { control: 'boolean' },
   },
   args: {
     message: 'Este es un mensaje de snackbar',
@@ -58,6 +59,7 @@ const meta: Meta = {
     duration: 3000,
     horizontalPosition: 'center',
     verticalPosition: 'bottom',
+    stacking: false,
   },
 };
 
@@ -85,6 +87,59 @@ export const Interactive: Story = {
       template: `
        <bds-snackbar-host [data]="data" [config]="config"></bds-snackbar-host>
       `,
+    };
+  },
+};
+
+export const Stacking: Story = {
+  render: args => {
+    const snackbarService = inject(BdsSnackbarService);
+    return {
+      props: {
+        data: {
+          message: args['message'],
+          action: args['action'],
+          icon: args['icon'],
+          type: args['type'],
+        },
+        config: {
+          duration: args['duration'],
+          horizontalPosition: args['horizontalPosition'],
+          verticalPosition: args['verticalPosition'],
+          stacking: true,
+        },
+        openMany: () => {
+          for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+              snackbarService.openSnackbar(
+                {
+                  message: `${args['message']} ${i + 1}`,
+                  action: args['action'],
+                  icon: args['icon'],
+                  type: i === 0 ? 'success' : i === 1 ? 'warning' : 'error',
+                },
+                {
+                  duration: args['duration'],
+                  horizontalPosition: args['horizontalPosition'],
+                  verticalPosition: args['verticalPosition'],
+                  stacking: true,
+                }
+              );
+            }, i * 200);
+          }
+        },
+      },
+      template: `
+       <div style="display: flex; gap: 8px;">
+         <bds-snackbar-host [data]="data" [config]="config"></bds-snackbar-host>
+         <bds-button label="Abrir múltiples" (action)="openMany()"></bds-button>
+       </div>
+      `,
+      styles: [
+        `
+        :host { display: block; }
+      `,
+      ],
     };
   },
 };

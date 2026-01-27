@@ -1,49 +1,34 @@
-@switch (variant()) {
-
-@case ('text') {
-<button mat-button [disabled]="isDisabled()" (click)="handleClick($event)">
+@switch (variant()) { @case ('text') {
+<button mat-button [disabled]="isDisabled()" (click)="handleClick($event)" [type]="type()">
   <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
 </button>
-}
-
-@case ('elevated') {
-<button mat-raised-button [disabled]="isDisabled()" (click)="handleClick($event)">
+} @case ('elevated') {
+<button mat-raised-button [disabled]="isDisabled()" (click)="handleClick($event)" [type]="type()">
   <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
 </button>
-}
-
-@case ('filled') {
-<button mat-flat-button [disabled]="isDisabled()" (click)="handleClick($event)">
+} @case ('filled') {
+<button mat-flat-button [disabled]="isDisabled()" (click)="handleClick($event)" [type]="type()">
   <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
 </button>
-}
-
-@case ('outlined') {
-<button mat-stroked-button [disabled]="isDisabled()" (click)="handleClick($event)">
+} @case ('outlined') {
+<button mat-stroked-button [disabled]="isDisabled()" (click)="handleClick($event)" [type]="type()">
   <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
 </button>
-}
-
-@case ('icon') {
-<button mat-icon-button [disabled]="isDisabled()" (click)="handleClick($event)">
+} @case ('icon') {
+<button mat-icon-button [disabled]="isDisabled()" (click)="handleClick($event)" [type]="type()">
   <ng-container *ngTemplateOutlet="iconOnlyTpl"></ng-container>
 </button>
-}
-
-@default {
-<button mat-flat-button [disabled]="isDisabled()" (click)="handleClick($event)">
+} @default {
+<button mat-flat-button [disabled]="isDisabled()" (click)="handleClick($event)" [type]="type()">
   <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
 </button>
-}
-}
+} }
 
 <ng-template #contentTpl>
   <div class="content-wrapper">
-
     @if (loading()) {
     <mat-spinner diameter="20" mode="indeterminate"></mat-spinner>
-    }
-    @else if (icon()) {
+    } @else if (icon()) {
     <mat-icon>{{ icon() }}</mat-icon>
     }
 
@@ -51,15 +36,13 @@
       @if(label()) { {{ label() }} }
       <ng-content></ng-content>
     </span>
-
   </div>
 </ng-template>
 
 <ng-template #iconOnlyTpl>
   @if (loading()) {
   <mat-spinner diameter="20" mode="indeterminate"></mat-spinner>
-  }
-  @else if (icon()) {
+  } @else if (icon()) {
   <mat-icon>{{ icon() }}</mat-icon>
   }
 </ng-template>

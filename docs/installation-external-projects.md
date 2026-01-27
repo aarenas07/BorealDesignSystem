@@ -258,9 +258,9 @@ import { CardComponent } from '@ada-lib/ui-kit';
   standalone: true,
   imports: [ButtonComponent, CardComponent],
   template: `
-    <lib-card>
-      <lib-button>Click me</lib-button>
-    </lib-card>
+    <bds-card>
+      <bds-button>Click me</bds-button>
+    </bds-card>
   `,
 })
 export class AppComponent {}

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, OnInit, TemplateRef, signal, computed, input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, OnInit, TemplateRef, signal, computed } from '@angular/core';
 import { FormFieldComponent } from '../form-field/form-field';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -31,6 +31,8 @@ export interface TableColumn<T = any> {
   hidden?: boolean;
   cellTemplate?: TemplateRef<any>;
   customSort?: (a: T, b: T) => number;
+  cellClass?: (row: T) => string | string[] | { [klass: string]: any };
+  cellStyle?: (row: T) => { [style: string]: any };
 }
 
 export interface TableAction<T = any> {
@@ -41,6 +43,20 @@ export interface TableAction<T = any> {
   visible?: (row: T) => boolean;
   disabled?: (row: T) => boolean;
   onClick: (row: T) => void;
+}
+
+export interface TableHeaderAction {
+  label: string;
+  icon?: string;
+  variant?: 'filled' | 'outlined';
+  onClick: () => void;
+}
+
+export interface TableSelectionAction<T = any> {
+  label: string;
+  variant?: 'filled' | 'outlined';
+  color?: 'primary' | 'accent' | 'warn';
+  onClick: (selected: T[]) => void;
 }
 
 export interface TableConfig {
@@ -116,13 +132,14 @@ export interface TableState<T = any> {
 export class TableComponent<T = any> implements OnInit {
   @Input() columns: TableColumn<T>[] = [];
   @Input() actions: TableAction<T>[] = [];
+  @Input() headerActions: TableHeaderAction[] = [];
+  @Input() selectionActions: TableSelectionAction<T>[] = [];
   @Input() config: TableConfig = {};
   @Input() expandedRowTemplate?: TemplateRef<any>;
   @Input() set data(value: T[]) {
     this.state.set({
       ...this.state(),
       data: value,
-      totalRecords: value.length,
     });
   }
   @Output() sortChange = new EventEmitter<Sort>();
@@ -258,11 +275,11 @@ export class TableComponent<T = any> implements OnInit {
     this.state.update(s => ({ ...s, error }));
   }
 
-  updateData(data: T[], totalRecords?: number) {
+  updateData(data: T[], totalRecords: number = 0) {
     this.state.update(s => ({
       ...s,
       data,
-      totalRecords: totalRecords || data.length,
+      totalRecords: totalRecords,
       loading: false,
       error: null,
     }));

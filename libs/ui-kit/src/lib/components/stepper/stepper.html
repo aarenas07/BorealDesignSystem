@@ -1,0 +1,28 @@
+<div class="bds-stepper" [class.vertical]="orientation() === 'vertical'">
+  <mat-stepper
+    class="bds-stepper__material"
+    [linear]="linear()"
+    [selectedIndex]="activeIndex()"
+    [orientation]="orientation()"
+    (selectionChange)="onSelectionChange($event)"
+  >
+    @for (step of steps(); track $index) {
+    <mat-step [completed]="isStepCompleted(step, $index)" [editable]="!step.disabled">
+      <ng-template matStepLabel>
+        <div class="bds-stepper__label">
+          <span class="bds-stepper__title">{{ step.label }}</span>
+          @if (step.description) {
+          <span class="bds-stepper__desc">{{ step.description }}</span>
+          }
+        </div>
+      </ng-template>
+    </mat-step>
+    }
+  </mat-stepper>
+
+  <div class="bds-stepper__content">
+    @if (activeStepTemplate()) {
+    <ng-container *ngTemplateOutlet="activeStepTemplate()"></ng-container>
+    }
+  </div>
+</div>

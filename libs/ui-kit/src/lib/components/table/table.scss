@@ -8,6 +8,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
+::ng-deep.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: transparent !important;
+}
+
 // Material Symbols Rounded font settings
 .material-symbols-rounded {
   font-family: 'Material Symbols Rounded' !important;
@@ -24,7 +28,11 @@
   -webkit-font-feature-settings: 'liga';
   font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
 }
 
 .table-toolbar {
@@ -32,24 +40,66 @@
   display: flex;
   gap: 16px;
   align-items: center;
-  background: var(--mat-sys-surface-container);
   border-bottom: 1px solid #f0f0f0;
+
+  .global-filter-container {
+    width: 50%;
+  }
+
+  .actions-container {
+    display: flex;
+    gap: 8px;
+    width: 50%;
+    justify-content: flex-end;
+  }
+}
+
+/* Se modifican los colores de los iconos de accion de las tablas solo para este componente */
+::ng-deep .mat-mdc-icon-button {
+  .mdc-button__label,
+  .mat-icon {
+    color: var(--mat-sys-primary);
+  }
+}
+
+/* Modific */
+
+.selection-toolbar-content {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  justify-content: space-between;
+  width: 97%;
+  background-color: #fafafa;
+  padding: 8px 20px;
+}
+
+.selection-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .divider {
+    height: 32px;
+    width: 1px;
+    background-color: #e0e0e0;
+  }
+}
+
+.selection-count {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: var(--mat-sys-on-surface);
+}
+
+.selection-actions {
+  display: flex;
+  gap: 8px;
 }
 
 .global-filter {
   flex: 1;
   max-width: 400px;
-}
-
-.selection-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--mat-sys-on-surface-variant);
-
-  span {
-    font-size: 14px;
-  }
 }
 
 .table-wrapper {
@@ -165,15 +215,6 @@ table {
   padding: 64px 24px;
   text-align: center;
 
-  mat-icon {
-    font-size: 64px;
-    width: 64px;
-    height: 64px;
-    margin-bottom: 16px;
-    opacity: 0.5;
-    color: var(--mat-sys-on-surface-variant);
-  }
-
   h3 {
     margin: 0 0 8px 0;
     color: var(--mat-sys-on-surface);
@@ -196,4 +237,13 @@ table {
   &:hover {
     background-color: var(--mat-sys-surface-container);
   }
+}
+
+/* Paginador */
+::ng-deep .mat-mdc-paginator-page-size-label {
+  color: var(--mat-sys-on-background) !important;
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
 }

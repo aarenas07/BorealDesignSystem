@@ -7,7 +7,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 const meta: Meta<BreadcrumbComponent> = {
   title: 'Navigation/Breadcrumb',
   component: BreadcrumbComponent,
-  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [RouterTestingModule, MatIconModule],
@@ -20,10 +19,12 @@ const meta: Meta<BreadcrumbComponent> = {
       { label: 'Subsección', routerLink: '/seccion/sub' },
       { label: 'Detalle', active: true },
     ] as MenuItem[],
+    separator: '/',
   },
   argTypes: {
     home: { control: 'object' },
     items: { control: 'object' },
+    separator: { control: 'text' },
   },
 };
 export default meta;

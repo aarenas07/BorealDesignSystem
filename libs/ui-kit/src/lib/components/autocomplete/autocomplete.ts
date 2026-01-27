@@ -1,0 +1,270 @@
+import { Component, computed, effect, ElementRef, input, model, OnInit, signal, ViewChild, forwardRef, OnDestroy } from '@angular/core';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidatorFn,
+  Validators,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+  AbstractControl,
+} from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { Subject, takeUntil } from 'rxjs';
+import { AppearanceComponentBds, MenuOptionBds } from '../../interfaces';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+@Component({
+  selector: 'bds-autocomplete',
+  standalone: true,
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, MatIconModule, MatIcon],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => AutocompleteComponent),
+      multi: true,
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => AutocompleteComponent),
+      multi: true,
+    },
+  ],
+  host: {
+    '[class.full-width]': 'fullWidth()',
+    '[class.has-error]': 'formControl.invalid && formControl.touched',
+    '[class.is-disabled]': 'disabled()',
+  },
+  templateUrl: './autocomplete.html',
+  styleUrl: './autocomplete.scss',
+})
+export class AutocompleteComponent implements OnInit, ControlValueAccessor, Validator, OnDestroy {
+  label = input<string>('');
+  appearance = input<AppearanceComponentBds>('outline');
+  fullWidth = input<boolean>(false);
+
+  autoActiveFirstOption = input<boolean>(false);
+  autocompleteDisabled = input<boolean>(false);
+  disabled = input<boolean>(false);
+  required = input<boolean>(false);
+
+  placeholder = input<string>('');
+  hint = input<string>('');
+  customError = input<string>('');
+
+  formControl = new FormControl<string | object | null>('');
+  options = input<MenuOptionBds[]>([]);
+  filteredOptions = signal<MenuOptionBds[]>([]);
+
+  // Iconos
+  prefixIcon = input<string | null>(null);
+  suffixIcon = input<string | null>(null);
+
+  value = model<any | null>(null);
+
+  private readonly destroy$ = new Subject<void>();
+
+  private onChange: (value: any) => void = () => {};
+  private onTouched: () => void = () => {};
+
+  errorMessage = computed(() => {
+    // Si hay un error personalizado, mostrarlo
+    if (this.customError()) {
+      return this.customError();
+    }
+
+    // Si el control no ha sido tocado o no tiene errores, no mostrar nada
+    if (!this.formControl.touched || !this.formControl.errors) {
+      return '';
+    }
+
+    // Generar mensajes de error basados en las validaciones
+    const errors = this.formControl.errors;
+
+    if (errors['required']) {
+      return `${this.label() || 'Este campo'} es requerido`;
+    }
+
+    return 'Campo inválido';
+  });
+
+  @ViewChild('input') input!: ElementRef<HTMLInputElement>;
+
+  constructor() {
+    effect(() => {
+      const currentValue = this.value();
+      if (this.formControl.value !== currentValue) {
+        const filterValue = this.filterOptions(currentValue);
+        this.formControl.setValue(filterValue, { emitEvent: false });
+        this.onChange(currentValue);
+      }
+    });
+
+    effect(() => {
+      if (this.disabled()) {
+        this.formControl.disable();
+      } else {
+        this.formControl.enable();
+      }
+    });
+
+    // Actualizar validadores cuando cambien el input
+    effect(() => {
+      this.updateValidators();
+    });
+
+    // Sincronizar el model con el valor del FormControl
+    this.formControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(newValue => {
+      const val = newValue || null;
+      this.value.set(val);
+      this.onChange(val);
+    });
+
+    effect(() => {
+      if (this.customError()) {
+        this.formControl.setErrors({ customError: true });
+      } else {
+        if (this.formControl.hasError('customError')) {
+          const errors = { ...this.formControl.errors };
+          delete errors['customError'];
+          this.formControl.setErrors(Object.keys(errors).length > 0 ? errors : null);
+        }
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.filteredOptions.set(this.options());
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  // ControlValueAccessor methods
+  writeValue(value: any): void {
+    const filterValue = this.filterOptions(value);
+    this.formControl.setValue(filterValue, { emitEvent: false });
+    this.value.set(value || null);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    if (isDisabled) {
+      this.formControl.disable();
+    } else {
+      this.formControl.enable();
+    }
+  }
+
+  // Validator methods
+  validate(control: AbstractControl): ValidationErrors | null {
+    if (this.formControl.invalid) {
+      return this.formControl.errors;
+    }
+    return null;
+  }
+
+  handleBlur(): void {
+    this.onTouched();
+  }
+
+  filter(): void {
+    const filterValue = this.input.nativeElement.value.toLowerCase();
+
+    if (!filterValue) {
+      this.filteredOptions.set(this.options());
+      return;
+    }
+
+    if (!this.options().length) {
+      this.filteredOptions.set([]);
+      return;
+    }
+
+    if (this.isGrouped()) {
+      let copyOptions = structuredClone(this.options());
+
+      copyOptions = copyOptions.filter(o => {
+        if (o.group) {
+          o.group = o.group.filter(g => g.label.toString().toLowerCase().includes(filterValue));
+        }
+        if (o.group?.length === 0) {
+          return null;
+        }
+
+        return o;
+      });
+
+      this.filteredOptions.set(copyOptions);
+      return;
+    }
+
+    if (typeof filterValue === 'string') {
+      const search = this.options().filter(o => o.label.toString().toLowerCase().includes(filterValue));
+      this.filteredOptions.set(search);
+      return;
+    }
+
+    this.filteredOptions.set([]);
+  }
+
+  private filterOptions(currentValue: string | object): string | object {
+    if (!currentValue) {
+      return '';
+    }
+
+    if (!this.options().length) {
+      return currentValue;
+    }
+
+    if (this.isGrouped()) {
+      let copyOptions = structuredClone(this.options());
+      let foundOption = null;
+
+      copyOptions.forEach(o => {
+        if (o.group) {
+          foundOption = o.group.find(g => g.label.toString().toLowerCase() === currentValue.toString().toLowerCase());
+        }
+      });
+
+      return foundOption || '';
+    }
+
+    const foundOption = this.options().find(o => o.label.toString().toLowerCase() === currentValue.toString().toLowerCase());
+    return foundOption || '';
+  }
+
+  displayFn(item: MenuOptionBds): string {
+    return item && item.label ? item.label.toString() : '';
+  }
+
+  isGrouped(): boolean {
+    return this.options().some(o => o.group);
+  }
+
+  private updateValidators(): void {
+    const validators: ValidatorFn[] = [];
+
+    // Required validator
+    if (this.required()) {
+      validators.push(Validators.required);
+    }
+
+    // Aplicar validadores
+    this.formControl.setValidators(validators);
+    this.formControl.updateValueAndValidity({ emitEvent: false });
+  }
+}

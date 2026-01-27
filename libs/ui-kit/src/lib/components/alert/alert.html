@@ -1,0 +1,42 @@
+<div class="bds-alert" [class]="'bds-alert--' + type()">
+  <!-- Icon -->
+  <div class="bds-alert__icon-wrapper">
+    <mat-icon class="bds-alert__icon">{{ getIcon() }}</mat-icon>
+  </div>
+
+  <!-- Content -->
+  <div class="bds-alert__content">
+    <div class="bds-alert__header">
+      <div class="bds-alert__text">
+        @if (title()) {
+        <h4 class="bds-alert__title">{{ title() }}</h4>
+        }
+        <div class="bds-alert__body">
+          <p>{{ message() }}</p>
+        </div>
+      </div>
+
+      <!-- Close Button -->
+      @if (showClose()) {
+      <button class="bds-alert__close-btn" (click)="onClose()" aria-label="Cerrar alerta">
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+    </div>
+
+    <!-- Actions -->
+    @if (actions().length > 0) {
+    <div class="bds-alert__actions">
+      @for (action of actions(); track $index) {
+      <!-- filled -->
+      @if (action.variant === 'filled') {
+      <bds-button class="bds-primary-button" [label]="action.label" variant="filled" (action)="onActionClick(action)"></bds-button>
+      }
+      <!-- text -->
+      @if (action.variant === 'text') {
+      <bds-button class="bds-secondary-button" variant="text" (click)="onActionClick(action)"> {{ action.label }} </bds-button>
+      } }
+    </div>
+    }
+  </div>
+</div>

@@ -1,27 +1,28 @@
-<mat-card [class.mat-elevation-z0]="elevation() === 'flat' || elevation() === 'outlined'"
-    [class.mat-elevation-z2]="elevation() === 'raised'" (click)="handleClick($event)">
+<mat-card
+  [class.mat-elevation-z0]="elevation() === 'flat' || elevation() === 'outlined'"
+  [class.mat-elevation-z2]="elevation() === 'raised'"
+  (click)="handleClick($event)"
+>
+  <!-- Header Section -->
+  <ng-content select="[card-header]"></ng-content>
 
-    <!-- Header Section -->
-    <ng-content select="[card-header]"></ng-content>
+  <mat-card-header>
+    <ng-content select="[card-avatar]"></ng-content>
+    <ng-content select="[card-title]"></ng-content>
+    <ng-content select="[card-subtitle]"></ng-content>
+  </mat-card-header>
 
-    <mat-card-header>
-        <ng-content select="[card-avatar]"></ng-content>
-        <ng-content select="[card-title]"></ng-content>
-        <ng-content select="[card-subtitle]"></ng-content>
-    </mat-card-header>
+  <!-- Media Section -->
+  <ng-content select="[card-media]"></ng-content>
 
-    <!-- Media Section -->
-    <ng-content select="[card-media]"></ng-content>
+  <!-- Content Section -->
+  <mat-card-content>
+    <ng-content select="[card-content]"></ng-content>
+    <ng-content></ng-content>
+  </mat-card-content>
 
-    <!-- Content Section -->
-    <mat-card-content>
-        <ng-content select="[card-content]"></ng-content>
-        <ng-content></ng-content>
-    </mat-card-content>
-
-    <!-- Actions Section -->
-    <mat-card-actions>
-        <ng-content select="[card-actions]"></ng-content>
-    </mat-card-actions>
-
+  <!-- Actions Section -->
+  <mat-card-actions>
+    <ng-content select="[card-actions]"></ng-content>
+  </mat-card-actions>
 </mat-card>

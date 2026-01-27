@@ -1,0 +1,70 @@
+<div class="bds-uploader">
+  <!-- Input oculto -->
+  <input 
+    #fileInput
+    type="file" 
+    [accept]="accept()" 
+    [multiple]="multiple()"
+    [disabled]="disabled()"
+    (change)="onFileSelect($event)"
+    style="display: none;"
+  />
+
+  <!-- Área de drag & drop -->
+  <div 
+    class="bds-uploader__dropzone"
+    [class.bds-uploader__dropzone--dragging]="isDragging()"
+    [class.bds-uploader__dropzone--disabled]="disabled()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+  >
+    <div class="bds-uploader__content">
+      <p class="bds-uploader__title">{{ dragDropText() }}</p>
+      <p class="bds-uploader__subtitle">o haz clic en el botón {{ buttonText() }}</p>
+      
+      <bds-button 
+        class="bds-uploader__button"
+        [label]="buttonText()"
+        variant="outlined"
+        [disabled]="disabled()"
+        (action)="openFileSelector()"
+      ></bds-button>
+
+      <p class="bds-uploader__helper">{{ helperText() }}</p>
+    </div>
+  </div>
+
+  <!-- Preview de archivos subidos -->
+  @if (uploadedFiles().length > 0) {
+    <div class="bds-uploader__preview-list">
+      @for (uploadedFile of uploadedFiles(); track uploadedFile.id) {
+        <div class="bds-uploader__preview-item">
+          <!-- Imagen preview o icono -->
+          <div class="bds-uploader__preview-thumbnail">
+            @if (uploadedFile.preview) {
+              <img [src]="uploadedFile.preview" [alt]="uploadedFile.file.name" />
+            } @else {
+              <mat-icon class="bds-uploader__preview-icon">{{ getFileIcon(uploadedFile.file) }}</mat-icon>
+            }
+          </div>
+
+          <!-- Info del archivo -->
+          <div class="bds-uploader__preview-info">
+            <p class="bds-uploader__preview-name">{{ uploadedFile.file.name }}</p>
+            <p class="bds-uploader__preview-size">{{ formatFileSize(uploadedFile.file.size) }}</p>
+          </div>
+
+          <!-- Botón eliminar -->
+          <button 
+            class="bds-uploader__preview-remove"
+            (click)="removeFile(uploadedFile)"
+            aria-label="Eliminar archivo"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>

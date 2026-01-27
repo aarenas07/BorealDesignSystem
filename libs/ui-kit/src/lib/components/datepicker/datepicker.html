@@ -1,0 +1,112 @@
+<!-- range -->
+@if (rangeInputs()) {
+<mat-form-field [appearance]="appearance()" [class.full-width]="fullWidth()">
+  @if (label()) {
+  <mat-label>{{label()}}</mat-label>
+  }
+  <!-- range -->
+  <mat-date-range-input
+    [formGroup]="rangeForm"
+    [rangePicker]="picker"
+    [disabled]="disabledInput()"
+    [required]="required()"
+    [min]="minDate()"
+    [max]="maxDate()"
+  >
+    <input
+      matStartDate
+      formControlName="start"
+      placeholder="Start date"
+      [required]="required()"
+      [readonly]="readonlyInput()"
+      [placeholder]="placeholderStartDate()"
+      (blur)="handleBlur()"
+    />
+    <input
+      matEndDate
+      formControlName="end"
+      placeholder="End date"
+      [required]="required()"
+      [readonly]="readonlyInput()"
+      [placeholder]="placeholderEndDate()"
+      (blur)="handleBlur()"
+    />
+  </mat-date-range-input>
+
+  <!-- hint -->
+  @if (hint() ) {
+  <mat-hint>{{ hint() }}</mat-hint>
+  }
+  <mat-datepicker-toggle
+    matIconSuffix
+    [for]="picker"
+    matIconSuffix
+    [disabled]="disabledPicker()"
+    [hidden]="hiddenPicker()"
+  ></mat-datepicker-toggle>
+  <mat-date-range-picker #picker [touchUi]="touchUi()" [startView]="startView()" [startAt]="startDate()" [disabled]="disabled()">
+    @if (actionButtons()) {
+    <mat-date-range-picker-actions>
+      <button matButton matDateRangePickerCancel>{{nameButtonsCancel()}}</button>
+      <button matButton="elevated" matDateRangePickerApply>{{nameButtonsApply()}}</button>
+    </mat-date-range-picker-actions>
+    }
+  </mat-date-range-picker>
+
+  <!-- error -->
+  @if (rangeForm.controls.start.hasError('matStartDateInvalid')) {
+  <mat-error>Invalid start date</mat-error>
+  } @if (rangeForm.controls.end.hasError('matEndDateInvalid')) {
+  <mat-error>Invalid end date</mat-error>
+  }
+</mat-form-field>
+}
+
+<!-- no range -->
+@if (!rangeInputs()) {
+<mat-form-field [appearance]="appearance()" [class.full-width]="fullWidth()">
+  @if (label()) {
+  <mat-label>{{label()}}</mat-label>
+  }
+  <input
+    matInput
+    [matDatepicker]="picker"
+    [matDatepickerFilter]="filter()"
+    [disabled]="disabledInput()"
+    [required]="required()"
+    [readonly]="readonlyInput()"
+    [formControl]="formControl"
+    [min]="minDate()"
+    [max]="maxDate()"
+    (dateInput)="_dateInput($event)"
+    (dateChange)="_dateChange($event)"
+    [placeholder]="placeholder()"
+    (blur)="handleBlur()"
+  />
+  <!-- hint -->
+  @if (hint() ) {
+  <mat-hint>{{ hint() }}</mat-hint>
+  }
+
+  <mat-datepicker-toggle
+    matIconSuffix
+    [for]="picker"
+    matIconSuffix
+    [disabled]="disabledPicker()"
+    [hidden]="hiddenPicker()"
+  ></mat-datepicker-toggle>
+  <mat-datepicker #picker [touchUi]="touchUi()" [startView]="startView()" [startAt]="startDate()" [disabled]="disabled()">
+    @if (actionButtons()) {
+    <mat-date-range-picker-actions>
+      <button matButton matDateRangePickerCancel>{{nameButtonsCancel()}}</button>
+      <button matButton="elevated" matDateRangePickerApply>{{nameButtonsApply()}}</button>
+    </mat-date-range-picker-actions>
+    }
+  </mat-datepicker>
+
+  <!-- error -->
+  @if (errorMessage()) {
+  <mat-error>{{ errorMessage() }}</mat-error>
+  }
+</mat-form-field>
+}

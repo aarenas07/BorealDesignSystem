@@ -1,19 +1,22 @@
-.sheet-backdrop {
+.bds-sheet-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 2000;
+  z-index: 1000;
   backdrop-filter: blur(4px);
 }
 
-.side-sheet {
+.bds-side-sheet {
   position: fixed;
   top: 0;
   bottom: 0;
   width: 480px;
   padding-bottom: 0.5rem;
   background: var(--mat-sys-surface);
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  z-index: 2000;
+  box-shadow:
+    0px 2px 1px -1px rgba(226, 226, 226, 0.2),
+    0px 1px 1px 0px rgba(161, 160, 160, 0.14),
+    0px 1px 3px 0px rgba(119, 119, 119, 0.12);
+  z-index: 1000;
   transform: translateX(100%);
   transition: transform 200ms ease;
   overflow: hidden;
@@ -21,7 +24,7 @@
   flex-direction: column;
   justify-content: space-between;
 
-  .sheet-header {
+  .bds-sheet-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,85 +37,85 @@
       margin: 0;
     }
 
-    .sheet-close-btn {
+    .bds-sheet-close-btn {
       color: var(--mat-sys-primary);
       margin-left: auto;
       cursor: pointer;
     }
   }
 
-  .sheet-content {
+  .bds-sheet-content {
     height: 100%;
     overflow-y: auto;
     padding: 1rem;
   }
 
-  .sheet-content::-webkit-scrollbar {
+  .bds-sheet-content::-webkit-scrollbar {
     width: 10px;
   }
 
-  .sheet-content::-webkit-scrollbar-track {
+  .bds-sheet-content::-webkit-scrollbar-track {
     background: #ccc;
     border-radius: 5px;
   }
 
-  .sheet-content::-webkit-scrollbar-thumb {
+  .bds-sheet-content::-webkit-scrollbar-thumb {
     background: var(--mat-sys-secondary);
     border-radius: 5px;
   }
 
-  .sheet-content::-webkit-scrollbar-thumb:hover {
+  .bds-sheet-content::-webkit-scrollbar-thumb:hover {
     background: var(--mat-sys-primary);
   }
 
-  .sheet-actions {
+  .bds-sheet-actions {
     display: flex;
     justify-content: space-between;
     border-top: 0.05rem solid var(--mat-sys-primary);
     padding: 1rem;
   }
 
-  &.position-start {
+  &.bds-position-start {
     left: 0;
     transform: translateX(-100%);
   }
 
-  &.position-end {
+  &.bds-position-end {
     right: 0;
     transform: translateX(100%);
   }
 
-  &.open.position-end {
+  &.bds-open.bds-position-end {
     transform: translateX(0);
 
-    &.modal {
+    &.bds-modal {
       border-top-left-radius: 1rem;
       border-bottom-left-radius: 1rem;
     }
   }
 
-  &.open.position-start {
+  &.bds-open.bds-position-start {
     transform: translateX(0);
 
-    &.modal {
+    &.bds-modal {
       border-top-right-radius: 1rem;
       border-bottom-right-radius: 1rem;
     }
   }
 
-  &.size-sm {
+  &.bds-size-sm {
     width: 320px;
   }
 
-  &.size-md {
+  &.bds-size-md {
     width: 480px;
   }
 
-  &.size-lg {
+  &.bds-size-lg {
     width: 640px;
   }
 
-  &.size-full {
+  &.bds-size-full {
     width: 100%;
   }
 }

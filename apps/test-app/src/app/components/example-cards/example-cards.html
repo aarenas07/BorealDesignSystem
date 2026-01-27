@@ -1,0 +1,92 @@
+<!-- Cards Section -->
+<section class="component-section full-width">
+  <h2>Cards - Componente Personalizado</h2>
+
+  <h3>Variantes de Elevación</h3>
+  <div class="demo-row">
+    <bds-card elevation="flat" size="md">
+      <mat-card-title card-title>Card Flat</mat-card-title>
+      <mat-card-subtitle card-subtitle>Sin sombra, con borde sutil</mat-card-subtitle>
+      <div card-content>
+        <p>Esta card tiene elevación "flat" - perfecta para interfaces minimalistas.</p>
+      </div>
+      <div card-actions>
+        <button mat-button>VER MÁS</button>
+      </div>
+    </bds-card>
+
+    <bds-card elevation="raised" size="md">
+      <mat-card-title card-title>Card Raised</mat-card-title>
+      <mat-card-subtitle card-subtitle>Con sombra elevada</mat-card-subtitle>
+      <div card-content>
+        <p>Esta card tiene elevación "raised" - da sensación de profundidad y jerarquía.</p>
+      </div>
+      <div card-actions>
+        <button mat-button>VER MÁS</button>
+      </div>
+    </bds-card>
+
+    <bds-card elevation="outlined" size="md">
+      <mat-card-title card-title>Card Outlined</mat-card-title>
+      <mat-card-subtitle card-subtitle>Con borde prominente</mat-card-subtitle>
+      <div card-content>
+        <p>Esta card tiene elevación "outlined" - ideal para destacar sin sombras.</p>
+      </div>
+      <div card-actions>
+        <button mat-button>VER MÁS</button>
+      </div>
+    </bds-card>
+  </div>
+
+  <h3>Variantes de Tamaño</h3>
+  <div class="demo-row">
+    <bds-card elevation="raised" size="sm">
+      <mat-card-title card-title>Card Pequeña</mat-card-title>
+      <div card-content>
+        <p>Tamaño compacto (sm)</p>
+      </div>
+      <div card-actions>
+        <button mat-button>ACCIÓN</button>
+      </div>
+    </bds-card>
+
+    <bds-card elevation="raised" size="md">
+      <mat-card-title card-title>Card Mediana</mat-card-title>
+      <div card-content>
+        <p>Tamaño estándar (md)</p>
+      </div>
+      <div card-actions>
+        <button mat-button>ACCIÓN</button>
+      </div>
+    </bds-card>
+
+    <bds-card elevation="raised" size="lg">
+      <mat-card-title card-title>Card Grande</mat-card-title>
+      <div card-content>
+        <p>Tamaño espacioso (lg)</p>
+      </div>
+      <div card-actions>
+        <button mat-button>ACCIÓN</button>
+      </div>
+    </bds-card>
+  </div>
+
+  <h3>Card Clickeable</h3>
+  <div class="demo-row">
+    <bds-card elevation="raised" size="md" [clickable]="true">
+      <mat-card-title card-title>Card Interactiva</mat-card-title>
+      <mat-card-subtitle card-subtitle>Pasa el mouse para ver el efecto</mat-card-subtitle>
+      <div card-content>
+        <p>Esta card es clickeable y tiene efectos hover. Ideal para navegación o selección.</p>
+      </div>
+    </bds-card>
+
+    <bds-card elevation="outlined" size="md" [clickable]="true">
+      <mat-card-title card-title>Otra Card Clickeable</mat-card-title>
+      <mat-card-subtitle card-subtitle>Con borde outlined</mat-card-subtitle>
+      <div card-content>
+        <p>Combina diferentes estilos con la funcionalidad clickeable.</p>
+      </div>
+    </bds-card>
+  </div>
+</section>

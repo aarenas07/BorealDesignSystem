@@ -1,0 +1,120 @@
+<!-- Uploader Section -->
+<section class="component-section">
+  <h2>Uploader - Cargador de Archivos</h2>
+
+  <!-- Mensaje de error global -->
+  @if (errorMessage()) {
+    <div class="error-message">
+      <p>⚠️ {{ errorMessage() }}</p>
+    </div>
+  }
+
+  <!-- Uploader simple (archivo único) -->
+  <div class="demo-group">
+    <h3>Archivo Único</h3>
+    <p class="description">Permite subir un solo archivo a la vez</p>
+    <bds-uploader
+      [accept]="'.jpg,.jpeg,.png,.pdf'"
+      [maxSize]="50 * 1024 * 1024"
+      [multiple]="false"
+      [dragDropText]="'Arrastra y suelta tu archivo'"
+      [buttonText]="'Seleccionar archivo'"
+      [helperText]="'Solo archivos en formato JPEG, PNG, PDF (Máx 50 MB)'"
+      (filesSelected)="onSingleFileSelected($event)"
+      (fileRemoved)="onFileRemoved($event)"
+      (error)="onError($event)"
+    ></bds-uploader>
+    
+    @if (singleFiles().length > 0) {
+      <div class="file-info">
+        <p><strong>Archivo seleccionado:</strong> {{ singleFiles()[0].file.name }}</p>
+      </div>
+    }
+  </div>
+
+  <!-- Uploader múltiple -->
+  <div class="demo-group">
+    <h3>Archivos Múltiples</h3>
+    <p class="description">Permite subir varios archivos al mismo tiempo</p>
+    <bds-uploader
+      [accept]="'.jpg,.jpeg,.png,.pdf'"
+      [maxSize]="50 * 1024 * 1024"
+      [multiple]="true"
+      [dragDropText]="'Arrastra y suelta tus archivos'"
+      [buttonText]="'Seleccionar archivos'"
+      [helperText]="'Solo archivos en formato JPEG, PNG, PDF (Máx 50 MB)'"
+      (filesSelected)="onMultipleFilesSelected($event)"
+      (fileRemoved)="onFileRemoved($event)"
+      (error)="onError($event)"
+    ></bds-uploader>
+    
+    @if (multipleFiles().length > 0) {
+      <div class="file-info">
+        <p><strong>Total de archivos:</strong> {{ multipleFiles().length }}</p>
+        <ul>
+          @for (file of multipleFiles(); track file.id) {
+            <li>{{ file.file.name }} ({{ file.file.size }} bytes)</li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+
+  <!-- Uploader solo imágenes -->
+  <div class="demo-group">
+    <h3>Solo Imágenes</h3>
+    <p class="description">Restringido a formatos de imagen con preview</p>
+    <bds-uploader
+      [accept]="'.jpg,.jpeg,.png,.gif,.webp'"
+      [maxSize]="10 * 1024 * 1024"
+      [multiple]="true"
+      [dragDropText]="'Arrastra y suelta tus imágenes'"
+      [buttonText]="'Seleccionar imágenes'"
+      [helperText]="'Solo imágenes JPEG, PNG, GIF, WebP (Máx 10 MB)'"
+      (filesSelected)="onImageFilesSelected($event)"
+      (fileRemoved)="onFileRemoved($event)"
+      (error)="onError($event)"
+    ></bds-uploader>
+    
+    @if (imageFiles().length > 0) {
+      <div class="file-info">
+        <p><strong>Imágenes cargadas:</strong> {{ imageFiles().length }}</p>
+      </div>
+    }
+  </div>
+
+  <!-- Uploader solo PDF -->
+  <div class="demo-group">
+    <h3>Solo Documentos PDF</h3>
+    <p class="description">Restringido únicamente a archivos PDF</p>
+    <bds-uploader
+      [accept]="'.pdf'"
+      [maxSize]="20 * 1024 * 1024"
+      [multiple]="true"
+      [dragDropText]="'Arrastra y suelta tus documentos PDF'"
+      [buttonText]="'Seleccionar PDFs'"
+      [helperText]="'Solo archivos PDF (Máx 20 MB)'"
+      (filesSelected)="onPDFFilesSelected($event)"
+      (fileRemoved)="onFileRemoved($event)"
+      (error)="onError($event)"
+    ></bds-uploader>
+    
+    @if (pdfFiles().length > 0) {
+      <div class="file-info">
+        <p><strong>PDFs cargados:</strong> {{ pdfFiles().length }}</p>
+      </div>
+    }
+  </div>
+
+  <!-- Uploader deshabilitado -->
+  <div class="demo-group">
+    <h3>Estado Deshabilitado</h3>
+    <p class="description">Uploader en estado deshabilitado</p>
+    <bds-uploader
+      [disabled]="true"
+      [dragDropText]="'Uploader deshabilitado'"
+      [buttonText]="'Seleccionar archivo'"
+      [helperText]="'Este uploader está deshabilitado'"
+    ></bds-uploader>
+  </div>
+</section>

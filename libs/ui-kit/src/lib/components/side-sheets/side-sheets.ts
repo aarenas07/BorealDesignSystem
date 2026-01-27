@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { FocusTrapFactory, FocusTrap } from '@angular/cdk/a11y';
 import {
   Component,
@@ -21,7 +21,7 @@ export type SideSheetSize = 'sm' | 'md' | 'lg';
   standalone: true,
   templateUrl: './side-sheets.html',
   styleUrls: ['./side-sheets.scss'],
-  imports: [CommonModule],
+  imports: [NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideSheetsComponent {
@@ -54,7 +54,7 @@ export class SideSheetsComponent {
 
   activateTrap() {
     this.previouslyFocused = document.activeElement;
-    this.focusTrap = this.focusTrapFactory.create(this.el.nativeElement.querySelector('.side-sheet'));
+    this.focusTrap = this.focusTrapFactory.create(this.el.nativeElement.querySelector('.bds-side-sheet'));
     this.focusTrap.focusInitialElement();
   }
 

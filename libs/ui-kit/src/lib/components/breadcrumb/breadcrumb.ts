@@ -12,11 +12,13 @@ export interface MenuItem {
 
 @Component({
   selector: 'bds-breadcrumb',
+  standalone: true,
   imports: [RouterModule, MatIcon],
   templateUrl: './breadcrumb.html',
   styleUrl: './breadcrumb.scss',
 })
 export class BreadcrumbComponent {
   home = input<MenuItem>();
+  separator = input<string>('/');
   items = input<MenuItem[]>([]);
 }

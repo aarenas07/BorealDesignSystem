@@ -1,14 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Importar CommonModule
 import { SidebarStateService } from './services/sidebar-state.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { CommandMenuConfig } from '../../interfaces/command-item.interface';
 
 export interface SidebarItem {
   id: string;
@@ -27,15 +21,6 @@ export interface SidebarSection {
   isCollapsed?: boolean;
 }
 
-export interface CommandMenuConfig {
-  placeholder?: string;
-  icon?: string;
-  shortcut?: string;
-  width?: string;
-  buttonClass?: string;
-  disabled?: boolean;
-}
-
 @Component({
   selector: 'bds-side-bar',
   standalone: true, // Hacer el componente standalone
@@ -49,13 +34,11 @@ export class SideBarComponent {
   @Input() adminMenuConfig: CommandMenuConfig = {
     icon: 'home',
     shortcut: 'Ctrl + K',
-    placeholder: 'Buscar...'
+    placeholder: 'Buscar...',
   };
   @Input() userAvatar: string = '';
   @Input() userName: string = '';
-  @Input() quickActions: { label: string; action?: () => void }[] = [
-    { label: '+ ' },
-  ]; // Default quick actions
+  @Input() quickActions: { label: string; action?: () => void }[] = [{ label: '+ ' }]; // Default quick actions
   @Output() itemSelected = new EventEmitter<SidebarItem>();
 
   isExpanded = true;
@@ -66,7 +49,7 @@ export class SideBarComponent {
     private elementRef: ElementRef,
     private sidebarStateService: SidebarStateService,
     private cdr: ChangeDetectorRef // Inyectar ChangeDetectorRef
-  ) { }
+  ) {}
 
   onMouseEnter() {
     // console.log('[Sidebar] onMouseEnter', { isPinned: this.isPinned, isExpanded: this.isExpanded });
@@ -145,7 +128,6 @@ export class SideBarComponent {
     }
     if (item.route) {
       // this.router.navigate([item.route]);
-      console.log('Redirecting to route:', item.route);
     }
     if (item.url) {
       window.open(item.url, '_blank'); // Open external URLs in a new tab

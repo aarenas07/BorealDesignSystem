@@ -23,6 +23,7 @@ import { ExampleTabs } from './components/example-tabs/example-tabs';
 import { ExampleSnackbar } from './components/example-snackbar/example-snackbar';
 import { ExampleCollapsibleNav } from './components/example-collapsible-nav/example-collapsible-nav';
 import { ExampleExtendsColor } from './components/example-extends-color/example-extends-color';
+import { ExampleOtpInput } from './components/example-otp-input/example-otp-input';
 import { ExampleChips } from './components/example-chips/example-chips';
 
 @Component({
@@ -51,6 +52,7 @@ import { ExampleChips } from './components/example-chips/example-chips';
     ExampleSnackbar,
     ExampleCollapsibleNav,
     ExampleExtendsColor,
+    ExampleOtpInput,
     ExampleChips,
   ],
 

@@ -2,10 +2,11 @@ import { Component, input, output, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button';
 import { AlertActionBds, AlertTypeBds } from '../../interfaces';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'bds-alert',
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, ButtonComponent, MatIconModule],
   templateUrl: './alert.html',
   styleUrl: './alert.scss',
   host: {

@@ -20,6 +20,8 @@ export class ExampleSnackbar {
       {
         verticalPosition: 'top',
         horizontalPosition: 'center',
+        stacking: false,
+        duration: 3000,
       }
     );
   }
@@ -35,6 +37,8 @@ export class ExampleSnackbar {
       {
         verticalPosition: 'top',
         horizontalPosition: 'center',
+        stacking: false,
+        duration: 3000,
       }
     );
   }
@@ -50,6 +54,8 @@ export class ExampleSnackbar {
       {
         verticalPosition: 'top',
         horizontalPosition: 'center',
+        stacking: false,
+        duration: 3000,
       }
     );
   }
@@ -65,6 +71,8 @@ export class ExampleSnackbar {
       {
         verticalPosition: 'top',
         horizontalPosition: 'center',
+        stacking: false,
+        duration: 3000,
       }
     );
   }
@@ -80,6 +88,8 @@ export class ExampleSnackbar {
       {
         verticalPosition: 'top',
         horizontalPosition: 'center',
+        stacking: false,
+        duration: 3000,
       }
     );
   }
@@ -87,7 +97,8 @@ export class ExampleSnackbar {
   openSnackbarLong() {
     this.bdsSnackbarService.openSnackbar(
       {
-        message: 'Texto de prueba para el snackbar con acción larga.',
+        message:
+          'Texto de prueba para el snackbar con acción larga. Texto de prueba para el snackbar con acción larga. Texto de prueba para el snackbar con acción larga. Texto de prueba para el snackbar con acción larga. Texto de prueba para el snackbar con acción larga.',
         action: 'Aceptar',
         icon: 'close',
         longerAction: true,
@@ -95,6 +106,110 @@ export class ExampleSnackbar {
       {
         verticalPosition: 'top',
         horizontalPosition: 'center',
+        stacking: false,
+        duration: 3000,
+      }
+    );
+  }
+
+  openSnackbarDefaultStacked() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        stacking: true,
+        duration: 3000,
+      }
+    );
+  }
+
+  openSnackbarSuccessStacked() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'success',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        stacking: true,
+        duration: 3000,
+      }
+    );
+  }
+
+  openSnackbarInfoStacked() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Acción realizada con éxito',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'info',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        stacking: true,
+        duration: 3000,
+      }
+    );
+  }
+
+  openSnackbarWarningStacked() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Existen inconvenientes al realizar el proceso.',
+        icon: 'check_circle',
+        action: 'Cerrar',
+        type: 'warning',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        stacking: true,
+        duration: 3000,
+      }
+    );
+  }
+
+  openSnackbarErrorStacked() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message: 'Ha ocurrido un error crítico.',
+        action: 'Reintentar',
+        icon: 'error',
+        type: 'error',
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        stacking: true,
+        duration: 3000,
+      }
+    );
+  }
+
+  openSnackbarLongStacked() {
+    this.bdsSnackbarService.openSnackbar(
+      {
+        message:
+          'Texto de prueba para el snackbar con acción larga. Texto de prueba para el snackbar con acción larga. Texto de prueba para el snackbar con acción larga. Texto de prueba para el snackbar con acción larga. Texto de prueba para el snackbar con acción larga.',
+        action: 'Aceptar',
+        icon: 'close',
+        longerAction: true,
+      },
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        stacking: true,
+        duration: 3000,
       }
     );
   }

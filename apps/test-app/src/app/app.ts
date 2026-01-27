@@ -23,8 +23,8 @@ import { ExampleTabs } from './components/example-tabs/example-tabs';
 import { ExampleSnackbar } from './components/example-snackbar/example-snackbar';
 import { ExampleCollapsibleNav } from './components/example-collapsible-nav/example-collapsible-nav';
 import { ExampleExtendsColor } from './components/example-extends-color/example-extends-color';
-import { ExampleUploader } from './components/example-uploader/example-uploader';
 import { ExampleOtpInput } from './components/example-otp-input/example-otp-input';
+import { ExampleChips } from './components/example-chips/example-chips';
 
 @Component({
   selector: 'app-root',
@@ -52,8 +52,8 @@ import { ExampleOtpInput } from './components/example-otp-input/example-otp-inpu
     ExampleSnackbar,
     ExampleCollapsibleNav,
     ExampleExtendsColor,
-    ExampleUploader,
     ExampleOtpInput,
+    ExampleChips,
   ],
 
   providers: [provideNativeDateAdapter()],

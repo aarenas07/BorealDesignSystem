@@ -3,6 +3,9 @@
 
 bds-snackbar {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 
   &.longer-action {
     flex-direction: column;
@@ -10,6 +13,7 @@ bds-snackbar {
     .mat-mdc-snack-bar-actions {
       justify-content: flex-end;
       padding-bottom: 0.5rem;
+      margin-left: auto;
     }
   }
 }

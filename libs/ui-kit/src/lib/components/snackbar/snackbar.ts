@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, inject, input, output, ViewEncapsulation, Optional } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_SNACK_BAR_DATA, MatSnackBarAction, MatSnackBarActions, MatSnackBarLabel, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MatIcon } from '@angular/material/icon';
@@ -15,8 +15,15 @@ import { SnackbarDataBds } from '../../interfaces/bds-snackbar.interface';
   encapsulation: ViewEncapsulation.None,
 })
 export class SnackbarComponent {
-  readonly data: SnackbarDataBds = inject(MAT_SNACK_BAR_DATA);
-  readonly bdsSnackBarRef: MatSnackBarRef<SnackbarComponent> = inject(MatSnackBarRef);
+  private readonly injectedData: SnackbarDataBds = inject(MAT_SNACK_BAR_DATA, { optional: true }) || { message: '' };
+  readonly bdsSnackBarRef = inject(MatSnackBarRef, { optional: true });
+
+  dataInput = input<SnackbarDataBds | undefined>(undefined, { alias: 'data' });
+  dismiss = output<void>();
+
+  get data(): SnackbarDataBds {
+    return this.dataInput() || this.injectedData;
+  }
 
   get message() {
     return this.data?.message || '';

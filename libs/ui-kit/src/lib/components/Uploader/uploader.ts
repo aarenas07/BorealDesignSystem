@@ -1,9 +1,11 @@
-import { Component, input, output, signal, ElementRef, viewChild } from '@angular/core';
+import { Component, input, output, signal, ElementRef, viewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ExpansionPanelComponent } from '../expasion-panel/expansion-panel';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { FilePreviewDialogComponent } from './file-preview-dialog';
 
 export interface UploadedFile {
   file: File;
@@ -13,11 +15,13 @@ export interface UploadedFile {
 
 @Component({
   selector: 'bds-uploader',
-  imports: [CommonModule, ButtonComponent, MatIconModule, ExpansionPanelComponent, MatExpansionModule],
+  imports: [CommonModule, ButtonComponent, MatIconModule, ExpansionPanelComponent, MatExpansionModule, MatDialogModule],
   templateUrl: './uploader.html',
   styleUrl: './uploader.scss',
 })
 export class UploaderComponent {
+  private dialog = inject(MatDialog);
+  
   // Inputs parametrizables
   accept = input<string>('.jpg,.jpeg,.png,.pdf'); // Tipos de archivo aceptados
   maxSize = input<number>(50 * 1024 * 1024); // Tamaño máximo en bytes (default 50MB)
@@ -81,6 +85,19 @@ export class UploaderComponent {
     const files = this.uploadedFiles().filter(f => f.id !== file.id);
     this.uploadedFiles.set(files);
     this.fileRemoved.emit(file);
+  }
+
+  viewFile(file: UploadedFile): void {
+    this.dialog.open(FilePreviewDialogComponent, {
+      data: {
+        file: file.file,
+        preview: file.preview
+      },
+      width: 'auto',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+      panelClass: 'file-preview-dialog-container'
+    });
   }
 
   private processFiles(files: File[]): void {

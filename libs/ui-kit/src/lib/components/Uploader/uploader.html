@@ -86,16 +86,16 @@
               </div>
               <div class="container_actions">
                 <bds-button 
-                  class="bds-uploader__preview-remove"
-                  (click)="removeFile(uploadedFile)"
-                  aria-label="Eliminar archivo"
+                  class="bds-uploader__preview-view"
+                  (action)="viewFile(uploadedFile)"
+                  aria-label="Ver archivo"
                   [variant]="'icon'"
                   [icon]="'visibility'"
                 >
                 </bds-button>
                 <bds-button 
                   class="bds-uploader__preview-remove"
-                  (click)="removeFile(uploadedFile)"
+                  (action)="removeFile(uploadedFile)"
                   aria-label="Eliminar archivo"
                   [variant]="'icon'"
                   [icon]="'delete'"

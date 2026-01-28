@@ -168,6 +168,8 @@ export interface RailComponentConfigBds {
   showLabels?: boolean;
   /** Número máximo de caracteres para el label (se trunca con ...) */
   labelMaxLength?: number;
+  /** Mostrar tooltips en los items del rail */
+  showTooltips?: boolean;
 }
 
 /**

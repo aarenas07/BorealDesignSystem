@@ -34,6 +34,9 @@
               [class.active]="item.isActive || (item.isModule && item.id === activeModuleId)"
               [class.with-label]="showRailLabels"
               (click)="onRailItemClick(item)"
+              [bdsTooltip]="item.label"
+              [bdsTooltipPosition]="tooltipPosition"
+              [bdsTooltipDisabled]="!showRailTooltips"
             >
               @if (item.icon) {
                 <span class="material-symbols-rounded rail-icon">{{ item.icon }}</span>

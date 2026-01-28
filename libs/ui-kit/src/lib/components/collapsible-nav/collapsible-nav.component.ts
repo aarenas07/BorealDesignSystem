@@ -18,6 +18,7 @@ import {
   BehaviorConfigBds,
   RailComponentConfigBds,
 } from '../../interfaces/bds-collapsible-nav.interface';
+import { BdsTooltipDirective } from '../../directives/bds-tooltip.directive';
 
 // ============================================================================
 // COMPONENTE
@@ -25,7 +26,7 @@ import {
 
 @Component({
   selector: 'bds-collapsible-nav',
-  imports: [CommonModule, CommandMenuComponent],
+  imports: [CommonModule, CommandMenuComponent, BdsTooltipDirective],
   templateUrl: './collapsible-nav.component.html',
   styleUrl: './collapsible-nav.component.scss',
 })
@@ -90,6 +91,7 @@ export class CollapsibleNavComponent implements OnInit {
       tooltipPosition: 'right',
       showLabels: false,
       labelMaxLength: 10,
+      showTooltips: true,
     },
     showCommandMenu: true,
   };
@@ -432,8 +434,13 @@ export class CollapsibleNavComponent implements OnInit {
         tooltipPosition: 'right',
         showLabels: false,
         labelMaxLength: 10,
+        showTooltips: true,
       }
     );
+  }
+
+  get showRailTooltips(): boolean {
+    return this.railConfig.showTooltips ?? true;
   }
 
   get showRailLabels(): boolean {

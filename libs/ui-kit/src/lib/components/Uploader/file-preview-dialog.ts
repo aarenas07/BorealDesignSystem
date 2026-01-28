@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { ButtonComponent } from '../button/button';
@@ -31,6 +32,12 @@ export interface FilePreviewData {
             [src]="data.preview" 
             [alt]="data.file.name"
             class="file-preview-dialog__image"
+          />
+        } @else if (isPdf()) {
+          <embed 
+            [src]="pdfUrl()" 
+            type="application/pdf"
+            class="file-preview-dialog__pdf"
           />
         } @else {
           <div class="file-preview-dialog__no-preview">
@@ -92,6 +99,13 @@ export interface FilePreviewData {
         border-radius: 8px;
       }
       
+      &__pdf {
+        width: 80vw;
+        height: 80vh;
+        border: none;
+        border-radius: 8px;
+      }
+      
       &__no-preview {
         display: flex;
         flex-direction: column;
@@ -123,12 +137,26 @@ export interface FilePreviewData {
     }
   `]
 })
-export class FilePreviewDialogComponent {
+export class FilePreviewDialogComponent implements OnInit {
   dialogRef = inject(MatDialogRef<FilePreviewDialogComponent>);
   data = inject<FilePreviewData>(MAT_DIALOG_DATA);
+  private sanitizer = inject(DomSanitizer);
+  
+  pdfUrl = signal<SafeResourceUrl | null>(null);
+
+  ngOnInit(): void {
+    if (this.isPdf()) {
+      const url = URL.createObjectURL(this.data.file);
+      this.pdfUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(url));
+    }
+  }
 
   close(): void {
     this.dialogRef.close();
+  }
+
+  isPdf(): boolean {
+    return this.data.file.type === 'application/pdf';
   }
 
   getFileIcon(): string {

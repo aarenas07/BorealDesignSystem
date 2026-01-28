@@ -25,6 +25,13 @@
     font-size: 20px;
     color: var(--mat-sys-on-surface-variant);
     transition: transform 0.2s;
+    display: flex;
+    width: 36px;
+    height: 36px;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--mat-sys-secondary-container);
+    border-radius: 50%;
   }
 
   &__collapse-label {

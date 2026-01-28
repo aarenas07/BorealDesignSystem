@@ -64,9 +64,9 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <div class="bds-uploader__collapse-header">
-            <mat-icon class="bds-uploader__collapse-icon">folder</mat-icon>
+            <div class="bds-uploader__collapse-icon">{{ uploadedFiles().length }}</div>
             <span class="bds-uploader__collapse-label">
-              Archivos seleccionados ({{ uploadedFiles().length }})
+              Archivos seleccionados
             </span>
           </div>
         </mat-expansion-panel-header>

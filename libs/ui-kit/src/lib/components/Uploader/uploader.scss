@@ -14,12 +14,12 @@
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    background: var(--mat-sys-surface-container);
+    background-color: var(--mat-sys-secondary-container);
     border-radius: 8px;
     padding: 8px 12px;
     margin-bottom: 4px;
     user-select: none;
-    border: 1px solid var(--mat-sys-outline-variant);
+    border: 1px solid var(--mat-sys-secondary);
     transition: background 0.2s;
     &:hover {
       background: var(--mat-sys-surface-container-high);
@@ -104,7 +104,7 @@
   &__preview-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
 
   &__preview-item {
@@ -112,9 +112,6 @@
     align-items: center;
     gap: 12px;
     padding: 12px;
-    border-radius: 8px;
-    background-color: var(--mat-sys-surface-container);
-    border: 1px solid var(--mat-sys-outline-variant);
   }
 
   &__preview-thumbnail {
@@ -190,4 +187,12 @@
       height: 20px;
     }
   }
+}
+
+.container_actions{
+  display: flex;
+
+    .bds-uploader__preview-remove{
+      // width: 24px;
+    }
 }

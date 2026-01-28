@@ -55,7 +55,7 @@
           (click)="removeFile(uploadedFiles()[0])"
           aria-label="Eliminar archivo"
         >
-          <mat-icon>close</mat-icon>
+          <mat-icon>delete</mat-icon>
         </button>
       </div>
     </div>
@@ -83,13 +83,29 @@
             <p class="bds-uploader__preview-name">{{ uploadedFile.file.name }}</p>
             <p class="bds-uploader__preview-size">{{ formatFileSize(uploadedFile.file.size) }}</p>
           </div>
-          <button 
-            class="bds-uploader__preview-remove"
-            (click)="removeFile(uploadedFile)"
-            aria-label="Eliminar archivo"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
+
+          <div class="container_actions">
+
+            <bds-button 
+              class="bds-uploader__preview-remove"
+              (click)="removeFile(uploadedFile)"
+              aria-label="Eliminar archivo"
+              [variant]="'icon'"
+              [icon]="'visibility'"
+              >
+            </bds-button>
+            
+            <bds-button 
+              class="bds-uploader__preview-remove"
+              (click)="removeFile(uploadedFile)"
+              aria-label="Eliminar archivo"
+              [variant]="'icon'"
+              [icon]="'delete'"
+              >
+            </bds-button>
+          
+          </div>
+
         </div>
       }
     </div>

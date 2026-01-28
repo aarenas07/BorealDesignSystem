@@ -2,6 +2,8 @@ import { Component, input, output, signal, ElementRef, viewChild } from '@angula
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ExpansionPanelComponent } from '../expasion-panel/expansion-panel';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 export interface UploadedFile {
   file: File;
@@ -11,7 +13,7 @@ export interface UploadedFile {
 
 @Component({
   selector: 'bds-uploader',
-  imports: [CommonModule, ButtonComponent, MatIconModule],
+  imports: [CommonModule, ButtonComponent, MatIconModule, ExpansionPanelComponent, MatExpansionModule],
   templateUrl: './uploader.html',
   styleUrl: './uploader.scss',
 })

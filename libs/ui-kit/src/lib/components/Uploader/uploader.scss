@@ -14,16 +14,11 @@
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    background-color: var(--mat-sys-secondary-container);
     border-radius: 8px;
     padding: 8px 12px;
     margin-bottom: 4px;
     user-select: none;
-    border: 1px solid var(--mat-sys-secondary);
     transition: background 0.2s;
-    &:hover {
-      background: var(--mat-sys-surface-container-high);
-    }
   }
 
   &__collapse-icon {

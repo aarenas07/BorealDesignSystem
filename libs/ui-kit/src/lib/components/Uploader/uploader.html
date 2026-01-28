@@ -60,55 +60,52 @@
       </div>
     </div>
   } @else if (uploadedFiles().length > 1) {
-    <div class="bds-uploader__collapse-header" (click)="toggleCollapse()">
-      <mat-icon class="bds-uploader__collapse-icon">
-        {{ collapsed() ? 'expand_more' : 'expand_less' }}
-      </mat-icon>
-      <span class="bds-uploader__collapse-label">
-        Archivos seleccionados ({{ uploadedFiles().length }})
-      </span>
-    </div>
-    @if(!collapsed()) {
-    <div class="bds-uploader__preview-list">
-      @for (uploadedFile of uploadedFiles(); track uploadedFile.id) {
-        <div class="bds-uploader__preview-item">
-          <div class="bds-uploader__preview-thumbnail">
-            @if (uploadedFile.preview) {
-              <img [src]="uploadedFile.preview" [alt]="uploadedFile.file.name" />
-            } @else {
-              <mat-icon class="bds-uploader__preview-icon">{{ getFileIcon(uploadedFile.file) }}</mat-icon>
-            }
+    <bds-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <div class="bds-uploader__collapse-header">
+            <mat-icon class="bds-uploader__collapse-icon">folder</mat-icon>
+            <span class="bds-uploader__collapse-label">
+              Archivos seleccionados ({{ uploadedFiles().length }})
+            </span>
           </div>
-          <div class="bds-uploader__preview-info">
-            <p class="bds-uploader__preview-name">{{ uploadedFile.file.name }}</p>
-            <p class="bds-uploader__preview-size">{{ formatFileSize(uploadedFile.file.size) }}</p>
-          </div>
-
-          <div class="container_actions">
-
-            <bds-button 
-              class="bds-uploader__preview-remove"
-              (click)="removeFile(uploadedFile)"
-              aria-label="Eliminar archivo"
-              [variant]="'icon'"
-              [icon]="'visibility'"
-              >
-            </bds-button>
-            
-            <bds-button 
-              class="bds-uploader__preview-remove"
-              (click)="removeFile(uploadedFile)"
-              aria-label="Eliminar archivo"
-              [variant]="'icon'"
-              [icon]="'delete'"
-              >
-            </bds-button>
-          
-          </div>
-
+        </mat-expansion-panel-header>
+        <div class="bds-uploader__preview-list">
+          @for (uploadedFile of uploadedFiles(); track uploadedFile.id) {
+            <div class="bds-uploader__preview-item">
+              <div class="bds-uploader__preview-thumbnail">
+                @if (uploadedFile.preview) {
+                  <img [src]="uploadedFile.preview" [alt]="uploadedFile.file.name" />
+                } @else {
+                  <mat-icon class="bds-uploader__preview-icon">{{ getFileIcon(uploadedFile.file) }}</mat-icon>
+                }
+              </div>
+              <div class="bds-uploader__preview-info">
+                <p class="bds-uploader__preview-name">{{ uploadedFile.file.name }}</p>
+                <p class="bds-uploader__preview-size">{{ formatFileSize(uploadedFile.file.size) }}</p>
+              </div>
+              <div class="container_actions">
+                <bds-button 
+                  class="bds-uploader__preview-remove"
+                  (click)="removeFile(uploadedFile)"
+                  aria-label="Eliminar archivo"
+                  [variant]="'icon'"
+                  [icon]="'visibility'"
+                >
+                </bds-button>
+                <bds-button 
+                  class="bds-uploader__preview-remove"
+                  (click)="removeFile(uploadedFile)"
+                  aria-label="Eliminar archivo"
+                  [variant]="'icon'"
+                  [icon]="'delete'"
+                >
+                </bds-button>
+              </div>
+            </div>
+          }
         </div>
-      }
-    </div>
-  }
+      </mat-expansion-panel>
+    </bds-expansion-panel>
   }
 </div>

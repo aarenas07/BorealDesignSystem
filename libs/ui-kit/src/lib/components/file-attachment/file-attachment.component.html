@@ -1,0 +1,73 @@
+<div class="container">
+
+    <div class="page-subtitle">
+        <p>Archivos adjuntos {{ listAttachments.length > 0 ? "(" + listAttachments.length + ")" : '' }}</p>
+    </div>
+
+    @if (description()) {
+    <div class="attached-description">
+        <p>{{description()}}</p>
+    </div>
+    }
+
+    <div class="attach-container">
+        @if (showFileInput()) {
+        <div class="attach" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)"
+            (click)="fileInput.click()">
+            <div class="attach-icon">
+                <span class="material-symbols-rounded">
+                    deployed_code
+                </span>
+            </div>
+            <div class="attach-texts">
+                <p class="attach-title">Haga clic o arrastre archivos a esta área</p>
+                <p>Formatos permitidos: {{uploadValidFormats()}} (Máx. {{maxFileSize()}} MB por archivo)</p>
+            </div>
+
+            <input #fileInput type="file" (change)="onFileSelected($event)" [formControl]="inputFile"
+                style="display: none" [accept]="uploadValidFormats()" />
+        </div>
+        }
+
+        @if (showErrorMessage) {
+        <div class="message-error">
+            <span class="material-symbols-rounded">
+                error
+            </span>
+            <p>{{ message }}</p>
+        </div>
+        }
+
+        @if (listAttachments.length > 0) {
+        <div class="preview-container">
+            @for ( file of listAttachments; track file.name) {
+            <div class="preview-item animate-custom-fadeInUp">
+                <div class="preview-icon">
+                    <span class="material-symbols-rounded">
+                        {{ assignIcon(file) }}
+                    </span>
+                </div>
+                <div class="preview-texts">
+                    <p class="preview-name">{{ file.name }}</p>
+                    <p>Agregado: {{date | date : 'd/MM/yyyy'}} - {{ convertFileSize(file.size) }}</p>
+                </div>
+                <div class="preview-buttoms">
+                    @if (file.type === 'application/pdf') {
+                    <!-- <img src="./images/file-attachment/eye.svg" alt="icono botón" class="preview-buttoms__img" /> -->
+                    <span class="material-symbols-rounded">
+                        visibility
+                    </span>
+                    }
+                    <span class="material-symbols-rounded" (click)="downloadFile(file)" (keyup)="($index)">
+                        download
+                    </span>
+                    <span class="material-symbols-rounded" (click)="deleteAttachment(file.name)" (keyup)="($index)">
+                        delete
+                    </span>
+                </div>
+            </div>
+            }
+        </div>
+        }
+
+    </div>

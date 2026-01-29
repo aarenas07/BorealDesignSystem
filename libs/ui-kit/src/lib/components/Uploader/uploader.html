@@ -1,0 +1,111 @@
+<div class="bds-uploader">
+  <!-- Input oculto -->
+  <input 
+    #fileInput
+    type="file" 
+    [accept]="accept()" 
+    [multiple]="multiple()"
+    [disabled]="disabled()"
+    (change)="onFileSelect($event)"
+    style="display: none;"
+  />
+
+  <!-- Área de drag & drop -->
+  <div 
+    class="bds-uploader__dropzone"
+    [class.bds-uploader__dropzone--dragging]="isDragging()"
+    [class.bds-uploader__dropzone--disabled]="disabled()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+  >
+    <div class="bds-uploader__content">
+      <p class="bds-uploader__title">{{ dragDropText() }}</p>
+      <p class="bds-uploader__subtitle">o haz clic en el botón {{ buttonText() }}</p>
+      
+      <bds-button 
+        class="bds-uploader__button"
+        [label]="buttonText()"
+        variant="outlined"
+        [disabled]="disabled()"
+        (action)="openFileSelector()"
+      ></bds-button>
+
+      <p class="bds-uploader__helper">{{ helperText() }}</p>
+    </div>
+  </div>
+
+  <!-- Preview de archivos subidos -->
+  @if (uploadedFiles().length === 1) {
+    <div class="bds-uploader__preview-list">
+      <div class="bds-uploader__preview-item">
+        <div class="bds-uploader__preview-thumbnail">
+          @if (uploadedFiles()[0].preview) {
+            <img [src]="uploadedFiles()[0].preview" [alt]="uploadedFiles()[0].file.name" />
+          } @else {
+            <mat-icon class="bds-uploader__preview-icon">{{ getFileIcon(uploadedFiles()[0].file) }}</mat-icon>
+          }
+        </div>
+        <div class="bds-uploader__preview-info">
+          <p class="bds-uploader__preview-name">{{ uploadedFiles()[0].file.name }}</p>
+          <p class="bds-uploader__preview-size">{{ formatFileSize(uploadedFiles()[0].file.size) }}</p>
+        </div>
+        <button 
+          class="bds-uploader__preview-remove"
+          (click)="removeFile(uploadedFiles()[0])"
+          aria-label="Eliminar archivo"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  } @else if (uploadedFiles().length > 1) {
+    <bds-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <div class="bds-uploader__collapse-header">
+            <div class="bds-uploader__collapse-icon">{{ uploadedFiles().length }}</div>
+            <span class="bds-uploader__collapse-label">
+              Archivos seleccionados
+            </span>
+          </div>
+        </mat-expansion-panel-header>
+        <div class="bds-uploader__preview-list">
+          @for (uploadedFile of uploadedFiles(); track uploadedFile.id) {
+            <div class="bds-uploader__preview-item">
+              <div class="bds-uploader__preview-thumbnail">
+                @if (uploadedFile.preview) {
+                  <img [src]="uploadedFile.preview" [alt]="uploadedFile.file.name" />
+                } @else {
+                  <mat-icon class="bds-uploader__preview-icon">{{ getFileIcon(uploadedFile.file) }}</mat-icon>
+                }
+              </div>
+              <div class="bds-uploader__preview-info">
+                <p class="bds-uploader__preview-name">{{ uploadedFile.file.name }}</p>
+                <p class="bds-uploader__preview-size">{{ formatFileSize(uploadedFile.file.size) }}</p>
+              </div>
+              <div class="container_actions">
+                <bds-button 
+                  class="bds-uploader__preview-view"
+                  (action)="viewFile(uploadedFile)"
+                  aria-label="Ver archivo"
+                  [variant]="'icon'"
+                  [icon]="'visibility'"
+                >
+                </bds-button>
+                <bds-button 
+                  class="bds-uploader__preview-remove"
+                  (action)="removeFile(uploadedFile)"
+                  aria-label="Eliminar archivo"
+                  [variant]="'icon'"
+                  [icon]="'delete'"
+                >
+                </bds-button>
+              </div>
+            </div>
+          }
+        </div>
+      </mat-expansion-panel>
+    </bds-expansion-panel>
+  }
+</div>

@@ -15,6 +15,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { FormsModule } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ButtonComponent } from '../button/button';
+import { CustomPaginatorComponent } from '../paginator/custom-paginator';
 
 // ==================== INTERFACES ====================
 
@@ -96,6 +97,7 @@ export interface TableState<T = any> {
     MatProgressSpinnerModule,
     FormFieldComponent,
     ButtonComponent,
+    CustomPaginatorComponent,
   ],
   animations: [
     trigger('detailExpand', [
@@ -148,8 +150,23 @@ export class TableComponent<T = any> implements OnInit {
   @Output() rowClick = new EventEmitter<T>();
   @Output() actionClick = new EventEmitter<{ action: TableAction<T>; row: T }>();
 
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) set sort(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
+
+  @ViewChild(MatPaginator) set paginator(paginator: MatPaginator) {
+    this.dataSource.paginator = paginator;
+
+    // Si tenemos un tamaño de página guardado y el paginador se reinicia, restaurarlo
+    if (paginator && this.currentPageSize()) {
+      paginator.pageSize = this.currentPageSize();
+    }
+  }
+
+  // Propiedad privada para acceder al paginador internamente si es necesario
+  get _paginator(): MatPaginator | null {
+    return this.dataSource.paginator ?? null;
+  }
 
   dataSource = new MatTableDataSource<T>();
   selection = new SelectionModel<T>(true, []);
@@ -163,6 +180,8 @@ export class TableComponent<T = any> implements OnInit {
     totalRecords: 0,
   });
 
+  currentPageSize = signal<number>(10);
+
   visibleColumns = computed(() => this.columns.filter(col => !col.hidden));
 
   displayedColumns = computed(() => {
@@ -175,6 +194,9 @@ export class TableComponent<T = any> implements OnInit {
   });
 
   ngOnInit() {
+    if (this.config.defaultPageSize) {
+      this.currentPageSize.set(this.config.defaultPageSize);
+    }
     this.dataSource.data = this.state().data;
     this.selection.changed.subscribe(() => {
       this.selectionChange.emit(this.selection.selected);
@@ -182,8 +204,7 @@ export class TableComponent<T = any> implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    // Los ViewChild setters se encargan de asignar sort y paginator
   }
 
   applyGlobalFilter(filterValue: string) {
@@ -288,5 +309,38 @@ export class TableComponent<T = any> implements OnInit {
 
   getSelectedRows(): T[] {
     return this.selection.selected;
+  }
+
+  /* Nuevo metodo con el nuevo paginador */
+  onCustomPageChange(pageIndex: number) {
+    const paginator = this.dataSource.paginator;
+    if (paginator) {
+      paginator.pageIndex = pageIndex;
+      this._emitPageEvent(paginator);
+    }
+  }
+
+  onCustomPageSizeChange(pageSize: number) {
+    this.currentPageSize.set(pageSize);
+    const paginator = this.dataSource.paginator;
+    if (paginator) {
+      paginator.pageSize = pageSize;
+      paginator.pageIndex = 0; // Reset to first page
+      this._emitPageEvent(paginator);
+    }
+  }
+
+  private _emitPageEvent(paginator: MatPaginator) {
+    // 2. Disparamos el evento 'page' del paginador nativo manualmente
+    // Esto obliga al MatTableDataSource a refrescarse y cortar los datos
+    const event: PageEvent = {
+      length: paginator.length,
+      pageIndex: paginator.pageIndex,
+      pageSize: paginator.pageSize,
+    };
+    paginator.page.emit(event);
+
+    // 3. Emitimos tu evento original por si el padre lo escucha
+    this.pageChange.emit(event);
   }
 }

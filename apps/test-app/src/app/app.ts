@@ -26,6 +26,7 @@ import { ExampleExtendsColor } from './components/example-extends-color/example-
 import { ExampleOtpInput } from './components/example-otp-input/example-otp-input';
 import { ExampleChips } from './components/example-chips/example-chips';
 import { ExampleSidebarComponent } from './components/example-sidebar/example-sidebar';
+import { ExampleUploader } from './components/example-uploader/example-uploader';
 
 @Component({
   selector: 'app-root',
@@ -56,6 +57,7 @@ import { ExampleSidebarComponent } from './components/example-sidebar/example-si
     ExampleOtpInput,
     ExampleChips,
     ExampleSidebarComponent,
+    ExampleUploader,
   ],
 
   providers: [provideNativeDateAdapter()],

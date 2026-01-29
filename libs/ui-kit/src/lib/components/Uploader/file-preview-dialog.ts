@@ -17,28 +17,16 @@ export interface FilePreviewData {
   template: `
     <div class="file-preview-dialog">
       <div class="file-preview-dialog__header">
-        <span 
-          class="file-preview-dialog__close"
-          (click)="close()"
-          aria-label="Cerrar"
-        >
+        <span class="file-preview-dialog__close" (click)="close()" aria-label="Cerrar">
           <mat-icon>close</mat-icon>
         </span>
       </div>
-      
+
       <div class="file-preview-dialog__content">
         @if (data.preview) {
-          <img 
-            [src]="data.preview" 
-            [alt]="data.file.name"
-            class="file-preview-dialog__image"
-          />
+          <img [src]="data.preview" [alt]="data.file.name" class="file-preview-dialog__image" />
         } @else if (isPdf()) {
-          <embed 
-            [src]="pdfUrl()" 
-            type="application/pdf"
-            class="file-preview-dialog__pdf"
-          />
+          <embed [src]="pdfUrl()" type="application/pdf" class="file-preview-dialog__pdf" />
         } @else {
           <div class="file-preview-dialog__no-preview">
             <mat-icon class="file-preview-dialog__icon">{{ getFileIcon() }}</mat-icon>
@@ -49,99 +37,100 @@ export interface FilePreviewData {
       </div>
     </div>
   `,
-  styles: [`
-    .file-preview-dialog {
-      display: flex;
-      flex-direction: column;
-      
-      
-      &__title {
-        margin: 0;
-        font-size: 20px;
-        font-weight: 500;
-        color: var(--mat-sys-on-surface);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        max-width: calc(100% - 48px);
-      }
-      
-      &__header {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 8px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: end;
-        color: var(--mat-sys-on-surface-variant);
-        
-        mat-icon {
-          font-size: 24px;
-          width: 24px;
-          height: 24px;
-        }
-      }
-      
-      &__content {
-        padding: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: auto;
-      }
-      
-      &__image {
-        max-width: 100%;
-        max-height: 70vh;
-        object-fit: contain;
-        border-radius: 8px;
-      }
-      
-      &__pdf {
-        width: 80vw;
-        height: 80vh;
-        border: none;
-        border-radius: 8px;
-      }
-      
-      &__no-preview {
+  styles: [
+    `
+      .file-preview-dialog {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 16px;
-        padding: 48px;
+
+        &__title {
+          margin: 0;
+          font-size: 20px;
+          font-weight: 500;
+          color: var(--mat-sys-on-surface);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: calc(100% - 48px);
+        }
+
+        &__header {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 8px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: end;
+          color: var(--mat-sys-on-surface-variant);
+
+          mat-icon {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        &__content {
+          padding: 24px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: auto;
+        }
+
+        &__image {
+          max-width: 100%;
+          max-height: 70vh;
+          object-fit: contain;
+          border-radius: 8px;
+        }
+
+        &__pdf {
+          width: 80vw;
+          height: 80vh;
+          border: none;
+          border-radius: 8px;
+        }
+
+        &__no-preview {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+          padding: 48px;
+        }
+
+        &__icon {
+          font-size: 64px;
+          width: 64px;
+          height: 64px;
+          color: var(--mat-sys-on-surface-variant);
+        }
+
+        &__filename {
+          font-size: 16px;
+          font-weight: 500;
+          color: var(--mat-sys-on-surface);
+          margin: 0;
+          text-align: center;
+        }
+
+        &__filesize {
+          font-size: 14px;
+          color: var(--mat-sys-on-surface-variant);
+          margin: 0;
+        }
       }
-      
-      &__icon {
-        font-size: 64px;
-        width: 64px;
-        height: 64px;
-        color: var(--mat-sys-on-surface-variant);
-      }
-      
-      &__filename {
-        font-size: 16px;
-        font-weight: 500;
-        color: var(--mat-sys-on-surface);
-        margin: 0;
-        text-align: center;
-      }
-      
-      &__filesize {
-        font-size: 14px;
-        color: var(--mat-sys-on-surface-variant);
-        margin: 0;
-      }
-    }
-  `]
+    `,
+  ],
 })
 export class FilePreviewDialogComponent implements OnInit {
   dialogRef = inject(MatDialogRef<FilePreviewDialogComponent>);
   data = inject<FilePreviewData>(MAT_DIALOG_DATA);
   private sanitizer = inject(DomSanitizer);
-  
+
   pdfUrl = signal<SafeResourceUrl | null>(null);
 
   ngOnInit(): void {
@@ -170,6 +159,6 @@ export class FilePreviewDialogComponent implements OnInit {
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
   }
 }

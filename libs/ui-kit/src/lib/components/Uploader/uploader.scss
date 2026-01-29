@@ -9,38 +9,135 @@
   gap: 16px;
   font-family: 'Roboto', sans-serif;
 
+  // ========================================
+  // Layout horizontal (lista al lado)
+  // ========================================
+  &--horizontal {
+    flex-direction: row;
+    align-items: flex-start;
+
+    .bds-uploader__main {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .bds-uploader__files {
+      flex: 1;
+      min-width: 300px;
+    }
+  }
+
+  // ========================================
+  // Contenedor principal
+  // ========================================
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  // ========================================
+  // Header siempre visible
+  // ========================================
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--mat-sys-surface-container-low);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__header-icon {
+    color: var(--mat-sys-primary);
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+
+  &__header-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__header-label {
+    color: var(--mat-sys-on-surface);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  &__header-helper {
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  &__header-button {
+    flex-shrink: 0;
+  }
+
+  // ========================================
+  // Header colapsable para múltiples archivos
+  // ========================================
   &__collapse-header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    border-radius: 8px;
-    padding: 8px 12px;
-    margin-bottom: 4px;
-    user-select: none;
-    transition: background 0.2s;
+    gap: 12px;
+    width: 100%;
   }
 
   &__collapse-icon {
-    font-size: 20px;
-    color: var(--mat-sys-on-surface-variant);
-    transition: transform 0.2s;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--mat-sys-on-secondary-container);
     display: flex;
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
     justify-content: center;
     align-items: center;
     background-color: var(--mat-sys-secondary-container);
     border-radius: 50%;
   }
 
+  &__collapse-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
   &__collapse-label {
     color: var(--mat-sys-on-surface);
     font-size: 14px;
     font-weight: 500;
+    line-height: 20px;
   }
 
+  &__collapse-size {
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  &__collapse-action {
+    color: var(--mat-sys-primary);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  // ========================================
   // Dropzone (área de drag & drop)
+  // ========================================
   &__dropzone {
     border: 2px dashed var(--mat-sys-outline-variant);
     border-radius: 12px;
@@ -49,6 +146,7 @@
     background-color: var(--mat-sys-surface);
     transition: all 0.3s ease;
     cursor: pointer;
+    animation: slideDown 0.3s ease-out forwards;
 
     &:hover:not(&--disabled) {
       border-color: var(--mat-sys-primary);
@@ -65,6 +163,10 @@
       opacity: 0.5;
       cursor: not-allowed;
     }
+
+    &--compact {
+      padding: 24px 16px;
+    }
   }
 
   &__content {
@@ -72,6 +174,36 @@
     flex-direction: column;
     align-items: center;
     gap: 12px;
+  }
+
+  &__upload-icon {
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+
+  &__compact-label {
+    color: var(--mat-sys-on-surface);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  &__compact-helper {
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: center;
+  }
+
+  &__file-link {
+    color: var(--mat-sys-primary);
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: underline;
+    cursor: pointer;
   }
 
   &__title {
@@ -102,7 +234,16 @@
     margin: 0;
   }
 
+  // ========================================
+  // Contenedor de archivos
+  // ========================================
+  &__files {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  // ========================================
   // Lista de preview
+  // ========================================
   &__preview-list {
     display: flex;
     flex-direction: column;
@@ -111,37 +252,31 @@
 
   &__preview-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
-    padding: 12px;
-  }
+    padding: 12px 0;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
 
-  &__preview-thumbnail {
-    width: 48px;
-    height: 48px;
-    border-radius: 6px;
-    overflow: hidden;
-    background-color: var(--mat-sys-surface-container-high);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    &:last-child {
+      border-bottom: none;
     }
   }
 
-  &__preview-icon {
+  &__file-icon {
     color: var(--mat-sys-on-surface-variant);
     font-size: 24px;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
   }
 
   &__preview-info {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 
   &__preview-name {
@@ -149,10 +284,24 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
-    margin: 0 0 4px 0;
+    margin: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  &__preview-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  &__file-type {
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
   }
 
   &__preview-size {
@@ -160,7 +309,77 @@
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;
-    margin: 0;
+  }
+
+  // ========================================
+  // Progress bar para estado uploading
+  // ========================================
+  &__progress {
+    width: 100%;
+    height: 4px;
+    background: var(--mat-sys-surface-container-high);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+
+  &__progress-bar {
+    height: 100%;
+    background: var(--mat-sys-primary);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  &__progress-text {
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  // ========================================
+  // Estado de error
+  // ========================================
+  &__error-message {
+    color: var(--mat-sys-error);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  &__retry-button {
+    --mdc-outlined-button-outline-color: var(--mat-sys-error);
+    --mdc-outlined-button-label-text-color: var(--mat-sys-error);
+
+    ::ng-deep {
+      .mat-mdc-button-persistent-ripple::before {
+        background-color: var(--mat-sys-error);
+      }
+
+      .mat-icon {
+        color: var(--mat-sys-error);
+      }
+    }
+  }
+
+  // ========================================
+  // Estado completado
+  // ========================================
+  &__completed-badge {
+    color: var(--mat-sys-positive, #1c6b51);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  // ========================================
+  // Acciones
+  // ========================================
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
   }
 
   &__preview-remove {
@@ -189,12 +408,48 @@
       height: 20px;
     }
   }
+
+  // ========================================
+  // Modo compacto
+  // ========================================
+  &--compact {
+    .bds-uploader__dropzone {
+      max-width: 280px;
+    }
+  }
 }
 
-.container_actions{
-  display: flex;
+// ========================================
+// Animaciones
+// ========================================
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
 
-    .bds-uploader__preview-remove{
-      // width: 24px;
-    }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+// ========================================
+// Estilos para contenedor de acciones (legacy)
+// ========================================
+.container_actions {
+  display: flex;
+  gap: 4px;
 }

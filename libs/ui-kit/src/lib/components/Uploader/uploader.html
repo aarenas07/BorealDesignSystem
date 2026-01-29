@@ -1,111 +1,143 @@
-<div class="bds-uploader">
+<div class="bds-uploader" [class.bds-uploader--horizontal]="listOrientation() === 'horizontal'" [class.bds-uploader--compact]="compact()">
   <!-- Input oculto -->
-  <input 
+  <input
     #fileInput
-    type="file" 
-    [accept]="accept()" 
+    type="file"
+    [accept]="accept()"
     [multiple]="multiple()"
     [disabled]="disabled()"
     (change)="onFileSelect($event)"
-    style="display: none;"
+    style="display: none"
   />
 
-  <!-- Área de drag & drop -->
-  <div 
-    class="bds-uploader__dropzone"
-    [class.bds-uploader__dropzone--dragging]="isDragging()"
-    [class.bds-uploader__dropzone--disabled]="disabled()"
-    (dragover)="onDragOver($event)"
-    (dragleave)="onDragLeave($event)"
-    (drop)="onDrop($event)"
-  >
-    <div class="bds-uploader__content">
-      <p class="bds-uploader__title">{{ dragDropText() }}</p>
-      <p class="bds-uploader__subtitle">o haz clic en el botón {{ buttonText() }}</p>
-      
-      <bds-button 
-        class="bds-uploader__button"
-        [label]="buttonText()"
-        variant="outlined"
+  <!-- Contenedor principal (header + dropzone) -->
+  <div class="bds-uploader__main">
+    <!-- Header siempre visible -->
+    @if (!compact()) {
+    <div class="bds-uploader__header" [class.bds-uploader__header--disabled]="disabled()">
+      <mat-icon class="bds-uploader__header-icon">upload</mat-icon>
+      <div class="bds-uploader__header-content">
+        <span class="bds-uploader__header-label">{{ collapsedLabel() }}</span>
+        <span class="bds-uploader__header-helper">{{ helperText() }}</span>
+      </div>
+      <bds-button
+        class="bds-uploader__header-button"
+        [label]="collapsedButtonText()"
+        variant="filled"
         [disabled]="disabled()"
-        (action)="openFileSelector()"
+        (action)="toggleExpanded(); $event.stopPropagation()"
       ></bds-button>
-
-      <p class="bds-uploader__helper">{{ helperText() }}</p>
     </div>
-  </div>
+    }
 
-  <!-- Preview de archivos subidos -->
-  @if (uploadedFiles().length === 1) {
-    <div class="bds-uploader__preview-list">
-      <div class="bds-uploader__preview-item">
-        <div class="bds-uploader__preview-thumbnail">
-          @if (uploadedFiles()[0].preview) {
-            <img [src]="uploadedFiles()[0].preview" [alt]="uploadedFiles()[0].file.name" />
-          } @else {
-            <mat-icon class="bds-uploader__preview-icon">{{ getFileIcon(uploadedFiles()[0].file) }}</mat-icon>
-          }
-        </div>
-        <div class="bds-uploader__preview-info">
-          <p class="bds-uploader__preview-name">{{ uploadedFiles()[0].file.name }}</p>
-          <p class="bds-uploader__preview-size">{{ formatFileSize(uploadedFiles()[0].file.size) }}</p>
-        </div>
-        <button 
-          class="bds-uploader__preview-remove"
-          (click)="removeFile(uploadedFiles()[0])"
-          aria-label="Eliminar archivo"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
+    <!-- Área de drag & drop (expandible) -->
+    @if (isExpanded() || compact()) {
+    <div
+      class="bds-uploader__dropzone"
+      [class.bds-uploader__dropzone--dragging]="isDragging()"
+      [class.bds-uploader__dropzone--disabled]="disabled()"
+      [class.bds-uploader__dropzone--compact]="compact()"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+    >
+      <div class="bds-uploader__content">
+        @if (compact()) {
+        <mat-icon class="bds-uploader__upload-icon">upload</mat-icon>
+        <span class="bds-uploader__compact-label">{{ collapsedLabel() }}</span>
+        <span class="bds-uploader__compact-helper">{{ helperText() }}</span>
+        @if (uploadedFiles().length > 0) {
+        <a class="bds-uploader__file-link" (click)="$event.preventDefault()"> {{ uploadedFiles()[0].file.name }} </a>
+        }
+        <bds-button
+          class="bds-uploader__button"
+          [label]="collapsedButtonText()"
+          variant="outlined"
+          [disabled]="disabled()"
+          (action)="openFileSelector()"
+        ></bds-button>
+        } @else {
+        <p class="bds-uploader__title">{{ dragDropText() }}</p>
+        <p class="bds-uploader__subtitle">o haz clic en el botón {{ buttonText() }}</p>
+
+        <bds-button
+          class="bds-uploader__button"
+          [label]="buttonText()"
+          variant="outlined"
+          [disabled]="disabled()"
+          (action)="openFileSelector()"
+        ></bds-button>
+
+        <p class="bds-uploader__helper">{{ helperText() }}</p>
+        }
       </div>
     </div>
-  } @else if (uploadedFiles().length > 1) {
+    }
+  </div>
+
+  <!-- Lista de archivos subidos -->
+  @if (uploadedFiles().length > 0 && !compact()) {
+  <div class="bds-uploader__files">
     <bds-expansion-panel>
-      <mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
           <div class="bds-uploader__collapse-header">
             <div class="bds-uploader__collapse-icon">{{ uploadedFiles().length }}</div>
-            <span class="bds-uploader__collapse-label">
-              Archivos seleccionados
-            </span>
+            <div class="bds-uploader__collapse-info">
+              <span class="bds-uploader__collapse-label">Archivos adjuntos</span>
+              <span class="bds-uploader__collapse-size">{{ formatFileSize(getTotalSize()) }}</span>
+            </div>
+            <span class="bds-uploader__collapse-action">Ver archivos</span>
           </div>
         </mat-expansion-panel-header>
         <div class="bds-uploader__preview-list">
           @for (uploadedFile of uploadedFiles(); track uploadedFile.id) {
-            <div class="bds-uploader__preview-item">
-              <div class="bds-uploader__preview-thumbnail">
-                @if (uploadedFile.preview) {
-                  <img [src]="uploadedFile.preview" [alt]="uploadedFile.file.name" />
-                } @else {
-                  <mat-icon class="bds-uploader__preview-icon">{{ getFileIcon(uploadedFile.file) }}</mat-icon>
-                }
+          <div class="bds-uploader__preview-item">
+            <mat-icon class="bds-uploader__file-icon">description</mat-icon>
+            <div class="bds-uploader__preview-info">
+              <p class="bds-uploader__preview-name">{{ uploadedFile.file.name }}</p>
+              <div class="bds-uploader__preview-meta">
+                <span class="bds-uploader__file-type">{{ getFileExtension(uploadedFile.file) }}</span>
+                <span class="bds-uploader__preview-size">{{ formatFileSize(uploadedFile.file.size) }}</span>
+
+                <!-- Estados del archivo -->
+                @switch (uploadedFile.status) { @case ('uploading') {
+                <span class="bds-uploader__progress-text">{{ uploadedFile.progress }}%</span>
+                } @case ('error') {
+                <span class="bds-uploader__error-message">{{ uploadedFile.errorMessage || 'Mensaje de error' }}</span>
+                } @case ('completed') {
+                <span class="bds-uploader__completed-badge">Completado</span>
+                } }
               </div>
-              <div class="bds-uploader__preview-info">
-                <p class="bds-uploader__preview-name">{{ uploadedFile.file.name }}</p>
-                <p class="bds-uploader__preview-size">{{ formatFileSize(uploadedFile.file.size) }}</p>
+
+              <!-- Progress bar para estado uploading -->
+              @if (uploadedFile.status === 'uploading') {
+              <div class="bds-uploader__progress">
+                <div class="bds-uploader__progress-bar" [style.width.%]="uploadedFile.progress"></div>
               </div>
-              <div class="container_actions">
-                <bds-button 
-                  class="bds-uploader__preview-view"
-                  (action)="viewFile(uploadedFile)"
-                  aria-label="Ver archivo"
-                  [variant]="'icon'"
-                  [icon]="'visibility'"
-                >
-                </bds-button>
-                <bds-button 
-                  class="bds-uploader__preview-remove"
-                  (action)="removeFile(uploadedFile)"
-                  aria-label="Eliminar archivo"
-                  [variant]="'icon'"
-                  [icon]="'delete'"
-                >
-                </bds-button>
-              </div>
+              }
             </div>
+
+            <!-- Acciones según estado -->
+            <div class="bds-uploader__actions">
+              @switch (uploadedFile.status) { @case ('error') {
+              <bds-button
+                class="bds-uploader__retry-button"
+                label="Reintentar"
+                variant="outlined"
+                icon="refresh"
+                (action)="retryFile(uploadedFile)"
+              ></bds-button>
+              } @case ('completed') {
+              <bds-button variant="icon" icon="search" (action)="viewFile(uploadedFile)" aria-label="Ver archivo"></bds-button>
+              <bds-button variant="icon" icon="delete" (action)="removeFile(uploadedFile)" aria-label="Eliminar archivo"></bds-button>
+              } }
+            </div>
+          </div>
           }
         </div>
       </mat-expansion-panel>
     </bds-expansion-panel>
+  </div>
   }
 </div>

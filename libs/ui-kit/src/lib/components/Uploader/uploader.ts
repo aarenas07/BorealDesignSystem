@@ -6,22 +6,43 @@ import { ExpansionPanelComponent } from '../expasion-panel/expansion-panel';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FilePreviewDialogComponent } from './file-preview-dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
+/** Estado de carga del archivo */
+export type FileUploadStatus = 'uploading' | 'error' | 'completed';
+
+/** Orientación de la lista de archivos */
+export type FileListOrientation = 'vertical' | 'horizontal';
 
 export interface UploadedFile {
   file: File;
   preview?: string;
   id: string;
+  /** Estado actual del archivo */
+  status: FileUploadStatus;
+  /** Progreso de carga (0-100) */
+  progress: number;
+  /** Mensaje de error si aplica */
+  errorMessage?: string;
 }
 
 @Component({
   selector: 'bds-uploader',
-  imports: [CommonModule, ButtonComponent, MatIconModule, ExpansionPanelComponent, MatExpansionModule, MatDialogModule],
+  imports: [
+    CommonModule,
+    ButtonComponent,
+    MatIconModule,
+    ExpansionPanelComponent,
+    MatExpansionModule,
+    MatDialogModule,
+    MatProgressBarModule,
+  ],
   templateUrl: './uploader.html',
   styleUrl: './uploader.scss',
 })
 export class UploaderComponent {
   private dialog = inject(MatDialog);
-  
+
   // Inputs parametrizables
   accept = input<string>('.jpg,.jpeg,.png,.pdf'); // Tipos de archivo aceptados
   maxSize = input<number>(50 * 1024 * 1024); // Tamaño máximo en bytes (default 50MB)
@@ -30,10 +51,19 @@ export class UploaderComponent {
   buttonText = input<string>('Seleccionar archivo');
   helperText = input<string>('Solo archivos en formato JPEG, PNG, PDF (Máx 50 MB)');
   disabled = input<boolean>(false);
+  collapsedLabel = input<string>('Adjuntar archivos');
+  collapsedButtonText = input<string>('Cargar archivos');
+
+  /** Orientación de la lista de archivos: 'vertical' (debajo) o 'horizontal' (al lado) */
+  listOrientation = input<FileListOrientation>('vertical');
+
+  /** Modo compacto/responsive para espacios reducidos */
+  compact = input<boolean>(false);
 
   // Outputs
   filesSelected = output<UploadedFile[]>();
   fileRemoved = output<UploadedFile>();
+  retryUpload = output<UploadedFile>();
   error = output<string>();
 
   // Referencias
@@ -42,9 +72,21 @@ export class UploaderComponent {
   // Estado
   uploadedFiles = signal<UploadedFile[]>([]);
   isDragging = signal<boolean>(false);
-  collapsed = signal<boolean>(true); // Estado para colapsar/expandir
-  toggleCollapse(): void {
-    this.collapsed.set(!this.collapsed());
+  isExpanded = signal<boolean>(false);
+
+  /** Expande/colapsa el área de drag & drop */
+  toggleExpanded(): void {
+    this.isExpanded.set(!this.isExpanded());
+  }
+
+  /** Expande el área de drag & drop */
+  expand(): void {
+    this.isExpanded.set(true);
+  }
+
+  /** Colapsa el área de drag & drop */
+  collapse(): void {
+    this.isExpanded.set(false);
   }
 
   // Métodos
@@ -91,13 +133,54 @@ export class UploaderComponent {
     this.dialog.open(FilePreviewDialogComponent, {
       data: {
         file: file.file,
-        preview: file.preview
+        preview: file.preview,
       },
       width: 'auto',
       maxWidth: '90vw',
       maxHeight: '90vh',
-      panelClass: 'file-preview-dialog-container'
+      panelClass: 'file-preview-dialog-container',
     });
+  }
+
+  /** Reintenta la carga de un archivo con error */
+  retryFile(file: UploadedFile): void {
+    // Actualizar estado a cargando
+    this.updateFileStatus(file.id, 'uploading');
+    this.updateFileProgress(file.id, 0);
+    // Emitir evento para que el padre maneje la carga
+    this.retryUpload.emit(file);
+  }
+
+  /** Actualiza el progreso de un archivo */
+  updateFileProgress(id: string, progress: number): void {
+    const files = this.uploadedFiles().map(f => {
+      if (f.id === id) {
+        return { ...f, progress: Math.min(100, Math.max(0, progress)) };
+      }
+      return f;
+    });
+    this.uploadedFiles.set(files);
+  }
+
+  /** Actualiza el estado de un archivo */
+  updateFileStatus(id: string, status: FileUploadStatus, errorMessage?: string): void {
+    const files = this.uploadedFiles().map(f => {
+      if (f.id === id) {
+        return {
+          ...f,
+          status,
+          errorMessage: status === 'error' ? errorMessage : undefined,
+          progress: status === 'completed' ? 100 : f.progress,
+        };
+      }
+      return f;
+    });
+    this.uploadedFiles.set(files);
+  }
+
+  /** Obtiene el tamaño total de todos los archivos */
+  getTotalSize(): number {
+    return this.uploadedFiles().reduce((acc, f) => acc + f.file.size, 0);
   }
 
   private processFiles(files: File[]): void {
@@ -120,7 +203,9 @@ export class UploaderComponent {
       }
 
       // Validar tipo
-      const acceptedTypes = this.accept().split(',').map(t => t.trim());
+      const acceptedTypes = this.accept()
+        .split(',')
+        .map(t => t.trim());
       const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
       if (!acceptedTypes.includes(fileExtension)) {
         this.error.emit(`El tipo de archivo ${file.name} no está permitido`);
@@ -129,7 +214,9 @@ export class UploaderComponent {
 
       const uploadedFile: UploadedFile = {
         file,
-        id: `${Date.now()}-${Math.random()}`
+        id: `${Date.now()}-${Math.random()}`,
+        status: 'uploading',
+        progress: 0,
       };
 
       validFiles.push(uploadedFile);
@@ -138,7 +225,7 @@ export class UploaderComponent {
       if (file.type.startsWith('image/')) {
         pendingReads++;
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = e => {
           uploadedFile.preview = e.target?.result as string;
           pendingReads--;
           // Actualizar cuando todas las lecturas terminen
@@ -168,11 +255,17 @@ export class UploaderComponent {
     return 'insert_drive_file';
   }
 
+  /** Obtiene la extensión del archivo en mayúsculas */
+  getFileExtension(file: File): string {
+    const ext = file.name.split('.').pop()?.toUpperCase() || '';
+    return ext;
+  }
+
   formatFileSize(bytes: number): string {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
   }
 }

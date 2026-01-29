@@ -1,128 +1,133 @@
-<div class="sidebar-wrapper" style="position: relative">
-  <!-- Botón SIEMPRE visible, alineado al contenedor del sidebar -->
-  <button
-    class="sidebar-expand-toggle"
-    (mouseenter)="onExpandButtonHover()"
-    (mouseleave)="onExpandButtonLeave()"
-    (click)="toggleExpand()"
-    [attr.aria-label]="isExpanded ? 'Encoger sidebar' : 'Expandir sidebar'"
-    style="position: absolute; top: 12px; right: 12px; z-index: 2"
-  >
-    <span class="material-symbols-rounded">
-      {{ isExpanded ? 'left_panel_open' : 'left_panel_close' }}
-    </span>
-  </button>
-
-  <div
-    class="sidebar-container"
-    [class.expanded]="isExpanded"
-    [class.pinned]="isPinned"
-    [class.closed]="!isExpanded && !isPinned"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseLeave()"
-  >
-    <!-- Header -->
-    <div class="sidebar-header">
-      <div class="user-section">
-        @if (isExpanded || isPinned) {
-          <div class="user-avatar">{{ userAvatar }}</div>
-          <span class="user-name">{{ userName }}</span>
-        }
-
-        <!-- Elimina el botón expand/collapse de aquí -->
-      </div>
-
-      <!-- Si quieres mantener el botón de pin, muévelo aquí o elimínalo -->
-      <!--
-      <button
-        class="pin-button"
-        [class.pinned]="isPinned"
-        (click)="togglePin()"
-      >
-        <span class="material-symbols-rounded left-panel">
-          {{ isPinned ? 'lock' : 'lock_open' }}
-        </span>
-      </button>
-      -->
-
-      <!-- Search Bar -->
-      @if (isExpanded || isPinned) {
-        <div class="search-section">
-          <!-- TODO: COMMAND COMPONENT -->
+<!-- ================================================================== -->
+<!-- SIDEBAR PANEL - Panel deslizante de navegación                   -->
+<!-- ================================================================== -->
+<div class="sidebar-panel" [class.visible]="isVisible" [class.overlay]="isOverlay" [style.left]="isOverlay ? leftPosition : null">
+  <!-- Header -->
+  <div class="sidebar-header">
+    <div class="header-row">
+      <!-- Usuario -->
+      @if (userConfig.show !== false) {
+        <div class="user-info">
+          @if (userConfig.isAvatarImage) {
+            <img class="user-avatar-img" [src]="userConfig.avatar" [alt]="userConfig.name" />
+          } @else {
+            <div class="user-avatar">{{ userConfig.avatar }}</div>
+          }
+          <span class="user-name">{{ userConfig.name }}</span>
         </div>
       }
     </div>
+  </div>
 
-    @if (isExpanded || isPinned) {
-      <div class="command-menu-container">
-        <!-- <bds-ada-command-menu
-          [commandItems]="adminCommandItems"
-          [config]="adminMenuConfig"
-          [showSearchIcon]="true"
-          (commandAction)="handleAdminAction($event)"
-        >
-        </bds-ada-command-menu> -->
-      </div>
-      <div class="quick-actions">
-        @for (action of quickActions; track action.label) {
-          <div class="action-item" (click)="onQuickActionClick(action.action)">
-            {{ action.label }}
-          </div>
+  <!-- Command Menu -->
+  @if (showCommandMenu && commandItems.length > 0) {
+    <div class="command-menu-container">
+      <lib-ada-command-menu
+        [commandItems]="commandItems"
+        [config]="commandMenuConfig"
+        [showSearchIcon]="true"
+        (commandAction)="handleCommandAction($event)"
+      >
+      </lib-ada-command-menu>
+    </div>
+  }
+
+  <!-- Quick Actions -->
+  @if (quickActionsConfig.show !== false && quickActionsConfig.actions.length > 0) {
+    <div class="quick-actions">
+      <div class="section-header">
+        @if (quickActionsConfig.titleIcon) {
+          <span class="material-symbols-rounded">{{ quickActionsConfig.titleIcon }}</span>
         }
+        <span class="section-title">{{ quickActionsConfig.title }}</span>
       </div>
-      <div>
-        <div class="section-title">
-          <span class="material-symbols-rounded">keyboard_arrow_down</span>
-          Favoritos
+      @for (action of quickActionsConfig.actions; track action.id) {
+        <div class="action-item" (click)="onQuickActionClick(action)">
+          @if (action.icon) {
+            <span class="material-symbols-rounded action-icon">{{ action.icon }}</span>
+          }
+          {{ action.label }}
         </div>
-      </div>
-    }
+      }
+    </div>
+  }
 
-    <div class="sidebar-content">
-      @for (section of sidebarData; track $index) {
-        @if (section.title && (isExpanded || isPinned)) {
-          <div class="section-title" (click)="toggleSection(section)">
-            <span [class.collapsed]="section.isCollapsed" class="material-symbols-rounded"> keyboard_arrow_down </span>
-            {{ section.title }}
+  <!-- Favorites -->
+  @if (favoritesConfig.show !== false && favoritesConfig.items?.length) {
+    <div class="favorites-section">
+      <div class="section-header-container">
+        <div class="section-header collapsible" (click)="toggleFavorites()">
+          @if (favoritesConfig.titleIcon) {
+            <span class="material-symbols-rounded" [class.collapsed]="favoritesConfig.isCollapsed">
+              {{ favoritesConfig.titleIcon }}
+            </span>
+          }
+          {{ favoritesConfig.title }}
+        </div>
+
+        @if (favoritesConfig.actions?.length) {
+          <div class="section-actions">
+            @for (action of favoritesConfig.actions; track action.id) {
+              <button class="icon-btn" (click)="$event.stopPropagation(); onQuickActionClick(action)" [title]="action.label">
+                <span class="material-symbols-rounded">{{ action.icon }}</span>
+              </button>
+            }
           </div>
         }
+      </div>
 
-        <!-- Section Items -->
-        <div class="section-items" [class.collapsed]="section.isCollapsed">
-          @for (item of section.items; track item.id) {
-            <div class="sidebar-item" [class.has-children]="item.children?.length">
-              <!-- Main Item -->
-              <div class="item-content" [class.expanded]="item.isExpanded" (click)="item.url ? onItemClick(item) : toggleItem(item)">
-                @if (item.icon) {
-                  <span class="item-icon material-symbols-rounded">{{ item.icon }}</span>
-                }
-                @if (isExpanded || isPinned) {
-                  <span class="item-label">{{ item.label }}</span>
-                }
-                @if (item.children?.length && (isExpanded || isPinned)) {
-                  <span class="material-symbols-rounded expand-arrow" [class.rotated]="item.isExpanded"> keyboard_arrow_right </span>
-                }
-              </div>
-
-              <!-- Children Items -->
-              @if (item.children?.length && item.isExpanded && (isExpanded || isPinned)) {
-                <div class="children-items">
-                  @for (child of item.children; track $index) {
-                    <div class="childs-container">
-                      <div class="child-item" (click)="onItemClick(child)">
-                        @if (child.icon) {
-                          <span class="child-icon material-symbols-rounded">{{ child.icon }}</span>
-                        }
-                        {{ child.label }}
-                      </div>
-                    </div>
-                  }
-                </div>
+      @if (!favoritesConfig.isCollapsed) {
+        <div class="favorites-items">
+          @for (item of favoritesConfig.items; track item.id) {
+            <div class="favorite-item" (click)="onFavoriteClick(item)">
+              @if (item.icon) {
+                <span class="material-symbols-rounded">{{ item.icon }}</span>
               }
+              {{ item.label }}
             </div>
           }
         </div>
       }
+    </div>
+  }
+
+  <!-- Navigation Sections -->
+  <div class="nav-content">
+    @if (activeModuleTitle) {
+      <div class="section-header collapsible" (click)="toggleActiveModule()">
+        <span class="material-symbols-rounded" [class.collapsed]="isActiveModuleCollapsed"> keyboard_arrow_down </span>
+        {{ activeModuleTitle }}
+      </div>
+    }
+
+    <div class="section-items" [class.collapsed]="isActiveModuleCollapsed">
+      <ng-template #navItemTemplate let-item="item">
+        <div class="nav-item">
+          <div class="item-content" [class.expanded]="item.isExpanded" (click)="toggleItem(item)">
+            @if (item.icon) {
+              <span class="material-symbols-rounded item-icon">{{ item.icon }}</span>
+            }
+            <span class="item-label">{{ item.label }}</span>
+            @if (item.children?.length) {
+              <span class="material-symbols-rounded expand-arrow" [class.rotated]="item.isExpanded"> keyboard_arrow_right </span>
+            }
+          </div>
+
+          @if (item.children?.length && item.isExpanded) {
+            <div class="children-items">
+              @for (child of item.children; track child.id) {
+                <ng-container *ngTemplateOutlet="navItemTemplate; context: { item: child }"></ng-container>
+              }
+            </div>
+          }
+        </div>
+      </ng-template>
+
+      <div class="section-items">
+        @for (item of sidebarItems; track item.id) {
+          <ng-container *ngTemplateOutlet="navItemTemplate; context: { item: item }"></ng-container>
+        }
+      </div>
     </div>
   </div>
 </div>

@@ -3,24 +3,15 @@
   display: block;
   margin-bottom: 16px;
 
-<<<<<<< HEAD
-  &.alert-info {
-    .primary-button {
-=======
   &.bds-alert-info {
     .bds-primary-button {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
         border-radius: 28px;
         background-color: var(--mat-sys-positive);
       }
     }
 
-<<<<<<< HEAD
-    .secondary-button {
-=======
     .bds-secondary-button {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       ::ng-deep .mat-mdc-button:not(:disabled) {
         border-radius: 28px;
 
@@ -30,34 +21,21 @@
       }
     }
 
-<<<<<<< HEAD
-    .alert__icon {
-=======
     .bds-alert__icon {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       background-color: var(--mat-sys-primary);
       color: var(--mat-sys-on-primary);
     }
   }
 
-<<<<<<< HEAD
-  &.alert-success {
-    .primary-button {
-=======
   &.bds-alert-success {
     .bds-primary-button {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
         border-radius: 28px;
         background-color: var(--mat-sys-positive);
       }
     }
 
-<<<<<<< HEAD
-    .secondary-button {
-=======
     .bds-secondary-button {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       ::ng-deep .mat-mdc-button:not(:disabled) {
         border-radius: 28px;
 
@@ -67,34 +45,21 @@
       }
     }
 
-<<<<<<< HEAD
-    .alert__icon {
-=======
     .bds-alert__icon {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       background-color: var(--mat-sys-positive);
       color: var(--mat-sys-on-positive);
     }
   }
 
-<<<<<<< HEAD
-  &.alert-warning {
-    .primary-button {
-=======
   &.bds-alert-warning {
     .bds-primary-button {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
         border-radius: 28px;
         background-color: var(--mat-sys-warning);
       }
     }
 
-<<<<<<< HEAD
-    .secondary-button {
-=======
     .bds-secondary-button {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       ::ng-deep .mat-mdc-button:not(:disabled) {
         border-radius: 28px;
 
@@ -104,42 +69,25 @@
       }
     }
 
-<<<<<<< HEAD
-    .alert__text-btn {
-      color: var(--mat-sys-warning);
-    }
-
-    .alert__icon {
-=======
     .bds-alert__text-btn {
       color: var(--mat-sys-warning);
     }
 
     .bds-alert__icon {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       background-color: var(--mat-sys-warning);
       color: var(--mat-sys-on-warning);
     }
   }
 
-<<<<<<< HEAD
-  &.alert-error {
-    .primary-button {
-=======
   &.bds-alert-error {
     .bds-primary-button {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
         border-radius: 28px;
         background-color: var(--mat-sys-error);
       }
     }
 
-<<<<<<< HEAD
-    .secondary-button {
-=======
     .bds-secondary-button {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       ::ng-deep .mat-mdc-button:not(:disabled) {
         border-radius: 28px;
 
@@ -149,30 +97,18 @@
       }
     }
 
-<<<<<<< HEAD
-    .alert__text-btn {
-      color: var(--mat-sys-error);
-    }
-
-    .alert__icon {
-=======
     .bds-alert__text-btn {
       color: var(--mat-sys-error);
     }
 
     .bds-alert__icon {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
       background-color: var(--mat-sys-error);
       color: var(--mat-sys-on-error);
     }
   }
 }
 
-<<<<<<< HEAD
-.alert {
-=======
 .bds-alert {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
   display: flex;
   padding: 16px 12px;
   border-radius: 12px;
@@ -180,11 +116,7 @@
   background-color: var(--mat-sys-surface);
   font-family: 'Roboto', sans-serif;
 
-<<<<<<< HEAD
-  .alert__title {
-=======
   .bds-alert__title {
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
     color: var(--mat-sys-on-surface);
     font-family: 'Roboto', sans-serif;
     font-size: 16px;

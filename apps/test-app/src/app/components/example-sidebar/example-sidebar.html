@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="sidebar-container">
+    <bds-sidebar
+      [isVisible]="isVisible"
+      [isOverlay]="isOverlay"
+      [sidebarItems]="sidebarItems"
+      [activeModuleTitle]="activeModuleTitle"
+      [isActiveModuleCollapsed]="isActiveModuleCollapsed"
+      [userConfig]="userConfig"
+      [commandItems]="commandItems"
+      [commandMenuConfig]="commandMenuConfig"
+      [showCommandMenu]="true"
+      [quickActionsConfig]="quickActionsConfig"
+      [favoritesConfig]="favoritesConfig"
+      [leftPosition]="'96px'"
+      (itemClick)="onItemClick($event)"
+      (quickActionClick)="onQuickActionClick($event)"
+      (favoriteClick)="onFavoriteClick($event)"
+      (commandAction)="onCommandAction($event)"
+      (activeModuleToggle)="onActiveModuleToggle($event)"
+    >
+    </bds-sidebar>
+  </div>
+</div>

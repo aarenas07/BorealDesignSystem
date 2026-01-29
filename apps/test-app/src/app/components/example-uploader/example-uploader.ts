@@ -44,7 +44,7 @@ export class ExampleUploader {
   onError(errorMsg: string): void {
     this.errorMessage.set(errorMsg);
     console.error('Error en uploader:', errorMsg);
-    
+
     // Limpiar mensaje después de 5 segundos
     setTimeout(() => this.errorMessage.set(''), 5000);
   }

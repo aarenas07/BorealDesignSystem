@@ -29,13 +29,13 @@ export class ExampleTable implements OnInit, AfterViewInit {
   headerActions: TableHeaderAction[] = [];
   selectionActions: TableSelectionAction<User>[] = [];
   tableConfig: TableConfig = {
-    selectable: true,
-    expandable: false,
+    selectable: false,
+    expandable: true,
     showGlobalFilter: true,
     zebraStriping: false,
     density: 'compact',
-    pageSizeOptions: [5, 10, 25, 50],
-    defaultPageSize: 10,
+    pageSizeOptions: [],
+    defaultPageSize: 20,
     stickyHeader: true,
   };
 
@@ -91,19 +91,6 @@ export class ExampleTable implements OnInit, AfterViewInit {
         key: 'department',
         label: 'Departamento',
         sortable: true,
-      },
-      {
-        key: 'joinDate',
-        label: 'Fecha Ingreso',
-        dataType: 'date',
-        sortable: true,
-      },
-      {
-        key: 'salary',
-        label: 'Salario',
-        dataType: 'number',
-        sortable: true,
-        cellTemplate: this.salaryTemplate,
       },
     ];
 

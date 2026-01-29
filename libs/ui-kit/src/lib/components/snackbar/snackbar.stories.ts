@@ -48,10 +48,7 @@ const meta: Meta = {
       control: 'select',
       options: ['top', 'bottom'],
     },
-<<<<<<< HEAD
-=======
     stacking: { control: 'boolean' },
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
   },
   args: {
     message: 'Este es un mensaje de snackbar',
@@ -62,10 +59,7 @@ const meta: Meta = {
     duration: 3000,
     horizontalPosition: 'center',
     verticalPosition: 'bottom',
-<<<<<<< HEAD
-=======
     stacking: false,
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592
   },
 };
 
@@ -96,8 +90,6 @@ export const Interactive: Story = {
     };
   },
 };
-<<<<<<< HEAD
-=======
 
 export const Stacking: Story = {
   render: args => {
@@ -151,4 +143,3 @@ export const Stacking: Story = {
     };
   },
 };
->>>>>>> 5ced58fb63327c5d3d46dcdea1d88d82374db592

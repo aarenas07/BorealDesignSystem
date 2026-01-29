@@ -25,7 +25,7 @@ import { ExampleCollapsibleNav } from './components/example-collapsible-nav/exam
 import { ExampleExtendsColor } from './components/example-extends-color/example-extends-color';
 import { ExampleOtpInput } from './components/example-otp-input/example-otp-input';
 import { ExampleChips } from './components/example-chips/example-chips';
-import { ExampleUploader } from './components/example-uploader/example-uploader';
+import { ExampleSidebarComponent } from './components/example-sidebar/example-sidebar';
 
 @Component({
   selector: 'app-root',
@@ -55,7 +55,7 @@ import { ExampleUploader } from './components/example-uploader/example-uploader'
     ExampleExtendsColor,
     ExampleOtpInput,
     ExampleChips,
-    ExampleUploader,
+    ExampleSidebarComponent,
   ],
 
   providers: [provideNativeDateAdapter()],

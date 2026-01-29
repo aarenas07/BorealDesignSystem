@@ -4,9 +4,9 @@
 
   <!-- Mensaje de error global -->
   @if (errorMessage()) {
-    <div class="error-message">
-      <p>⚠️ {{ errorMessage() }}</p>
-    </div>
+  <div class="error-message">
+    <p>⚠️ {{ errorMessage() }}</p>
+  </div>
   }
 
   <!-- Uploader simple (archivo único) -->
@@ -24,7 +24,6 @@
       (fileRemoved)="onFileRemoved($event)"
       (error)="onError($event)"
     ></bds-uploader>
-    
   </div>
 
   <!-- Uploader múltiple -->
@@ -42,8 +41,6 @@
       (fileRemoved)="onFileRemoved($event)"
       (error)="onError($event)"
     ></bds-uploader>
-    
-
   </div>
 
   <!-- Uploader solo imágenes -->
@@ -61,7 +58,6 @@
       (fileRemoved)="onFileRemoved($event)"
       (error)="onError($event)"
     ></bds-uploader>
-    
   </div>
 
   <!-- Uploader solo PDF -->
@@ -79,7 +75,6 @@
       (fileRemoved)="onFileRemoved($event)"
       (error)="onError($event)"
     ></bds-uploader>
-
   </div>
 
   <!-- Uploader deshabilitado -->

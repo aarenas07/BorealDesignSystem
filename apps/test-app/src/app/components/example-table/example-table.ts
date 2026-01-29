@@ -34,8 +34,8 @@ export class ExampleTable implements OnInit, AfterViewInit {
     showGlobalFilter: true,
     zebraStriping: false,
     density: 'compact',
-    pageSizeOptions: [5, 10, 15],
-    defaultPageSize: 5,
+    pageSizeOptions: [],
+    defaultPageSize: 20,
     stickyHeader: true,
   };
 

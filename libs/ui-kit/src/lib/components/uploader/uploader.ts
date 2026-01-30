@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ExpansionPanelComponent } from '../expasion-panel/expansion-panel';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { FilePreviewDialogComponent } from './file-preview-dialog';
+import { FilePreviewDialogComponent } from './file-preview-dialog/file-preview-dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 /** Estado de carga del archivo */

@@ -297,6 +297,7 @@ export class TableComponent<T = any> implements OnInit {
   }
 
   updateData(data: T[], totalRecords: number = 0) {
+    console.log('updateData', data);
     this.state.update(s => ({
       ...s,
       data,
@@ -305,6 +306,12 @@ export class TableComponent<T = any> implements OnInit {
       error: null,
     }));
     this.dataSource.data = data;
+
+    // Para server-side pagination: sincronizar el length del paginador nativo
+    // Esto permite que el custom-paginator calcule correctamente el total de páginas
+    if (this.dataSource.paginator && totalRecords > 0) {
+      this.dataSource.paginator.length = totalRecords;
+    }
   }
 
   getSelectedRows(): T[] {

@@ -1,7 +1,85 @@
-<!-- Textarea Section -->
+<!-- Uploader Section -->
 <section class="component-section">
-  <h2>Uploader</h2>
-  <div class="demo-row">
-    <!--     <bds-file-attachment [maxFileSize]="10" [uploadValidFormats]="['.pdf', '.doc', '.docx']"></bds-file-attachment> -->
+  <h2>Uploader - Cargador de Archivos</h2>
+
+  <!-- Mensaje de error global -->
+  @if (errorMessage()) {
+  <div class="error-message">
+    <p>⚠️ {{ errorMessage() }}</p>
+  </div>
+  }
+
+  <!-- Demo con estados de carga (Vertical - debajo) -->
+  <div class="demo-group">
+    <h3>Lista Vertical (debajo del drag & drop)</h3>
+    <p class="description">Sube varios archivos para ver los estados. El segundo archivo fallará para demostrar el error.</p>
+    <bds-uploader
+      #uploaderDemo
+      [accept]="'.jpg,.jpeg,.png,.pdf'"
+      [maxSize]="50 * 1024 * 1024"
+      [multiple]="true"
+      [listOrientation]="'vertical'"
+      [collapsedLabel]="'Adjuntar archivos'"
+      [collapsedButtonText]="'Cargar archivos'"
+      [dragDropText]="'Arrastra y suelta tus archivos'"
+      [buttonText]="'Seleccionar archivos'"
+      [helperText]="'Solo archivos en formato JPEG, PNG, PDF (Máx 50 MB)'"
+      (filesSelected)="onMultipleFilesSelected($event)"
+      (fileRemoved)="onFileRemoved($event)"
+      (retryUpload)="onRetryUpload($event)"
+      (error)="onError($event)"
+    ></bds-uploader>
+  </div>
+
+  <!-- Demo con orientación horizontal (al lado) -->
+  <div class="demo-group">
+    <h3>Lista Horizontal (al lado del drag & drop)</h3>
+    <p class="description">La lista de archivos se muestra al lado del área de drag & drop.</p>
+    <bds-uploader
+      [accept]="'.jpg,.jpeg,.png,.pdf'"
+      [maxSize]="50 * 1024 * 1024"
+      [multiple]="true"
+      [listOrientation]="'horizontal'"
+      [collapsedLabel]="'Adjuntar archivos'"
+      [collapsedButtonText]="'Cargar archivos'"
+      [dragDropText]="'Arrastra y suelta tus archivos'"
+      [buttonText]="'Seleccionar archivos'"
+      [helperText]="'Solo archivos en formato JPEG, PNG, PDF (Máx 50 MB)'"
+      (filesSelected)="onSingleFileSelected($event)"
+      (fileRemoved)="onFileRemoved($event)"
+      (error)="onError($event)"
+    ></bds-uploader>
+  </div>
+
+  <!-- Demo modo compacto/responsive -->
+  <div class="demo-group">
+    <h3>Modo Compacto (Responsive)</h3>
+    <p class="description">Vista compacta para espacios reducidos o dispositivos móviles.</p>
+    <div style="max-width: 300px">
+      <bds-uploader
+        [accept]="'.jpg,.jpeg,.png,.pdf'"
+        [maxSize]="50 * 1024 * 1024"
+        [multiple]="false"
+        [compact]="true"
+        [collapsedLabel]="'Adjuntar archivos'"
+        [collapsedButtonText]="'Cargar archivos'"
+        [helperText]="'Solo archivos en formato JPEG, PNG, PDF (Máx 50 MB)'"
+        (filesSelected)="onImageFilesSelected($event)"
+        (fileRemoved)="onFileRemoved($event)"
+        (error)="onError($event)"
+      ></bds-uploader>
+    </div>
+  </div>
+
+  <!-- Uploader deshabilitado -->
+  <div class="demo-group">
+    <h3>Estado Deshabilitado</h3>
+    <p class="description">Uploader en estado deshabilitado</p>
+    <bds-uploader
+      [disabled]="true"
+      [dragDropText]="'Uploader deshabilitado'"
+      [buttonText]="'Seleccionar archivo'"
+      [helperText]="'Este uploader está deshabilitado'"
+    ></bds-uploader>
   </div>
 </section>

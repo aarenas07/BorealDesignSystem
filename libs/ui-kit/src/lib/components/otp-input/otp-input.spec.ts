@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BreadcrumbComponent } from './breadcrumb';
+import { OtpInput } from './otp-input';
 
-describe('BreadcrumbComponent', () => {
-  let component: BreadcrumbComponent;
-  let fixture: ComponentFixture<BreadcrumbComponent>;
+describe('OtpInput', () => {
+  let component: OtpInput;
+  let fixture: ComponentFixture<OtpInput>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BreadcrumbComponent],
+      imports: [OtpInput]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BreadcrumbComponent);
+    fixture = TestBed.createComponent(OtpInput);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

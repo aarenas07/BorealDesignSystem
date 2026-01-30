@@ -1,0 +1,33 @@
+<div class="otp-container" [class.otp-disabled]="disabled" [class.otp-error]="hasError()">
+  <label *ngIf="label" class="otp-label">{{ label }}</label>
+
+  <div class="otp-inputs-wrapper" [style.gap.px]="gap">
+    @for (index of indices(); track index) {
+    <input
+      #otpInput
+      type="text"
+      inputmode="numeric"
+      maxlength="1"
+      class="otp-input"
+      [class.otp-input-filled]="otpDigits()[index]"
+      [class.otp-input-focused]="focusedIndex() === index"
+      [value]="otpDigits()[index] || ''"
+      [disabled]="disabled"
+      [attr.aria-label]="'Dígito ' + (index + 1) + ' de ' + length"
+      [attr.data-index]="index"
+      (input)="onInput($event, index)"
+      (keydown)="onKeyDown($event, index)"
+      (focus)="onFocus(index)"
+      (blur)="onBlur()"
+      (paste)="onPaste($event, index)"
+      autocomplete="off"
+    />
+    }
+  </div>
+
+  @if (hint && !hasError()) {
+  <div class="otp-hint">{{ hint }}</div>
+  } @if (errorMessage && hasError()) {
+  <div class="otp-error-message">{{ errorMessage }}</div>
+  }
+</div>

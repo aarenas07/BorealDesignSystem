@@ -1,0 +1,51 @@
+<div class="bds-paginator">
+  <!-- Page Size Selector (Optional) -->
+
+  <div class="bds-paginator-container">
+    <!-- First Page -->
+    <button mat-icon-button class="nav-btn first" (click)="onFirst()" [disabled]="pageIndex === 0" *ngIf="showFirstLastButtons">
+      <mat-icon>first_page</mat-icon>
+    </button>
+
+    <!-- Previous Page -->
+    <button mat-icon-button class="nav-btn prev" (click)="onPrevious()" [disabled]="pageIndex === 0">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <!-- Pages -->
+    <div class="pages-container">
+      <ng-container *ngFor="let p of pages">
+        <button
+          mat-icon-button
+          class="page-number"
+          [class.active]="p === (pageIndex + 1)"
+          [class.dots]="p === '...'"
+          [disabled]="p === '...'"
+          (click)="onPageClick(p)"
+        >
+          {{ p }}
+        </button>
+      </ng-container>
+    </div>
+
+    <!-- Next Page -->
+    <button mat-icon-button class="nav-btn next" (click)="onNext()" [disabled]="pageIndex >= totalPages - 1">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+
+    <!-- Last Page -->
+    <button mat-icon-button class="nav-btn last" (click)="onLast()" [disabled]="pageIndex >= totalPages - 1" *ngIf="showFirstLastButtons">
+      <mat-icon>last_page</mat-icon>
+    </button>
+  </div>
+  <div class="page-size-selector" *ngIf="pageSizeOptions.length > 0">
+    <!--  <span class="label">Items por página:</span> -->
+    <button mat-button [matMenuTriggerFor]="pageSizeMenu" class="size-trigger">
+      {{ pageSize }}
+      <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #pageSizeMenu="matMenu">
+      <button mat-menu-item *ngFor="let size of pageSizeOptions" (click)="onPageSizeSelect(size)">{{ size }}</button>
+    </mat-menu>
+  </div>
+</div>

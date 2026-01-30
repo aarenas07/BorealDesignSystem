@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { ButtonComponent } from '../button/button';
 
 export interface FilePreviewData {
   file: File;
@@ -13,7 +12,7 @@ export interface FilePreviewData {
 @Component({
   selector: 'bds-file-preview-dialog',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatIconModule, ButtonComponent],
+  imports: [CommonModule, MatDialogModule, MatIconModule],
   template: `
     <div class="file-preview-dialog">
       <div class="file-preview-dialog__header">

@@ -1,11 +1,10 @@
 import { Component, signal, ViewChild } from '@angular/core';
 import { UploaderComponent, UploadedFile } from '@organizacion/ui-kit';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '@organizacion/ui-kit';
 
 @Component({
   selector: 'app-example-uploader',
-  imports: [UploaderComponent, CommonModule, ButtonComponent],
+  imports: [UploaderComponent, CommonModule],
   templateUrl: './example-uploader.html',
   styleUrl: './example-uploader.scss',
 })

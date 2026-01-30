@@ -12,11 +12,11 @@ import { MatMenuModule } from '@angular/material/menu';
   styleUrls: ['./custom-paginator.scss'],
 })
 export class CustomPaginatorComponent implements OnChanges {
-  @Input() length = 0; 
-  @Input() pageSize = 10; 
-  @Input() pageIndex = 0; 
-  @Input() pageSizeOptions: number[] = [5, 10, 25, 50]; 
-  @Input() showFirstLastButtons = false; 
+  @Input() length = 0;
+  @Input() pageSize = 10;
+  @Input() pageIndex = 0;
+  @Input() pageSizeOptions: number[] = [5, 10, 25, 50];
+  @Input() showFirstLastButtons = false;
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() pageSizeChange = new EventEmitter<number>();
@@ -35,7 +35,7 @@ export class CustomPaginatorComponent implements OnChanges {
 
   onPageClick(page: number | string) {
     if (page === '...' || typeof page !== 'number') return;
-    this.pageChange.emit(page - 1); 
+    this.pageChange.emit(page - 1);
   }
 
   onPrevious() {

@@ -13,14 +13,20 @@ const options: MenuOptionBds[] = [
 ];
 
 const meta: Meta<ChipDropdownComponent> = {
-  title: 'Components/ChipDropdown',
+  title: 'Atomos/ChipDropdown',
   component: ChipDropdownComponent,
-  tags: ['autodocs'],
   argTypes: {
     appearance: {
       control: 'select',
       options: ['outline', 'fill'],
     },
+    multiple: { control: 'boolean' },
+    required: { control: 'boolean' },
+    disabled: { control: 'boolean' },
+    placeholder: { control: 'text' },
+    label: { control: 'text' },
+    options: { control: 'object' },
+    value: { control: 'object' },
   },
 };
 

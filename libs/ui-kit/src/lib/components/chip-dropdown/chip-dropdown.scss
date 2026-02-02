@@ -17,6 +17,11 @@
       align-items: center;
       gap: 4px;
 
+      .chip-label {
+        font-size: 14px;
+        color: var(--mat-sys-on-surface);
+      }
+
       mat-icon {
         &.mat-icon {
           color: var(--mat-sys-primary);
@@ -39,11 +44,10 @@
       .chip-label {
         font-weight: bold;
       }
-    }
 
-    .chip-label {
-      font-size: 14px;
-      color: var(--mat-sys-on-surface);
+      &.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) .mdc-evolution-chip__action--primary::before {
+        border: none;
+      }
     }
 
     button {
@@ -59,17 +63,7 @@
     }
   }
 }
-/* 
-::ng-deep {
-  mat-chip {
-    .mdc-evolution-chip__action--primary {
-      &:before {
-        border-color: transparent;
-      }
-    }
-  }
-}
- */
+
 ::ng-deep .bds-chip-dropdown-menu {
   margin-top: 8px;
 
@@ -121,6 +115,7 @@
         font-size: 20px;
         width: 20px;
         height: 20px;
+        color: var(--mat-sys-primary);
       }
 
       span {

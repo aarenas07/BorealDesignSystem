@@ -106,6 +106,14 @@ export class ChipDropdownComponent implements ControlValueAccessor, Validator, O
     return option?.label || val;
   });
 
+  hasValue = computed(() => {
+    const val = this.value();
+    if (Array.isArray(val)) {
+      return val.length > 0;
+    }
+    return val !== null && val !== undefined && val !== '';
+  });
+
   constructor() {
     effect(() => {
       this.filteredOptions.set(this.options());

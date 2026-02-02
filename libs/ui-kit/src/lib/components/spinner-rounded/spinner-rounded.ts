@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'bds-spinner-rounded',
@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './spinner-rounded.html',
   styleUrl: './spinner-rounded.scss',
 })
-export class SpinnerRoundedComponent {}
+export class SpinnerRoundedComponent {
+  count = input<number>(0);
+}

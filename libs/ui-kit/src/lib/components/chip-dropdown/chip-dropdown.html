@@ -7,13 +7,16 @@
       #menuTrigger="matMenuTrigger"
       (click)="$event.stopPropagation()"
     >
-      <span class="chip-label">{{ selectedLabel() }}</span>
-      <mat-icon matChipTrailingIcon fontSet="material-symbols-outlined">
-        {{ menuTrigger.menuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}
-      </mat-icon>
+      <span class="chip-content">
+        @if(labelIcon()){
+        <mat-icon matChipIcon> {{ labelIcon() }} </mat-icon>
+        }
+        <span class="chip-label">{{ selectedLabel() }}</span>
+      </span>
+      <mat-icon matChipTrailingIcon> {{ menuTrigger.menuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }} </mat-icon>
       @if (value() && !disabled()) {
       <button matChipRemove (click)="clearSelection($event)" aria-label="Clear selection">
-        <mat-icon fontSet="material-symbols-outlined">close</mat-icon>
+        <mat-icon>close</mat-icon>
       </button>
       }
     </mat-chip>
@@ -22,8 +25,8 @@
   <mat-menu #menu="matMenu" class="bds-chip-dropdown-menu" (closed)="handleBlur()">
     <div class="menu-search-container" (click)="$event.stopPropagation()">
       <mat-form-field appearance="outline" subscriptSizing="dynamic">
-        <mat-icon matPrefix fontSet="material-symbols-outlined">search</mat-icon>
         <input matInput [formControl]="filterControl" [placeholder]="filterPlaceholder()" autocomplete="off" />
+        <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
 
@@ -31,7 +34,7 @@
       @for (option of filteredOptions(); track option.value) {
       <button mat-menu-item (click)="selectOption(option)" [class.selected]="isSelected(option)">
         @if (multiple()) {
-        <mat-icon fontSet="material-symbols-outlined"> {{ isSelected(option) ? 'check_box' : 'check_box_outline_blank' }} </mat-icon>
+        <mat-icon> {{ isSelected(option) ? 'check_box' : 'check_box_outline_blank' }} </mat-icon>
         }
         <span>{{ option.label }}</span>
       </button>

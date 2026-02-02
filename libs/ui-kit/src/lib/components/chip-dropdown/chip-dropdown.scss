@@ -1,71 +1,88 @@
 .bds-chip-dropdown-container {
   display: inline-block;
-  //font-family: vars.$font-family-base;
 
   mat-chip {
     cursor: pointer;
     background-color: transparent;
-    border: 1px solid #d1d5db;
     transition: all 0.2s ease-in-out;
-    border-radius: 9999px;
-    height: 32px;
-    padding: 0 12px;
+    border-radius: 8px;
+    height: 40px;
+
     display: flex;
     align-items: center;
     gap: 4px;
 
+    .chip-content {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      mat-icon {
+        &.mat-icon {
+          color: var(--mat-sys-primary);
+        }
+      }
+    }
+
     &:hover {
-      background-color: #f3f4f6;
+      background-color: var(--mat-sys-primary-container);
     }
 
     &.active {
-      background-color: #e5e7eb;
-      border-color: #9ca3af;
+      background-color: var(--mat-sys-primary-container);
     }
 
     &.has-value {
-      background-color: #f3f4f6;
-      border-color: var(--mat-sys-primary);
-      color: var(--mat-sys-primary);
+      background-color: var(--mat-sys-primary-container);
+      color: var(--mat-sys-primary-container);
 
       .chip-label {
-        font-weight: 600;
+        font-weight: bold;
       }
     }
 
     .chip-label {
       font-size: 14px;
-      color: #374151;
+      color: var(--mat-sys-on-surface);
     }
 
-    mat-icon {
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
+    button {
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+
+        &.mat-icon {
+          color: var(--mat-sys-primary);
+        }
+      }
     }
   }
 }
-
+/* 
+::ng-deep {
+  mat-chip {
+    .mdc-evolution-chip__action--primary {
+      &:before {
+        border-color: transparent;
+      }
+    }
+  }
+}
+ */
 ::ng-deep .bds-chip-dropdown-menu {
   margin-top: 8px;
-  border-radius: 8px;
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
-  min-width: 250px;
-  overflow: hidden;
 
   .menu-search-container {
-    padding: 8px 12px;
-    border-bottom: 1px solid #f3f4f6;
+    padding: 8px;
+    border-bottom: 1px solid var(--mat-sys-outline);
 
     mat-form-field {
       width: 100%;
 
       .mat-mdc-text-field-wrapper {
-        border-radius: 6px;
-        background-color: #f9fafb;
+        border-radius: 8px;
+        background-color: var(--mat-sys-surface);
       }
 
       input {
@@ -73,7 +90,7 @@
       }
 
       mat-icon {
-        color: #6b7280;
+        color: var(--mat-sys-on-surface);
       }
     }
   }
@@ -91,11 +108,11 @@
       padding: 0 12px;
 
       &:hover {
-        background-color: #f9fafb;
+        background-color: var(--mat-sys-surface);
       }
 
       &.selected {
-        background-color: #f0f9ff;
+        background-color: var(--mat-sys-primary-container);
         color: var(--mat-sys-primary);
       }
 
@@ -115,7 +132,7 @@
       padding: 12px;
       text-align: center;
       font-size: 14px;
-      color: #9ca3af;
+      color: var(--mat-sys-on-surface);
     }
   }
 }

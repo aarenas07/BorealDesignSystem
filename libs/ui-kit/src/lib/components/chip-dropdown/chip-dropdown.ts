@@ -58,6 +58,7 @@ import { AppearanceComponentBds, MenuOptionBds } from '../../interfaces';
 })
 export class ChipDropdownComponent implements ControlValueAccessor, Validator, OnDestroy {
   label = input<string>('');
+  labelIcon = input<string>('');
   appearance = input<AppearanceComponentBds>('outline');
   fullWidth = input<boolean>(false);
   multiple = input<boolean>(false);

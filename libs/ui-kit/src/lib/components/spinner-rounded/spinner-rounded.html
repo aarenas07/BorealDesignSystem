@@ -1,3 +1,5 @@
-<div class="bds-container-loader">
-  <span class="bds-count">{{ count() }}</span>
+@if (clampedCount() > 0) {
+<div class="bds-container-loader" [style.--bds-spinner-degree.deg]="degree()">
+  <span class="bds-count">{{ clampedCount() }}</span>
 </div>
+}

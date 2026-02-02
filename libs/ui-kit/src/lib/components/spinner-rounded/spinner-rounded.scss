@@ -1,52 +1,26 @@
 .bds-container-loader {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   position: relative;
-  /* animation: rotate 1s linear infinite; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: conic-gradient(var(--mat-sys-primary) var(--bds-spinner-degree, 0deg), var(--mat-sys-surface) 0deg);
 
-  &:before {
+  &::before {
     content: '';
-    box-sizing: border-box;
     position: absolute;
-    inset: 0px;
+    inset: 5px;
+    background: var(--mat-sys-surface-container-lowest);
     border-radius: 50%;
-    border: 5px solid var(--mat-sys-primary);
-    animation: prixClipFix 2s linear infinite;
   }
 
   .bds-count {
-    position: absolute;
-    inset: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--mat-sys-on-surface);
+    position: relative;
+    z-index: 1;
+    color: var(--mat-sys-on-surface-variant);
     font-size: 14px;
-    font-weight: 600;
-  }
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes prixClipFix {
-  0% {
-    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
-  }
-  25% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
-  }
-  50% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
-  }
-  75% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
-  }
-  100% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+    font-weight: 500;
   }
 }

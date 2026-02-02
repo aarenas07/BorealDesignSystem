@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SpinnerRoundedComponent } from '@organizacion/ui-kit';
 
 @Component({
@@ -7,4 +7,12 @@ import { SpinnerRoundedComponent } from '@organizacion/ui-kit';
   templateUrl: './example-spinner.html',
   styleUrl: './example-spinner.scss',
 })
-export class ExampleSpinner {}
+export class ExampleSpinner {
+  count = signal<number>(1);
+
+  constructor() {
+    setInterval(() => {
+      this.count.update(val => (val === 10 ? 1 : val + 1));
+    }, 500);
+  }
+}

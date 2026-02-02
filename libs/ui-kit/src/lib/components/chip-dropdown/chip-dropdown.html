@@ -7,18 +7,20 @@
       #menuTrigger="matMenuTrigger"
       (click)="$event.stopPropagation()"
     >
-      <span class="chip-content">
+      <div class="chip-content">
         @if(labelIcon()){
-        <mat-icon matChipIcon> {{ labelIcon() }} </mat-icon>
+        <mat-icon class="mat-icon-custom" matChipIcon> {{ labelIcon() }} </mat-icon>
         }
         <span class="chip-label">{{ selectedLabel() }}</span>
-      </span>
-      <mat-icon matChipTrailingIcon> {{ menuTrigger.menuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }} </mat-icon>
-      @if (value() && value().length > 0 && !disabled()) {
-      <button matChipRemove (click)="clearSelection($event)" aria-label="Clear selection">
-        <mat-icon>close</mat-icon>
-      </button>
-      }
+        <mat-icon matChipTrailingIcon> {{ menuTrigger.menuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }} </mat-icon>
+        @if (value() && value().length > 0 && !disabled()) {
+        <div class="clear-selection">
+          <button matChipRemove (click)="clearSelection($event)" aria-label="Clear selection">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        }
+      </div>
     </mat-chip>
   </mat-chip-set>
 

@@ -40,4 +40,8 @@ export class ExampleChipDropdown {
     { label: 'Option 29', value: 'option29' },
     { label: 'Option 30', value: 'option30' },
   ]);
+
+  changeValueChip(value: any) {
+    console.log(value);
+  }
 }

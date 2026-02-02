@@ -10,7 +10,6 @@
 
     display: flex;
     align-items: center;
-    gap: 4px;
 
     .chip-content {
       display: flex;
@@ -22,7 +21,7 @@
         color: var(--mat-sys-on-surface);
       }
 
-      mat-icon {
+      mat-icon.mat-icon-custom {
         &.mat-icon {
           color: var(--mat-sys-primary);
         }
@@ -43,21 +42,31 @@
 
       .chip-label {
         font-weight: bold;
+        padding-right: 8px;
       }
 
-      &.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) .mdc-evolution-chip__action--primary::before {
-        border: none;
+      ::ng-deep &.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) .mdc-evolution-chip__action--primary::before {
+        border-color: transparent;
+      }
+
+      .clear-selection {
+        border-left: 2px solid var(--mat-sys-surface);
       }
     }
+    .clear-selection {
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
 
-    button {
-      mat-icon {
-        font-size: 18px;
-        width: 18px;
-        height: 18px;
+      button {
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
 
-        &.mat-icon {
-          color: var(--mat-sys-primary);
+          &.mat-icon {
+            color: var(--mat-sys-primary);
+          }
         }
       }
     }

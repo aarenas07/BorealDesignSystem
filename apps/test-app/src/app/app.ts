@@ -28,6 +28,7 @@ import { ExampleChips } from './components/example-chips/example-chips';
 import { ExampleSidebarComponent } from './components/example-sidebar/example-sidebar';
 import { ExampleUploader } from './components/example-uploader/example-uploader';
 import { ExampleChipDropdown } from './components/example-chip-dropdown/example-chip-dropdown';
+import { ExampleSpinner } from './components/example-spinner/example-spinner';
 
 @Component({
   selector: 'app-root',
@@ -60,6 +61,7 @@ import { ExampleChipDropdown } from './components/example-chip-dropdown/example-
     ExampleSidebarComponent,
     ExampleUploader,
     ExampleChipDropdown,
+    ExampleSpinner,
   ],
 
   providers: [provideNativeDateAdapter()],

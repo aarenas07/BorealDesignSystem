@@ -1,0 +1,37 @@
+.component-section {
+  margin: 2rem 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-outline-variant);
+}
+
+.component-section h2 {
+  margin-top: 0;
+  color: var(--mat-sys-primary);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  padding-bottom: 8px;
+}
+
+.demo-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.form-grid__section {
+  display: contents;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 12px;
+}

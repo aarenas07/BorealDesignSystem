@@ -19,6 +19,7 @@ export * from './lib/components/radiobutton/radiobutton';
 export * from './lib/components/checkbox/checkbox';
 export * from './lib/components/collapsible-nav/collapsible-nav.component';
 export * from './lib/components/stepper/stepper';
+export * from './lib/components/smart-stepper/smart-stepper';
 export * from './lib/components/expasion-panel/expansion-panel';
 export * from './lib/components/tabs/tabs';
 export * from './lib/components/snackbar/snackbar';

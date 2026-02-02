@@ -28,7 +28,7 @@ import { ExampleChips } from './components/example-chips/example-chips';
 import { ExampleSidebarComponent } from './components/example-sidebar/example-sidebar';
 import { ExampleUploader } from './components/example-uploader/example-uploader';
 import { ExampleChipDropdown } from './components/example-chip-dropdown/example-chip-dropdown';
-import { ExampleSpinner } from './components/example-spinner/example-spinner';
+import { ExampleStepperProgress } from './components/example-stepper-progress/example-stepper-progress';
 
 @Component({
   selector: 'app-root',
@@ -61,7 +61,7 @@ import { ExampleSpinner } from './components/example-spinner/example-spinner';
     ExampleSidebarComponent,
     ExampleUploader,
     ExampleChipDropdown,
-    ExampleSpinner,
+    ExampleStepperProgress,
   ],
 
   providers: [provideNativeDateAdapter()],

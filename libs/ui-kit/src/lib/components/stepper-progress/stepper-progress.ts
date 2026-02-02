@@ -1,12 +1,12 @@
 import { Component, computed, input } from '@angular/core';
 
 @Component({
-  selector: 'bds-spinner-rounded',
+  selector: 'bds-stepper-progress',
   imports: [],
-  templateUrl: './spinner-rounded.html',
-  styleUrl: './spinner-rounded.scss',
+  templateUrl: './stepper-progress.html',
+  styleUrl: './stepper-progress.scss',
 })
-export class SpinnerRoundedComponent {
+export class StepperProgressComponent {
   count = input<number>(0);
   size = input<number>(5);
   indeterminate = input<boolean>(false);

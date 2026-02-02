@@ -35,7 +35,9 @@
         }
         <span>{{ option.label }}</span>
       </button>
-      } @if (filteredOptions().length === 0) {
+      }
+      <!-- TODO: Agregar mensaje de no resultados -->
+      @if (filteredOptions().length === 0) {
       <div class="no-options">No se encontraron resultados</div>
       }
     </div>

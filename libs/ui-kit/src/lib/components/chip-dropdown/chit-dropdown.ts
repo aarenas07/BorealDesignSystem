@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-chit-dropdown',
+  selector: 'bds-chit-dropdown',
   imports: [],
   templateUrl: './chit-dropdown.html',
   styleUrl: './chit-dropdown.scss',
 })
-export class ChitDropdown {}
+export class ChitDropdownComponent {}

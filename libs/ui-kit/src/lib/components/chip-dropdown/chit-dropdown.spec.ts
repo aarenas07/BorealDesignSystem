@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChitDropdown } from './chit-dropdown';
+import { ChitDropdownComponent } from './chit-dropdown';
 
-describe('ChitDropdown', () => {
-  let component: ChitDropdown;
-  let fixture: ComponentFixture<ChitDropdown>;
+describe('ChitDropdownComponent', () => {
+  let component: ChitDropdownComponent;
+  let fixture: ComponentFixture<ChitDropdownComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChitDropdown],
+      imports: [ChitDropdownComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ChitDropdown);
+    fixture = TestBed.createComponent(ChitDropdownComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

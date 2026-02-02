@@ -8,7 +8,8 @@ import { Component, computed, input } from '@angular/core';
 })
 export class SpinnerRoundedComponent {
   count = input<number>(0);
-  size = input<number>(10);
+  size = input<number>(5);
+  indeterminate = input<boolean>(false);
 
   protected readonly clampedCount = computed(() => {
     const val = this.count();

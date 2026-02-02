@@ -7,7 +7,6 @@ export * from './bds-alert.enum';
 export * from './bds-chips.enum';
 export * from './bds-tooltip.enum';
 export * from './bds-snackbar.enum';
-export * from './bds-spinner.enum';
 
 /**
  * Interface utilizadas

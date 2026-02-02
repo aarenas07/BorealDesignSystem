@@ -13,7 +13,7 @@ import { BdsSnackbarService } from '../../services/bds-snackbar.service';
 })
 class SnackbarHostComponent {
   data = input.required<SnackbarDataBds>();
-  config = input<SnackbarConfigBds>();
+  config = input<SnackbarConfigBds>({ stacking: false });
 
   private readonly _snackbarService = inject(BdsSnackbarService);
 

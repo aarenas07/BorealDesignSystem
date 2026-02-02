@@ -1,0 +1,22 @@
+<!-- Buttons Section -->
+<section class="component-section">
+  <h2>Chip Dropdown</h2>
+  <div class="demo-row">
+    <bds-chip-dropdown [options]="optionsSelect()" label="Label" placeholder="Label"></bds-chip-dropdown>
+    <bds-chip-dropdown
+      [options]="optionsSelect()"
+      label="Label"
+      placeholder="Label"
+      labelIcon="car_crash"
+      (valueChange)="changeValueChip($event)"
+    ></bds-chip-dropdown>
+    <bds-chip-dropdown
+      [options]="optionsSelect()"
+      label="Label"
+      placeholder="Label"
+      labelIcon="car_crash"
+      [multiple]="true"
+      (valueChange)="changeValueChip($event)"
+    ></bds-chip-dropdown>
+  </div>
+</section>

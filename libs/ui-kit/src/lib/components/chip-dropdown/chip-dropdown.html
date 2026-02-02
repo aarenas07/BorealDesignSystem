@@ -1,0 +1,54 @@
+<div class="bds-chip-dropdown-container">
+  <mat-chip-set>
+    <mat-chip
+      [class.active]="menuTrigger.menuOpen"
+      [class.has-value]="hasValue()"
+      [matMenuTriggerFor]="menu"
+      #menuTrigger="matMenuTrigger"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="chip-content">
+        @if(labelIcon()){
+        <mat-icon class="mat-icon-custom" matChipIcon> {{ labelIcon() }} </mat-icon>
+        }
+        <span class="chip-label">{{ selectedLabel() }}</span>
+        <mat-icon matChipTrailingIcon> {{ menuTrigger.menuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }} </mat-icon>
+        @if (value() && value().length > 0 && !disabled()) {
+        <div class="clear-selection">
+          <button matChipRemove (click)="clearSelection($event)" aria-label="Clear selection">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        }
+      </div>
+    </mat-chip>
+  </mat-chip-set>
+
+  <mat-menu #menu="matMenu" class="bds-chip-dropdown-menu" (closed)="handleBlur()">
+    <div class="menu-search-container" (click)="$event.stopPropagation()">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <input matInput [formControl]="filterControl" [placeholder]="filterPlaceholder()" autocomplete="off" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="menu-options-container">
+      @for (option of filteredOptions(); track option.value) {
+      <button mat-menu-item (click)="selectOption(option)" [class.selected]="isSelected(option)">
+        @if (multiple()) {
+        <mat-icon> {{ isSelected(option) ? 'check_box' : 'check_box_outline_blank' }} </mat-icon>
+        }
+        <span>{{ option.label }}</span>
+      </button>
+      }
+      <!-- TODO: Agregar mensaje de no resultados -->
+      @if (filteredOptions().length === 0) {
+      <div class="no-options">No se encontraron resultados</div>
+      }
+    </div>
+  </mat-menu>
+
+  @if (formControl.invalid && formControl.touched) {
+  <div class="error-message">{{ errorMessage() }}</div>
+  }
+</div>

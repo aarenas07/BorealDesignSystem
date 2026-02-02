@@ -148,7 +148,6 @@ export class CollapsibleNavComponent implements OnInit {
   }
 
   commandAction(event: any) {
-    console.log('Command action triggered:', event);
     this.router.navigateByUrl(event.options[0].routerLink);
   }
 

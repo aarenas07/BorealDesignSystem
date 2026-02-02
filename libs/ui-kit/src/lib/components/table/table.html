@@ -233,9 +233,9 @@
   </div>
   <div class="paginator-container">
     <bds-custom-paginator
-      [length]="dataSource.paginator ? dataSource.paginator.length : state().totalRecords"
-      [pageSize]="dataSource.paginator ? dataSource.paginator.pageSize : currentPageSize()"
-      [pageIndex]="dataSource.paginator ? dataSource.paginator.pageIndex : 0"
+      [length]="state().totalRecords"
+      [pageSize]="config.defaultPageSize || 10"
+      [pageIndex]="currentIndex()"
       [pageSizeOptions]="config.pageSizeOptions || [5, 10, 25, 50, 100]"
       (pageChange)="onCustomPageChange($event)"
       (pageSizeChange)="onCustomPageSizeChange($event)"
@@ -246,7 +246,7 @@
     <mat-paginator
       style="display: none"
       [length]="state().totalRecords"
-      [pageSize]="currentPageSize()"
+      [pageSize]="config.defaultPageSize || 10"
       [pageSizeOptions]="config.pageSizeOptions || [5, 10, 25, 50, 100]"
       [showFirstLastButtons]="true"
       (page)="onPageChange($event)"

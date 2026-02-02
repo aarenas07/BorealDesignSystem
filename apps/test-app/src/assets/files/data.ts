@@ -1,4 +1,6 @@
-export const USUARIOS_TEST_ONE: any = [
+import { User } from '../../app/components/edit-user-dialog/edit-user-dialog.component';
+
+export const USUARIOS_TEST_ONE: User[] = [
   {
     id: 1,
     name: 'Juan Pérez',

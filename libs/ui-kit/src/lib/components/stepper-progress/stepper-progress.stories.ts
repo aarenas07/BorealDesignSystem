@@ -1,17 +1,16 @@
-/* import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular';
 import { StepperProgressComponent } from './stepper-progress';
 
 const meta: Meta<StepperProgressComponent> = {
   title: 'Atomos/StepperProgress',
   component: StepperProgressComponent,
   argTypes: {
-    count: {
+    percent: {
       control: 'number',
     },
-    size: {
+    total: {
       control: 'number',
     },
-    indeterminate: { control: 'boolean' },
   },
 };
 
@@ -20,17 +19,7 @@ type Story = StoryObj<StepperProgressComponent>;
 
 export const Default: Story = {
   args: {
-    count: 1,
-    size: 5,
-    indeterminate: false,
+    percent: 1,
+    total: 5,
   },
 };
-
-export const Indeterminate: Story = {
-  args: {
-    count: 0,
-    size: 5,
-    indeterminate: true,
-  },
-};
- */

@@ -30,6 +30,7 @@ import { ExampleUploader } from './components/example-uploader/example-uploader'
 import { ExampleChipDropdown } from './components/example-chip-dropdown/example-chip-dropdown';
 import { ExampleStepperProgress } from './components/example-stepper-progress/example-stepper-progress';
 import { ExampleProgressBar } from './components/example-progress-bar/example-progress-bar';
+import { ExampleSearchbar } from './components/example-searchbar/example-searchbar';
 
 @Component({
   selector: 'app-root',
@@ -64,6 +65,7 @@ import { ExampleProgressBar } from './components/example-progress-bar/example-pr
     ExampleChipDropdown,
     ExampleStepperProgress,
     ExampleProgressBar,
+    ExampleSearchbar,
   ],
 
   providers: [provideNativeDateAdapter()],

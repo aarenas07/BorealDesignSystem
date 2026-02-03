@@ -1,46 +1,29 @@
-.bds-container-loader {
+.wavy-progress {
+  position: relative;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: conic-gradient(var(--mat-sys-primary) var(--bds-spinner-degree, 0deg), var(--mat-sys-surface) 0deg);
+  justify-content: center;
+  container-type: inline-size;
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 5px;
-    background: var(--mat-sys-surface-container-lowest);
-    border-radius: 50%;
+  svg {
+    display: block;
+    width: 40px;
+    height: 40px;
   }
 
-  .bds-count {
-    position: relative;
-    z-index: 1;
-    color: var(--mat-sys-on-surface-variant);
-    font-size: 14px;
+  .progress-percentage {
+    fill: var(--mat-sys-on-surface-variant);
+    text-anchor: middle;
+    font-family: Roboto, sans-serif;
+    font-size: 12px;
+    font-style: normal;
     font-weight: 500;
   }
-}
 
-.bds-container-indeterminate {
-  width: 40px;
-  height: 40px;
-  border: 5px solid var(--mat-sys-primary);
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: bdsRotation 1s linear infinite;
-}
-
-@keyframes bdsRotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
+  // Transición suave del color del stroke
+  path {
+    transition: stroke 0.35s ease-out;
   }
 }

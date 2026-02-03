@@ -5,13 +5,12 @@ const meta: Meta<StepperProgressComponent> = {
   title: 'Atomos/StepperProgress',
   component: StepperProgressComponent,
   argTypes: {
-    count: {
+    percent: {
       control: 'number',
     },
-    size: {
+    total: {
       control: 'number',
     },
-    indeterminate: { control: 'boolean' },
   },
 };
 
@@ -20,16 +19,7 @@ type Story = StoryObj<StepperProgressComponent>;
 
 export const Default: Story = {
   args: {
-    count: 1,
-    size: 5,
-    indeterminate: false,
-  },
-};
-
-export const Indeterminate: Story = {
-  args: {
-    count: 0,
-    size: 5,
-    indeterminate: true,
+    percent: 1,
+    total: 5,
   },
 };

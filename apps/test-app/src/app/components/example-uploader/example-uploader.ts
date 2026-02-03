@@ -1,93 +1,168 @@
-import { Component, signal, ViewChild } from '@angular/core';
-import { UploaderComponent, UploadedFile } from '@organizacion/ui-kit';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UploaderComponent, UploadedFile, FileUploadStatus } from '@organizacion/ui-kit';
+import { ButtonComponent } from '@organizacion/ui-kit';
 
 @Component({
   selector: 'app-example-uploader',
-  imports: [UploaderComponent, CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, UploaderComponent, ButtonComponent],
   templateUrl: './example-uploader.html',
   styleUrl: './example-uploader.scss',
 })
 export class ExampleUploader {
-  // Referencias a los uploaders para simular estados
-  @ViewChild('uploaderDemo') uploaderDemo!: UploaderComponent;
+  private fb = inject(FormBuilder);
 
-  // Señales para almacenar archivos
-  singleFiles = signal<UploadedFile[]>([]);
-  multipleFiles = signal<UploadedFile[]>([]);
-  imageFiles = signal<UploadedFile[]>([]);
-  pdfFiles = signal<UploadedFile[]>([]);
+  // Formulario de demostración
+  uploadForm: FormGroup = this.fb.group({
+    verticalList: [[] as UploadedFile[], Validators.required],
+    horizontalList: [[] as UploadedFile[]],
+    compactMode: [[] as UploadedFile[]],
+  });
+
   errorMessage = signal<string>('');
+  isSubmitting = signal<boolean>(false);
 
   // Manejadores de eventos
-  onSingleFileSelected(files: UploadedFile[]): void {
-    this.singleFiles.set(files);
-    console.log('Archivo único seleccionado:', files);
+
+  /**
+   * Se ejecuta cuando el usuario selecciona archivos en el uploader "Vertical"
+   * Aquí simulamos la carga para este control específico
+   */
+  onVerticalFilesSelected(files: UploadedFile[]): void {
+    // Al usar ReactiveForms, el control ya tiene el valor, pero queremos simular
+    // el progreso de carga actualizando ese valor periodicamente.
+    // Filtramos solo los que están en 'uploading' para no reiniciar completados
+    const newFiles = files.filter(f => f.status === 'uploading' && f.progress === 0);
+    if (newFiles.length > 0) {
+      this.simulateUploadForControl('verticalList', newFiles);
+    }
   }
 
-  onMultipleFilesSelected(files: UploadedFile[]): void {
-    this.multipleFiles.set(files);
-    console.log('Archivos múltiples seleccionados:', files);
-    // Simular carga para demostrar los estados
-    this.simulateUpload(files);
+  /**
+   * Se ejecuta cuando el usuario selecciona archivos en el uploader "Horizontal"
+   */
+  onHorizontalFilesSelected(files: UploadedFile[]): void {
+    const newFiles = files.filter(f => f.status === 'uploading' && f.progress === 0);
+    if (newFiles.length > 0) {
+      this.simulateUploadForControl('horizontalList', newFiles);
+    }
   }
 
-  onImageFilesSelected(files: UploadedFile[]): void {
-    this.imageFiles.set(files);
-    console.log('Imágenes seleccionadas:', files);
-  }
-
-  onPDFFilesSelected(files: UploadedFile[]): void {
-    this.pdfFiles.set(files);
-    console.log('PDFs seleccionados:', files);
+  onCompactFilesSelected(files: UploadedFile[]): void {
+    const newFiles = files.filter(f => f.status === 'uploading' && f.progress === 0);
+    if (newFiles.length > 0) {
+      this.simulateUploadForControl('compactMode', newFiles);
+    }
   }
 
   onFileRemoved(file: UploadedFile): void {
     console.log('Archivo eliminado:', file.file.name);
   }
 
-  onRetryUpload(file: UploadedFile): void {
+  onRetryUpload(file: UploadedFile, controlName: string): void {
     console.log('Reintentando carga:', file.file.name);
-    // Simular una carga exitosa al reintentar
-    this.simulateSingleUpload(file, true);
+    // Reiniciar estado y simular
+    // Nota: El componente Uploader ya emite el evento retryUpload,
+    // pero como el estado es controlado por el form, nosotros debemos "reiniciar" el archivo en el form value.
+    const control = this.uploadForm.get(controlName);
+    if (!control) return;
+
+    const currentFiles = control.value as UploadedFile[];
+    const updatedFiles = currentFiles.map(f => {
+      if (f.id === file.id) {
+        return { ...f, status: 'uploading' as FileUploadStatus, progress: 0, errorMessage: undefined };
+      }
+      return f;
+    });
+
+    control.setValue(updatedFiles);
+
+    // Iniciar simulación para este archivo reintentado
+    const retriedFile = updatedFiles.find(f => f.id === file.id);
+    if (retriedFile) {
+      this.simulateSingleUploadForControl(controlName, retriedFile, true);
+    }
   }
 
   onError(errorMsg: string): void {
     this.errorMessage.set(errorMsg);
     console.error('Error en uploader:', errorMsg);
-
-    // Limpiar mensaje después de 5 segundos
     setTimeout(() => this.errorMessage.set(''), 5000);
   }
 
   /**
-   * Simula la carga de archivos para demostrar los estados
+   * Simula el "Envío" del formulario
    */
-  private simulateUpload(files: UploadedFile[]): void {
-    files.forEach((file, index) => {
-      // Alternar entre éxito y error para demostración
-      const willFail = index === 1; // El segundo archivo fallará
-      this.simulateSingleUpload(file, !willFail);
-    });
+  onSubmit(): void {
+    if (this.uploadForm.invalid) {
+      this.uploadForm.markAllAsTouched();
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    console.log('Enviando formulario...', this.uploadForm.value);
+
+    // Simular petición
+    setTimeout(() => {
+      this.isSubmitting.set(false);
+      alert('Formulario enviado con éxito! Revisa la consola para ver los valores.');
+    }, 2000);
   }
 
   /**
-   * Simula la carga de un archivo individual
+   * Simula la carga de archivos actualizando el FormControl
    */
-  private simulateSingleUpload(file: UploadedFile, success: boolean): void {
+  private simulateUploadForControl(controlName: string, filesToUpload: UploadedFile[]): void {
+    filesToUpload.forEach((file, index) => {
+      // Simular error en el segundo archivo (solo para demo vertical si hay multiples)
+      // O aleatorio para hacerlo interesante
+      const willFail = file.file.name.includes('error') || (controlName === 'verticalList' && index === 1);
+      this.simulateSingleUploadForControl(controlName, file, !willFail);
+    });
+  }
+
+  private simulateSingleUploadForControl(controlName: string, file: UploadedFile, success: boolean): void {
+    const control = this.uploadForm.get(controlName);
+    if (!control) return;
+
     let progress = 0;
     const interval = setInterval(() => {
       progress += Math.random() * 15 + 5;
 
+      // Obtener el valor ACTUAL del control en cada tick para no perder otros cambios
+      // (aunque en este ejemplo simple no hay mucha concurrencia, es buena práctica)
+      const currentControlValue = control.value as UploadedFile[];
+      // Verificar si el archivo aun existe en el control (pudo ser borrado)
+      const fileIndex = currentControlValue.findIndex(f => f.id === file.id);
+
+      if (fileIndex === -1) {
+        clearInterval(interval);
+        return;
+      }
+
       if (progress >= 100) {
         clearInterval(interval);
-        if (success) {
-          this.uploaderDemo?.updateFileStatus(file.id, 'completed');
-        } else {
-          this.uploaderDemo?.updateFileStatus(file.id, 'error', 'Mensaje de error');
-        }
+        const finalStatus: FileUploadStatus = success ? 'completed' : 'error';
+        const updatedFile = {
+          ...currentControlValue[fileIndex],
+          status: finalStatus,
+          progress: success ? 100 : 0,
+          errorMessage: success ? undefined : 'Error simulado al cargar',
+        };
+
+        // Inmutable update
+        const newFiles = [...currentControlValue];
+        newFiles[fileIndex] = updatedFile;
+        control.setValue(newFiles);
       } else {
-        this.uploaderDemo?.updateFileProgress(file.id, Math.floor(progress));
+        const updatedFile = {
+          ...currentControlValue[fileIndex],
+          progress: Math.floor(progress),
+        };
+        const newFiles = [...currentControlValue];
+        newFiles[fileIndex] = updatedFile;
+        control.setValue(newFiles); // Esto disparará la actualización en el UI
       }
     }, 300);
   }

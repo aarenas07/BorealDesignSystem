@@ -1,1 +1,45 @@
-<p>progress-bar works!</p>
+<div class="wavy-progress">
+  <svg
+    [attr.viewBox]="'0 0 ' + viewBoxSize + ' ' + viewBoxSize"
+    preserveAspectRatio="xMidYMid meet"
+    role="img"
+    [attr.aria-label]="'Progreso ' + currentPercent + '%'"
+  >
+    <g [attr.transform]="'rotate(-90 ' + CX + ' ' + CY + ')'">
+      <!-- Pista Inactiva -->
+      <path
+        [attr.d]="trackPathD()"
+        fill="none"
+        [attr.stroke]="TRACK_COLOR"
+        stroke-width="22"
+        stroke-linecap="round"
+        [attr.stroke-dasharray]="trackDashProps().strokeDasharray"
+        [attr.stroke-dashoffset]="trackDashProps().strokeDashoffset"
+      />
+
+      <!-- Indicador Activo Ondulado -->
+      <path
+        #indicatorPath
+        [attr.d]="pathD()"
+        fill="none"
+        [attr.stroke]="FIXED_COLOR"
+        stroke-width="22"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        [attr.stroke-dasharray]="indicatorDashArray()"
+      />
+    </g>
+
+    <g>
+      <!-- Porcentaje -->
+      <text x="50%" id="percentage" y="48%" text-anchor="middle" dominant-baseline="central" class="progress-percentage">
+        {{ Math.round(currentPercent) }}%
+      </text>
+
+      <!-- Fracción -->
+      <text x="50%" y="62%" text-anchor="middle" dominant-baseline="central" class="progress-fraction">
+        {{ fractionCurrent() }}/{{ total() }}
+      </text>
+    </g>
+  </svg>
+</div>

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+/* import type { Meta, StoryObj } from '@storybook/angular';
 import { StepperProgressComponent } from './stepper-progress';
 
 const meta: Meta<StepperProgressComponent> = {
@@ -33,3 +33,4 @@ export const Indeterminate: Story = {
     indeterminate: true,
   },
 };
+ */

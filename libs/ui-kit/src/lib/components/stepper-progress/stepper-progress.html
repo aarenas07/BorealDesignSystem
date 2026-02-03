@@ -1,10 +1,40 @@
-<!-- indeterminate -->
-@if(indeterminate()) {
-<div class="bds-container-indeterminate"></div>
-} @else {
-<!-- determinate -->
-@if (clampedCount() > 0) {
-<div class="bds-container-loader" [style.--bds-spinner-degree.deg]="degree()">
-  <span class="bds-count">{{ clampedCount() }}</span>
+<div class="wavy-progress">
+  <svg
+    [attr.viewBox]="'0 0 ' + viewBoxSize + ' ' + viewBoxSize"
+    preserveAspectRatio="xMidYMid meet"
+    role="img"
+    [attr.aria-label]="'Progreso ' + currentPercent + '%'"
+  >
+    <g [attr.transform]="'rotate(-90 ' + CX + ' ' + CY + ')'">
+      <!-- Pista Inactiva -->
+      <path
+        [attr.d]="trackPathD()"
+        fill="none"
+        [attr.stroke]="TRACK_COLOR"
+        [attr.stroke-width]="TRACK_STROKE"
+        stroke-linecap="round"
+        [attr.stroke-dasharray]="trackDashProps().strokeDasharray"
+        [attr.stroke-dashoffset]="trackDashProps().strokeDashoffset"
+      />
+
+      <!-- Indicador Activo Ondulado -->
+      <path
+        #indicatorPath
+        [attr.d]="pathD()"
+        fill="none"
+        [attr.stroke]="FIXED_COLOR"
+        [attr.stroke-width]="INDICATOR_STROKE"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        [attr.stroke-dasharray]="indicatorDashArray()"
+      />
+    </g>
+
+    <g>
+      <!-- Porcentaje -->
+      <text x="50%" id="percentage" y="48%" text-anchor="middle" dominant-baseline="central" class="progress-percentage">
+        {{ Math.round(currentPercent) }}
+      </text>
+    </g>
+  </svg>
 </div>
-} }

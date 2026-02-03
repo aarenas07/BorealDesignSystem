@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ProgressBarComponent } from '@organizacion/ui-kit';
 
 @Component({
@@ -7,4 +7,15 @@ import { ProgressBarComponent } from '@organizacion/ui-kit';
   templateUrl: './example-progress-bar.html',
   styleUrl: './example-progress-bar.scss',
 })
-export class ExampleProgressBar {}
+export class ExampleProgressBar {
+  porcentaje = signal<number>(50);
+
+  constructor() {
+    setInterval(() => {
+      this.porcentaje.update(p => p + 10);
+      if (this.porcentaje() >= 100) {
+        this.porcentaje.set(0);
+      }
+    }, 2000);
+  }
+}

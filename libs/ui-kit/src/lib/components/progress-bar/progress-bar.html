@@ -1,45 +1,17 @@
-<div class="wavy-progress">
-  <svg
-    [attr.viewBox]="'0 0 ' + viewBoxSize + ' ' + viewBoxSize"
-    preserveAspectRatio="xMidYMid meet"
-    role="img"
-    [attr.aria-label]="'Progreso ' + currentPercent + '%'"
-  >
-    <g [attr.transform]="'rotate(-90 ' + CX + ' ' + CY + ')'">
-      <!-- Pista Inactiva -->
-      <path
-        [attr.d]="trackPathD()"
-        fill="none"
-        [attr.stroke]="TRACK_COLOR"
-        stroke-width="22"
-        stroke-linecap="round"
-        [attr.stroke-dasharray]="trackDashProps().strokeDasharray"
-        [attr.stroke-dashoffset]="trackDashProps().strokeDashoffset"
-      />
+<div class="bds-wavy-container">
+  <svg [attr.viewBox]="viewBox" class="bds-wavy-svg" preserveAspectRatio="xMidYMid meet">
+    <!-- 1. CAMINO ACTIVO (ONDA) -->
+    <!-- Se dibuja solo hasta donde llega el porcentaje -->
+    <path [attr.d]="activePathD()" [attr.stroke-width]="STROKE_WIDTH" class="bds-path-base bds-active-wave"></path>
 
-      <!-- Indicador Activo Ondulado -->
-      <path
-        #indicatorPath
-        [attr.d]="pathD()"
-        fill="none"
-        [attr.stroke]="FIXED_COLOR"
-        stroke-width="22"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        [attr.stroke-dasharray]="indicatorDashArray()"
-      />
-    </g>
+    <!-- 2. CAMINO INACTIVO (RECTA) -->
+    <!-- Se dibuja desde el gap hasta el final -->
+    <path [attr.d]="inactivePathD()" [attr.stroke-width]="STROKE_WIDTH" class="bds-path-base bds-inactive-line"></path>
 
-    <g>
-      <!-- Porcentaje -->
-      <text x="50%" id="percentage" y="48%" text-anchor="middle" dominant-baseline="central" class="progress-percentage">
-        {{ Math.round(currentPercent) }}%
-      </text>
-
-      <!-- Fracción -->
-      <text x="50%" y="62%" text-anchor="middle" dominant-baseline="central" class="progress-fraction">
-        {{ fractionCurrent() }}/{{ total() }}
-      </text>
-    </g>
+    @if (!removeDot()) {
+    <!-- 3. PUNTO FINAL (DOT) -->
+    <!-- Ubicado al final de la barra gris -->
+    <circle [attr.cx]="endDotX" [attr.cy]="CY" r="4" class="bds-end-dot"></circle>
+    }
   </svg>
 </div>

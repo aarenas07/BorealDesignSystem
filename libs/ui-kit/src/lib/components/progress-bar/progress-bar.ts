@@ -2,225 +2,241 @@ import {
   Component,
   signal,
   computed,
-  effect,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
   ChangeDetectionStrategy,
   OnChanges,
   SimpleChanges,
   OnDestroy,
+  AfterViewInit,
   input,
 } from '@angular/core';
 
 /**
- * Wavy Circular Progress Component
- * Componente reusable de progreso circular con efecto de onda
- * Se ajusta responsivamente al contenedor
- *
- * @Input percent - Porcentaje de progreso (0-100)
- * @Input total - Total de elementos (por defecto 300)
+ * CONFIGURACIÓN VISUAL
  */
+const BASE_WIDTH = 600;
+const BASE_HEIGHT = 40;
+const PADDING_X = 10; // Margen interno
+const GAP_SIZE = 24; // El hueco entre la onda y la barra gris
 
-// Proporciones base (se escalarán responsivamente)
-const BASE_SIZE = 200;
-const BASE_RADIUS = 75;
-const BASE_INDICATOR_STROKE = 22;
-const BASE_TRACK_STROKE = BASE_INDICATOR_STROKE;
-const BASE_GAP = 10;
+// Estilos - COLORES RESTAURADOS
+const STROKE_WIDTH = 10;
+const DEFAULT_ACTIVE_COLOR = '#006A63'; // Color original del indicador (Verde Oscuro)
+const INACTIVE_COLOR = '#9DF2E7'; // Color original del track (Gris/Verde Claro)
+const DOT_COLOR = '#006A63'; // Punto del mismo color que el indicador
 
-// Configuración fija del componente
-const FIXED_AMPLITUDE = 3.5;
-const FIXED_NUM_WAVES = 12;
-const FIXED_TENSION = 110;
-const FIXED_COLOR = '#006A63';
-const TRACK_COLOR = '#dce6e5';
+// Configuración de la Onda
+const FIXED_AMPLITUDE = 6;
+const FIXED_NUM_WAVES = 6;
+const ANIMATION_SPEED = 0.08;
 
 @Component({
   selector: 'bds-progress-bar',
   imports: [],
   templateUrl: './progress-bar.html',
-  styleUrl: './progress-bar.scss',
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+        max-width: 600px;
+      }
+
+      .bds-wavy-svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        overflow: visible;
+      }
+
+      /* Estilos base para ambas líneas */
+      .bds-path-base {
+        fill: none;
+        stroke-linecap: round; /* Bordes redondeados clave para el efecto del gap */
+        transition: all 0.3s ease-out;
+      }
+
+      .bds-active-wave {
+        stroke: var(--active-color, ${DEFAULT_ACTIVE_COLOR});
+      }
+
+      .bds-inactive-line {
+        stroke: var(--inactive-color, ${INACTIVE_COLOR});
+      }
+
+      .bds-end-dot {
+        fill: var(--active-color, ${DOT_COLOR});
+        transition: cx 0.3s ease-out;
+      }
+
+      @media (min-width: 1200px) {
+        .bds-wavy-container {
+          width: 50%;
+        }
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy {
-  // --- Propiedades del Componente ---
-  protected readonly TRACK_COLOR = TRACK_COLOR;
-  protected readonly FIXED_COLOR = FIXED_COLOR;
-  protected readonly Math = Math;
+  /** Permite parametrizar el color activo desde fuera */
+  activeColor = input<string | null>(null);
 
-  // ViewBox fijo para mantener proporciones
-  protected readonly viewBoxSize = BASE_SIZE;
-  protected readonly CX = BASE_SIZE / 2;
-  protected readonly CY = BASE_SIZE / 2;
+  /** Permite parametrizar el color inactivo (tramo no llenado) */
+  inactiveColor = input<string | null>(null);
 
-  // --- Input desde el componente padre ---
+  /** Valor actual del progreso (0-100) */
   percent = input<number>(0);
-  total = input<number>(300);
 
-  // --- Referencia al Elemento del DOM ---
-  @ViewChild('indicatorPath') private pathRef!: ElementRef<SVGPathElement>;
+  /** Indica si se debe ocultar el punto final */
+  removeDot = input<boolean>(false);
 
-  // --- Estado Reactivo (Signals) ---
+  // Constantes para el template
+  protected readonly viewBox = `0 0 ${BASE_WIDTH} ${BASE_HEIGHT}`;
+  protected readonly STROKE_WIDTH = STROKE_WIDTH;
+  protected readonly CY = BASE_HEIGHT / 2;
+  // Posición fija del punto (siempre al final menos un margen)
+  protected readonly endDotX = BASE_WIDTH - PADDING_X - 6;
+
+  // Signals
   private percentSignal = signal<number>(0);
   private phase = signal<number>(0);
-  private pathLength = signal<number>(0);
   private animationFrameId?: number;
 
-  // --- Estado Derivado (Computed Signals) ---
-  fractionCurrent = computed(() => Math.round((this.percentSignal() / 100) * this.total()));
+  // --- CÁLCULOS PRINCIPALES ---
 
-  trackPathLength = computed(() => 2 * Math.PI * BASE_RADIUS);
+  // Calcula el píxel exacto donde termina la parte activa
+  private cutoffX = computed(() => {
+    const totalContentWidth = BASE_WIDTH - PADDING_X * 2;
+    const progress = Math.max(0, Math.min(100, this.percentSignal())) / 100;
+    return PADDING_X + totalContentWidth * progress;
+  });
 
-  pathD = computed(() => {
-    const points = this.generateWavyPoints({
-      cx: this.CX,
-      cy: this.CY,
-      radius: BASE_RADIUS,
-      amplitude: FIXED_AMPLITUDE,
-      numWaves: FIXED_NUM_WAVES,
-      phase: this.phase(),
-    });
+  // Genera el path de la ONDA (Izquierda)
+  activePathD = computed(() => {
+    const endX = this.cutoffX() - GAP_SIZE / 2; // Restamos mitad del gap
+
+    // Si es muy pequeño, no dibujamos nada para evitar artefactos visuales
+    if (endX < PADDING_X) return '';
+
+    const points = this.generateWavePoints(PADDING_X, endX, this.phase());
     return this.createCurvyPath(points);
   });
 
-  trackPathD = computed(() => {
-    const points = this.generateWavyPoints({
-      cx: this.CX,
-      cy: this.CY,
-      radius: BASE_RADIUS,
-      amplitude: 0,
-      numWaves: 0,
-      phase: 0,
-    });
-    return this.createCurvyPath(points);
+  // Genera el path de la RECTA (Derecha)
+  inactivePathD = computed(() => {
+    const startX = this.cutoffX() + GAP_SIZE / 2; // Sumamos mitad del gap
+    const endX = BASE_WIDTH - PADDING_X;
+
+    // Si el inicio supera al final (100%), no dibujamos la barra gris
+    if (startX >= endX) return '';
+
+    // Línea recta simple: M start,y L end,y
+    return `M ${startX.toFixed(2)} ${this.CY} L ${endX.toFixed(2)} ${this.CY}`;
   });
 
-  indicatorDashArray = computed(() => {
-    const pLength = this.pathLength();
-    const tLength = this.trackPathLength();
-    if (pLength === 0 || tLength === 0) return `0 9999`;
-
-    const lengthRatio = pLength / tLength;
-    const visibleLength = tLength * (this.percentSignal() / 100) * lengthRatio;
-    return `${visibleLength} ${pLength}`;
-  });
-
-  trackDashProps = computed(() => {
-    const progress = this.percentSignal() / 100;
-    const tLength = this.trackPathLength();
-    const adjustedGap = BASE_GAP + BASE_INDICATOR_STROKE / 2 + BASE_TRACK_STROKE / 2;
-    const totalAdjustedGap = 2 * adjustedGap;
-    const shownLength = Math.max(0, tLength * (1 - progress) - totalAdjustedGap);
-
-    if (this.percentSignal() >= 100) {
-      return { strokeDasharray: `0 ${tLength}`, strokeDashoffset: 0 };
-    }
-    if (this.percentSignal() <= 0) {
-      return {
-        strokeDasharray: `${tLength - totalAdjustedGap} ${tLength}`,
-        strokeDashoffset: -adjustedGap,
-      };
-    }
-
-    const strokeDasharray = `${shownLength} ${tLength}`;
-    const indicatorSegmentLength = tLength * progress;
-    const strokeDashoffset = -(indicatorSegmentLength + adjustedGap);
-
-    return { strokeDasharray, strokeDashoffset };
-  });
-
-  constructor() {
-    // Efecto para actualizar la longitud del path
-    effect(() => {
-      this.pathD();
-
-      if (this.pathRef?.nativeElement) {
-        this.pathLength.set(this.pathRef.nativeElement.getTotalLength());
-      }
-    });
-  }
+  // --- LIFECYCLE ---
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['percent']) {
-      // Asegurar que el porcentaje esté entre 0 y 100
-      const newPercent = Math.max(0, Math.min(100, this.percent()));
-      this.percentSignal.set(newPercent);
+      this.percentSignal.set(this.percent());
     }
+    this.setColorVars();
   }
 
   ngAfterViewInit(): void {
-    // Inicializa el porcentaje
-    this.percentSignal.set(Math.max(0, Math.min(100, this.percent())));
-    // Inicia el bucle de animación
+    this.percentSignal.set(this.percent());
+    this.setColorVars();
     this.runAnimation();
   }
 
+  private setColorVars() {
+    const active = this.activeColor() || DEFAULT_ACTIVE_COLOR;
+    const inactive = this.inactiveColor() || INACTIVE_COLOR;
+    const host = (window as any).ng?.getHostElement?.(this) || (this as any).el?.nativeElement || null;
+    if (host) {
+      host.style.setProperty('--active-color', active);
+      host.style.setProperty('--inactive-color', inactive);
+    } else {
+      // fallback para Angular <17 o sin getHostElement
+      try {
+        const el = document.querySelector('bds-progress-bar') as HTMLElement | null;
+        el?.style.setProperty('--active-color', active);
+        el?.style.setProperty('--inactive-color', inactive);
+      } catch {}
+    }
+  }
+
   ngOnDestroy(): void {
-    // Limpia el bucle de animación
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId);
     }
   }
 
-  // --- Bucle de Animación ---
-  private runAnimation(): void {
-    const speed = FIXED_TENSION / 2000;
-    this.phase.update(p => (p + speed) % (2 * Math.PI));
+  // --- ANIMACIÓN ---
 
+  private runAnimation(): void {
+    const speed = ANIMATION_SPEED;
+    // Movemos la fase para animar la onda
+    this.phase.update(p => (p - speed) % (2 * Math.PI));
     this.animationFrameId = requestAnimationFrame(() => this.runAnimation());
   }
 
-  // --- Funciones Auxiliares Privadas ---
-  private generateWavyPoints(config: {
-    cx: number;
-    cy: number;
-    radius: number;
-    amplitude: number;
-    numWaves: number;
-    phase: number;
-    steps?: number;
-  }): { x: number; y: number }[] {
-    const { cx, cy, radius, amplitude, numWaves, phase, steps = 180 } = config;
-    const points = [];
+  // --- MATEMÁTICAS ---
 
-    for (let i = 0; i <= steps; i++) {
-      const angle = (i / steps) * 2 * Math.PI;
-      const wave = amplitude * Math.sin(angle * numWaves + phase);
-      const r = radius + wave;
-      const x = cx + r * Math.cos(angle);
-      const y = cy + r * Math.sin(angle);
+  /**
+   * Genera puntos para la onda basados en coordenadas absolutas X.
+   * IMPORTANTE: Calculamos la onda basándonos en el ancho TOTAL,
+   * no en el ancho actual, para que la onda no se "estire" al crecer la barra.
+   */
+  private generateWavePoints(startX: number, endX: number, phase: number): { x: number; y: number }[] {
+    const points = [];
+    const stepSize = 5; // Resolución de pixeles (menor = más suave)
+    const totalTrackWidth = BASE_WIDTH - PADDING_X * 2;
+
+    for (let x = startX; x <= endX; x += stepSize) {
+      // Normalizamos la posición X respecto al ancho TOTAL para mantener la frecuencia constante
+      const normalizedPos = (x - PADDING_X) / totalTrackWidth;
+
+      // Cálculo de onda senoidal
+      const angle = normalizedPos * FIXED_NUM_WAVES * 2 * Math.PI + phase;
+      const y = this.CY + FIXED_AMPLITUDE * Math.sin(angle);
+
       points.push({ x, y });
+    }
+
+    // Asegurar que el último punto sea exacto
+    if (points[points.length - 1].x !== endX) {
+      const normalizedPos = (endX - PADDING_X) / totalTrackWidth;
+      const angle = normalizedPos * FIXED_NUM_WAVES * 2 * Math.PI + phase;
+      points.push({ x: endX, y: this.CY + FIXED_AMPLITUDE * Math.sin(angle) });
     }
 
     return points;
   }
 
+  /**
+   * Convierte puntos en SVG Path (Spline cúbico suavizado)
+   */
   private createCurvyPath(points: { x: number; y: number }[]): string {
-    const len = points.length;
-    if (len < 3) return '';
+    if (points.length < 2) return '';
 
-    let d = `M ${points[0].x.toFixed(3)} ${points[0].y.toFixed(3)}`;
+    let d = `M ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)}`;
 
-    for (let i = 0; i < len - 1; i++) {
-      const p0 = points[(i - 1 + len) % len];
+    for (let i = 0; i < points.length - 1; i++) {
+      const p0 = points[i === 0 ? 0 : i - 1];
       const p1 = points[i];
       const p2 = points[i + 1];
-      const p3 = points[(i + 2) % len];
+      const p3 = points[i + 2 >= points.length ? points.length - 1 : i + 2];
 
       const cp1_x = p1.x + (p2.x - p0.x) / 6;
       const cp1_y = p1.y + (p2.y - p0.y) / 6;
+
       const cp2_x = p2.x - (p3.x - p1.x) / 6;
       const cp2_y = p2.y - (p3.y - p1.y) / 6;
 
-      d += ` C ${cp1_x.toFixed(3)},${cp1_y.toFixed(3)} ${cp2_x.toFixed(3)},${cp2_y.toFixed(3)} ${p2.x.toFixed(3)},${p2.y.toFixed(3)}`;
+      d += ` C ${cp1_x.toFixed(2)},${cp1_y.toFixed(2)} ${cp2_x.toFixed(2)},${cp2_y.toFixed(2)} ${p2.x.toFixed(2)},${p2.y.toFixed(2)}`;
     }
 
     return d;
-  }
-
-  // Exponer percentSignal para el template
-  protected get currentPercent() {
-    return this.percentSignal();
   }
 }

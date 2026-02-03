@@ -13,10 +13,12 @@
   padding-bottom: 8px;
 }
 
-bds-progress-bar {
-  margin: 0.5rem;
+.demo-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.full-width {
-  width: 100%;
+bds-progress-bar {
+  margin: 0.5rem;
 }

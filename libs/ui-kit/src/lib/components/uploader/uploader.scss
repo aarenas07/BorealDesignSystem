@@ -9,20 +9,18 @@
 }
 
 ::ng-deep {
-  .mat-mdc-unelevated-button:not(:disabled) {
+  /*  .mat-mdc-unelevated-button:not(:disabled) {
     border-radius: 100px !important;
     background-color: var(--mat-sys-secondary-fixed) !important;
     color: var(--mat-sys-on-secondary-container) !important;
   }
-
 
   .mat-mdc-outlined-button:not(:disabled) {
     border-radius: 100px !important;
     background-color: transparent !important;
     color: var(--mat-sys-on-surface-variant) !important;
   }
-
-
+ */
   .bds-uploader__retry-button {
     border-radius: 100px !important;
     background-color: var(--mat-sys-error-container) !important;
@@ -488,8 +486,6 @@
       height: 20px;
     }
   }
-
-
 
   // ========================================
   // Modo compacto

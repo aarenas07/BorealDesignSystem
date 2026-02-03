@@ -24,10 +24,15 @@
 
       <!-- @if (subSteps().length > 0) { -->
       <div class="bds-smart-stepper__substepper-top">
-        <span class="bds-smart-stepper__substepper-title">{{ subTitle() }}</span>
-        <div class="bds-smart-stepper__progress-track">
-          <span class="bds-smart-stepper__progress-bar" [style.width.%]="getStepProgress(activeIndex())"></span>
-        </div>
+        @for(subStep of subSteps(); track $index){
+        <button class="bds-smart-stepper__substepper-button" (click)="goToStep($index)" mat-stroked-button
+          [class.active]="$index === activeIndexSubStep()">
+        </button>
+        <!-- <span class="bds-smart-stepper__progress-bar" [style.width.%]="getStepProgress(activeIndex())"></span> -->
+        }
+        <!-- <div class="bds-smart-stepper__progress-track">
+
+        </div> -->
       </div>
       <!-- } -->
 
@@ -48,7 +53,7 @@
     <div class="bds-smart-stepper__header-row bds-smart-stepper__header-row--secondary">
       <div class="bds-smart-stepper__substep-label">
         <span class="bds-smart-stepper__substep-circle bds-smart-stepper__substep-circle--progress"
-          [style.--bds-substep-progress.%]="getStepProgress(activeIndex())">
+          [style.--bds-substep-progress.%]="getSubStepProgress(activeIndexSubStep())">
           <p style="z-index: 1000;">
             {{ $index + 1 }}
           </p>
@@ -73,7 +78,7 @@
     }
   </div>
 
-  <div class="bds-smart-stepper__content">
+  <div>
     @if (activeStepTemplate()) {
     <ng-container *ngTemplateOutlet="activeStepTemplate()"></ng-container>
     }

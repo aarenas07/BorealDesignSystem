@@ -9,6 +9,9 @@ import {
   MenuOptionBds,
   ButtonComponent,
 } from '@organizacion/ui-kit';
+import { MatStepper, MatStep } from "@angular/material/stepper";
+import { MatFormField, MatLabel } from "@angular/material/form-field";
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-example-smart-stepper',
@@ -19,12 +22,17 @@ import {
     FormFieldComponent,
     SelectComponent,
     ButtonComponent,
+    MatStepper,
+    MatStep,
+    MatFormField,
+    MatLabel
   ],
   templateUrl: './example-stepper.html',
   styleUrl: './example-stepper.scss',
 })
 export class ExampleSmartStepper {
   activeIndex = 0;
+  activeIndexSubStep = 0;
 
   optionsDepartamentos = signal<MenuOptionBds[]>([
     { label: 'Antioquia', value: 'antioquia' },
@@ -77,18 +85,22 @@ export class ExampleSmartStepper {
       form: this.ubicacionForm,
       subSteps: [
         {
+          index: 0,
           label: 'Ubicacion',
           formGroup: this.ubicacionGroup,
         },
         {
+          index: 1,
           label: 'Registro',
           formGroup: this.registroGroup,
         },
         {
+          index: 2,
           label: 'Vereda',
           formGroup: this.veredaGroup,
         },
         {
+          index: 3,
           label: 'Coordenadas',
           formGroup: this.coordenadasGroup,
         },
@@ -118,11 +130,19 @@ export class ExampleSmartStepper {
     }
   }
 
-  onSubStepChange(event: { stepIndex: number; subStepIndex: number }) {
-    if (event.stepIndex !== 0) return;
-    this.steps = this.steps.map((step, index) =>
-      index === event.stepIndex ? { ...step, subActiveIndex: event.subStepIndex } : step
-    );
+  onSubStepChange(
+    event?: StepperSelectionEvent,
+    stepInfo?: { stepIndex: number; subStepIndex: number }
+  ) {
+    console.log('onSubStepChange')
+    console.log(event)
+    console.log('stepInfo');
+    console.log(stepInfo)
+    if (event) {
+      this.activeIndexSubStep = event.selectedIndex;
+      return
+    }
+    this.activeIndexSubStep = stepInfo?.subStepIndex ?? 0;
   }
 
   nextFromUbicacion() {

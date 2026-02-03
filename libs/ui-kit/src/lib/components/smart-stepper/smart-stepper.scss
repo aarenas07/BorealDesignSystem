@@ -222,3 +222,65 @@
     flex-wrap: wrap;
   }
 }
+
+.bds-smart-stepper__substep-circle--progress {
+  position: relative;
+  border: none;
+  background:
+    conic-gradient(#117a6a var(--bds-substep-progress, 0%),
+      #cfe3df 0);
+}
+
+.bds-smart-stepper__substep-circle--progress::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--mat-sys-surface-container);
+}
+
+.bds-smart-stepper__substep-circle {
+  position: relative;
+  z-index: 1;
+  font-weight: 600;
+}
+
+.bds-smart-stepper__substep-circle--progress p {
+  z-index: 1000;
+}
+
+.bds-smart-stepper__mini-step {
+  order: 3;
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.bds-smart-stepper__mini-step.is-past {
+  order: 1;
+}
+
+.bds-smart-stepper__mini-step.is-active {
+  order: 2;
+}
+
+.bds-smart-stepper__mini-step.is-future {
+  order: 3;
+  opacity: 0.5;
+}
+
+.bds-smart-stepper__mini-step {
+  transition:
+    order 0ms,
+    transform 200ms ease,
+    opacity 200ms ease;
+}
+
+.bds-smart-stepper__mini-step.is-past::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  width: 1px;
+  height: 12px;
+  background: var(--mat-sys-outline);
+  transform: translateY(-50%);
+}

@@ -1,11 +1,6 @@
 <div class="bds-smart-stepper" [class.vertical]="orientation() === 'vertical'">
-  <div
-    class="bds-smart-stepper__cdk"
-    cdkStepper
-    [linear]="linear()"
-    [selectedIndex]="activeIndex()"
-    (selectionChange)="onSelectionChange($event)"
-  >
+  <div class="bds-smart-stepper__cdk" cdkStepper [linear]="linear()" [selectedIndex]="activeIndex()"
+    (selectionChange)="onSelectionChange($event)">
     @for (step of steps(); track $index) {
     <cdk-step [completed]="isStepCompleted(step, $index)" [editable]="!step.disabled"></cdk-step>
     }
@@ -15,13 +10,8 @@
     <div class="bds-smart-stepper__header-row">
       @for (step of steps(); track $index) {
       @if ($index === activeIndex()) {
-      <button
-        type="button"
-        class="bds-smart-stepper__pill"
-        [class.has-error]="isStepError(step, $index)"
-        (click)="onStepHeaderClick($index)"
-        [disabled]="step.disabled"
-      >
+      <button type="button" class="bds-smart-stepper__pill" [class.has-error]="isStepError(step, $index)"
+        (click)="onStepHeaderClick($index)" [disabled]="step.disabled">
         @if (isStepError(step, $index)) {
         <span class="bds-smart-stepper__pill-icon">
           <mat-icon>error</mat-icon>
@@ -36,24 +26,16 @@
       <div class="bds-smart-stepper__substepper-top">
         <span class="bds-smart-stepper__substepper-title">{{ subTitle() }}</span>
         <div class="bds-smart-stepper__progress-track">
-          <span
-            class="bds-smart-stepper__progress-bar"
-            [style.width.%]="getStepProgress(activeIndex())"
-          ></span>
+          <span class="bds-smart-stepper__progress-bar" [style.width.%]="getStepProgress(activeIndex())"></span>
         </div>
       </div>
       <!-- } -->
 
       <div class="bds-smart-stepper__mini-steps">
         @for (step of steps(); track $index) {
-        <button
-          type="button"
-          class="bds-smart-stepper__mini-step"
-          [class.is-active]="$index === activeIndex()"
-          [class.is-complete]="isStepCompleted(step, $index)"
-          [disabled]="step.disabled"
-          (click)="onStepHeaderClick($index)"
-        >
+        <button type="button" class="bds-smart-stepper__mini-step" [class.is-active]="$index === activeIndex()"
+          [class.is-complete]="isStepCompleted(step, $index)" [disabled]="step.disabled"
+          (click)="onStepHeaderClick($index)">
           {{ $index + 1 }}
         </button>
         }
@@ -61,14 +43,19 @@
     </div>
 
     @if (subSteps().length > 0) {
+    @for (step of steps(); track $index) {
+    @if ($index === activeIndex()) {
     <div class="bds-smart-stepper__header-row bds-smart-stepper__header-row--secondary">
       <div class="bds-smart-stepper__substep-label">
-        <span class="bds-smart-stepper__substep-circle">
-          {{ getSubActiveIndex(activeIndex()) + 1 }}
+        <span class="bds-smart-stepper__substep-circle bds-smart-stepper__substep-circle--progress"
+          [style.--bds-substep-progress.%]="getStepProgress(activeIndex())">
+          <p style="z-index: 1000;">
+            {{ $index + 1 }}
+          </p>
         </span>
         <div class="bds-smart-stepper__substep-text">
           <span class="bds-smart-stepper__substep-title">
-            {{ subSteps()[getSubActiveIndex(activeIndex())]?.label || 'Sub paso' }}
+            {{ step.label }}
           </span>
           <span class="bds-smart-stepper__substep-caption">{{ subTitle() }}</span>
         </div>
@@ -79,21 +66,10 @@
         <button type="button" class="bds-smart-stepper__fields-error">Ver error</button>
       </div>
     </div>
+    }
+    }
 
-    <div class="bds-smart-stepper__substeps">
-      @for (subStep of subSteps(); track $index) {
-      <button
-        type="button"
-        class="bds-smart-stepper__substep"
-        [class.is-complete]="isSubStepCompleted(activeIndex(), $index)"
-        [class.is-active]="$index === getSubActiveIndex(activeIndex())"
-        [disabled]="isSubStepDisabled(activeIndex(), $index)"
-        (click)="onSubStepClickHandler(activeIndex(), $index)"
-      >
-        <span class="bds-smart-stepper__substep-circle">{{ $index + 1 }}</span>
-      </button>
-      }
-    </div>
+
     }
   </div>
 

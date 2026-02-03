@@ -62,9 +62,9 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
   @ViewChild('indicatorPath') private pathRef!: ElementRef<SVGPathElement>;
 
   // --- Estado Reactivo (Signals) ---
-  private percentSignal = signal(0);
-  private phase = signal(0);
-  private pathLength = signal(0);
+  private percentSignal = signal<number>(0);
+  private phase = signal<number>(0);
+  private pathLength = signal<number>(0);
   private animationFrameId?: number;
 
   // --- Estado Derivado (Computed Signals) ---

@@ -181,7 +181,7 @@ export class TableComponent<T = any> implements OnInit {
   });
 
   currentPageSize = signal<number>(10);
-
+  currentIndex = signal<number>(0);
   visibleColumns = computed(() => this.columns.filter(col => !col.hidden));
 
   displayedColumns = computed(() => {
@@ -297,7 +297,6 @@ export class TableComponent<T = any> implements OnInit {
   }
 
   updateData(data: T[], totalRecords: number = 0) {
-    console.log('updateData', data);
     this.state.update(s => ({
       ...s,
       data,
@@ -320,6 +319,7 @@ export class TableComponent<T = any> implements OnInit {
 
   /* Nuevo metodo con el nuevo paginador */
   onCustomPageChange(pageIndex: number) {
+    this.currentIndex.set(pageIndex);
     const paginator = this.dataSource.paginator;
     if (paginator) {
       paginator.pageIndex = pageIndex;
@@ -348,6 +348,6 @@ export class TableComponent<T = any> implements OnInit {
     paginator.page.emit(event);
 
     // 3. Emitimos tu evento original por si el padre lo escucha
-    this.pageChange.emit(event);
+    //this.pageChange.emit(event);
   }
 }

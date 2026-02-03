@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { TableAction, TableColumn, TableComponent, TableConfig, TableHeaderAction, TableSelectionAction } from '@organizacion/ui-kit';
 import { MatIcon } from '@angular/material/icon';
 
 import { USUARIOS_TEST_ONE } from 'apps/test-app/src/assets/files/data';
+import { TableService } from '../../service/table.services';
 
 interface User {
   id: number;
@@ -23,9 +24,72 @@ interface User {
   styleUrl: './example-table.scss',
 })
 export class ExampleTable implements OnInit, AfterViewInit {
+  /* table */
+  @ViewChild(TableComponent) table!: TableComponent;
+  @ViewChild('avatarTemplate') avatarTemplate!: TemplateRef<any>;
+  @ViewChild('statusTemplate') statusTemplate!: TemplateRef<any>;
+  @ViewChild('roleTemplate') roleTemplate!: TemplateRef<any>;
+  @ViewChild('salaryTemplate') salaryTemplate!: TemplateRef<any>;
+
   users: User[] = [];
-  tableColumns: TableColumn<User>[] = [];
-  tableActions: TableAction<User>[] = [];
+  tableColumns: TableColumn<User>[] = [
+    { key: 'name', label: 'Usuario', sortable: true, sticky: true },
+    { key: 'email', label: 'Email', sortable: true },
+    { key: 'role', label: 'Rol', sortable: true },
+    { key: 'status', label: 'Estado', sortable: true },
+    { key: 'department', label: 'Departamento', sortable: true },
+    {
+      key: 'joinDate',
+      label: 'Fecha Ingreso',
+      dataType: 'date',
+      sortable: true,
+    },
+    { key: 'salary', label: 'Salario', dataType: 'number', sortable: true },
+  ];
+  tableActions: TableAction<User>[] = [
+    {
+      icon: 'edit',
+      label: 'Editar',
+      tooltip: 'Editar usuario',
+      color: 'primary',
+      onClick: user => this.editUser(user),
+    },
+    {
+      icon: 'visibility',
+      label: 'Ver Detalles',
+      tooltip: 'Ver detalles completos',
+      onClick: user => this.viewUser(user),
+    },
+    {
+      icon: '',
+      label: 'Desactivar',
+      tooltip: 'Desactivar usuario',
+      color: 'warn',
+      visible: user => user.status === 'active',
+      onClick: user => this.deactivateUser(user),
+    },
+    {
+      icon: 'check_circle',
+      label: 'Activar',
+      tooltip: 'Activar usuario',
+      visible: user => user.status !== 'active',
+      onClick: user => this.activateUser(user),
+    },
+    {
+      icon: '',
+      label: 'Enviar Email',
+      tooltip: 'Enviar correo',
+      onClick: user => this.sendEmail(user),
+    },
+    {
+      icon: '',
+      label: 'Eliminar',
+      tooltip: 'Eliminar usuario',
+      color: 'warn',
+      disabled: user => user.role === 'admin',
+      onClick: user => this.deleteUser(user),
+    },
+  ];
   headerActions: TableHeaderAction[] = [];
   selectionActions: TableSelectionAction<User>[] = [];
   tableConfig: TableConfig = {
@@ -35,9 +99,12 @@ export class ExampleTable implements OnInit, AfterViewInit {
     zebraStriping: false,
     density: 'compact',
     pageSizeOptions: [],
-    defaultPageSize: 20,
+    defaultPageSize: 10,
     stickyHeader: true,
   };
+
+  currentPage = signal<number>(0);
+  pageSize = signal<number>(10);
 
   // Server-side Table Demo
   serverUsers: User[] = [];
@@ -46,122 +113,76 @@ export class ExampleTable implements OnInit, AfterViewInit {
   // Virtual Scroll Table Demo
   virtualUsers: User[] = [];
 
-  /* table */
-  @ViewChild(TableComponent) table!: TableComponent;
-  @ViewChild('avatarTemplate') avatarTemplate!: TemplateRef<any>;
-  @ViewChild('statusTemplate') statusTemplate!: TemplateRef<any>;
-  @ViewChild('roleTemplate') roleTemplate!: TemplateRef<any>;
-  @ViewChild('salaryTemplate') salaryTemplate!: TemplateRef<any>;
+  private readonly tableService: TableService = inject(TableService);
 
   ngOnInit(): void {
     this.setupTableColumns();
     this.setupTableActions();
 
     // Initialize demos
-    this.onServerDataRequest({ page: 0, pageSize: 5 });
+    //this.onServerDataRequest({ page: 0, pageSize: 5 });
+    this.initData();
   }
 
   ngAfterViewInit(): void {
     // Update columns with templates after view init
-    this.tableColumns = [
-      {
-        key: 'name',
-        label: 'Usuario',
-        sortable: true,
-        sticky: true,
-        cellTemplate: this.avatarTemplate,
-      },
-      {
-        key: 'email',
-        label: 'Email',
-        sortable: true,
-      },
-      {
-        key: 'role',
-        label: 'Rol',
-        sortable: true,
-        cellTemplate: this.roleTemplate,
-      },
-      {
-        key: 'status',
-        label: 'Estado',
-        cellTemplate: this.statusTemplate,
-      },
-      {
-        key: 'department',
-        label: 'Departamento',
-        sortable: true,
-      },
-    ];
+    setTimeout(() => {
+      this.tableColumns = [
+        {
+          key: 'name',
+          label: 'Usuario',
+          sortable: true,
+          sticky: true,
+          cellTemplate: this.avatarTemplate,
+        },
+        {
+          key: 'email',
+          label: 'Email',
+          sortable: true,
+        },
+        {
+          key: 'role',
+          label: 'Rol',
+          sortable: true,
+          cellTemplate: this.roleTemplate,
+        },
+        {
+          key: 'status',
+          label: 'Estado',
+          cellTemplate: this.statusTemplate,
+        },
+        {
+          key: 'department',
+          label: 'Departamento',
+          sortable: true,
+        },
+      ];
+    });
+  }
+
+  initData() {
+    const page = this.currentPage();
+    const size = this.pageSize();
 
     setTimeout(() => {
-      this.users = USUARIOS_TEST_ONE;
-      this.table.updateData(this.users, 10);
-    }, 3000);
+      this.tableService.getTable(page, size).subscribe({
+        next: response => {
+          console.log('getTable: ', response);
+          if (this.table) {
+            this.table.updateData(response.data, response.totalRecords);
+            this.users = response.data;
+          }
+        },
+      });
+    });
   }
 
   setupTableColumns() {
-    this.tableColumns = [
-      { key: 'name', label: 'Usuario', sortable: true, sticky: true },
-      { key: 'email', label: 'Email', sortable: true },
-      { key: 'role', label: 'Rol', sortable: true },
-      { key: 'status', label: 'Estado', sortable: true },
-      { key: 'department', label: 'Departamento', sortable: true },
-      {
-        key: 'joinDate',
-        label: 'Fecha Ingreso',
-        dataType: 'date',
-        sortable: true,
-      },
-      { key: 'salary', label: 'Salario', dataType: 'number', sortable: true },
-    ];
+    /* this.tableColumns = ; */
   }
 
   setupTableActions() {
-    this.tableActions = [
-      {
-        icon: 'edit',
-        label: 'Editar',
-        tooltip: 'Editar usuario',
-        color: 'primary',
-        onClick: user => this.editUser(user),
-      },
-      {
-        icon: 'visibility',
-        label: 'Ver Detalles',
-        tooltip: 'Ver detalles completos',
-        onClick: user => this.viewUser(user),
-      },
-      {
-        icon: '',
-        label: 'Desactivar',
-        tooltip: 'Desactivar usuario',
-        color: 'warn',
-        visible: user => user.status === 'active',
-        onClick: user => this.deactivateUser(user),
-      },
-      {
-        icon: 'check_circle',
-        label: 'Activar',
-        tooltip: 'Activar usuario',
-        visible: user => user.status !== 'active',
-        onClick: user => this.activateUser(user),
-      },
-      {
-        icon: '',
-        label: 'Enviar Email',
-        tooltip: 'Enviar correo',
-        onClick: user => this.sendEmail(user),
-      },
-      {
-        icon: '',
-        label: 'Eliminar',
-        tooltip: 'Eliminar usuario',
-        color: 'warn',
-        disabled: user => user.role === 'admin',
-        onClick: user => this.deleteUser(user),
-      },
-    ];
+    /* this.tableActions = ; */
 
     this.headerActions = [
       {
@@ -199,7 +220,7 @@ export class ExampleTable implements OnInit, AfterViewInit {
   }
 
   onServerDataRequest(event: { page: number; pageSize: number; sort?: any; filter?: string }) {
-    console.log('Server data requested:', event);
+    /* console.log('Server data requested:', event);
     setTimeout(() => {
       const startIndex = event.page * event.pageSize;
       const endIndex = startIndex + event.pageSize;
@@ -220,7 +241,7 @@ export class ExampleTable implements OnInit, AfterViewInit {
 
       this.totalServerRecords = filteredData.length;
       this.serverUsers = filteredData.slice(startIndex, endIndex);
-    }, 500);
+    }, 500); */
   }
 
   onSort(event: any) {
@@ -228,7 +249,10 @@ export class ExampleTable implements OnInit, AfterViewInit {
   }
 
   onPageChange(event: any) {
-    console.log('Page changed:', event);
+    console.log('onPageChange: ', event);
+    this.currentPage.set(event.pageIndex);
+    this.pageSize.set(event.pageSize);
+    this.initData();
   }
 
   onSelectionChange(selectedUsers: User[]) {

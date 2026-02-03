@@ -27,6 +27,8 @@ import { ExampleOtpInput } from './components/example-otp-input/example-otp-inpu
 import { ExampleChips } from './components/example-chips/example-chips';
 import { ExampleSidebarComponent } from './components/example-sidebar/example-sidebar';
 import { ExampleUploader } from './components/example-uploader/example-uploader';
+import { ExampleChipDropdown } from './components/example-chip-dropdown/example-chip-dropdown';
+import { ExampleStepperProgress } from './components/example-stepper-progress/example-stepper-progress';
 
 @Component({
   selector: 'app-root',
@@ -58,6 +60,8 @@ import { ExampleUploader } from './components/example-uploader/example-uploader'
     ExampleChips,
     ExampleSidebarComponent,
     ExampleUploader,
+    ExampleChipDropdown,
+    ExampleStepperProgress,
   ],
 
   providers: [provideNativeDateAdapter()],

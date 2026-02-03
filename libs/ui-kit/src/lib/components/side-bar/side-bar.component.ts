@@ -72,7 +72,7 @@ export class SidebarComponent implements OnInit {
         label: 'Acción 1',
         icon: 'action_1',
         action: () => {
-          console.log('Acción 1');
+          console.info('Acción 1');
         },
       },
       {
@@ -80,7 +80,7 @@ export class SidebarComponent implements OnInit {
         label: 'Acción 2',
         icon: 'action_2',
         action: () => {
-          console.log('Acción 2');
+          console.info('Acción 2');
         },
       },
     ],

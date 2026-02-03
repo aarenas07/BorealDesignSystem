@@ -1,0 +1,10 @@
+<!-- indeterminate -->
+@if(indeterminate()) {
+<div class="bds-container-indeterminate"></div>
+} @else {
+<!-- determinate -->
+@if (clampedCount() > 0) {
+<div class="bds-container-loader" [style.--bds-spinner-degree.deg]="degree()">
+  <span class="bds-count">{{ clampedCount() }}</span>
+</div>
+} }

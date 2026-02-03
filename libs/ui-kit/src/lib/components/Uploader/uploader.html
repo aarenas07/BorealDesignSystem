@@ -15,7 +15,7 @@
     <!-- Header siempre visible -->
     @if (!compact()) {
     <div class="bds-uploader__header" [class.bds-uploader__header--disabled]="disabled()">
-      <mat-icon class="bds-uploader__header-icon">upload</mat-icon>
+      <span class="material-symbols-rounded"> upload </span>
       <div class="bds-uploader__header-content">
         <span class="bds-uploader__header-label">{{ collapsedLabel() }}</span>
         <span class="bds-uploader__header-helper">{{ helperText() }}</span>
@@ -57,8 +57,11 @@
           (action)="openFileSelector()"
         ></bds-button>
         } @else {
-        <p class="bds-uploader__title">{{ dragDropText() }}</p>
-        <p class="bds-uploader__subtitle">o haz clic en el botón {{ buttonText() }}</p>
+        <span class="bds-uploader__title">
+          {{ dragDropText() }}
+
+          <span class="bds-uploader__subtitle">o haz clic en el botón {{ buttonText() }}</span>
+        </span>
 
         <bds-button
           class="bds-uploader__button"
@@ -93,7 +96,7 @@
         <div class="bds-uploader__preview-list">
           @for (uploadedFile of uploadedFiles(); track uploadedFile.id) {
           <div class="bds-uploader__preview-item">
-            <mat-icon class="bds-uploader__file-icon">description</mat-icon>
+            <span class="material-symbols-rounded person_icon"> person </span>
             <div class="bds-uploader__preview-info">
               <p class="bds-uploader__preview-name">{{ uploadedFile.file.name }}</p>
               <div class="bds-uploader__preview-meta">
@@ -129,8 +132,18 @@
                 (action)="retryFile(uploadedFile)"
               ></bds-button>
               } @case ('completed') {
-              <bds-button variant="icon" icon="search" (action)="viewFile(uploadedFile)" aria-label="Ver archivo"></bds-button>
-              <bds-button variant="icon" icon="delete" (action)="removeFile(uploadedFile)" aria-label="Eliminar archivo"></bds-button>
+              <!--<bds-button variant="icon" icon="search" (action)="viewFile(uploadedFile)" aria-label="Ver archivo"></bds-button>
+              <bds-button variant="icon" icon="delete" (action)="removeFile(uploadedFile)" aria-label="Eliminar archivo"></bds-button> -->
+              <div class="bds-uploader__actions-container">
+                <div class="bds-uploader__actions-container__icon">
+                  <span class="material-symbols-rounded icon-eye" (click)="viewFile(uploadedFile)"> eye_tracking </span>
+                </div>
+
+                <div class="bds-uploader__actions-container__icon">
+                  <span class="material-symbols-rounded icon-delete" (click)="removeFile(uploadedFile)"> delete </span>
+                </div>
+              </div>
+
               } }
             </div>
           </div>

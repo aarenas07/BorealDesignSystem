@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -10,6 +10,9 @@ export interface FilePreviewData {
   preview?: string;
 }
 
+/**
+ * Diálogo para previsualizar archivos (imágenes y PDFs).
+ */
 @Component({
   selector: 'bds-file-preview-dialog',
   standalone: true,
@@ -126,17 +129,26 @@ export interface FilePreviewData {
     `,
   ],
 })
-export class FilePreviewDialogComponent implements OnInit {
+export class FilePreviewDialogComponent implements OnInit, OnDestroy {
   dialogRef = inject(MatDialogRef<FilePreviewDialogComponent>);
   data = inject<FilePreviewData>(MAT_DIALOG_DATA);
   private sanitizer = inject(DomSanitizer);
 
   pdfUrl = signal<SafeResourceUrl | null>(null);
 
+  // Guardamos la URL cruda para revocarla
+  private rawPdfUrl: string | null = null;
+
   ngOnInit(): void {
     if (this.isPdf()) {
-      const url = URL.createObjectURL(this.data.file);
-      this.pdfUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(url));
+      this.rawPdfUrl = URL.createObjectURL(this.data.file);
+      this.pdfUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(this.rawPdfUrl));
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.rawPdfUrl) {
+      URL.revokeObjectURL(this.rawPdfUrl);
     }
   }
 

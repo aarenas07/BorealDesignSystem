@@ -21,15 +21,15 @@ type Story = StoryObj<StepperProgressComponent>;
 export const Default: Story = {
   args: {
     count: 1,
-    size: 10,
+    size: 5,
     indeterminate: false,
   },
 };
 
 export const Indeterminate: Story = {
   args: {
-    count: 1,
-    size: 10,
+    count: 0,
+    size: 5,
     indeterminate: true,
   },
 };

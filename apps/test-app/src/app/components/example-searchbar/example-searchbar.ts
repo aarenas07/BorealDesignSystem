@@ -7,4 +7,16 @@ import { SearchbarComponent } from '@organizacion/ui-kit';
   templateUrl: './example-searchbar.html',
   styleUrl: './example-searchbar.scss',
 })
-export class ExampleSearchbar {}
+export class ExampleSearchbar {
+  onSearchClick() {
+    console.log('Search clicked / expanded');
+  }
+
+  onSearchClose() {
+    console.log('Search closed / collapsed');
+  }
+
+  onSearchChange(value: string) {
+    console.log('Search value changed:', value);
+  }
+}

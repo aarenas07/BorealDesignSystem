@@ -1,1 +1,24 @@
-<p>searchbar works!</p>
+<div class="bds-searchbar-container" [class.bds-searchbar-expanded]="isExpanded()">
+  <div class="bds-searchbar-wrapper" (click)="toggleExpand()">
+    <mat-icon class="bds-searchbar-icon">search</mat-icon>
+    <input
+      #searchInput
+      type="text"
+      [placeholder]="placeholder()"
+      [(ngModel)]="value"
+      (input)="onInputChange($event)"
+      [class.bds-searchbar-input-visible]="isExpanded()"
+      (blur)="value() === '' ? closeSearch() : null"
+    />
+
+    <!-- Icon: close -->
+    @if (isExpanded() && value()) {
+    <mat-icon class="bds-searchbar-clear-icon" (click)="clearSearch(); $event.stopPropagation()"> close </mat-icon>
+    }
+
+    <!-- Icon: chevron_left -->
+    @if(isExpanded() && !value()){
+    <mat-icon class="bds-searchbar-close-icon" (click)="closeSearch(); $event.stopPropagation()"> chevron_left </mat-icon>
+    }
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<section class="component-section">
+  <h2>Searchbar</h2>
+  <div class="demo-row">
+    <bds-searchbar (searchClick)="onSearchClick()" (searchClose)="onSearchClose()" (searchChange)="onSearchChange($event)"></bds-searchbar>
+    <bds-searchbar
+      placeholder="Text..."
+      (searchClick)="onSearchClick()"
+      (searchClose)="onSearchClose()"
+      (searchChange)="onSearchChange($event)"
+    ></bds-searchbar>
+  </div>
+</section>

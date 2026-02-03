@@ -3,13 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { BdsStepContentDirective } from '../../directives/bds-step-content.directive';
-
-export interface StepperStep {
-  label: string;
-  description?: string;
-  disabled?: boolean;
-  completed?: boolean;
-}
+import { StepperStepBds } from '../../interfaces/bds-stepper.inteface';
+import { StepperOrientationBds } from '../../interfaces/bds-stepper.enum';
 
 @Component({
   selector: 'bds-stepper',
@@ -19,9 +14,9 @@ export interface StepperStep {
   styleUrl: './stepper.scss',
 })
 export class StepperComponent {
-  steps = input<StepperStep[]>([]);
+  steps = input<StepperStepBds[]>([]);
   activeIndex = model<number>(0);
-  orientation = input<'horizontal' | 'vertical'>('horizontal');
+  orientation = input<StepperOrientationBds>('horizontal');
   linear = input<boolean>(false);
 
   stepChange = output<{ previousIndex: number; currentIndex: number }>();
@@ -44,7 +39,7 @@ export class StepperComponent {
     });
   }
 
-  isStepCompleted(step: StepperStep, index: number): boolean {
+  isStepCompleted(step: StepperStepBds, index: number): boolean {
     if (step.completed !== undefined) return step.completed;
     return index < this.activeIndex();
   }

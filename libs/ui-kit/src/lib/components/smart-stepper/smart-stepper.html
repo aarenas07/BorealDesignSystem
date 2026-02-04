@@ -5,9 +5,22 @@
     <cdk-step [completed]="isStepCompleted(step, $index)" [editable]="!step.disabled"></cdk-step>
     }
   </div>
-
   <div class="bds-smart-stepper__header">
     <div class="bds-smart-stepper__header-row">
+      @if(this.steps()[0].completed){
+      <div>
+        <mat-stepper [selectedIndex]="activeIndex()" [linear]="linear()" (selectionChange)="onSelectionChange($event)">
+          @for (step of steps(); track $index) {
+          <mat-step [completed]="isStepCompleted(step, $index)" [editable]="!step.disabled">
+            <ng-template matStepLabel></ng-template>
+          </mat-step>
+
+          }
+
+        </mat-stepper>
+      </div>
+      }
+
       @for (step of steps(); track $index) {
       @if ($index === activeIndex()) {
       <button type="button" class="bds-smart-stepper__pill" [class.has-error]="isStepError(step, $index)"
@@ -17,34 +30,30 @@
           <mat-icon>error</mat-icon>
         </span>
         }
-        <span class="bds-smart-stepper__pill-text">{{ step.label }}</span>
+        <span class="bds-smart-stepper__pill-text"><mat-icon>{{this.activeStep().stepIcon}}</mat-icon>
+          {{this.activeStep().label}}</span>
       </button>
       }
       }
 
-      <!-- @if (subSteps().length > 0) { -->
+      @if (subSteps().length > 0) {
       <div class="bds-smart-stepper__substepper-top">
         @for(subStep of subSteps(); track $index){
         <button class="bds-smart-stepper__substepper-button" (click)="goToStep($index)" mat-stroked-button
-          [class.active]="$index === activeIndexSubStep()">
+          [class.active]="$index === activeIndexSubStep()" [disabled]="">
         </button>
-        <!-- <span class="bds-smart-stepper__progress-bar" [style.width.%]="getStepProgress(activeIndex())"></span> -->
         }
-        <!-- <div class="bds-smart-stepper__progress-track">
-
-        </div> -->
       </div>
-      <!-- } -->
+      }
 
-      <div class="bds-smart-stepper__mini-steps">
+      <mat-stepper [selectedIndex]="activeIndex()" [linear]="linear()" (selectionChange)="onSelectionChange($event)">
         @for (step of steps(); track $index) {
-        <button type="button" class="bds-smart-stepper__mini-step" [class.is-active]="$index === activeIndex()"
-          [class.is-complete]="isStepCompleted(step, $index)" [disabled]="step.disabled"
-          (click)="onStepHeaderClick($index)">
-          {{ $index + 1 }}
-        </button>
+        <mat-step [completed]="isStepCompleted(step, $index)" [editable]="!step.disabled">
+          <ng-template matStepLabel></ng-template>
+        </mat-step>
+
         }
-      </div>
+      </mat-stepper>
     </div>
 
     @if (subSteps().length > 0) {
@@ -54,7 +63,7 @@
       <div class="bds-smart-stepper__substep-label">
         <span class="bds-smart-stepper__substep-circle bds-smart-stepper__substep-circle--progress"
           [style.--bds-substep-progress.%]="getSubStepProgress(activeIndexSubStep())">
-          <p style="z-index: 1000;">
+          <p class="bds-smart-stepper__substep-circle-number" style="z-index: 1000;">
             {{ $index + 1 }}
           </p>
         </span>
@@ -65,7 +74,6 @@
           <span class="bds-smart-stepper__substep-caption">{{ subTitle() }}</span>
         </div>
       </div>
-
       <div class="bds-smart-stepper__fields-status">
         <span class="bds-smart-stepper__fields-label">Campos</span>
         <button type="button" class="bds-smart-stepper__fields-error">Ver error</button>
@@ -73,14 +81,10 @@
     </div>
     }
     }
-
-
     }
   </div>
 
-  <div>
-    @if (activeStepTemplate()) {
-    <ng-container *ngTemplateOutlet="activeStepTemplate()"></ng-container>
-    }
-  </div>
+  @if (activeStepTemplate()) {
+  <ng-container *ngTemplateOutlet="activeStepTemplate()"></ng-container>
+  }
 </div>

@@ -2,6 +2,7 @@ import { Component, computed, contentChildren, effect, input, model, output, OnD
 import { CommonModule } from '@angular/common';
 import { BdsStepContentDirective } from '../../directives/bds-step-content.directive';
 import { CdkStepperModule, StepperSelectionEvent } from '@angular/cdk/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
 import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Subscription } from 'rxjs';
@@ -12,9 +13,9 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [
     CommonModule,
-    BdsStepContentDirective,
     MatIconModule,
-    CdkStepperModule
+    CdkStepperModule,
+    MatStepperModule
   ],
   templateUrl: './smart-stepper.html',
   styleUrl: './smart-stepper.scss',
@@ -47,7 +48,7 @@ export class SmartStepperComponent implements OnDestroy {
     const subSteps = step?.subSteps ?? [];
     if (!subSteps.length) return '';
     if (step?.subTitle) return step.subTitle;
-    const current = Math.min(this.getSubActiveIndex(this.activeIndex()) + 1, subSteps.length);
+    const current = this.activeIndexSubStep() + 1;
     return `Sub paso ${current} de ${subSteps.length}`;
   });
 
@@ -129,6 +130,20 @@ export class SmartStepperComponent implements OnDestroy {
     const step = this.steps()[stepIndex];
     const subStep = step?.subSteps?.[subStepIndex];
     return !!subStep?.disabled;
+  }
+
+  isSubStepLocked(stepIndex: number, subStepIndex: number): boolean {
+    if (!this.linear()) return false;
+    const step = this.steps()[stepIndex];
+    if (!step?.subSteps?.length) return false;
+
+    const currentIndex = this.getSubActiveIndex(stepIndex);
+    if (subStepIndex <= currentIndex) return false;
+
+    for (let index = 0; index < subStepIndex; index += 1) {
+      if (!this.isSubStepCompleted(stepIndex, index)) return true;
+    }
+    return false;
   }
 
   getSubActiveIndex(stepIndex: number): number {
@@ -273,8 +288,10 @@ export class SmartStepperComponent implements OnDestroy {
     this.controlSubscriptions = [];
   }
   goToStep(index: number): void {
-    const subStepInfo = { stepIndex: this.activeIndex(), subStepIndex: index }
-    this.subStepClick.emit(subStepInfo)
+    const stepIndex = this.activeIndex();
+    if (this.isSubStepDisabled(stepIndex, index) || this.isSubStepLocked(stepIndex, index)) return;
+    const subStepInfo = { stepIndex, subStepIndex: index };
+    this.subStepClick.emit(subStepInfo);
   }
 }
 
@@ -289,6 +306,7 @@ export interface SmartStepperStep {
   subTitle?: string;
   subSteps?: SmartSubStep[];
   subActiveIndex?: number;
+  stepIcon?: string;
 }
 
 export interface SmartSubStep {

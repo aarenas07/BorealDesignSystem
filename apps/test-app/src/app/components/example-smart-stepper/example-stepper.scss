@@ -35,3 +35,7 @@
   gap: 1rem;
   margin-top: 12px;
 }
+
+::ng-deep .bds-smart-stepper__inner-stepper .mat-horizontal-stepper-header-container {
+  display: none;
+}

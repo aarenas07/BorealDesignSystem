@@ -6,7 +6,8 @@
       [linear]="true" (stepChange)="onStepChange($event)" (subStepClick)="onSubStepChange(undefined, $event)">
       <!-- PASO 0 -->
       <ng-template bdsStepContent="0">
-        <mat-stepper (selectionChange)="onSubStepChange($event)" [selectedIndex]="activeIndexSubStep" linear #stepper>
+        <mat-stepper class="bds-smart-stepper__inner-stepper" (selectionChange)="onSubStepChange($event)"
+          [selectedIndex]="activeIndexSubStep" linear #stepper>
           <form class="form-grid" [formGroup]="ubicacionForm">
 
             <mat-step [stepControl]="ubicacionGroup">
@@ -37,33 +38,6 @@
             </mat-step>
           </form>
         </mat-stepper>
-
-
-        <!-- <section class="step-content">
-          <h2>Ubicacion</h2>
-          <p>Completa los campos obligatorios para avanzar.</p>
-          <form class="form-grid" [formGroup]="ubicacionForm">
-            <div formGroupName="ubicacion" class="form-grid__section">
-              <bds-select label="Departamento" [options]="optionsDepartamentos()" [required]="true"
-                formControlName="departamento"></bds-select>
-              <bds-select label="Municipio" [options]="optionsMunicipios()" [required]="true"
-                formControlName="municipio"></bds-select>
-            </div>
-            <div formGroupName="registro" class="form-grid__section">
-              <bds-form-field label="Codigo DANE" [required]="true" formControlName="codigoDane"></bds-form-field>
-              <bds-form-field label="Localidad" [required]="true" formControlName="localidad"></bds-form-field>
-            </div>
-
-            <div formGroupName="coordenadas" class="form-grid__section">
-              <bds-form-field label="Zona" [required]="true" formControlName="zona"></bds-form-field>
-              <bds-form-field label="Latitud" [required]="true" formControlName="latitud"></bds-form-field>
-              <bds-form-field label="Longitud" [required]="true" formControlName="longitud"></bds-form-field>
-            </div>
-          </form>
-          <div class="actions">
-            <bds-button label="Continuar" variant="filled" size="md" (action)="nextFromUbicacion()"></bds-button>
-          </div>
-        </section> -->
       </ng-template>
 
       <!-- PASO 1 -->
@@ -71,14 +45,6 @@
         <section class="step-content">
           <h2>Documentos</h2>
           <p>Adjunta los archivos requeridos.</p>
-          <!-- <form class="form-grid" [formGroup]="documentosForm">
-            <bds-form-field label="Acta" [required]="true" formControlName="acta"></bds-form-field>
-            <bds-form-field label="Soporte" [required]="true" formControlName="soporte"></bds-form-field>
-          </form>
-          <div class="actions">
-            <bds-button label="Atras" variant="filled" size="md" (action)="backToUbicacion()"></bds-button>
-            <bds-button label="Continuar" variant="filled" size="md" (action)="nextFromDocumentos()"></bds-button>
-          </div> -->
         </section>
       </ng-template>
 
@@ -87,13 +53,6 @@
         <section class="step-content">
           <h2>Confirmacion</h2>
           <p>Revisa la informacion antes de finalizar.</p>
-          <!-- <ul>
-            <li><strong>Departamento:</strong> {{ ubicacionForm.value.ubicacion?.departamento }}</li>
-            <li><strong>Municipio:</strong> {{ ubicacionForm.value.ubicacion?.municipio }}</li>
-            <li><strong>Codigo DANE:</strong> {{ ubicacionForm.value.registro?.codigoDane }}</li>
-            <li><strong>Localidad:</strong> {{ ubicacionForm.value.registro?.localidad }}</li>
-            <li><strong>Zona:</strong> {{ ubicacionForm.value.coordenadas?.zona }}</li>
-          </ul> -->
           <div class="actions">
             <bds-button label="Atras" variant="filled" size="md" (action)="backToDocumentos()"></bds-button>
             <bds-button label="Finalizar" variant="filled" size="md"></bds-button>

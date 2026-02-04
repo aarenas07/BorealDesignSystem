@@ -24,8 +24,6 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
     ButtonComponent,
     MatStepper,
     MatStep,
-    MatFormField,
-    MatLabel
   ],
   templateUrl: './example-stepper.html',
   styleUrl: './example-stepper.scss',
@@ -83,6 +81,7 @@ export class ExampleSmartStepper {
       label: 'Ubicacion y registro',
       description: 'Sub pasos del formulario',
       form: this.ubicacionForm,
+      stepIcon: 'location_on',
       subSteps: [
         {
           index: 0,

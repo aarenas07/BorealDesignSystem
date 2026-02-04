@@ -39,8 +39,13 @@
       @if (subSteps().length > 0) {
       <div class="bds-smart-stepper__substepper-top">
         @for(subStep of subSteps(); track $index){
-        <button class="bds-smart-stepper__substepper-button" (click)="goToStep($index)" mat-stroked-button
+        <!-- <button class="bds-smart-stepper__substepper-button" (click)="goToStep($index)" mat-stroked-button
           [class.active]="$index === activeIndexSubStep()" [disabled]="">
+        </button> -->
+        <button mat-stroked-button class="bds-smart-stepper__substepper-button" (click)="goToStep($index)"
+          [class.active]="$index === activeIndexSubStep() || isSubStepCompleted(activeIndex(), $index)"
+          [attr.data-tone]="getSubStepTone($index)"
+          [disabled]="isSubStepDisabled(activeIndex(), $index) || isSubStepLocked(activeIndex(), $index)">
         </button>
         }
       </div>
@@ -57,8 +62,8 @@
     </div>
 
     @if (subSteps().length > 0) {
-    @for (step of steps(); track $index) {
-    @if ($index === activeIndex()) {
+    @for (subStep of subSteps(); track $index) {
+    @if ($index === activeIndexSubStep()) {
     <div class="bds-smart-stepper__header-row bds-smart-stepper__header-row--secondary">
       <div class="bds-smart-stepper__substep-label">
         <span class="bds-smart-stepper__substep-circle bds-smart-stepper__substep-circle--progress"
@@ -69,13 +74,16 @@
         </span>
         <div class="bds-smart-stepper__substep-text">
           <span class="bds-smart-stepper__substep-title">
-            {{ step.label }}
+            {{ subStep.label }}
           </span>
           <span class="bds-smart-stepper__substep-caption">{{ subTitle() }}</span>
         </div>
       </div>
       <div class="bds-smart-stepper__fields-status">
         <span class="bds-smart-stepper__fields-label">Campos</span>
+        <span class="bds-smart-stepper__fields-count">
+          {{ getSubStepFieldCountLabel(activeIndexSubStep()) }}
+        </span>
         <button type="button" class="bds-smart-stepper__fields-error">Ver error</button>
       </div>
     </div>

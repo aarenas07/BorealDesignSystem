@@ -1,6 +1,12 @@
 @use "sass:map";
 @use "../../styles/styles" as theme;
 
+@property --bds-substep-progress {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
 .bds-smart-stepper {
   display: flex;
   flex-direction: column;
@@ -63,7 +69,6 @@
 }
 
 .bds-smart-stepper__pill-text {
-
   display: flex;
   align-items: center;
 }
@@ -74,6 +79,11 @@
   gap: 12px;
 }
 
+.bds-smart-stepper__fields-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
 .bds-smart-stepper__substepper-button {
   flex: 0 0 auto;
   width: 53px;
@@ -82,14 +92,21 @@
   min-width: 0;
   border: 0;
   border-radius: 999px;
-  background: map.get(theme.$light-medium-contrast-scheme, surface-variant);
+  background: var(--mat-sys-secondary-container);
   box-shadow: none;
   line-height: 0;
   cursor: pointer;
+  transition: background-color 200ms ease, transform 150ms ease, box-shadow 200ms ease;
 }
 
 .bds-smart-stepper__substepper-button.active {
   background-color: var(--mat-sys-primary);
+  transform: scaleY(1.2);
+}
+
+.bds-smart-stepper__substepper-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mat-sys-primary) 35%, transparent);
 }
 
 ::ng-deep .bds-smart-stepper__content .mat-horizontal-stepper-header-container {
@@ -182,7 +199,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding-bottom: 1rem;
+  padding-bottom: .3rem;
 
 }
 
@@ -193,8 +210,13 @@
 }
 
 .bds-smart-stepper__substep-title {
-  font-size: 24px;
+  font-size: 16px;
   font-weight: var(--sds-typography-body-font-weight-strong);
+}
+
+.bds-smart-stepper__substep-caption {
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .bds-smart-stepper__fields-status {
@@ -204,6 +226,19 @@
   font-family: var(--sds-typography-body-font-family);
   font-size: 11px;
   color: var(--mat-sys-on-surface-variant);
+}
+
+.bds-smart-stepper__fields-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: .5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--mat-sys-outline-variant);
+  color: var(--mat-sys-on-surface);
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 500;
 }
 
 .bds-smart-stepper__fields-error {
@@ -229,10 +264,12 @@
 .bds-smart-stepper__substep-circle--progress {
   position: relative;
   border: none;
+  transition: --bds-substep-progress 250ms ease;
   background:
     conic-gradient(var(--mat-sys-primary) var(--bds-substep-progress, 0%),
-      var(--mat-sys-outline-variant) 0);
+      var(--mat-sys-secondary-container) 0);
 }
+
 
 .bds-smart-stepper__substep-circle--progress::before {
   content: '';
@@ -257,25 +294,48 @@
   transform: translateY(-50%);
 }
 
-:host ::ng-deep .bds-smart-stepper__mini-steps .mat-stepper-horizontal-line {
+.bds-smart-stepper__substep-line {
+  width: 100%;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--substep-accent);
+}
+
+/* Estados */
+.bds-smart-stepper__substep[data-tone="success"] {
+  --substep-accent: var(--md-extended-color-positive-color);
+  --substep-bg: var(--md-extended-color-positive-color-container);
+}
+
+.bds-smart-stepper__substep[data-tone="warning"] {
+  --substep-accent: var(--md-extended-color-warning-color);
+  --substep-bg: var(--md-extended-color-warning-color-container);
+}
+
+.bds-smart-stepper__substep[data-tone="error"] {
+  --substep-accent: var(--mat-sys-error);
+  --substep-bg: var(--mat-sys-error-container);
+}
+
+.bds-smart-stepper__mini-steps .mat-stepper-horizontal-line {
   display: none;
 }
 
-:host ::ng-deep .bds-smart-stepper__mini-steps .mat-horizontal-content-container {
+.bds-smart-stepper__mini-steps .mat-horizontal-content-container {
   display: none;
 }
 
-:host ::ng-deep .bds-smart-stepper__mini-steps .mat-step-label {
+.bds-smart-stepper__mini-steps .mat-step-label {
   display: none;
 }
 
-:host ::ng-deep .bds-smart-stepper__mini-steps .mat-step-header {
+.bds-smart-stepper__mini-steps .mat-step-header {
   padding: 0 6px 0 0;
   height: 24px;
   min-width: 24px;
 }
 
-:host ::ng-deep .bds-smart-stepper__mini-steps .mat-step-icon {
+.bds-smart-stepper__mini-steps .mat-step-icon {
   width: 24px;
   height: 24px;
   border-radius: 999px;
@@ -285,59 +345,67 @@
   font-size: 12px;
 }
 
-:host ::ng-deep .bds-smart-stepper__mini-steps .mat-step-icon-selected {
+.bds-smart-stepper__mini-steps .mat-step-icon-selected {
   border-color: var(--mat-sys-primary);
   color: var(--mat-sys-primary);
   background: var(--mat-sys-surface-container-lowest);
 }
 
-:host ::ng-deep .bds-smart-stepper__mini-steps .mat-step-icon-state-done {
+.bds-smart-stepper__mini-steps .mat-step-icon-state-done {
   background: var(--mat-sys-primary);
   border-color: var(--mat-sys-primary);
   color: var(--mat-sys-on-primary);
 }
 
-:host ::ng-deep .mat-stepper-horizontal-line {
+.mat-stepper-horizontal-line {
   display: none;
 }
 
-:host ::ng-deep .mat-step-label .mat-step-label-active .mat-step-label-selected {
+.mat-step-label .mat-step-label-active .mat-step-label-selected {
   display: none;
 }
 
-:host ::ng-deep .mat-step-label {
+.mat-step-label {
   display: none !important;
 }
 
-:host ::ng-deep .mat-horizontal-content-container {
+.mat-horizontal-content-container {
   padding: 0;
 }
 
-:host ::ng-deep .mat-step-icon {
+.mat-step-icon {
   height: 32px !important;
   width: 32px !important;
-  border: 1px solid var(--mat-sys-outline-variant);
-  background-color: var(--mat-sys-surface-container);
+  border: 1px solid var(--mat-sys-outline-variant) !important;
+  background-color: var(--mat-sys-surface-container) !important;
 
 }
 
-:host ::ng-deep .mat-step-icon-selected {
+.mat-step-icon-selected {
   background: var(--mat-sys-surface-container-lowest) !important;
   border: 1px solid var(--mat-sys-outline-variant);
 }
 
-:host ::ng-deep .mat-horizontal-stepper-header .mat-step-icon {
+.mat-horizontal-stepper-header .mat-step-icon {
   margin-right: 0;
 }
 
-:host ::ng-deep .mat-step-icon-content span {
+.mat-step-icon-content span {
   font-size: 20px;
   color: map.get(theme.$light-medium-contrast-scheme, on-surface);
 }
 
-:host ::ng-deep .mat-horizontal-stepper-content.mat-horizontal-stepper-content-current {
+.mat-horizontal-stepper-content.mat-horizontal-stepper-content-current {
   visibility: visible;
   transform: none;
   height: auto;
   margin-top: .5rem;
+}
+
+.mat-horizontal-stepper-header {
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  padding: 0 16px;
+  height: var(--mat-stepper-header-height, 72px);
 }

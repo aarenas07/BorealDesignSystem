@@ -48,7 +48,7 @@
 }
 
 
-:host ::ng-deep .mat-step-icon {
+.mat-step-icon {
   height: 32px !important;
   width: 32px !important;
   border: 1px solid var(--mat-sys-outline-variant);
@@ -56,22 +56,22 @@
 
 }
 
-::ng-deep .mat-step-icon-selected {
+.mat-step-icon-selected {
   background: var(--mat-sys-surface-container-lowest) !important;
   border: 1px solid var(--mat-sys-outline-variant);
 }
 
-::ng-deep .mat-horizontal-stepper-header .mat-step-icon {
+.mat-horizontal-stepper-header .mat-step-icon {
   margin-right: 0;
 }
 
-:host ::ng-deep .mat-step-icon-content span {
+.mat-step-icon-content span {
   font-size: 20px;
   color: map.get(theme.$light-medium-contrast-scheme, on-surface);
 }
 
 
-:host ::ng-deep .mat-horizontal-stepper-content.mat-horizontal-stepper-content-current {
+.mat-horizontal-stepper-content.mat-horizontal-stepper-content-current {
   visibility: visible;
   transform: none;
   height: auto;

@@ -78,6 +78,7 @@ export class ExampleSmartStepper {
 
   steps: SmartStepperStep[] = [
     {
+      index: 0,
       label: 'Ubicacion y registro',
       description: 'Sub pasos del formulario',
       form: this.ubicacionForm,
@@ -107,11 +108,13 @@ export class ExampleSmartStepper {
       subActiveIndex: 0,
     },
     {
+      index: 1,
       label: 'Documentos',
       description: 'Carga de archivos requeridos',
       form: this.documentosForm,
     },
     {
+      index: 2,
       label: 'Confirmacion',
       description: 'Resumen final',
     },

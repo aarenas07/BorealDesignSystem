@@ -1,4 +1,4 @@
-import { Component, computed, contentChildren, input, model, output } from '@angular/core';
+import { Component, computed, contentChildren, input, model, output, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
@@ -17,6 +17,8 @@ export interface StepperStep {
   imports: [CommonModule, MatStepperModule],
   templateUrl: './stepper.html',
   styleUrl: './stepper.scss',
+  encapsulation: ViewEncapsulation.Emulated
+
 })
 export class StepperComponent {
   steps = input<StepperStep[]>([]);

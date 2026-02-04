@@ -56,17 +56,15 @@ const ANIMATION_SPEED = 0.08;
       }
 
       .bds-active-wave {
-        stroke: var(--active-color, --mat-sys-primary);
-        //stroke: var(--active-color, ${DEFAULT_ACTIVE_COLOR});
+        stroke: var(--mat-sys-primary);
       }
 
       .bds-inactive-line {
-        stroke: var(--inactive-color, ${INACTIVE_COLOR});
-        //stroke: var(--inactive-color, ${INACTIVE_COLOR});
+        stroke: var(--mat-sys-primary-container);
       }
 
       .bds-end-dot {
-        fill: var(--active-color, ${DOT_COLOR});
+        fill: var(--mat-sys-primary);
         transition: cx 0.3s ease-out;
       }
     `,

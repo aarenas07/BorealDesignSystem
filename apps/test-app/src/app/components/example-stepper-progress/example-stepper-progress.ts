@@ -8,5 +8,5 @@ import { StepperProgressComponent } from '@organizacion/ui-kit';
   styleUrl: './example-stepper-progress.scss',
 })
 export class ExampleStepperProgress {
-  count = signal<number>(1);
+  count = signal<number>(2);
 }

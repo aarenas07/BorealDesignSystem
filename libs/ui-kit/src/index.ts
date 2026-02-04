@@ -28,3 +28,5 @@ export * from './lib/components/otp-input/otp-input';
 export * from './lib/components/chips/chips';
 export * from './lib/components/chip-dropdown/chip-dropdown';
 export * from './lib/components/stepper-progress/stepper-progress';
+export * from './lib/components/progress-bar/progress-bar';
+export * from './lib/components/searchbar/searchbar';

@@ -4,7 +4,7 @@ import {
   TextareaComponent,
   SelectComponent,
   ButtonComponent,
-  StepperStep,
+  StepperStepBds,
   MenuOptionBds,
   BdsStepContentDirective,
 } from '@organizacion/ui-kit';
@@ -17,7 +17,7 @@ import {
 })
 export class ExampleStepper {
   /** Pasos del stepper */
-  steps: StepperStep[] = [
+  steps: StepperStepBds[] = [
     {
       label: 'Datos básicos',
       description: 'Información general del proyecto',

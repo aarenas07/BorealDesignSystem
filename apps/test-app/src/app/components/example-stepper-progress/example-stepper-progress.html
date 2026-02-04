@@ -1,8 +1,7 @@
-<!-- Buttons Section -->
 <section class="component-section">
-  <h2>Spinner Rounded</h2>
-  <div class="demo-row" style="display: flex; gap: 20px; flex-wrap: wrap">
-    <bds-stepper-progress [indeterminate]="true"></bds-stepper-progress>
-    <bds-stepper-progress [count]="7" [size]="10"></bds-stepper-progress>
+  <h2>Stepper Progress</h2>
+  <div class="demo-row">
+    <bds-stepper-progress [percent]="count()" [total]="5"></bds-stepper-progress>
+    <bds-stepper-progress [percent]="count()"></bds-stepper-progress>
   </div>
 </section>

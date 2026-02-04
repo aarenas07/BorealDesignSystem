@@ -1,11 +1,11 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
+<nav aria-label="bds-breadcrumb">
+  <ol class="bds-breadcrumb">
     <!-- Home -->
     @if(home()?.label|| home()?.icon){
-    <li class="breadcrumb-item">
+    <li class="bds-breadcrumb-item">
       <!-- Link -->
       @if (home()?.link) {
-      <a [href]="home()?.link" target="_blank" class="breadcrumb-item-link">
+      <a [href]="home()?.link" target="_blank" class="bds-breadcrumb-item-link">
         <!-- Icon -->
         @if (home()?.icon) {
         <mat-icon>{{ home()?.icon }}</mat-icon>
@@ -15,7 +15,7 @@
       }
       <!-- Router Link -->
       @else if (home()?.routerLink) {
-      <a [routerLink]="home()?.routerLink" class="breadcrumb-item-link">
+      <a [routerLink]="home()?.routerLink" class="bds-breadcrumb-item-link">
         <!-- Icon -->
         @if (home()?.icon) {
         <mat-icon>{{ home()?.icon }}</mat-icon>
@@ -25,7 +25,7 @@
       }
       <!-- Plain Text -->
       @else {
-      <a [routerLink]="['/']" class="breadcrumb-item-link">
+      <a [routerLink]="['/']" class="bds-breadcrumb-item-link">
         <!-- Icon -->
         @if (home()?.icon) {
         <mat-icon>{{ home()?.icon }}</mat-icon>
@@ -36,13 +36,13 @@
       }
       <!-- Separator -->
       @if(items().length > 0){
-      <span class="breadcrumb-item-separator">{{separator()}}</span>
+      <span class="bds-breadcrumb-item-separator">{{separator()}}</span>
       }
     </li>
     } @for (item of items(); track $index) {
     <!-- Item active or not -->
     @if (item.active) {
-    <li [class]="{ 'breadcrumb-item': true, 'active': item.active}">
+    <li [class]="{ 'bds-breadcrumb-item': true, 'active': item.active}">
       <!-- Icon -->
       @if (item.icon) {
       <mat-icon>{{ item.icon }}</mat-icon>
@@ -51,39 +51,39 @@
     </li>
     } @else {
     <!-- Item not active -->
-    <li class="breadcrumb-item">
+    <li class="bds-breadcrumb-item">
       <!-- Link -->
       @if (item.link) {
-      <a [href]="item.link" target="_blank" class="breadcrumb-item-link">
+      <a [href]="item.link" target="_blank" class="bds-breadcrumb-item-link">
         <!-- Icon -->
         @if (item.icon) {
         <mat-icon>{{ item.icon }}</mat-icon>
         }
         <span>{{item.label}}</span>
       </a>
-      <span class="breadcrumb-item-separator">{{separator()}}</span>
+      <span class="bds-breadcrumb-item-separator">{{separator()}}</span>
       }
       <!-- Router Link -->
       @else if (item.routerLink) {
-      <a [routerLink]="item.routerLink" class="breadcrumb-item-link">
+      <a [routerLink]="item.routerLink" class="bds-breadcrumb-item-link">
         <!-- Icon -->
         @if (item.icon) {
         <mat-icon>{{ item.icon }}</mat-icon>
         }
         <span>{{item.label}}</span>
       </a>
-      <span class="breadcrumb-item-separator">{{separator()}}</span>
+      <span class="bds-breadcrumb-item-separator">{{separator()}}</span>
       }
       <!-- Plain Text -->
       @else {
-      <span class="breadcrumb-item-link">
+      <span class="bds-breadcrumb-item-link">
         <!-- Icon -->
         @if (item.icon) {
         <mat-icon>{{ item.icon }}</mat-icon>
         }
         <span>{{item.label}}</span>
       </span>
-      <span class="breadcrumb-item-separator">{{separator()}}</span>
+      <span class="bds-breadcrumb-item-separator">{{separator()}}</span>
       }
     </li>
     } }

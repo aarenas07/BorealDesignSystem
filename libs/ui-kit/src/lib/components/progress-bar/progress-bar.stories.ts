@@ -21,11 +21,20 @@ const meta: Meta<ProgressBarComponent> = {
       control: 'boolean',
     },
     strokeWidth: {
-      control: 'number',
+      control: { control: 'radio', options: [4, 8] },
     },
     indeterminate: {
       control: 'boolean',
     },
+  },
+  args: {
+    percent: 50,
+    removeDot: false,
+    activeColor: null,
+    inactiveColor: null,
+    animation: false,
+    strokeWidth: 4,
+    indeterminate: false,
   },
 };
 
@@ -57,5 +66,13 @@ export const RemoveDot: Story = {
   args: {
     percent: 50,
     removeDot: true,
+  },
+};
+
+export const Colors: Story = {
+  args: {
+    percent: 50,
+    activeColor: '#e42727',
+    inactiveColor: '#ebcece',
   },
 };

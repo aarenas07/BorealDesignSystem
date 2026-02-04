@@ -109,7 +109,7 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--mat-sys-primary) 35%, transparent);
 }
 
-::ng-deep .bds-smart-stepper__content .mat-horizontal-stepper-header-container {
+.bds-smart-stepper__content .mat-horizontal-stepper-header-container {
   display: none;
 }
 
@@ -351,29 +351,29 @@
   background: var(--mat-sys-surface-container-lowest);
 }
 
-.bds-smart-stepper__mini-steps .mat-step-icon-state-done {
+.bds-smart-stepper__header__row-stepper .bds-smart-stepper__mini-steps .mat-step-icon-state-done {
   background: var(--mat-sys-primary);
   border-color: var(--mat-sys-primary);
   color: var(--mat-sys-on-primary);
 }
 
-.mat-stepper-horizontal-line {
+.bds-smart-stepper__header__row-stepper .mat-stepper-horizontal-line {
   display: none;
 }
 
-.mat-step-label .mat-step-label-active .mat-step-label-selected {
+.bds-smart-stepper__header__row-stepper .mat-step-label .mat-step-label-active .mat-step-label-selected {
   display: none;
 }
 
-.mat-step-label {
+.bds-smart-stepper__header__row-stepper .mat-step-label {
   display: none !important;
 }
 
-.mat-horizontal-content-container {
+.bds-smart-stepper__header__row-stepper .mat-horizontal-content-container {
   padding: 0;
 }
 
-.mat-step-icon {
+.bds-smart-stepper__header__row-stepper .mat-step-icon {
   height: 32px !important;
   width: 32px !important;
   border: 1px solid var(--mat-sys-outline-variant) !important;
@@ -381,28 +381,28 @@
 
 }
 
-.mat-step-icon-selected {
+.bds-smart-stepper__header__row-stepper .mat-step-icon-selected {
   background: var(--mat-sys-surface-container-lowest) !important;
   border: 1px solid var(--mat-sys-outline-variant);
 }
 
-.mat-horizontal-stepper-header .mat-step-icon {
+.bds-smart-stepper__header__row-stepper .mat-horizontal-stepper-header .mat-step-icon {
   margin-right: 0;
 }
 
-.mat-step-icon-content span {
+.bds-smart-stepper__header__row-stepper .mat-step-icon-content span {
   font-size: 20px;
   color: map.get(theme.$light-medium-contrast-scheme, on-surface);
 }
 
-.mat-horizontal-stepper-content.mat-horizontal-stepper-content-current {
+.bds-smart-stepper__header__row-stepper .mat-horizontal-stepper-content.mat-horizontal-stepper-content-current {
   visibility: visible;
   transform: none;
   height: auto;
   margin-top: .5rem;
 }
 
-.mat-horizontal-stepper-header {
+.bds-smart-stepper__header__row-stepper .mat-horizontal-stepper-header {
   display: flex;
   overflow: hidden;
   align-items: center;

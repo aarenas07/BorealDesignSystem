@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
   ],
   templateUrl: './smart-stepper.html',
   styleUrl: './smart-stepper.scss',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.Emulated
 
 })
 export class SmartStepperComponent implements OnDestroy {

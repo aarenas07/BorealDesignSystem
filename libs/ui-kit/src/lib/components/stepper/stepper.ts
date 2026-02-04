@@ -17,7 +17,7 @@ export interface StepperStep {
   imports: [CommonModule, MatStepperModule],
   templateUrl: './stepper.html',
   styleUrl: './stepper.scss',
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.None
 
 })
 export class StepperComponent {

@@ -9,14 +9,13 @@
     <div class="bds-smart-stepper__header-row">
       @if(this.steps()[0].completed){
       <div>
-        <mat-stepper [selectedIndex]="activeIndex()" [linear]="linear()" (selectionChange)="onSelectionChange($event)">
+        <mat-stepper class="bds-smart-stepper__header__row-stepper" [selectedIndex]="activeIndex()" [linear]="linear()"
+          (selectionChange)="onSelectionChange($event)">
           @for (step of steps(); track $index) {
           <mat-step [completed]="isStepCompleted(step, $index)" [editable]="!step.disabled">
             <ng-template matStepLabel></ng-template>
           </mat-step>
-
           }
-
         </mat-stepper>
       </div>
       }
@@ -51,7 +50,8 @@
       </div>
       }
 
-      <mat-stepper [selectedIndex]="activeIndex()" [linear]="linear()" (selectionChange)="onSelectionChange($event)">
+      <mat-stepper class="bds-smart-stepper__header__row-stepper" [selectedIndex]="activeIndex()" [linear]="linear()"
+        (selectionChange)="onSelectionChange($event)">
         @for (step of steps(); track $index) {
         <mat-step [completed]="isStepCompleted(step, $index)" [editable]="!step.disabled">
           <ng-template matStepLabel></ng-template>

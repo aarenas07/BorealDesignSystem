@@ -17,6 +17,15 @@ const meta: Meta<ProgressBarComponent> = {
     inactiveColor: {
       control: 'color',
     },
+    animation: {
+      control: 'boolean',
+    },
+    strokeWidth: {
+      control: 'number',
+    },
+    indeterminate: {
+      control: 'boolean',
+    },
   },
 };
 
@@ -27,6 +36,20 @@ export const Default: Story = {
   args: {
     percent: 50,
     removeDot: false,
+  },
+};
+
+export const Indeterminate: Story = {
+  args: {
+    percent: 50,
+    indeterminate: true,
+  },
+};
+
+export const Animation: Story = {
+  args: {
+    percent: 50,
+    animation: true,
   },
 };
 

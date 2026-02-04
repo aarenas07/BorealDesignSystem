@@ -90,6 +90,9 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
   /** Indica si se debe animar */
   animation = input<boolean>(false);
 
+  /** Indica si el progreso es indeterminado */
+  indeterminate = input<boolean>(false);
+
   // Constantes para el template
   protected readonly viewBox = `0 0 ${BASE_WIDTH} ${BASE_HEIGHT}`;
   protected readonly CY = BASE_HEIGHT / 2;
@@ -99,6 +102,7 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
   // Signals
   private percentSignal = signal<number>(0);
   private phase = signal<number>(0);
+  private internalIndeterminatePos = signal<number>(0);
   private animationFrameId?: number;
 
   // --- CÁLCULOS PRINCIPALES ---
@@ -117,6 +121,20 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
 
   // Genera el path de la ONDA (Izquierda)
   activePathD = computed(() => {
+    if (this.indeterminate()) {
+      const totalWidth = BASE_WIDTH - PADDING_X * 2;
+      const segmentWidth = totalWidth * 0.4; // El segmento ocupa el 40% del ancho
+      const pos = this.internalIndeterminatePos();
+
+      // Cálculo del inicio y fin del segmento con efecto de rebote o loop suave
+      // Usamos una función de easing simple para que se mueva de izq a der
+      const startX = (totalWidth - segmentWidth) * pos;
+      const endX = startX + segmentWidth - PADDING_X;
+
+      const points = this.generateWavePoints(startX, endX, this.phase());
+      return this.createCurvyPath(points);
+    }
+
     const endX = this.cutoffX() - GAP_SIZE / 2; // Restamos mitad del gap
 
     // Si es muy pequeño, no dibujamos nada para evitar artefactos visuales
@@ -128,6 +146,12 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
 
   // Genera el path de la RECTA (Derecha)
   inactivePathD = computed(() => {
+    if (this.indeterminate()) {
+      const startX = PADDING_X;
+      const endX = BASE_WIDTH - PADDING_X;
+      return `M ${startX.toFixed(2)} ${this.CY} L ${endX.toFixed(2)} ${this.CY}`;
+    }
+
     const startX = this.cutoffX() + GAP_SIZE / 2; // Sumamos mitad del gap
     const endX = BASE_WIDTH - PADDING_X;
 
@@ -197,6 +221,17 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
     const speed = ANIMATION_SPEED;
     // Movemos la fase para animar la onda
     this.phase.update(p => (p - speed) % (2 * Math.PI));
+
+    if (this.indeterminate()) {
+      // Velocidad de traslación del segmento indeterminado
+      const travelSpeed = 0.015;
+      this.internalIndeterminatePos.update(p => {
+        let next = p + travelSpeed;
+        if (next > 1.2) next = -0.2; // Loop extendido para que entre y salga
+        return next;
+      });
+    }
+
     this.animationFrameId = requestAnimationFrame(() => this.runAnimation());
   }
 
@@ -212,8 +247,9 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
     const stepSize = 5; // Resolución de pixeles (menor = más suave)
     const totalTrackWidth = BASE_WIDTH - PADDING_X * 2;
 
-    const numWavesTmp = this.animation() ? this.numWaves() : 0;
-    const amplitudeTmp = this.animation() ? this.amplitude() : 0;
+    const isIndeterminateAnimation = this.indeterminate() ? false : this.animation();
+    const numWavesTmp = isIndeterminateAnimation ? this.numWaves() : 0;
+    const amplitudeTmp = isIndeterminateAnimation ? this.amplitude() : 0;
 
     for (let x = startX; x <= endX; x += stepSize) {
       // Normalizamos la posición X respecto al ancho TOTAL para mantener la frecuencia constante

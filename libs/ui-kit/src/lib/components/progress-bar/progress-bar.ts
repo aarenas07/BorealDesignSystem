@@ -9,6 +9,7 @@ import {
   AfterViewInit,
   input,
 } from '@angular/core';
+import { BdsProgressBarStrokeWidth } from '../../interfaces/bds-progress-bar.enum';
 
 /**
  * CONFIGURACIÓN VISUAL
@@ -16,10 +17,10 @@ import {
 const BASE_WIDTH = 600;
 const BASE_HEIGHT = 40;
 const PADDING_X = 10; // Margen interno
-const GAP_SIZE = 24; // El hueco entre la onda y la barra gris
+const GAP_SIZE = 10; // El hueco entre la onda y la barra gris
 
 // Estilos - COLORES RESTAURADOS
-const STROKE_WIDTH = 10;
+//const STROKE_WIDTH = 8;
 const DEFAULT_ACTIVE_COLOR = '#006A63'; // Color original del indicador (Verde Oscuro)
 const INACTIVE_COLOR = '#9DF2E7'; // Color original del track (Gris/Verde Claro)
 const DOT_COLOR = '#006A63'; // Punto del mismo color que el indicador
@@ -38,7 +39,6 @@ const ANIMATION_SPEED = 0.08;
       :host {
         display: block;
         width: 100%;
-        max-width: 600px;
       }
 
       .bds-wavy-svg {
@@ -56,22 +56,18 @@ const ANIMATION_SPEED = 0.08;
       }
 
       .bds-active-wave {
-        stroke: var(--active-color, ${DEFAULT_ACTIVE_COLOR});
+        stroke: var(--active-color, --mat-sys-primary);
+        //stroke: var(--active-color, ${DEFAULT_ACTIVE_COLOR});
       }
 
       .bds-inactive-line {
         stroke: var(--inactive-color, ${INACTIVE_COLOR});
+        //stroke: var(--inactive-color, ${INACTIVE_COLOR});
       }
 
       .bds-end-dot {
         fill: var(--active-color, ${DOT_COLOR});
         transition: cx 0.3s ease-out;
-      }
-
-      @media (min-width: 1200px) {
-        .bds-wavy-container {
-          width: 50%;
-        }
       }
     `,
   ],
@@ -90,12 +86,23 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
   /** Indica si se debe ocultar el punto final */
   removeDot = input<boolean>(false);
 
+  /** Indica el grosor de la barra */
+  strokeWidth = input<BdsProgressBarStrokeWidth>(4);
+
+  /** Indica la amplitud de la onda */
+  amplitude = input<number>(FIXED_AMPLITUDE);
+
+  /** Indica el numero de ondas */
+  numWaves = input<number>(FIXED_NUM_WAVES);
+
+  /** Indica si se debe animar */
+  animation = input<boolean>(false);
+
   // Constantes para el template
   protected readonly viewBox = `0 0 ${BASE_WIDTH} ${BASE_HEIGHT}`;
-  protected readonly STROKE_WIDTH = STROKE_WIDTH;
   protected readonly CY = BASE_HEIGHT / 2;
   // Posición fija del punto (siempre al final menos un margen)
-  protected readonly endDotX = BASE_WIDTH - PADDING_X - 6;
+  protected readonly endDotX = BASE_WIDTH - PADDING_X - 0.5;
 
   // Signals
   private percentSignal = signal<number>(0);
@@ -103,6 +110,11 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
   private animationFrameId?: number;
 
   // --- CÁLCULOS PRINCIPALES ---
+
+  //Calcular el radio del punto final
+  endDotRadius = computed(() => {
+    return this.strokeWidth() / 2 - 0.5;
+  });
 
   // Calcula el píxel exacto donde termina la parte activa
   private cutoffX = computed(() => {
@@ -193,13 +205,16 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
     const stepSize = 5; // Resolución de pixeles (menor = más suave)
     const totalTrackWidth = BASE_WIDTH - PADDING_X * 2;
 
+    const numWavesTmp = this.animation() ? this.numWaves() : 0;
+    const amplitudeTmp = this.animation() ? this.amplitude() : 0;
+
     for (let x = startX; x <= endX; x += stepSize) {
       // Normalizamos la posición X respecto al ancho TOTAL para mantener la frecuencia constante
       const normalizedPos = (x - PADDING_X) / totalTrackWidth;
 
       // Cálculo de onda senoidal
-      const angle = normalizedPos * FIXED_NUM_WAVES * 2 * Math.PI + phase;
-      const y = this.CY + FIXED_AMPLITUDE * Math.sin(angle);
+      const angle = normalizedPos * numWavesTmp * 2 * Math.PI + phase;
+      const y = this.CY + amplitudeTmp * Math.sin(angle);
 
       points.push({ x, y });
     }
@@ -207,8 +222,8 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
     // Asegurar que el último punto sea exacto
     if (points[points.length - 1].x !== endX) {
       const normalizedPos = (endX - PADDING_X) / totalTrackWidth;
-      const angle = normalizedPos * FIXED_NUM_WAVES * 2 * Math.PI + phase;
-      points.push({ x: endX, y: this.CY + FIXED_AMPLITUDE * Math.sin(angle) });
+      const angle = normalizedPos * numWavesTmp * 2 * Math.PI + phase;
+      points.push({ x: endX, y: this.CY + amplitudeTmp * Math.sin(angle) });
     }
 
     return points;

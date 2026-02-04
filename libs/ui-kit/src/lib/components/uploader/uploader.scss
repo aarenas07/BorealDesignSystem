@@ -8,7 +8,7 @@
   color: var(--mat-sys-on-surface-variant);
 }
 
-::ng-deep {
+/* ::ng-deep {
   .mat-mdc-unelevated-button:not(:disabled) {
     border-radius: 100px !important;
     background-color: var(--mat-sys-secondary-fixed) !important;
@@ -40,7 +40,7 @@
       font-weight: 500;
     }
   }
-}
+} */
 
 .bds-uploader__actions-container {
   display: flex;

@@ -19,12 +19,6 @@ const BASE_HEIGHT = 40;
 const PADDING_X = 10; // Margen interno
 const GAP_SIZE = 10; // El hueco entre la onda y la barra gris
 
-// Estilos - COLORES RESTAURADOS
-//const STROKE_WIDTH = 8;
-const DEFAULT_ACTIVE_COLOR = '#006A63'; // Color original del indicador (Verde Oscuro)
-const INACTIVE_COLOR = '#9DF2E7'; // Color original del track (Gris/Verde Claro)
-const DOT_COLOR = '#006A63'; // Punto del mismo color que el indicador
-
 // Configuración de la Onda
 const FIXED_AMPLITUDE = 6;
 const FIXED_NUM_WAVES = 6;
@@ -56,15 +50,15 @@ const ANIMATION_SPEED = 0.08;
       }
 
       .bds-active-wave {
-        stroke: var(--mat-sys-primary);
+        stroke: var(--active-color, var(--mat-sys-primary));
       }
 
       .bds-inactive-line {
-        stroke: var(--mat-sys-primary-container);
+        stroke: var(--inactive-color, var(--mat-sys-primary-container));
       }
 
       .bds-end-dot {
-        fill: var(--mat-sys-primary);
+        fill: var(--active-color, var(--mat-sys-primary));
         transition: cx 0.3s ease-out;
       }
     `,
@@ -160,18 +154,33 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
   }
 
   private setColorVars() {
-    const active = this.activeColor() || DEFAULT_ACTIVE_COLOR;
-    const inactive = this.inactiveColor() || INACTIVE_COLOR;
+    const active = this.activeColor();
+    const inactive = this.inactiveColor();
     const host = (window as any).ng?.getHostElement?.(this) || (this as any).el?.nativeElement || null;
+
     if (host) {
-      host.style.setProperty('--active-color', active);
-      host.style.setProperty('--inactive-color', inactive);
+      if (active) {
+        host.style.setProperty('--active-color', active);
+      } else {
+        host.style.removeProperty('--active-color');
+      }
+
+      if (inactive) {
+        host.style.setProperty('--inactive-color', inactive);
+      } else {
+        host.style.removeProperty('--inactive-color');
+      }
     } else {
       // fallback para Angular <17 o sin getHostElement
       try {
         const el = document.querySelector('bds-progress-bar') as HTMLElement | null;
-        el?.style.setProperty('--active-color', active);
-        el?.style.setProperty('--inactive-color', inactive);
+        if (el) {
+          if (active) el.style.setProperty('--active-color', active);
+          else el.style.removeProperty('--active-color');
+
+          if (inactive) el.style.setProperty('--inactive-color', inactive);
+          else el.style.removeProperty('--inactive-color');
+        }
       } catch {}
     }
   }

@@ -9,6 +9,7 @@ import {
   AfterViewInit,
   input,
 } from '@angular/core';
+import { BdsProgressBarStrokeWidth } from '../../interfaces/bds-progress-bar.enum';
 
 /**
  * CONFIGURACIÓN VISUAL
@@ -16,13 +17,7 @@ import {
 const BASE_WIDTH = 600;
 const BASE_HEIGHT = 40;
 const PADDING_X = 10; // Margen interno
-const GAP_SIZE = 24; // El hueco entre la onda y la barra gris
-
-// Estilos - COLORES RESTAURADOS
-const STROKE_WIDTH = 10;
-const DEFAULT_ACTIVE_COLOR = '#006A63'; // Color original del indicador (Verde Oscuro)
-const INACTIVE_COLOR = '#9DF2E7'; // Color original del track (Gris/Verde Claro)
-const DOT_COLOR = '#006A63'; // Punto del mismo color que el indicador
+const GAP_SIZE = 10; // El hueco entre la onda y la barra gris
 
 // Configuración de la Onda
 const FIXED_AMPLITUDE = 6;
@@ -38,7 +33,6 @@ const ANIMATION_SPEED = 0.08;
       :host {
         display: block;
         width: 100%;
-        max-width: 600px;
       }
 
       .bds-wavy-svg {
@@ -56,22 +50,16 @@ const ANIMATION_SPEED = 0.08;
       }
 
       .bds-active-wave {
-        stroke: var(--active-color, ${DEFAULT_ACTIVE_COLOR});
+        stroke: var(--active-color, var(--mat-sys-primary));
       }
 
       .bds-inactive-line {
-        stroke: var(--inactive-color, ${INACTIVE_COLOR});
+        stroke: var(--inactive-color, var(--mat-sys-primary-container));
       }
 
       .bds-end-dot {
-        fill: var(--active-color, ${DOT_COLOR});
+        fill: var(--active-color, var(--mat-sys-primary));
         transition: cx 0.3s ease-out;
-      }
-
-      @media (min-width: 1200px) {
-        .bds-wavy-container {
-          width: 50%;
-        }
       }
     `,
   ],
@@ -90,19 +78,39 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
   /** Indica si se debe ocultar el punto final */
   removeDot = input<boolean>(false);
 
+  /** Indica el grosor de la barra */
+  strokeWidth = input<BdsProgressBarStrokeWidth>(4);
+
+  /** Indica la amplitud de la onda */
+  amplitude = input<number>(FIXED_AMPLITUDE);
+
+  /** Indica el numero de ondas */
+  numWaves = input<number>(FIXED_NUM_WAVES);
+
+  /** Indica si se debe animar */
+  animation = input<boolean>(false);
+
+  /** Indica si el progreso es indeterminado */
+  indeterminate = input<boolean>(false);
+
   // Constantes para el template
   protected readonly viewBox = `0 0 ${BASE_WIDTH} ${BASE_HEIGHT}`;
-  protected readonly STROKE_WIDTH = STROKE_WIDTH;
   protected readonly CY = BASE_HEIGHT / 2;
   // Posición fija del punto (siempre al final menos un margen)
-  protected readonly endDotX = BASE_WIDTH - PADDING_X - 6;
+  protected readonly endDotX = BASE_WIDTH - PADDING_X - 0.5;
 
   // Signals
   private percentSignal = signal<number>(0);
   private phase = signal<number>(0);
+  private internalIndeterminatePos = signal<number>(0);
   private animationFrameId?: number;
 
   // --- CÁLCULOS PRINCIPALES ---
+
+  //Calcular el radio del punto final
+  endDotRadius = computed(() => {
+    return this.strokeWidth() / 2 - 0.5;
+  });
 
   // Calcula el píxel exacto donde termina la parte activa
   private cutoffX = computed(() => {
@@ -113,6 +121,20 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
 
   // Genera el path de la ONDA (Izquierda)
   activePathD = computed(() => {
+    if (this.indeterminate()) {
+      const totalWidth = BASE_WIDTH - PADDING_X * 2;
+      const segmentWidth = totalWidth * 0.4; // El segmento ocupa el 40% del ancho
+      const pos = this.internalIndeterminatePos();
+
+      // Cálculo del inicio y fin del segmento con efecto de rebote o loop suave
+      // Usamos una función de easing simple para que se mueva de izq a der
+      const startX = (totalWidth - segmentWidth) * pos;
+      const endX = startX + segmentWidth - PADDING_X;
+
+      const points = this.generateWavePoints(startX, endX, this.phase());
+      return this.createCurvyPath(points);
+    }
+
     const endX = this.cutoffX() - GAP_SIZE / 2; // Restamos mitad del gap
 
     // Si es muy pequeño, no dibujamos nada para evitar artefactos visuales
@@ -124,6 +146,12 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
 
   // Genera el path de la RECTA (Derecha)
   inactivePathD = computed(() => {
+    if (this.indeterminate()) {
+      const startX = PADDING_X;
+      const endX = BASE_WIDTH - PADDING_X;
+      return `M ${startX.toFixed(2)} ${this.CY} L ${endX.toFixed(2)} ${this.CY}`;
+    }
+
     const startX = this.cutoffX() + GAP_SIZE / 2; // Sumamos mitad del gap
     const endX = BASE_WIDTH - PADDING_X;
 
@@ -150,18 +178,33 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
   }
 
   private setColorVars() {
-    const active = this.activeColor() || DEFAULT_ACTIVE_COLOR;
-    const inactive = this.inactiveColor() || INACTIVE_COLOR;
+    const active = this.activeColor();
+    const inactive = this.inactiveColor();
     const host = (window as any).ng?.getHostElement?.(this) || (this as any).el?.nativeElement || null;
+
     if (host) {
-      host.style.setProperty('--active-color', active);
-      host.style.setProperty('--inactive-color', inactive);
+      if (active) {
+        host.style.setProperty('--active-color', active);
+      } else {
+        host.style.removeProperty('--active-color');
+      }
+
+      if (inactive) {
+        host.style.setProperty('--inactive-color', inactive);
+      } else {
+        host.style.removeProperty('--inactive-color');
+      }
     } else {
       // fallback para Angular <17 o sin getHostElement
       try {
         const el = document.querySelector('bds-progress-bar') as HTMLElement | null;
-        el?.style.setProperty('--active-color', active);
-        el?.style.setProperty('--inactive-color', inactive);
+        if (el) {
+          if (active) el.style.setProperty('--active-color', active);
+          else el.style.removeProperty('--active-color');
+
+          if (inactive) el.style.setProperty('--inactive-color', inactive);
+          else el.style.removeProperty('--inactive-color');
+        }
       } catch {}
     }
   }
@@ -178,6 +221,17 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
     const speed = ANIMATION_SPEED;
     // Movemos la fase para animar la onda
     this.phase.update(p => (p - speed) % (2 * Math.PI));
+
+    if (this.indeterminate()) {
+      // Velocidad de traslación del segmento indeterminado
+      const travelSpeed = 0.015;
+      this.internalIndeterminatePos.update(p => {
+        let next = p + travelSpeed;
+        if (next > 1.2) next = -0.2; // Loop extendido para que entre y salga
+        return next;
+      });
+    }
+
     this.animationFrameId = requestAnimationFrame(() => this.runAnimation());
   }
 
@@ -193,13 +247,17 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
     const stepSize = 5; // Resolución de pixeles (menor = más suave)
     const totalTrackWidth = BASE_WIDTH - PADDING_X * 2;
 
+    const isIndeterminateAnimation = this.indeterminate() ? false : this.animation();
+    const numWavesTmp = isIndeterminateAnimation ? this.numWaves() : 0;
+    const amplitudeTmp = isIndeterminateAnimation ? this.amplitude() : 0;
+
     for (let x = startX; x <= endX; x += stepSize) {
       // Normalizamos la posición X respecto al ancho TOTAL para mantener la frecuencia constante
       const normalizedPos = (x - PADDING_X) / totalTrackWidth;
 
       // Cálculo de onda senoidal
-      const angle = normalizedPos * FIXED_NUM_WAVES * 2 * Math.PI + phase;
-      const y = this.CY + FIXED_AMPLITUDE * Math.sin(angle);
+      const angle = normalizedPos * numWavesTmp * 2 * Math.PI + phase;
+      const y = this.CY + amplitudeTmp * Math.sin(angle);
 
       points.push({ x, y });
     }
@@ -207,8 +265,8 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
     // Asegurar que el último punto sea exacto
     if (points[points.length - 1].x !== endX) {
       const normalizedPos = (endX - PADDING_X) / totalTrackWidth;
-      const angle = normalizedPos * FIXED_NUM_WAVES * 2 * Math.PI + phase;
-      points.push({ x: endX, y: this.CY + FIXED_AMPLITUDE * Math.sin(angle) });
+      const angle = normalizedPos * numWavesTmp * 2 * Math.PI + phase;
+      points.push({ x: endX, y: this.CY + amplitudeTmp * Math.sin(angle) });
     }
 
     return points;

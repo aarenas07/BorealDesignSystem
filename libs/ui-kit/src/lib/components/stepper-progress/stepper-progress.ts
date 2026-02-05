@@ -23,9 +23,9 @@ import {
  */
 
 // Proporciones base (se escalarán responsivamente)
-const BASE_SIZE = 40;
-const BASE_RADIUS = 15;
-const BASE_INDICATOR_STROKE = 4.4;
+const BASE_SIZE = 60;
+const BASE_RADIUS = 25;
+const BASE_INDICATOR_STROKE = 9;
 const BASE_TRACK_STROKE = BASE_INDICATOR_STROKE;
 const BASE_GAP = 2;
 
@@ -33,8 +33,8 @@ const BASE_GAP = 2;
 const FIXED_AMPLITUDE = 0.7;
 const FIXED_NUM_WAVES = 1;
 const FIXED_TENSION = 1;
-const FIXED_COLOR = '#006A63';
-const TRACK_COLOR = '#dce6e5';
+
+export type StepperProgressSize = 'sm' | 'md' | 'lg' | 'xl';
 
 @Component({
   selector: 'bds-stepper-progress',
@@ -45,8 +45,6 @@ const TRACK_COLOR = '#dce6e5';
 })
 export class StepperProgressComponent implements AfterViewInit, OnChanges, OnDestroy {
   // --- Propiedades del Componente ---
-  protected readonly TRACK_COLOR = TRACK_COLOR;
-  protected readonly FIXED_COLOR = FIXED_COLOR;
   protected readonly INDICATOR_STROKE = BASE_INDICATOR_STROKE;
   protected readonly TRACK_STROKE = BASE_TRACK_STROKE;
   protected readonly Math = Math;
@@ -59,6 +57,7 @@ export class StepperProgressComponent implements AfterViewInit, OnChanges, OnDes
   // --- Input desde el componente padre ---
   percent = input<number>(0);
   total = input<number>(10);
+  size = input<StepperProgressSize>('md');
 
   // --- Referencia al Elemento del DOM ---
   @ViewChild('indicatorPath') private pathRef!: ElementRef<SVGPathElement>;

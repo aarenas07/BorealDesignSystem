@@ -1,0 +1,33 @@
+<div class="bds-wavy-progress-circular">
+  <svg
+    [attr.viewBox]="'0 0 ' + viewBoxSize + ' ' + viewBoxSize"
+    preserveAspectRatio="xMidYMid meet"
+    role="img"
+    [attr.aria-label]="'Progreso ' + currentPercent + '%'"
+  >
+    <g [attr.transform]="'rotate(-90 ' + CX + ' ' + CY + ')'">
+      <!-- Pista Inactiva -->
+      <path
+        [attr.d]="trackPathD()"
+        fill="none"
+        [attr.stroke-width]="strokeWidth()"
+        stroke-linecap="round"
+        [attr.stroke-dasharray]="trackDashProps().strokeDasharray"
+        [attr.stroke-dashoffset]="trackDashProps().strokeDashoffset"
+        class="bds-wave-progress-path-base bds-wave-progress-inactive-line"
+      />
+
+      <!-- Indicador Activo Ondulado -->
+      <path
+        #indicatorPath
+        [attr.d]="pathD()"
+        fill="none"
+        [attr.stroke-width]="strokeWidth()"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        [attr.stroke-dasharray]="indicatorDashArray()"
+        class="bds-wave-progress-path-base bds-wave-progress-active-line"
+      />
+    </g>
+  </svg>
+</div>

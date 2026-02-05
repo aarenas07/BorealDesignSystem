@@ -1,0 +1,29 @@
+.bds-wavy-progress-circular {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  container-type: inline-size;
+
+  /* Estilos base para ambas líneas */
+  .bds-wave-progress-path-base {
+    fill: none;
+    stroke-linecap: round; /* Bordes redondeados clave para el efecto del gap */
+    transition: all 0.3s ease-out;
+
+    &.bds-wave-progress-active-line {
+      stroke: var(--mat-sys-primary);
+    }
+
+    &.bds-wave-progress-inactive-line {
+      stroke: var(--mat-sys-secondary-container);
+    }
+  }
+
+  // Transición suave del color del stroke
+  path {
+    transition: stroke 0.35s ease-out;
+  }
+}

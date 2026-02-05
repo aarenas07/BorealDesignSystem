@@ -121,15 +121,20 @@ export class ExampleSmartStepper {
   ];
 
   onStepChange(event: { previousIndex: number; currentIndex: number }) {
-    if (event.currentIndex === 1 && this.ubicacionForm.invalid) {
-      this.ubicacionForm.markAllAsTouched();
-      this.activeIndex = event.previousIndex;
-    }
+    console.log('OnStepChange');
+    console.log(event)
+    // if (event.currentIndex === 1 && this.ubicacionForm.invalid) {
+    //   this.ubicacionForm.markAllAsTouched();
+    //   this.activeIndex = event.previousIndex;
+    //   return;
+    // }
 
-    if (event.currentIndex === 2 && this.documentosForm.invalid) {
-      this.documentosForm.markAllAsTouched();
-      this.activeIndex = event.previousIndex;
-    }
+    // if (event.currentIndex === 2 && this.documentosForm.invalid) {
+    //   this.documentosForm.markAllAsTouched();
+    //   this.activeIndex = event.previousIndex;
+    //   return;
+    // }
+    this.activeIndex = event.currentIndex
   }
 
   onSubStepChange(

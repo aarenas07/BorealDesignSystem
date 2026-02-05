@@ -9,11 +9,25 @@
     <div class="bds-smart-stepper__header-row">
       <div class="bds-smart-stepper__mini-steps bds-smart-stepper__header__row-stepper" role="tablist">
         @for (step of steps(); track $index) {
+        @if(activeIndex() === $index && !isStepCompleted(step, $index)){
+        <span class="bds-smart-stepper__mini-steps-pill-text"><mat-icon>{{this.activeStep().stepIcon}}</mat-icon>
+          {{this.activeStep().label}}</span>
+        <!-- <button type="button" class="bds-smart-stepper__mini-step" [class.is-active]="$index === activeIndex()"
+          [class.is-complete]="isStepCompleted(step, $index)" (click)="onStepHeaderClick($index)"
+          [disabled]="step.disabled">
+          @if(!isStepCompleted(step, $index)){
+          <mat-icon>edit</mat-icon>
+          }
+        </button> -->
+        }
         @if(isStepCompleted(step, $index)){
         <button type="button" class="bds-smart-stepper__mini-step" [class.is-active]="$index === activeIndex()"
           [class.is-complete]="isStepCompleted(step, $index)" (click)="onStepHeaderClick($index)"
           [disabled]="step.disabled">
-          {{ $index + 1 }}
+          @if(isStepCompleted(step, $index)){
+          <mat-icon [class.is-complete]="isStepCompleted(step, $index)"
+            class="bds-smart-stepper__mini-step-icon">check</mat-icon>
+          }
         </button>
         }
         }
@@ -32,7 +46,7 @@
       </div>
       }
 
-      @for (step of steps(); track $index) {
+      <!-- @for (step of steps(); track $index) {
       @if ($index === activeIndex()) {
       <button type="button" class="bds-smart-stepper__pill" [class.has-error]="isStepError(step, $index)"
         (click)="onStepHeaderClick($index)" [disabled]="step.disabled">
@@ -45,7 +59,7 @@
           {{this.activeStep().label}}</span>
       </button>
       }
-      }
+      } -->
 
       @if (subSteps().length > 0) {
       <div class="bds-smart-stepper__substepper-top">
@@ -64,7 +78,7 @@
 
       <div class="bds-smart-stepper__mini-steps bds-smart-stepper__header__row-stepper" role="tablist">
         @for (step of steps(); track $index) {
-        @if(!isStepCompleted(step, $index)){
+        @if(!isStepCompleted(step, $index) && activeIndex() !== $index){
         <button type="button" class="bds-smart-stepper__mini-step" [class.is-active]="$index === activeIndex()"
           [class.is-complete]="isStepCompleted(step, $index)" (click)="onStepHeaderClick($index)"
           [disabled]="step.disabled">

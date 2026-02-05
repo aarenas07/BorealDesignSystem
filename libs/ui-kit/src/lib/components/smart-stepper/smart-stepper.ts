@@ -1,4 +1,4 @@
-import { Component, computed, contentChildren, effect, input, model, output, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, computed, contentChildren, effect, input, model, output, OnDestroy, ViewEncapsulation, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BdsStepContentDirective } from '../../directives/bds-step-content.directive';
 import { CdkStepperModule, StepperSelectionEvent } from '@angular/cdk/stepper';
@@ -34,6 +34,9 @@ export class SmartStepperComponent implements OnDestroy {
   private readonly subActiveIndexOverrides = new Map<number, number>();
   private controlSubscriptions: Subscription[] = [];
   private readonly autoAdvanceSubSteps = false;
+  private activeFormStatusSub?: Subscription;
+  private readonly activeFormStatus = signal<string | null>(null);
+  private lastActiveFormStatus: string | null = null;
 
   stepContents = contentChildren(BdsStepContentDirective);
 
@@ -67,23 +70,54 @@ export class SmartStepperComponent implements OnDestroy {
   });
 
   constructor() {
-    effect(() => {
-      console.log(
-        'activeIndex:',
-        this.activeIndex(),
-        'activeStep:',
-        this.activeStep(),
-        'activeSubStep',
-        this.activeIndexSubStep()
-      );
-    });
+    // effect(() => {
+    //   console.log(
+    //     'activeIndex:',
+    //     this.activeIndex(),
+    //     'activeStep:',
+    //     this.activeStep(),
+    //     'activeSubStep',
+    //     this.activeIndexSubStep()
+    //   );
+    // });
     effect(() => {
       this.watchActiveStepControls(this.activeIndex());
+    });
+    effect(() => {
+      const form = this.activeStep()?.form;
+      this.activeFormStatusSub?.unsubscribe();
+
+      if (!form) {
+        this.activeFormStatus.set(null);
+        this.lastActiveFormStatus = null;
+        return;
+      }
+
+      this.lastActiveFormStatus = form.status;
+      this.activeFormStatus.set(form.status);
+      this.activeFormStatusSub = form.statusChanges.subscribe(status => {
+        this.activeFormStatus.set(status);
+      });
+    });
+    effect(() => {
+      const step = this.activeStep();
+      if (!step?.form) return;
+      const status = this.activeFormStatus();
+      console.log('formStatus')
+      console.log(status)
+      const prevStatus = this.lastActiveFormStatus;
+      if (status === 'VALID' && prevStatus !== 'VALID') {
+        this.automaticNextStep(this.activeIndex());
+      }
+      if (status !== prevStatus) {
+        this.lastActiveFormStatus = status;
+      }
     });
   }
 
   ngOnDestroy() {
     this.clearControlSubscriptions();
+    this.activeFormStatusSub?.unsubscribe();
   }
 
   onSelectionChange(event: StepperSelectionEvent) {
@@ -98,35 +132,42 @@ export class SmartStepperComponent implements OnDestroy {
   }
 
   onStepHeaderClick(index: number) {
-    if (index === this.activeIndex()) return;
     const previousIndex = this.activeIndex();
-    this.activeIndex.set(index);
-    this.stepChange.emit({ previousIndex, currentIndex: index });
+    if (index === previousIndex) return;
+
+    // Permitir volver siempre a pasos anteriores
+    if (index < previousIndex) {
+      this.activeIndex.set(index);
+      this.stepChange.emit({ previousIndex, currentIndex: index });
+      return;
+    }
+
+    // Para avanzar, exigir que el paso actual esté válido
+    if (this.activeFormStatus() === 'VALID' || this.lastActiveFormStatus === 'VALID') {
+      this.activeIndex.set(index);
+      this.stepChange.emit({ previousIndex, currentIndex: index });
+    }
   }
 
   getSubStepTone(subStepIndex: number): 'default' | 'success' | 'warning' | 'error' {
     const stepIndex = this.activeIndex();
     const step = this.steps()[stepIndex];
     const subStep = step?.subSteps?.[subStepIndex];
-    console.log('SubStep');
-    console.log(subStep);
+
 
 
 
     if (!subStep) return 'default';
 
     if (this.isSubStepDisabled(stepIndex, subStepIndex) || this.isSubStepLocked(stepIndex, subStepIndex)) {
-      console.log('default')
       return 'default';
     }
 
     if (subStep.formGroup && this.isControlInvalid(subStep.formGroup)) {
-      console.log('warning')
       return 'warning';
     }
 
     if (this.isSubStepCompleted(stepIndex, subStepIndex)) {
-      console.log('success')
       return 'success';
     }
 
@@ -153,6 +194,16 @@ export class SmartStepperComponent implements OnDestroy {
     if (prev?.form) return this.isControlInvalid(prev.form);
     return false;
   }
+
+
+  automaticNextStep(index: number) {
+    const previousIndex = this.activeIndex();
+    if (index !== previousIndex) return
+    const nextIndex = index + 1;
+    if (nextIndex >= this.steps().length) return;
+    this.activeIndex.set(nextIndex);
+    this.stepChange.emit({ previousIndex, currentIndex: nextIndex });
+  };
 
   isSubStepCompleted(stepIndex: number, subStepIndex: number): boolean {
     const step = this.steps()[stepIndex];

@@ -14,6 +14,8 @@ import {
 } from '@angular/core';
 import { BdsProgressBarStrokeWidth } from '../../interfaces';
 
+export type ProgressCircularSize = 'sm' | 'md' | 'lg' | 'xl';
+
 /**
  * Wavy Circular Progress Component
  * Componente reusable de progreso circular con efecto de onda
@@ -22,31 +24,17 @@ import { BdsProgressBarStrokeWidth } from '../../interfaces';
  * @Input percent - Porcentaje de progreso (0-100)
  * @Input total - Total de elementos (por defecto 300)
  */
-/* 
-// Proporciones base (se escalarán responsivamente)
-const BASE_SIZE = 400;
-const BASE_RADIUS = 75;
-const BASE_INDICATOR_STROKE = 22;
-const BASE_TRACK_STROKE = BASE_INDICATOR_STROKE;
-const BASE_GAP = 10;
-
-// Configuración fija del componente
-const FIXED_AMPLITUDE = 3.5;
-const FIXED_NUM_WAVES = 12;
-const FIXED_TENSION = 110;
- */
 
 // Proporciones base (se escalarán responsivamente)
-const BASE_SIZE = 200;
-const BASE_RADIUS = 75;
-const BASE_INDICATOR_STROKE = 22;
-const BASE_TRACK_STROKE = BASE_INDICATOR_STROKE;
-const BASE_GAP = 10;
+const BASE_SIZE = 60;
+const BASE_RADIUS = 25;
+const PADDING_X = 2;
+const GAP_SIZE = 10;
 
 // Configuración fija del componente
-const FIXED_AMPLITUDE = 3.5;
-const FIXED_NUM_WAVES = 12;
-const FIXED_TENSION = 110;
+const FIXED_AMPLITUDE = 3;
+const FIXED_NUM_WAVES = 7;
+const ANIMATION_SPEED = 0.08;
 
 @Component({
   selector: 'bds-progress-circular',
@@ -56,6 +44,12 @@ const FIXED_TENSION = 110;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDestroy {
+  // --- Input desde el componente padre ---
+  percent = input<number>(0);
+  strokeWidth = input<BdsProgressBarStrokeWidth>(8);
+  size = input<ProgressCircularSize>('lg');
+  animation = input<boolean>(false);
+
   // --- Propiedades del Componente ---
   protected readonly Math = Math;
 
@@ -63,11 +57,6 @@ export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDe
   protected readonly viewBoxSize = BASE_SIZE;
   protected readonly CX = BASE_SIZE / 2;
   protected readonly CY = BASE_SIZE / 2;
-
-  // --- Input desde el componente padre ---
-  percent = input<number>(0);
-  total = input<number>(100);
-  strokeWidth = input<BdsProgressBarStrokeWidth>(8);
 
   // --- Referencia al Elemento del DOM ---
   @ViewChild('indicatorPath') private pathRef!: ElementRef<SVGPathElement>;
@@ -79,8 +68,8 @@ export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDe
   private animationFrameId?: number;
 
   // --- Estado Derivado (Computed Signals) ---
-  fractionCurrent = computed(() => Math.round((this.percentSignal() / 100) * this.total()));
 
+  percentTmp = computed(() => (this.percent() > 100 ? 100 : this.percent() < 0 ? 0 : this.percent()));
   trackPathLength = computed(() => 2 * Math.PI * BASE_RADIUS);
 
   pathD = computed(() => {
@@ -120,7 +109,7 @@ export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDe
   trackDashProps = computed(() => {
     const progress = this.percentSignal() / 100;
     const tLength = this.trackPathLength();
-    const adjustedGap = BASE_GAP + BASE_INDICATOR_STROKE / 2 + BASE_TRACK_STROKE / 2;
+    const adjustedGap = GAP_SIZE + PADDING_X / 2 + PADDING_X / 2;
     const totalAdjustedGap = 2 * adjustedGap;
     const shownLength = Math.max(0, tLength * (1 - progress) - totalAdjustedGap);
 
@@ -155,14 +144,14 @@ export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDe
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['percent']) {
       // Asegurar que el porcentaje esté entre 0 y 100
-      const newPercent = Math.max(0, Math.min(100, this.percent()));
+      const newPercent = Math.max(0, Math.min(100, this.percentTmp()));
       this.percentSignal.set(newPercent);
     }
   }
 
   ngAfterViewInit(): void {
     // Inicializa el porcentaje
-    this.percentSignal.set(Math.max(0, Math.min(100, this.percent())));
+    this.percentSignal.set(Math.max(0, Math.min(100, this.percentTmp())));
     // Inicia el bucle de animación
     this.runAnimation();
   }
@@ -176,10 +165,12 @@ export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDe
 
   // --- Bucle de Animación ---
   private runAnimation(): void {
-    const speed = FIXED_TENSION / 2000;
+    const speed = ANIMATION_SPEED;
     this.phase.update(p => (p + speed) % (2 * Math.PI));
 
-    this.animationFrameId = requestAnimationFrame(() => this.runAnimation());
+    if (this.animation()) {
+      this.animationFrameId = requestAnimationFrame(() => this.runAnimation());
+    }
   }
 
   // --- Funciones Auxiliares Privadas ---

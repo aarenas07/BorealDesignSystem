@@ -170,8 +170,6 @@ export class StepperProgressComponent implements AfterViewInit, OnChanges, OnDes
   private runAnimation(): void {
     const speed = FIXED_TENSION / 2000;
     this.phase.update(p => (p + speed) % (2 * Math.PI));
-
-    this.animationFrameId = requestAnimationFrame(() => this.runAnimation());
   }
 
   // --- Funciones Auxiliares Privadas ---

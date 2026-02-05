@@ -8,8 +8,8 @@ import { ProgressCircularComponent } from '@organizacion/ui-kit';
   styleUrl: './example-progress-circular.scss',
 })
 export class ExampleProgressCircular {
-  currentPercent = signal<number>(10);
-  total = signal<number>(300);
+  currentPercent = signal<number>(50);
+  total = signal<number>(100);
 
   constructor() {
     //this.increment();

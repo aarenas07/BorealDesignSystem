@@ -9,4 +9,17 @@ import { StepperProgressComponent } from '@organizacion/ui-kit';
 })
 export class ExampleStepperProgress {
   count = signal<number>(1);
+
+  constructor() {
+    //this.increment();
+  }
+
+  increment() {
+    setInterval(() => {
+      this.count.update(c => c + 1);
+      if (this.count() > 4) {
+        this.count.set(1);
+      }
+    }, 1000);
+  }
 }

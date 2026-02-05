@@ -1,4 +1,12 @@
-<div class="bds-wavy-progress-circular">
+<div
+  class="bds-wavy-progress-circular"
+  [class]="{
+    'bds-wave-progress-size-sm': size() === 'sm',
+    'bds-wave-progress-size-md': size() === 'md',
+    'bds-wave-progress-size-lg': size() === 'lg',
+    'bds-wave-progress-size-xl': size() === 'xl',
+  }"
+>
   <svg
     [attr.viewBox]="'0 0 ' + viewBoxSize + ' ' + viewBoxSize"
     preserveAspectRatio="xMidYMid meet"
@@ -14,7 +22,7 @@
         stroke-linecap="round"
         [attr.stroke-dasharray]="trackDashProps().strokeDasharray"
         [attr.stroke-dashoffset]="trackDashProps().strokeDashoffset"
-        class="bds-wave-progress-path-base bds-wave-progress-inactive-line"
+        class="bds-wave-progress-circular-path-base bds-wave-progress-circular-inactive-line"
       />
 
       <!-- Indicador Activo Ondulado -->
@@ -26,7 +34,7 @@
         stroke-linecap="round"
         stroke-linejoin="round"
         [attr.stroke-dasharray]="indicatorDashArray()"
-        class="bds-wave-progress-path-base bds-wave-progress-active-line"
+        class="bds-wave-progress-circular-path-base bds-wave-progress-circular-active-line"
       />
     </g>
   </svg>

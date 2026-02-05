@@ -21,7 +21,8 @@ const meta: Meta<ProgressBarComponent> = {
       control: 'boolean',
     },
     strokeWidth: {
-      control: { control: 'radio', options: [4, 8] },
+      control: 'radio',
+      options: [4, 8],
     },
     indeterminate: {
       control: 'boolean',

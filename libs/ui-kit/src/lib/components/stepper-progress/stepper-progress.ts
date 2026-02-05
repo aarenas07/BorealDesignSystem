@@ -69,9 +69,8 @@ export class StepperProgressComponent implements AfterViewInit, OnChanges, OnDes
   private animationFrameId?: number;
 
   // --- Estado Derivado (Computed Signals) ---
+  percentTmp = computed(() => (this.percent() > 10 ? 10 : this.percent() < 0 ? 0 : this.percent()));
   fractionTotal = computed(() => (this.total() > 10 ? 10 : this.total()));
-
-  fractionCurrent = computed(() => Math.round((this.percentSignal() / this.fractionTotal()) * this.total()));
 
   trackPathLength = computed(() => 2 * Math.PI * BASE_RADIUS);
 
@@ -147,14 +146,14 @@ export class StepperProgressComponent implements AfterViewInit, OnChanges, OnDes
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['percent']) {
       // Asegurar que el porcentaje esté entre 0 y this.fractionTotal()
-      const newPercent = Math.max(0, Math.min(this.fractionTotal(), this.percent()));
+      const newPercent = Math.max(0, Math.min(this.fractionTotal(), this.percentTmp()));
       this.percentSignal.set(newPercent);
     }
   }
 
   ngAfterViewInit(): void {
     // Inicializa el porcentaje
-    this.percentSignal.set(Math.max(0, Math.min(this.fractionTotal(), this.percent())));
+    this.percentSignal.set(Math.max(0, Math.min(this.fractionTotal(), this.percentTmp())));
     // Inicia el bucle de animación
     this.runAnimation();
   }

@@ -18,7 +18,7 @@
       <path
         [attr.d]="trackPathD()"
         fill="none"
-        [attr.stroke-width]="strokeWidth()"
+        [attr.stroke-width]="strokeWidthTmp()"
         stroke-linecap="round"
         [attr.stroke-dasharray]="trackDashProps().strokeDasharray"
         [attr.stroke-dashoffset]="trackDashProps().strokeDashoffset"
@@ -30,7 +30,7 @@
         #indicatorPath
         [attr.d]="pathD()"
         fill="none"
-        [attr.stroke-width]="strokeWidth()"
+        [attr.stroke-width]="strokeWidthTmp()"
         stroke-linecap="round"
         stroke-linejoin="round"
         [attr.stroke-dasharray]="indicatorDashArray()"

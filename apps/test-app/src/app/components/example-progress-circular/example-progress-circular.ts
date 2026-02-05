@@ -9,7 +9,6 @@ import { ProgressCircularComponent } from '@organizacion/ui-kit';
 })
 export class ExampleProgressCircular {
   currentPercent = signal<number>(50);
-  total = signal<number>(100);
 
   constructor() {
     //this.increment();

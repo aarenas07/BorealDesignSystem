@@ -12,7 +12,7 @@ import {
   SimpleChanges,
   OnDestroy,
 } from '@angular/core';
-import { BdsProgressBarStrokeWidth } from '../../interfaces';
+import { BdsProgressCircularStrokeWidth } from '../../interfaces';
 
 export type ProgressCircularSize = 'sm' | 'md' | 'lg' | 'xl';
 
@@ -22,14 +22,13 @@ export type ProgressCircularSize = 'sm' | 'md' | 'lg' | 'xl';
  * Se ajusta responsivamente al contenedor
  *
  * @Input percent - Porcentaje de progreso (0-100)
- * @Input total - Total de elementos (por defecto 300)
  */
 
 // Proporciones base (se escalarán responsivamente)
 const BASE_SIZE = 60;
 const BASE_RADIUS = 25;
-const PADDING_X = 2;
-const GAP_SIZE = 10;
+const PADDING_X = 9;
+const GAP_SIZE = 2;
 
 // Configuración fija del componente
 const FIXED_AMPLITUDE = 3;
@@ -44,12 +43,6 @@ const ANIMATION_SPEED = 0.08;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDestroy {
-  // --- Input desde el componente padre ---
-  percent = input<number>(0);
-  strokeWidth = input<BdsProgressBarStrokeWidth>(8);
-  size = input<ProgressCircularSize>('lg');
-  animation = input<boolean>(false);
-
   // --- Propiedades del Componente ---
   protected readonly Math = Math;
 
@@ -57,6 +50,12 @@ export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDe
   protected readonly viewBoxSize = BASE_SIZE;
   protected readonly CX = BASE_SIZE / 2;
   protected readonly CY = BASE_SIZE / 2;
+
+  // --- Input desde el componente padre ---
+  percent = input<number>(0);
+  strokeWidth = input<BdsProgressCircularStrokeWidth>(4.5);
+  size = input<ProgressCircularSize>('md');
+  animation = input<boolean>(false);
 
   // --- Referencia al Elemento del DOM ---
   @ViewChild('indicatorPath') private pathRef!: ElementRef<SVGPathElement>;
@@ -71,14 +70,32 @@ export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDe
 
   percentTmp = computed(() => (this.percent() > 100 ? 100 : this.percent() < 0 ? 0 : this.percent()));
   trackPathLength = computed(() => 2 * Math.PI * BASE_RADIUS);
+  strokeWidthTmp = computed(() => {
+    if (this.strokeWidth() === 4.5) {
+      return 4.5;
+    }
+    if (this.strokeWidth() === 9) {
+      return 9;
+    }
+
+    return 4.5;
+  });
 
   pathD = computed(() => {
+    let amplitude = FIXED_AMPLITUDE;
+    let numWaves = FIXED_NUM_WAVES;
+
+    if (!this.animation()) {
+      amplitude = 0.01;
+      numWaves = 1;
+    }
+
     const points = this.generateWavyPoints({
       cx: this.CX,
       cy: this.CY,
       radius: BASE_RADIUS,
-      amplitude: FIXED_AMPLITUDE,
-      numWaves: FIXED_NUM_WAVES,
+      amplitude,
+      numWaves,
       phase: this.phase(),
     });
     return this.createCurvyPath(points);

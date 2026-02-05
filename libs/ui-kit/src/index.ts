@@ -30,3 +30,4 @@ export * from './lib/components/chip-dropdown/chip-dropdown';
 export * from './lib/components/stepper-progress/stepper-progress';
 export * from './lib/components/progress-bar/progress-bar';
 export * from './lib/components/searchbar/searchbar';
+export * from './lib/components/panel-layout/panel-layout';

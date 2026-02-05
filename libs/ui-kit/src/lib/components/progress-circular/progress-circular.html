@@ -13,7 +13,7 @@
     role="img"
     [attr.aria-label]="'Progreso ' + currentPercent + '%'"
   >
-    <g [attr.transform]="'rotate(-90 ' + CX + ' ' + CY + ')'">
+    <g [attr.transform]="'rotate(-90 ' + CX + ' ' + CY + ')'" [class.bds-progress-circular-indeterminate]="indeterminate()">
       <!-- Pista Inactiva -->
       <path
         [attr.d]="trackPathD()"

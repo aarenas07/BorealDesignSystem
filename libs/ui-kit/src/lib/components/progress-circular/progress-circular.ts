@@ -56,6 +56,7 @@ export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDe
   strokeWidth = input<BdsProgressCircularStrokeWidth>(4.5);
   size = input<ProgressCircularSize>('md');
   animation = input<boolean>(false);
+  indeterminate = input<boolean>(false);
 
   // --- Referencia al Elemento del DOM ---
   @ViewChild('indicatorPath') private pathRef!: ElementRef<SVGPathElement>;
@@ -85,7 +86,7 @@ export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDe
     let amplitude = FIXED_AMPLITUDE;
     let numWaves = FIXED_NUM_WAVES;
 
-    if (!this.animation()) {
+    if (!this.animation() || this.indeterminate()) {
       amplitude = 0.01;
       numWaves = 1;
     }
@@ -118,14 +119,25 @@ export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDe
     const tLength = this.trackPathLength();
     if (pLength === 0 || tLength === 0) return `0 9999`;
 
+    if (this.indeterminate()) {
+      // For indeterminate state, show about 25% of the circle
+      const visibleLength = pLength * 0.25;
+      return `${visibleLength} ${pLength}`;
+    }
+
     const lengthRatio = pLength / tLength;
     const visibleLength = tLength * (this.percentSignal() / 100) * lengthRatio;
     return `${visibleLength} ${pLength}`;
   });
 
   trackDashProps = computed(() => {
-    const progress = this.percentSignal() / 100;
     const tLength = this.trackPathLength();
+
+    if (this.indeterminate()) {
+      return { strokeDasharray: `${tLength} ${tLength}`, strokeDashoffset: 0 };
+    }
+
+    const progress = this.percentSignal() / 100;
     const adjustedGap = GAP_SIZE + PADDING_X / 2 + PADDING_X / 2;
     const totalAdjustedGap = 2 * adjustedGap;
     const shownLength = Math.max(0, tLength * (1 - progress) - totalAdjustedGap);

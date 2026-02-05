@@ -42,7 +42,10 @@ const meta: Meta<TableComponent> = {
     columns: [],
     data: [],
     actions: [],
-    config: {},
+    config: {
+      pageSizeOptions: [],
+      defaultPageSize: 10,
+    },
   },
 };
 
@@ -101,7 +104,8 @@ export const SortableAndFilterable: Story = {
     data: mockData,
     config: {
       showGlobalFilter: true,
-      pageSizeOptions: [5, 10, 20],
+      pageSizeOptions: [],
+      defaultPageSize: 10,
     },
   },
 };
@@ -113,6 +117,8 @@ export const WithSelection: Story = {
     config: {
       selectable: true,
       showGlobalFilter: true,
+      pageSizeOptions: [],
+      defaultPageSize: 10,
     },
   },
 };
@@ -121,6 +127,11 @@ export const WithActions: Story = {
   args: {
     columns: basicColumns,
     data: mockData,
+    config: {
+      showGlobalFilter: true,
+      pageSizeOptions: [],
+      defaultPageSize: 10,
+    },
     actions: [
       {
         icon: 'edit',
@@ -142,6 +153,11 @@ export const WithActionsDisabled: Story = {
   args: {
     columns: basicColumns,
     data: mockData,
+    config: {
+      showGlobalFilter: true,
+      pageSizeOptions: [],
+      defaultPageSize: 10,
+    },
     actions: [
       {
         icon: 'edit',
@@ -180,6 +196,8 @@ export const DetailedConfiguration: Story = {
       stickyHeader: true,
       density: 'compact',
       zebraStriping: true,
+      pageSizeOptions: [],
+      defaultPageSize: 10,
     },
     actions: [
       {
@@ -224,7 +242,10 @@ export const LoadingState: Story = {
   args: {
     columns: basicColumns,
     data: [], // Sin datos mientras carga
-    config: {},
+    config: {
+      pageSizeOptions: [],
+      defaultPageSize: 10,
+    },
   },
   play: async ({ canvasElement }) => {
     // Aquí podríamos simular el estado de carga inyectando el componente y seteando loading=true
@@ -241,6 +262,10 @@ export const EmptyState: Story = {
   args: {
     columns: basicColumns,
     data: [],
+    config: {
+      pageSizeOptions: [],
+      defaultPageSize: 10,
+    },
   },
 };
 
@@ -275,6 +300,8 @@ export const WithExpandableRows: Story = {
     data: mockData,
     config: {
       expandable: true,
+      pageSizeOptions: [],
+      defaultPageSize: 10,
     },
   },
 };

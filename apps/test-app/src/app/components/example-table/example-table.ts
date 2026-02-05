@@ -2,8 +2,6 @@ import { AfterViewInit, Component, inject, OnInit, signal, TemplateRef, ViewChil
 import { MatChipsModule } from '@angular/material/chips';
 import { TableAction, TableColumn, TableComponent, TableConfig, TableHeaderAction, TableSelectionAction } from '@organizacion/ui-kit';
 import { MatIcon } from '@angular/material/icon';
-
-import { USUARIOS_TEST_ONE } from 'apps/test-app/src/assets/files/data';
 import { TableService } from '../../service/table.services';
 
 interface User {
@@ -99,12 +97,12 @@ export class ExampleTable implements OnInit, AfterViewInit {
     zebraStriping: false,
     density: 'compact',
     pageSizeOptions: [],
-    defaultPageSize: 10,
+    defaultPageSize: 5,
     stickyHeader: true,
   };
 
   currentPage = signal<number>(0);
-  pageSize = signal<number>(10);
+  pageSize = signal<number>(5);
 
   // Server-side Table Demo
   serverUsers: User[] = [];

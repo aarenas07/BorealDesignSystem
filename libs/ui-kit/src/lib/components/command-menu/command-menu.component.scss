@@ -19,14 +19,12 @@
   letter-spacing: 0.5px;
 
   &:hover:not(.disabled) {
-    background-color: #e8e8e8;
+    background-color: var(--mat-sys-surface-container-high);
   }
 
   .placeholder-text {
     font-family: 'Roboto', sans-serif;
-    font-size: var(--sds-typography-body-size-medium);
     font-style: normal;
-    font-weight: var(--sds-typography-body-font-weight-regular);
     line-height: 100%;
     display: flex;
     justify-content: center;
@@ -43,6 +41,5 @@
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-style: normal;
-    font-weight: var(--sds-typography-code-font-weight);
   }
 }

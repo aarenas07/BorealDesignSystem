@@ -11,23 +11,23 @@
 }
 
 ::ng-deep .mat-accordion .mat-expansion-panel-header {
-  background-color: var(--bds-expansion-panel-header-bg);
+  background-color: var(--mat-sys-surface);
 }
 
 ::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
-  background-color: var(--bds-expansion-panel-header-bg);
+  background-color: var(--mat-sys-primary-container);
 }
 
 ::ng-deep .mat-accordion .mat-expansion-panel-header:hover,
 ::ng-deep .mat-accordion .mat-expansion-panel-header:focus,
 ::ng-deep .mat-accordion .mat-expansion-panel-header.cdk-keyboard-focused,
 ::ng-deep .mat-accordion .mat-expansion-panel.mat-expanded .mat-expansion-panel-header {
-  background-color: var(--bds-expansion-panel-header-bg);
+  background-color: var(--mat-sys-primary-container);
 }
 
 ::ng-deep .mat-accordion .mat-expansion-panel-content,
 ::ng-deep .mat-accordion .mat-expansion-panel-body {
-  background-color: var(--bds-expansion-panel-content-bg);
+  background-color: var(--mat-sys-surface);
 }
 
 ::ng-deep .mat-expansion-panel-header-description {

@@ -1,7 +1,18 @@
 <section class="component-section">
-  <h2>Stepper Progress</h2>
+  <h2>Stepper Progress (sm)</h2>
   <div class="demo-row">
-    <bds-stepper-progress [percent]="count()" [total]="5"></bds-stepper-progress>
-    <bds-stepper-progress [percent]="count()"></bds-stepper-progress>
+    <bds-stepper-progress [percent]="count()+1" [size]="'sm'" [total]="5"></bds-stepper-progress>
+  </div>
+  <h2>Stepper Progress (md)</h2>
+  <div class="demo-row">
+    <bds-stepper-progress [percent]="count()+1" [size]="'md'" [total]="5"></bds-stepper-progress>
+  </div>
+  <h2>Stepper Progress (lg)</h2>
+  <div class="demo-row">
+    <bds-stepper-progress [percent]="count()+1" [size]="'lg'" [total]="5"></bds-stepper-progress>
+  </div>
+  <h2>Stepper Progress (xl)</h2>
+  <div class="demo-row">
+    <bds-stepper-progress [percent]="count()+1" [size]="'xl'" [total]="5"></bds-stepper-progress>
   </div>
 </section>

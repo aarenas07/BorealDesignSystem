@@ -1,4 +1,4 @@
-.wavy-progress {
+.bds-wave-progress-circular {
   position: relative;
   width: 40px;
   height: 40px;
@@ -7,17 +7,46 @@
   justify-content: center;
   container-type: inline-size;
 
-  svg {
-    display: block;
+  &.bds-wave-progress-size-sm {
     width: 40px;
     height: 40px;
+  }
+
+  &.bds-wave-progress-size-md {
+    width: 48px;
+    height: 48px;
+  }
+
+  &.bds-wave-progress-size-lg {
+    width: 56px;
+    height: 56px;
+  }
+
+  &.bds-wave-progress-size-xl {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* Estilos base para ambas líneas */
+  .bds-wave-progress-path-base {
+    fill: none;
+    stroke-linecap: round; /* Bordes redondeados clave para el efecto del gap */
+    transition: all 0.3s ease-out;
+
+    &.bds-wave-progress-active-line {
+      stroke: var(--mat-sys-primary);
+    }
+
+    &.bds-wave-progress-inactive-line {
+      stroke: var(--mat-sys-secondary-container);
+    }
   }
 
   .progress-percentage {
     fill: var(--mat-sys-on-surface-variant);
     text-anchor: middle;
     font-family: Roboto, sans-serif;
-    font-size: 12px;
+    font-size: 1.2rem;
     font-style: normal;
     font-weight: 500;
   }

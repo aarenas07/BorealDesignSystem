@@ -1,0 +1,64 @@
+.bds-wavy-progress-circular {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  container-type: inline-size;
+
+  &.bds-wave-progress-size-sm {
+    width: 40px;
+    height: 40px;
+  }
+
+  &.bds-wave-progress-size-md {
+    width: 48px;
+    height: 48px;
+  }
+
+  &.bds-wave-progress-size-lg {
+    width: 56px;
+    height: 56px;
+  }
+
+  &.bds-wave-progress-size-xl {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* Estilos base para ambas líneas */
+  .bds-wave-progress-circular-path-base {
+    fill: none;
+    stroke-linecap: round; /* Bordes redondeados clave para el efecto del gap */
+    transition: all 0.3s ease-out;
+
+    &.bds-wave-progress-circular-active-line {
+      stroke: var(--mat-sys-primary);
+    }
+
+    &.bds-wave-progress-circular-inactive-line {
+      stroke: var(--mat-sys-secondary-container);
+    }
+  }
+
+  // Animación para el estado indeterminado
+  .bds-progress-circular-indeterminate {
+    animation: bds-progress-circular-rotate 1.4s linear infinite;
+    transform-origin: center;
+  }
+
+  // Transición suave del color del stroke
+  path {
+    transition: stroke 0.35s ease-out;
+  }
+}
+
+@keyframes bds-progress-circular-rotate {
+  0% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}

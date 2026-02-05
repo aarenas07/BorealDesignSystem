@@ -230,9 +230,13 @@ export class ProgressBarComponent implements AfterViewInit, OnChanges, OnDestroy
         if (next > 1.2) next = -0.2; // Loop extendido para que entre y salga
         return next;
       });
+      this.animationFrameId = requestAnimationFrame(() => this.runAnimation());
+      return;
     }
 
-    this.animationFrameId = requestAnimationFrame(() => this.runAnimation());
+    if (this.animation()) {
+      this.animationFrameId = requestAnimationFrame(() => this.runAnimation());
+    }
   }
 
   // --- MATEMÁTICAS ---

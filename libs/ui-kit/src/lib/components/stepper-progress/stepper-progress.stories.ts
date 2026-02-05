@@ -11,6 +11,10 @@ const meta: Meta<StepperProgressComponent> = {
     total: {
       control: 'number',
     },
+    size: {
+      control: 'radio',
+      options: ['sm', 'md', 'lg', 'xl'],
+    },
   },
 };
 
@@ -21,5 +25,6 @@ export const Default: Story = {
   args: {
     percent: 1,
     total: 5,
+    size: 'md',
   },
 };

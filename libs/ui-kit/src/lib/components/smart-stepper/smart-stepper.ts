@@ -26,6 +26,7 @@ export class SmartStepperComponent implements OnDestroy {
   activeIndexSubStep = model<number>(0);
   orientation = input<'horizontal' | 'vertical'>('horizontal');
   linear = input<boolean>(false);
+  allowInvalidAdvance = input<boolean>(false);
 
   stepChange = output<{ previousIndex: number; currentIndex: number }>();
   subStepClick = output<{ stepIndex: number; subStepIndex: number }>();
@@ -142,11 +143,20 @@ export class SmartStepperComponent implements OnDestroy {
       return;
     }
 
-    // Para avanzar, exigir que el paso actual esté válido
-    if (this.activeFormStatus() === 'VALID' || this.lastActiveFormStatus === 'VALID') {
+    console.log('onStepHeaderClick')
+    console.log(this.allowInvalidAdvance())
+
+    // Para avanzar, exigir que el paso actual esté válido (o permitir si se habilita)
+    if (this.allowInvalidAdvance() && (this.activeFormStatus() === 'INVALID' ||
+      this.lastActiveFormStatus === 'INVALID')) {
       this.activeIndex.set(index);
       this.stepChange.emit({ previousIndex, currentIndex: index });
     }
+
+    // if (this.activeFormStatus() === 'VALID' || this.lastActiveFormStatus === 'VALID') {
+    //   this.activeIndex.set(index);
+    //   this.stepChange.emit({ previousIndex, currentIndex: index });
+    // }
   }
 
   getSubStepTone(subStepIndex: number): 'default' | 'success' | 'warning' | 'error' {

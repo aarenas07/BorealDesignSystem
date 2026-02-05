@@ -2,8 +2,9 @@
 <section class="component-section">
   <h2>Smart Stepper</h2>
   <div class="demo-row">
-    <bds-smart-stepper [steps]="steps" [(activeIndex)]="activeIndex" [(activeIndexSubStep)]="activeIndexSubStep"
-      [linear]="true" (stepChange)="onStepChange($event)" (subStepClick)="onSubStepChange(undefined, $event)">
+    <bds-smart-stepper [steps]="steps" [allowInvalidAdvance]="true" [(activeIndex)]="activeIndex"
+      [(activeIndexSubStep)]="activeIndexSubStep" [linear]="true" (stepChange)="onStepChange($event)"
+      (subStepClick)="onSubStepChange(undefined, $event)">
       <!-- PASO 0 -->
       <ng-template bdsStepContent="0">
         <mat-stepper class="bds-smart-stepper__inner-stepper" (selectionChange)="onSubStepChange($event)"

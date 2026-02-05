@@ -7,46 +7,43 @@ import {
   ElementRef,
   AfterViewInit,
   ChangeDetectionStrategy,
+  input,
   OnChanges,
   SimpleChanges,
   OnDestroy,
-  input,
 } from '@angular/core';
+import { BdsProgressCircularStrokeWidth } from '../../interfaces';
+
+export type ProgressCircularSize = 'sm' | 'md' | 'lg' | 'xl';
 
 /**
  * Wavy Circular Progress Component
- * Componente reusable de progreso circular
+ * Componente reusable de progreso circular con efecto de onda
  * Se ajusta responsivamente al contenedor
  *
- * @Input percent - Porcentaje de progreso (0-10)
- * @Input total - Total de elementos (por defecto 10)
+ * @Input percent - Porcentaje de progreso (0-100)
  */
 
 // Proporciones base (se escalarán responsivamente)
 const BASE_SIZE = 60;
 const BASE_RADIUS = 25;
-const BASE_INDICATOR_STROKE = 9;
-const BASE_TRACK_STROKE = BASE_INDICATOR_STROKE;
-const BASE_GAP = 2;
+const PADDING_X = 9;
+const GAP_SIZE = 2;
 
 // Configuración fija del componente
-const FIXED_AMPLITUDE = 0.7;
-const FIXED_NUM_WAVES = 1;
-const FIXED_TENSION = 1;
-
-export type StepperProgressSize = 'sm' | 'md' | 'lg' | 'xl';
+const FIXED_AMPLITUDE = 3;
+const FIXED_NUM_WAVES = 7;
+const ANIMATION_SPEED = 0.08;
 
 @Component({
-  selector: 'bds-stepper-progress',
+  selector: 'bds-progress-circular',
   imports: [],
-  templateUrl: './stepper-progress.html',
-  styleUrl: './stepper-progress.scss',
+  templateUrl: './progress-circular.html',
+  styleUrl: './progress-circular.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StepperProgressComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class ProgressCircularComponent implements AfterViewInit, OnChanges, OnDestroy {
   // --- Propiedades del Componente ---
-  protected readonly INDICATOR_STROKE = BASE_INDICATOR_STROKE;
-  protected readonly TRACK_STROKE = BASE_TRACK_STROKE;
   protected readonly Math = Math;
 
   // ViewBox fijo para mantener proporciones
@@ -56,8 +53,10 @@ export class StepperProgressComponent implements AfterViewInit, OnChanges, OnDes
 
   // --- Input desde el componente padre ---
   percent = input<number>(0);
-  total = input<number>(10);
-  size = input<StepperProgressSize>('md');
+  strokeWidth = input<BdsProgressCircularStrokeWidth>(4.5);
+  size = input<ProgressCircularSize>('md');
+  animation = input<boolean>(false);
+  indeterminate = input<boolean>(false);
 
   // --- Referencia al Elemento del DOM ---
   @ViewChild('indicatorPath') private pathRef!: ElementRef<SVGPathElement>;
@@ -69,18 +68,35 @@ export class StepperProgressComponent implements AfterViewInit, OnChanges, OnDes
   private animationFrameId?: number;
 
   // --- Estado Derivado (Computed Signals) ---
-  percentTmp = computed(() => (this.percent() > 10 ? 10 : this.percent() < 0 ? 0 : this.percent()));
-  fractionTotal = computed(() => (this.total() > 10 ? 10 : this.total()));
 
+  percentTmp = computed(() => (this.percent() > 100 ? 100 : this.percent() < 0 ? 0 : this.percent()));
   trackPathLength = computed(() => 2 * Math.PI * BASE_RADIUS);
+  strokeWidthTmp = computed(() => {
+    if (this.strokeWidth() === 4.5) {
+      return 4.5;
+    }
+    if (this.strokeWidth() === 9) {
+      return 9;
+    }
+
+    return 4.5;
+  });
 
   pathD = computed(() => {
+    let amplitude = FIXED_AMPLITUDE;
+    let numWaves = FIXED_NUM_WAVES;
+
+    if (!this.animation() || this.indeterminate()) {
+      amplitude = 0.01;
+      numWaves = 1;
+    }
+
     const points = this.generateWavyPoints({
       cx: this.CX,
       cy: this.CY,
       radius: BASE_RADIUS,
-      amplitude: FIXED_AMPLITUDE,
-      numWaves: FIXED_NUM_WAVES,
+      amplitude,
+      numWaves,
       phase: this.phase(),
     });
     return this.createCurvyPath(points);
@@ -103,19 +119,30 @@ export class StepperProgressComponent implements AfterViewInit, OnChanges, OnDes
     const tLength = this.trackPathLength();
     if (pLength === 0 || tLength === 0) return `0 9999`;
 
+    if (this.indeterminate()) {
+      // For indeterminate state, show about 25% of the circle
+      const visibleLength = pLength * 0.25;
+      return `${visibleLength} ${pLength}`;
+    }
+
     const lengthRatio = pLength / tLength;
-    const visibleLength = tLength * (this.percentSignal() / this.fractionTotal()) * lengthRatio;
+    const visibleLength = tLength * (this.percentSignal() / 100) * lengthRatio;
     return `${visibleLength} ${pLength}`;
   });
 
   trackDashProps = computed(() => {
-    const progress = this.percentSignal() / this.fractionTotal();
     const tLength = this.trackPathLength();
-    const adjustedGap = BASE_GAP + BASE_INDICATOR_STROKE / 2 + BASE_TRACK_STROKE / 2;
+
+    if (this.indeterminate()) {
+      return { strokeDasharray: `${tLength} ${tLength}`, strokeDashoffset: 0 };
+    }
+
+    const progress = this.percentSignal() / 100;
+    const adjustedGap = GAP_SIZE + PADDING_X / 2 + PADDING_X / 2;
     const totalAdjustedGap = 2 * adjustedGap;
     const shownLength = Math.max(0, tLength * (1 - progress) - totalAdjustedGap);
 
-    if (this.percentSignal() >= this.fractionTotal()) {
+    if (this.percentSignal() >= 100) {
       return { strokeDasharray: `0 ${tLength}`, strokeDashoffset: 0 };
     }
     if (this.percentSignal() <= 0) {
@@ -145,15 +172,15 @@ export class StepperProgressComponent implements AfterViewInit, OnChanges, OnDes
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['percent']) {
-      // Asegurar que el porcentaje esté entre 0 y this.fractionTotal()
-      const newPercent = Math.max(0, Math.min(this.fractionTotal(), this.percentTmp()));
+      // Asegurar que el porcentaje esté entre 0 y 100
+      const newPercent = Math.max(0, Math.min(100, this.percentTmp()));
       this.percentSignal.set(newPercent);
     }
   }
 
   ngAfterViewInit(): void {
     // Inicializa el porcentaje
-    this.percentSignal.set(Math.max(0, Math.min(this.fractionTotal(), this.percentTmp())));
+    this.percentSignal.set(Math.max(0, Math.min(100, this.percentTmp())));
     // Inicia el bucle de animación
     this.runAnimation();
   }
@@ -167,8 +194,12 @@ export class StepperProgressComponent implements AfterViewInit, OnChanges, OnDes
 
   // --- Bucle de Animación ---
   private runAnimation(): void {
-    const speed = FIXED_TENSION / 2000;
+    const speed = ANIMATION_SPEED;
     this.phase.update(p => (p + speed) % (2 * Math.PI));
+
+    if (this.animation()) {
+      this.animationFrameId = requestAnimationFrame(() => this.runAnimation());
+    }
   }
 
   // --- Funciones Auxiliares Privadas ---

@@ -27,11 +27,12 @@
 .bds-smart-stepper__header-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  // gap: 12px;
 }
 
 .bds-smart-stepper__header-row--secondary {
   justify-content: space-between;
+  gap: 12px;
 }
 
 .bds-smart-stepper__pill {
@@ -76,6 +77,9 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  padding: 0 12px 0 12px;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .bds-smart-stepper__fields-label {
@@ -84,8 +88,8 @@
 }
 
 .bds-smart-stepper__substepper-button {
-  flex: 0 0 auto;
-  width: 53px;
+  flex: 1 1 0%;
+  width: 100%;
   height: 6px;
   padding: 0;
   min-width: 0;
@@ -113,17 +117,20 @@
 }
 
 .bds-smart-stepper__mini-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   max-width: 100%;
 }
 
 .bds-smart-stepper__mini-step {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
   border: 1px solid var(--mat-sys-outline);
   background: transparent;
   color: var(--mat-sys-on-surface);
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -336,8 +343,8 @@
 }
 
 .bds-smart-stepper__mini-steps .mat-step-icon {
-  width: 24px;
-  height: 24px;
+  width: 40px !important;
+  height: 40px !important;
   border-radius: 999px;
   border: 1px solid var(--mat-sys-outline);
   background: transparent;

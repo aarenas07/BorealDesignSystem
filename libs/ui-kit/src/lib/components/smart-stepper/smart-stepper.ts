@@ -2,7 +2,6 @@ import { Component, computed, contentChildren, effect, input, model, output, OnD
 import { CommonModule } from '@angular/common';
 import { BdsStepContentDirective } from '../../directives/bds-step-content.directive';
 import { CdkStepperModule, StepperSelectionEvent } from '@angular/cdk/stepper';
-import { MatStepperModule } from '@angular/material/stepper';
 import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Subscription } from 'rxjs';
@@ -15,7 +14,6 @@ import { Subscription } from 'rxjs';
     CommonModule,
     MatIconModule,
     CdkStepperModule,
-    MatStepperModule,
   ],
   templateUrl: './smart-stepper.html',
   styleUrl: './smart-stepper.scss',

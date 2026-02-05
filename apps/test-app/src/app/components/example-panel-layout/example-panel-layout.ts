@@ -4,6 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LayoutPanelComponent } from '@organizacion/ui-kit';
+import { ExampleTable } from '../example-table/example-table';
 
 // --- MOCK / DUMMY COMPONENT CORREGIDO ---
 @Component({
@@ -12,22 +13,22 @@ import { LayoutPanelComponent } from '@organizacion/ui-kit';
   imports: [MatButtonModule],
   template: `
     <div style="padding: 20px;">
-      <h2>Editando: {{ activo()?.placa }}</h2>
-      <h2>Editando: {{ activo()?.descripcion }}</h2>
-      <h2>Editando: {{ activo()?.codigo }}</h2>
-      <h2>Editando: {{ activo()?.estado }}</h2>
-      <h2>Editando: {{ activo()?.ubicacion }}</h2>
-      <p>Formulario simulado...</p>
+      <h2>Editando: {{ data()?.name }}</h2>
+      <p>Email: {{ data()?.email }}</p>
+      <p>Rol: {{ data()?.role }}</p>
+      <p>Estado: {{ data()?.status }}</p>
+      <p>Departamento: {{ data()?.department }}</p>
+
       <div style="margin-top: 20px; display: flex; gap: 10px;">
         <button mat-stroked-button (click)="cancel.emit()">Cancelar</button>
-        <button mat-flat-button color="primary" (click)="save.emit(activo())">Guardar Cambios</button>
+        <button mat-flat-button color="primary" (click)="save.emit(data())">Guardar Cambios</button>
       </div>
     </div>
   `,
 })
 export class MockGestionarActivoComponent {
   // CORRECCIÓN: Usamos 'input' para recibir datos y 'output' para eventos
-  activo = input.required<any>();
+  data = input.required<any>();
   cancel = output<void>();
   save = output<any>();
 }
@@ -36,7 +37,7 @@ export class MockGestionarActivoComponent {
 @Component({
   selector: 'app-example-panel-layout',
   standalone: true,
-  imports: [CommonModule, LayoutPanelComponent, MatTableModule, MatIconModule, MockGestionarActivoComponent],
+  imports: [CommonModule, LayoutPanelComponent, MatTableModule, MatIconModule, MockGestionarActivoComponent, ExampleTable],
   templateUrl: './example-panel-layout.html',
   styleUrls: ['./example-panel-layout.scss'],
 })
@@ -49,17 +50,11 @@ export class ExamplePanelLayoutComponent {
   // 2. ESTADO DE DATOS
   selectedItem = signal<any>(null);
 
-  // 3. DATOS DE LA TABLA
-  displayedColumns: string[] = ['placa', 'descripcion', 'estado', 'ubicacion'];
-  dataSource = [
-    { placa: '000063429', descripcion: 'Breve descripción del activo', codigo: '123456', estado: 'Activo', ubicacion: 'Antioquia' },
-    { placa: '000063430', descripcion: 'Transformador 50kVA', codigo: '234567', estado: 'Activo', ubicacion: 'Valle' },
-    { placa: '000063431', descripcion: 'Poste de concreto 12m', codigo: '345678', estado: 'Mantenimiento', ubicacion: 'Bogotá' },
-  ];
+  // 3. DATOS DE LA TABLA - Ya no necesitamos dataSource local ni columns porque viene de ExampleTable
 
   selectItem(row: any) {
     this.selectedItem.set(row);
-    console.log(this.selectedItem());
+    console.log('Selected item for panel:', this.selectedItem());
     this.isPanelOpen.set(true);
   }
 

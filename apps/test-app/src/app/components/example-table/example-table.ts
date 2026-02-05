@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, signal, TemplateRef, ViewChild, output } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { TableAction, TableColumn, TableComponent, TableConfig, TableHeaderAction, TableSelectionAction } from '@organizacion/ui-kit';
 import { MatIcon } from '@angular/material/icon';
@@ -29,6 +29,9 @@ export class ExampleTable implements OnInit, AfterViewInit {
   @ViewChild('roleTemplate') roleTemplate!: TemplateRef<any>;
   @ViewChild('salaryTemplate') salaryTemplate!: TemplateRef<any>;
 
+  /* outputs */
+  edit = output<User>();
+
   users: User[] = [];
   tableColumns: TableColumn<User>[] = [
     { key: 'name', label: 'Usuario', sortable: true, sticky: true },
@@ -50,7 +53,7 @@ export class ExampleTable implements OnInit, AfterViewInit {
       label: 'Editar',
       tooltip: 'Editar usuario',
       color: 'primary',
-      onClick: user => this.editUser(user),
+      onClick: user => this.edit.emit(user),
     },
     {
       icon: 'visibility',
@@ -266,6 +269,7 @@ export class ExampleTable implements OnInit, AfterViewInit {
 
   editUser(user: User) {
     console.log('Editing user:', user);
+    this.edit.emit(user);
   }
 
   viewUser(user: User) {

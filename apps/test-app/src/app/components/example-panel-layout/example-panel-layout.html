@@ -1,0 +1,26 @@
+<div class="p-4 border-b">
+  <h1 class="text-2xl font-bold m-0">Inventario</h1>
+</div>
+
+<bds-panel-layout
+  [isOpen]="isPanelOpen()"
+  [panelWidth]="910"
+  panelTitle="Gestionar activo"
+  (closePanel)="isPanelOpen.set(false)"
+  style="flex: 1; display: block; overflow: hidden"
+>
+  <div main class="h-full overflow-auto p-4">
+    <app-example-table (edit)="selectItem($event)"></app-example-table>
+  </div>
+
+  <div panel class="h-full">
+    <div class="p-4">
+      @if (selectedItem()) {
+      <app-gestionar-activo [data]="selectedItem()" (cancel)="isPanelOpen.set(false)" (save)="guardarCambios($event)">
+      </app-gestionar-activo>
+      } @else {
+      <p>Selecciona un activo para ver los detalles.</p>
+      }
+    </div>
+  </div>
+</bds-panel-layout>

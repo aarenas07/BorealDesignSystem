@@ -31,6 +31,7 @@ import { ExampleChipDropdown } from './components/example-chip-dropdown/example-
 import { ExampleStepperProgress } from './components/example-stepper-progress/example-stepper-progress';
 import { ExampleProgressBar } from './components/example-progress-bar/example-progress-bar';
 import { ExampleSearchbar } from './components/example-searchbar/example-searchbar';
+import { ExamplePanelLayoutComponent } from './components/example-panel-layout/example-panel-layout';
 import { ExampleProgressCircular } from './components/example-progress-circular/example-progress-circular';
 
 @Component({
@@ -67,6 +68,7 @@ import { ExampleProgressCircular } from './components/example-progress-circular/
     ExampleStepperProgress,
     ExampleProgressBar,
     ExampleSearchbar,
+    ExamplePanelLayoutComponent,
     ExampleProgressCircular,
   ],
 

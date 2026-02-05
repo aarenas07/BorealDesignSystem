@@ -1,0 +1,17 @@
+<div class="layout-wrapper">
+  <div class="main-content">
+    <ng-content select="[main]"></ng-content>
+  </div>
+
+  <aside class="panel-container" [class.is-open]="isOpen()" [style.--panel-width]="effectiveWidth()">
+    <div class="panel-inner" [style.width]="effectiveWidth()">
+      <header class="panel-header">
+        <h2 class="panel-title">{{ panelTitle() }}</h2>
+        <span (click)="onClose()" class="material-symbols-rounded"> close </span>
+      </header>
+      <div class="panel-content">
+        <ng-content select="[panel]"></ng-content>
+      </div>
+    </div>
+  </aside>
+</div>

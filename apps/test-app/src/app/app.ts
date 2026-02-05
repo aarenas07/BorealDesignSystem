@@ -32,6 +32,7 @@ import { ExampleStepperProgress } from './components/example-stepper-progress/ex
 import { ExampleProgressBar } from './components/example-progress-bar/example-progress-bar';
 import { ExampleSearchbar } from './components/example-searchbar/example-searchbar';
 import { ExamplePanelLayoutComponent } from './components/example-panel-layout/example-panel-layout';
+import { ExampleProgressCircular } from './components/example-progress-circular/example-progress-circular';
 
 @Component({
   selector: 'app-root',
@@ -68,6 +69,7 @@ import { ExamplePanelLayoutComponent } from './components/example-panel-layout/e
     ExampleProgressBar,
     ExampleSearchbar,
     ExamplePanelLayoutComponent,
+    ExampleProgressCircular,
   ],
 
   providers: [provideNativeDateAdapter()],

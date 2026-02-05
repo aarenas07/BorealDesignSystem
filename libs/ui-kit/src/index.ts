@@ -31,3 +31,4 @@ export * from './lib/components/stepper-progress/stepper-progress';
 export * from './lib/components/progress-bar/progress-bar';
 export * from './lib/components/searchbar/searchbar';
 export * from './lib/components/panel-layout/panel-layout';
+export * from './lib/components/progress-circular/progress-circular';

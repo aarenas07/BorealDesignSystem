@@ -71,16 +71,6 @@ export class SmartStepperComponent implements OnDestroy {
   });
 
   constructor() {
-    // effect(() => {
-    //   console.log(
-    //     'activeIndex:',
-    //     this.activeIndex(),
-    //     'activeStep:',
-    //     this.activeStep(),
-    //     'activeSubStep',
-    //     this.activeIndexSubStep()
-    //   );
-    // });
     effect(() => {
       this.watchActiveStepControls(this.activeIndex());
     });
@@ -104,8 +94,8 @@ export class SmartStepperComponent implements OnDestroy {
       const step = this.activeStep();
       if (!step?.form) return;
       const status = this.activeFormStatus();
-      console.log('formStatus')
-      console.log(status)
+      console.log('Active form status');
+      console.log(this.activeFormStatus())
       const prevStatus = this.lastActiveFormStatus;
       if (status === 'VALID' && prevStatus !== 'VALID') {
         this.automaticNextStep(this.activeIndex());
@@ -143,18 +133,12 @@ export class SmartStepperComponent implements OnDestroy {
       this.stepChange.emit({ previousIndex, currentIndex: index });
       return;
     }
-    console.log('Index');
-    console.log(index);
-
 
     const status = this.activeFormStatus();
-    console.log('status');
-    console.log(status);
+
     const isValid = status === 'VALID' || this.lastActiveFormStatus === 'VALID';
 
     const canAdvance = this.allowInvalidAdvance() || isValid;
-    console.log('canAdvance');
-    console.log(canAdvance);
 
     if (!canAdvance) return;
 
@@ -187,10 +171,6 @@ export class SmartStepperComponent implements OnDestroy {
   }
 
   isStepCompleted(step: SmartStepperStep, index: number): boolean {
-    console.log('index')
-    console.log(index)
-    console.log('step');
-    console.log(step);
     if (step.completed !== undefined) return step.completed;
     if (step.form) return step.form.valid;
 
@@ -252,7 +232,7 @@ export class SmartStepperComponent implements OnDestroy {
 
   getSubActiveIndex(stepIndex: number): number {
     const step = this.steps()[stepIndex];
-    return this.subActiveIndexOverrides.get(stepIndex) ?? step?.subActiveIndex ?? 0;
+    return this.subActiveIndexOverrides.get(stepIndex) ?? step?.index ?? 0;
   }
 
   getStepProgress(stepIndex: number): number {
@@ -431,7 +411,6 @@ export interface SmartStepperStep {
   form?: AbstractControl;
   subTitle?: string;
   subSteps?: SmartSubStep[];
-  subActiveIndex?: number;
   stepIcon?: string;
 }
 

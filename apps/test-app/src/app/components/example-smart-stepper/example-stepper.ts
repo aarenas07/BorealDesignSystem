@@ -391,7 +391,6 @@ export class ExampleSmartStepper {
             formGroup: this.activoFullInfo.get('ubicacionYRegistro') as FormGroup,
           },
         ],
-        subActiveIndex: 0
       },
       {
         index: 1,
@@ -411,7 +410,6 @@ export class ExampleSmartStepper {
             formGroup: this.activoFullInfo.get('proyectoGestion')?.get('responsableYContratos') as FormGroup,
           },
         ],
-        // subActiveIndex: 1
       },
       {
         index: 2,
@@ -431,7 +429,6 @@ export class ExampleSmartStepper {
             formGroup: this.activoFullInfo.get('equipoYAvaluo')?.get('caracteristicasDelEquipo') as FormGroup,
           },
         ],
-        // subActiveIndex: 2
       },
       {
         index: 3,
@@ -456,7 +453,6 @@ export class ExampleSmartStepper {
             formGroup: this.activoFullInfo.get('redYEstructura')?.get('codigoCregYOtros') as FormGroup,
           }
         ],
-        // subActiveIndex: 3
       },
     ];
   }

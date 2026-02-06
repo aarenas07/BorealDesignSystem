@@ -224,6 +224,7 @@ export class ExampleSmartStepper {
   }
 
 
+
   // ubicacionGroup = new FormGroup({
   //   departamento: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   //   municipio: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -382,7 +383,7 @@ export class ExampleSmartStepper {
         index: 0,
         label: 'Ubicacion y registro',
         description: 'Sub pasos del formulario',
-        form: this.activoFullInfo,
+        form: this.activoFullInfo.get('ubicacionYRegistro') as FormGroup,
         stepIcon: 'location_on',
         subSteps: [
           {
@@ -488,6 +489,45 @@ export class ExampleSmartStepper {
       return
     }
     this.activeIndexSubStep = stepInfo?.subStepIndex ?? 0;
+  }
+
+  get proyectoGestionForm(): FormGroup {
+    return this.activoFullInfo.get('proyectoGestion') as FormGroup;
+  }
+
+  get proyectoEInfrastructuraForm(): FormGroup {
+    return this.proyectoGestionForm.get('proyectoEInfrastructura') as FormGroup;
+  }
+
+  get responsableYContratosForm(): FormGroup {
+    return this.proyectoGestionForm.get('responsableYContratos') as FormGroup;
+  }
+  get equipoYAvaluoForm(): FormGroup {
+    return this.activoFullInfo.get('equipoYAvaluo') as FormGroup;
+  }
+
+  get valoracionFinancieraForm(): FormGroup {
+    return this.equipoYAvaluoForm.get('valoracionFinanciera') as FormGroup;
+  }
+
+  get caracteristicasDelEquipoForm(): FormGroup {
+    return this.equipoYAvaluoForm.get('caracteristicasDelEquipo') as FormGroup;
+  }
+
+  get redYEstructuraForm(): FormGroup {
+    return this.activoFullInfo.get('redYEstructura') as FormGroup;
+  }
+
+  get apoyoYEstructuraForm(): FormGroup {
+    return this.redYEstructuraForm.get('apoyoYEstructura') as FormGroup;
+  }
+
+  get conductorYRedForm(): FormGroup {
+    return this.redYEstructuraForm.get('conductorYRed') as FormGroup;
+  }
+
+  get codigoCregYOtrosForm(): FormGroup {
+    return this.redYEstructuraForm.get('codigoCregYOtros') as FormGroup;
   }
 
   // nextFromUbicacion() {

@@ -172,6 +172,8 @@ export class SmartStepperComponent implements OnDestroy {
 
   isStepCompleted(step: SmartStepperStep, index: number): boolean {
     if (step.completed !== undefined) return step.completed;
+    console.log('FormValid');
+    if (step.form) console.log(step.form.value);
     if (step.form) return step.form.valid;
 
     return index < this.activeIndex();

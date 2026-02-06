@@ -17,10 +17,8 @@
         <button type="button" class="bds-smart-stepper__mini-step" [class.is-active]="$index === activeIndex()"
           [class.is-complete]="isStepCompleted(step, $index)" (click)="onStepHeaderClick($index)"
           [disabled]="step.disabled">
-          @if(isStepCompleted(step, $index)){
           <mat-icon [class.is-complete]="isStepCompleted(step, $index)"
             class="bds-smart-stepper__mini-step-icon">check</mat-icon>
-          }
         </button>
         }
         }

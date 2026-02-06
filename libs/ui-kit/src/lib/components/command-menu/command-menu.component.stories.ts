@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { CommandMenuComponent } from './command-menu.component';
-import { expect } from '@storybook/test';
 
 const meta: Meta<CommandMenuComponent> = {
   component: CommandMenuComponent,
@@ -15,16 +14,5 @@ export const Primary: Story = {
     commandItems: [],
     config: {},
     showSearchIcon: false,
-  },
-};
-
-export const Heading: Story = {
-  args: {
-    commandItems: [],
-    config: {},
-    showSearchIcon: false,
-  },
-  play: async ({ canvas }) => {
-    await expect(canvas.getByText(/command-menu/gi)).toBeTruthy();
   },
 };

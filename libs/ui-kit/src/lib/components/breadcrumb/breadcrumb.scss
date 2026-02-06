@@ -1,16 +1,16 @@
 nav {
-  .breadcrumb {
+  .bds-breadcrumb {
     list-style-type: none;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 
-    .breadcrumb-item {
+    .bds-breadcrumb-item {
       color: var(--mat-sys-outline);
       display: flex;
       align-items: center;
 
-      .breadcrumb-item-link {
+      .bds-breadcrumb-item-link {
         color: var(--mat-sys-primary);
         display: flex;
         align-items: center;
@@ -20,13 +20,13 @@ nav {
         }
       }
 
-      .breadcrumb-item-separator {
+      .bds-breadcrumb-item-separator {
         margin-left: 0.3rem;
         margin-right: 0.3rem;
       }
 
       &:is(:hover, :active) {
-        .breadcrumb-item-link {
+        .bds-breadcrumb-item-link {
           color: var(--mat-sys-secondary);
           text-decoration: none;
         }
@@ -35,7 +35,7 @@ nav {
       &.active {
         color: var(--mat-sys-outline);
 
-        .breadcrumb-item-link {
+        .bds-breadcrumb-item-link {
           text-decoration: none;
           cursor: initial;
         }

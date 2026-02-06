@@ -26,4 +26,9 @@ export * from './lib/components/alert/alert';
 /* export * from './lib/components/ */
 export * from './lib/components/otp-input/otp-input';
 export * from './lib/components/chips/chips';
-export * from './lib/components/top-bar/top-bar.component';
+export * from './lib/components/chip-dropdown/chip-dropdown';
+export * from './lib/components/stepper-progress/stepper-progress';
+export * from './lib/components/progress-bar/progress-bar';
+export * from './lib/components/searchbar/searchbar';
+export * from './lib/components/panel-layout/panel-layout';
+export * from './lib/components/progress-circular/progress-circular';

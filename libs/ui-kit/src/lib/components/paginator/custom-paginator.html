@@ -3,9 +3,11 @@
 
   <div class="bds-paginator-container">
     <!-- First Page -->
-    <button mat-icon-button class="nav-btn first" (click)="onFirst()" [disabled]="pageIndex === 0" *ngIf="showFirstLastButtons">
+    @if (showFirstLastButtons) {
+    <button mat-icon-button class="nav-btn first" (click)="onFirst()" [disabled]="pageIndex === 0">
       <mat-icon>first_page</mat-icon>
     </button>
+    }
 
     <!-- Previous Page -->
     <button mat-icon-button class="nav-btn prev" (click)="onPrevious()" [disabled]="pageIndex === 0">
@@ -14,18 +16,18 @@
 
     <!-- Pages -->
     <div class="pages-container">
-      <ng-container *ngFor="let p of pages">
-        <button
-          mat-icon-button
-          class="page-number"
-          [class.active]="p === (pageIndex + 1)"
-          [class.dots]="p === '...'"
-          [disabled]="p === '...'"
-          (click)="onPageClick(p)"
-        >
-          {{ p }}
-        </button>
-      </ng-container>
+      @for (p of pages; track p) {
+      <button
+        mat-icon-button
+        class="page-number"
+        [class.active]="p === (pageIndex + 1)"
+        [class.dots]="p === '...'"
+        [disabled]="p === '...'"
+        (click)="onPageClick(p)"
+      >
+        {{ p }}
+      </button>
+      }
     </div>
 
     <!-- Next Page -->
@@ -34,11 +36,15 @@
     </button>
 
     <!-- Last Page -->
-    <button mat-icon-button class="nav-btn last" (click)="onLast()" [disabled]="pageIndex >= totalPages - 1" *ngIf="showFirstLastButtons">
+    @if (showFirstLastButtons) {
+    <button mat-icon-button class="nav-btn last" (click)="onLast()" [disabled]="pageIndex >= totalPages - 1">
       <mat-icon>last_page</mat-icon>
     </button>
+    }
   </div>
-  <div class="page-size-selector" *ngIf="pageSizeOptions.length > 0">
+
+  @if (pageSizeOptions.length > 0) {
+  <div class="page-size-selector">
     <!--  <span class="label">Items por página:</span> -->
     <button mat-button [matMenuTriggerFor]="pageSizeMenu" class="size-trigger">
       {{ pageSize }}
@@ -48,4 +54,5 @@
       <button mat-menu-item *ngFor="let size of pageSizeOptions" (click)="onPageSizeSelect(size)">{{ size }}</button>
     </mat-menu>
   </div>
+  }
 </div>

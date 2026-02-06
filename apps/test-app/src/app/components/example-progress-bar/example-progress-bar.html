@@ -1,0 +1,31 @@
+<section class="component-section">
+  <h2>Progress Bar</h2>
+  <div class="demo-row">
+    <bds-progress-bar [percent]="40"></bds-progress-bar>
+  </div>
+  <h2>Progress Bar strokeWidth</h2>
+  <div class="demo-row">
+    <bds-progress-bar [percent]="50" [strokeWidth]="8"></bds-progress-bar>
+  </div>
+  <h2>Progress Bar indeterminate</h2>
+  <div class="demo-row">
+    <bds-progress-bar [indeterminate]="true" [percent]="20"></bds-progress-bar>
+  </div>
+  <h2>Progress Bar animation</h2>
+  <div class="demo-row">
+    <bds-progress-bar [percent]="80" [animation]="true" [strokeWidth]="8"></bds-progress-bar>
+  </div>
+  <h2>Progress Bar porcentaje</h2>
+  <div class="demo-row">
+    <bds-progress-bar [percent]="porcentaje()"></bds-progress-bar>
+    <p style="margin-left: 2rem; font-weight: bold; color: var(--mat-sys-primary)">Porcentaje: {{ porcentaje() }}%</p>
+  </div>
+  <h2>Progress Bar activeColor</h2>
+  <div class="demo-row">
+    <bds-progress-bar [percent]="30" [activeColor]="'#e61616'" [inactiveColor]="'#ddd'" [strokeWidth]="8"></bds-progress-bar>
+  </div>
+  <h2>Progress Bar removeDot</h2>
+  <div class="demo-row">
+    <bds-progress-bar [percent]="70" [removeDot]="true" [strokeWidth]="8"></bds-progress-bar>
+  </div>
+</section>

@@ -23,17 +23,8 @@ type PanelsByTab = {
     SmartStepperComponent,
     BdsStepContentDirective,
     FormFieldComponent,
-    SelectComponent,
-    ButtonComponent,
     MatStepper,
     MatStep,
-    MatExpansionPanelTitle,
-    MatExpansionPanelDescription,
-    MatIcon,
-    MatExpansionPanelHeader,
-    MatExpansionPanel,
-    TabsComponent,
-    ExpansionPanelComponent
   ],
   templateUrl: './example-stepper.html',
   styleUrl: './example-stepper.scss',
@@ -407,6 +398,7 @@ export class ExampleSmartStepper {
         label: 'Proyecto y gestión',
         description: 'Carga de archivos requeridos',
         form: this.activoFullInfo.get('proyectoGestion') as FormGroup,
+        stepIcon: 'settings',
         subSteps: [
           {
             index: 0,
@@ -426,6 +418,7 @@ export class ExampleSmartStepper {
         label: 'Equipo y avaluo',
         description: 'Valoración financiera',
         form: this.activoFullInfo.get('equipoYAvaluo') as FormGroup,
+        stepIcon: 'logout',
         subSteps: [
           {
             index: 0,
@@ -445,6 +438,7 @@ export class ExampleSmartStepper {
         label: 'Red y estructura',
         description: 'Apoyo, conductor y código CREG',
         form: this.activoFullInfo.get('redYEstructura') as FormGroup,
+        stepIcon: 'key',
         subSteps: [
           {
             index: 0,

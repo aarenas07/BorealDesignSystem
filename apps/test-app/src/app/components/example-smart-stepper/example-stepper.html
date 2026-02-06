@@ -11,20 +11,17 @@
           [selectedIndex]="activeIndexSubStep" linear #stepper>
           <mat-step [stepControl]="activoFullInfo.get('ubicacionYRegistro')!">
             <ng-template matStepLabel>Ubicacion</ng-template>
-            <div class="expansion-panel__container__full-info__expansion-panel__container__full-info__content-tab"
-              style="padding: 1rem" [formGroup]="activoFullInfo">
+            <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem" [formGroup]="activoFullInfo">
               <ng-container formGroupName="ubicacionYRegistro">
                 @for (panel of getUbicacionPanels(); track panel; let first = $first) {
-                <mat-expansion-panel class="expansion-panel__full-width" [expanded]="first">
-                  <div class="row g-3">
-                    @for (field of panel.fields; track field) {
-                    <div class="col-12 col-md-6">
-                      <bds-form-field class="expansion-panel__container__input" [label]="field.label"
-                        [formControlName]="field.name"></bds-form-field>
-                    </div>
-                    }
+                <div class="bds-smart-stepper__inner-stepper__container__form">
+                  @for (field of panel.fields; track field) {
+                  <div class="expansion-panel__container__full-info__field">
+                    <bds-form-field class="bds-smart-stepper__inner-stepper__container__form__input"
+                      [label]="field.label" [fullWidth]="true" [formControlName]="field.name"></bds-form-field>
                   </div>
-                </mat-expansion-panel>
+                  }
+                </div>
                 }
               </ng-container>
             </div>
@@ -32,63 +29,54 @@
         </mat-stepper>
       </ng-template>
       <ng-template bdsStepContent="1">
-        <div class="expansion-panel__container__full-info__expansion-panel__container__full-info__content-tab"
-          style="padding: 1rem" [formGroup]="activoFullInfo">
+        <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem" [formGroup]="activoFullInfo">
           <ng-container formGroupName="proyectoGestion">
             @for (panel of getProyectoPanels(); track panel; let first = $first) {
             <ng-container [formGroupName]="panel.groupName">
-              <mat-expansion-panel class="expansion-panel__full-width" [expanded]="first">
-                <div class="row g-3">
-                  @for (field of panel.fields; track field) {
-                  <div class="col-12 col-md-6">
-                    <bds-form-field class="expansion-panel__container__input" [label]="field.label"
-                      [formControlName]="field.name"></bds-form-field>
-                  </div>
-                  }
+              <div class="bds-smart-stepper__inner-stepper__container__form">
+                @for (field of panel.fields; track field) {
+                <div class="expansion-panel__container__full-info__field">
+                  <bds-form-field class="bds-smart-stepper__inner-stepper__container__form__input" [fullWidth]="true"
+                    [label]="field.label" [formControlName]="field.name"></bds-form-field>
                 </div>
-              </mat-expansion-panel>
+                }
+              </div>
             </ng-container>
             }
           </ng-container>
         </div>
       </ng-template>
       <ng-template bdsStepContent="2">
-        <div class="expansion-panel__container__full-info__expansion-panel__container__full-info__content-tab"
-          style="padding: 1rem" [formGroup]="activoFullInfo">
+        <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem" [formGroup]="activoFullInfo">
           <ng-container formGroupName="equipoYAvaluo">
             @for (panel of getEquipoPanels(); track panel; let first = $first) {
             <ng-container [formGroupName]="panel.groupName">
-              <mat-expansion-panel class="expansion-panel__full-width" [expanded]="first">
-                <div class="row g-3">
-                  @for (field of panel.fields; track field) {
-                  <div class="col-12 col-md-6">
-                    <bds-form-field class="expansion-panel__container__input" [label]="field.label"
-                      [formControlName]="field.name"></bds-form-field>
-                  </div>
-                  }
+              <div class="bds-smart-stepper__inner-stepper__container__form">
+                @for (field of panel.fields; track field) {
+                <div class="expansion-panel__container__full-info__field">
+                  <bds-form-field class="bds-smart-stepper__inner-stepper__container__form__input" [fullWidth]="true"
+                    [label]="field.label" [formControlName]="field.name"></bds-form-field>
                 </div>
-              </mat-expansion-panel>
+                }
+              </div>
             </ng-container>
             }
           </ng-container>
         </div>
       </ng-template>
       <ng-template bdsStepContent="3">
-        <div class="expansion-panel__container__full-info__expansion-panel__container__full-info__content-tab"
-          style="padding: 1rem" [formGroup]="activoFullInfo">
+        <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem" [formGroup]="activoFullInfo">
           <ng-container formGroupName="redYEstructura">
             @for (panel of getRedPanels(); track panel; let first = $first) {
             <ng-container [formGroupName]="panel.groupName">
-              <mat-expansion-panel class="expansion-panel__full-width" [expanded]="first">
-                <div class="row g-3">
-                  @for (field of panel.fields; track field) {
-                  <div class="col-12 col-md-6">
-                    <bds-form-field class="expansion-panel__container__input" [label]="field.label"
-                      [formControlName]="field.name"></bds-form-field>
-                  </div>
-                  }
+              <div class="bds-smart-stepper__inner-stepper__container__form">
+                @for (field of panel.fields; track field) {
+                <div class="expansion-panel__container__full-info__field">
+                  <bds-form-field class="bds-smart-stepper__inner-stepper__container__form__input" [fullWidth]="true"
+                    [label]="field.label" [formControlName]="field.name"></bds-form-field>
                 </div>
-              </mat-expansion-panel>
+                }
+              </div>
             </ng-container>
             }
           </ng-container>

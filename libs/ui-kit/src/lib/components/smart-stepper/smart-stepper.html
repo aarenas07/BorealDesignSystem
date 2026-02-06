@@ -12,13 +12,6 @@
         @if(activeIndex() === $index && !isStepCompleted(step, $index)){
         <span class="bds-smart-stepper__mini-steps-pill-text"><mat-icon>{{this.activeStep().stepIcon}}</mat-icon>
           {{this.activeStep().label}}</span>
-        <!-- <button type="button" class="bds-smart-stepper__mini-step" [class.is-active]="$index === activeIndex()"
-          [class.is-complete]="isStepCompleted(step, $index)" (click)="onStepHeaderClick($index)"
-          [disabled]="step.disabled">
-          @if(!isStepCompleted(step, $index)){
-          <mat-icon>edit</mat-icon>
-          }
-        </button> -->
         }
         @if(isStepCompleted(step, $index)){
         <button type="button" class="bds-smart-stepper__mini-step" [class.is-active]="$index === activeIndex()"
@@ -46,27 +39,9 @@
       </div>
       }
 
-      <!-- @for (step of steps(); track $index) {
-      @if ($index === activeIndex()) {
-      <button type="button" class="bds-smart-stepper__pill" [class.has-error]="isStepError(step, $index)"
-        (click)="onStepHeaderClick($index)" [disabled]="step.disabled">
-        @if (isStepError(step, $index)) {
-        <span class="bds-smart-stepper__pill-icon">
-          <mat-icon>error</mat-icon>
-        </span>
-        }
-        <span class="bds-smart-stepper__pill-text"><mat-icon>{{this.activeStep().stepIcon}}</mat-icon>
-          {{this.activeStep().label}}</span>
-      </button>
-      }
-      } -->
-
       @if (subSteps().length > 0) {
       <div class="bds-smart-stepper__substepper-top">
         @for(subStep of subSteps(); track $index){
-        <!-- <button class="bds-smart-stepper__substepper-button" (click)="goToStep($index)" mat-stroked-button
-          [class.active]="$index === activeIndexSubStep()" [disabled]="">
-        </button> -->
         <button mat-stroked-button class="bds-smart-stepper__substepper-button" (click)="goToStep($index)"
           [class.active]="$index === activeIndexSubStep() || isSubStepCompleted(activeIndex(), $index)"
           [attr.data-tone]="getSubStepTone($index)"
@@ -112,7 +87,6 @@
         <span class="bds-smart-stepper__fields-count">
           {{ getSubStepFieldCountLabel(activeIndexSubStep()) }}
         </span>
-        <!-- <button type="button" class="bds-smart-stepper__fields-error">Ver error</button> -->
       </div>
     </div>
     }

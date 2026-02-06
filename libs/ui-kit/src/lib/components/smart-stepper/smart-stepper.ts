@@ -183,19 +183,17 @@ export class SmartStepperComponent implements OnDestroy {
     if (this.isSubStepCompleted(stepIndex, subStepIndex)) {
       return 'success';
     }
-
-    // if (subStepIndex === this.activeIndexSubStep()) {
-    //   return 'warning'; // en progreso
-    // }
-
     return 'default';
   }
 
-
-
   isStepCompleted(step: SmartStepperStep, index: number): boolean {
+    console.log('index')
+    console.log(index)
+    console.log('step');
+    console.log(step);
     if (step.completed !== undefined) return step.completed;
     if (step.form) return step.form.valid;
+
     return index < this.activeIndex();
   }
 
@@ -207,7 +205,6 @@ export class SmartStepperComponent implements OnDestroy {
     if (prev?.form) return this.isControlInvalid(prev.form);
     return false;
   }
-
 
   automaticNextStep(index: number) {
     const previousIndex = this.activeIndex();

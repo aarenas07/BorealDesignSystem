@@ -5,6 +5,7 @@ import { CdkStepperModule, StepperSelectionEvent } from '@angular/cdk/stepper';
 import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Subscription } from 'rxjs';
+import { SmartStepperStep, SmartSubStep } from '../../interfaces/bds-smart-stepper.interface';
 
 
 @Component({
@@ -427,27 +428,4 @@ export class SmartStepperComponent implements OnDestroy {
 
     this.subStepClick.emit({ stepIndex, subStepIndex: index });
   }
-}
-
-export interface SmartStepperStep {
-  index: number
-  label: string;
-  description?: string;
-  disabled?: boolean;
-  completed?: boolean;
-  error?: boolean;
-  errorControl?: AbstractControl;
-  form?: AbstractControl;
-  subTitle?: string;
-  subSteps?: SmartSubStep[];
-  stepIcon?: string;
-}
-
-export interface SmartSubStep {
-  index: number;
-  label?: string;
-  formGroup: FormGroup;
-  requiredControls?: AbstractControl[];
-  completed?: boolean;
-  disabled?: boolean;
 }

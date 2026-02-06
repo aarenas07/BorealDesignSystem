@@ -1,11 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SmartStepperComponent, SmartStepperStep, BdsStepContentDirective, FormFieldComponent, SelectComponent, MenuOptionBds, ButtonComponent, TabsComponent, ExpansionPanelComponent } from '@organizacion/ui-kit';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  SmartStepperComponent,
+  BdsStepContentDirective,
+  FormFieldComponent,
+  MenuOptionBds
+} from '@organizacion/ui-kit';
 import { MatStepper, MatStep } from "@angular/material/stepper";
-import { MatFormField, MatLabel } from "@angular/material/form-field";
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { MatExpansionPanelTitle, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanel } from "@angular/material/expansion";
-import { MatIcon } from "@angular/material/icon";
+import { SmartStepperStep } from 'libs/ui-kit/src/lib/interfaces/bds-smart-stepper.interface';
 
 type PanelField = { name: string; label: string };
 type SimplePanel = { title: string; fields: PanelField[] };
@@ -207,49 +210,6 @@ export class ExampleSmartStepper {
     ],
   };
 
-  getUbicacionPanels() {
-    return this.panelsByTab.ubicacionYRegistro;
-  }
-
-  getProyectoPanels() {
-    return this.panelsByTab.proyectoGestion;
-  }
-
-  getEquipoPanels() {
-    return this.panelsByTab.equipoYAvaluo;
-  }
-
-  getRedPanels() {
-    return this.panelsByTab.redYEstructura;
-  }
-
-
-
-  // ubicacionGroup = new FormGroup({
-  //   departamento: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  //   municipio: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  // });
-
-  // registroGroup = new FormGroup({
-  //   codigoDane: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  //   localidad: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  // });
-
-  // veredaGroup = new FormGroup({
-  //   vereda: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  // });
-
-  // coordenadasGroup = new FormGroup({
-  //   zona: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  //   latitud: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  //   longitud: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  // });
-
-
-  // documentosForm = new FormGroup({
-  //   acta: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  //   soporte: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  // });
 
   constructor() {
     this.activoFullInfo = this._fb.group({
@@ -460,31 +420,30 @@ export class ExampleSmartStepper {
 
 
   onStepChange(event: { previousIndex: number; currentIndex: number }) {
-    console.log('OnStepChange');
-    console.log(event)
-    // if (event.currentIndex === 1 && this.ubicacionForm.invalid) {
-    //   this.ubicacionForm.markAllAsTouched();
-    //   this.activeIndex = event.previousIndex;
-    //   return;
-    // }
-
-    // if (event.currentIndex === 2 && this.documentosForm.invalid) {
-    //   this.documentosForm.markAllAsTouched();
-    //   this.activeIndex = event.previousIndex;
-    //   return;
-    // }
     this.activeIndex = event.currentIndex
+  }
+
+  getUbicacionPanels() {
+    return this.panelsByTab.ubicacionYRegistro;
+  }
+
+  getProyectoPanels() {
+    return this.panelsByTab.proyectoGestion;
+  }
+
+  getEquipoPanels() {
+    return this.panelsByTab.equipoYAvaluo;
+  }
+
+  getRedPanels() {
+    return this.panelsByTab.redYEstructura;
   }
 
   onSubStepChange(
     event?: StepperSelectionEvent,
     stepInfo?: { stepIndex: number; subStepIndex: number }
   ) {
-    console.log('onSubStepChange')
-    console.log(event)
-    console.log('stepInfo');
-    console.log(stepInfo)
-    if (event) {
+    if (event) { //solo para stepper de angular material
       this.activeIndexSubStep = event.selectedIndex;
       return
     }

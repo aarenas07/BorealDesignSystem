@@ -45,6 +45,6 @@
   }
 }
 
-// ::ng-deep .bds-smart-stepper__inner-stepper .mat-horizontal-stepper-header-container {
-//   display: none;
-// }
+::ng-deep .bds-smart-stepper__inner-stepper .mat-horizontal-stepper-header-container {
+  display: none;
+}

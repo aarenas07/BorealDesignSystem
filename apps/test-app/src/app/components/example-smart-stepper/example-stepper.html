@@ -9,56 +9,90 @@
       <ng-template bdsStepContent="0">
         <mat-stepper class="bds-smart-stepper__inner-stepper" (selectionChange)="onSubStepChange($event)"
           [selectedIndex]="activeIndexSubStep" linear #stepper>
-          <form class="form-grid" [formGroup]="ubicacionForm">
-
-            <mat-step [stepControl]="ubicacionGroup">
-              <div formGroupName="ubicacion" class="form-grid__section">
-                <bds-select label="Departamento" [options]="optionsDepartamentos()" [required]="true"
-                  formControlName="departamento"></bds-select>
-                <bds-select label="Municipio" [options]="optionsMunicipios()" [required]="true"
-                  formControlName="municipio"></bds-select>
-              </div>
-            </mat-step>
-            <mat-step [stepControl]="registroGroup">
-              <div formGroupName="registro" class="form-grid__section">
-                <bds-form-field label="Codigo DANE" [required]="true" formControlName="codigoDane"></bds-form-field>
-                <bds-form-field label="Localidad" [required]="true" formControlName="localidad"></bds-form-field>
-              </div>
-            </mat-step>
-            <mat-step [stepControl]="veredaGroup">
-              <div formGroupName="vereda" class="form-grid__section">
-                <bds-form-field label="Vereda" [required]="true" formControlName="vereda"></bds-form-field>
-              </div>
-            </mat-step>
-            <mat-step [stepControl]="coordenadasGroup">
-              <div formGroupName="coordenadas" class="form-grid__section">
-                <bds-form-field label="Zona" [required]="true" formControlName="zona"></bds-form-field>
-                <bds-form-field label="Latitud" [required]="true" formControlName="latitud"></bds-form-field>
-                <bds-form-field label="Longitud" [required]="true" formControlName="longitud"></bds-form-field>
-              </div>
-            </mat-step>
-          </form>
+          <mat-step [stepControl]="activoFullInfo.get('ubicacionYRegistro')!">
+            <ng-template matStepLabel>Ubicacion</ng-template>
+            <div class="expansion-panel__container__full-info__expansion-panel__container__full-info__content-tab"
+              style="padding: 1rem" [formGroup]="activoFullInfo">
+              <ng-container formGroupName="ubicacionYRegistro">
+                @for (panel of getUbicacionPanels(); track panel; let first = $first) {
+                <mat-expansion-panel class="expansion-panel__full-width" [expanded]="first">
+                  <div class="row g-3">
+                    @for (field of panel.fields; track field) {
+                    <div class="col-12 col-md-6">
+                      <bds-form-field class="expansion-panel__container__input" [label]="field.label"
+                        [formControlName]="field.name"></bds-form-field>
+                    </div>
+                    }
+                  </div>
+                </mat-expansion-panel>
+                }
+              </ng-container>
+            </div>
+          </mat-step>
         </mat-stepper>
       </ng-template>
-
-      <!-- PASO 1 -->
       <ng-template bdsStepContent="1">
-        <section class="step-content">
-          <h2>Documentos</h2>
-          <p>Adjunta los archivos requeridos.</p>
-        </section>
+        <div class="expansion-panel__container__full-info__expansion-panel__container__full-info__content-tab"
+          style="padding: 1rem" [formGroup]="activoFullInfo">
+          <ng-container formGroupName="proyectoGestion">
+            @for (panel of getProyectoPanels(); track panel; let first = $first) {
+            <ng-container [formGroupName]="panel.groupName">
+              <mat-expansion-panel class="expansion-panel__full-width" [expanded]="first">
+                <div class="row g-3">
+                  @for (field of panel.fields; track field) {
+                  <div class="col-12 col-md-6">
+                    <bds-form-field class="expansion-panel__container__input" [label]="field.label"
+                      [formControlName]="field.name"></bds-form-field>
+                  </div>
+                  }
+                </div>
+              </mat-expansion-panel>
+            </ng-container>
+            }
+          </ng-container>
+        </div>
       </ng-template>
-
-      <!-- PASO 2 -->
       <ng-template bdsStepContent="2">
-        <section class="step-content">
-          <h2>Confirmacion</h2>
-          <p>Revisa la informacion antes de finalizar.</p>
-          <div class="actions">
-            <bds-button label="Atras" variant="filled" size="md" (action)="backToDocumentos()"></bds-button>
-            <bds-button label="Finalizar" variant="filled" size="md"></bds-button>
-          </div>
-        </section>
+        <div class="expansion-panel__container__full-info__expansion-panel__container__full-info__content-tab"
+          style="padding: 1rem" [formGroup]="activoFullInfo">
+          <ng-container formGroupName="equipoYAvaluo">
+            @for (panel of getEquipoPanels(); track panel; let first = $first) {
+            <ng-container [formGroupName]="panel.groupName">
+              <mat-expansion-panel class="expansion-panel__full-width" [expanded]="first">
+                <div class="row g-3">
+                  @for (field of panel.fields; track field) {
+                  <div class="col-12 col-md-6">
+                    <bds-form-field class="expansion-panel__container__input" [label]="field.label"
+                      [formControlName]="field.name"></bds-form-field>
+                  </div>
+                  }
+                </div>
+              </mat-expansion-panel>
+            </ng-container>
+            }
+          </ng-container>
+        </div>
+      </ng-template>
+      <ng-template bdsStepContent="3">
+        <div class="expansion-panel__container__full-info__expansion-panel__container__full-info__content-tab"
+          style="padding: 1rem" [formGroup]="activoFullInfo">
+          <ng-container formGroupName="redYEstructura">
+            @for (panel of getRedPanels(); track panel; let first = $first) {
+            <ng-container [formGroupName]="panel.groupName">
+              <mat-expansion-panel class="expansion-panel__full-width" [expanded]="first">
+                <div class="row g-3">
+                  @for (field of panel.fields; track field) {
+                  <div class="col-12 col-md-6">
+                    <bds-form-field class="expansion-panel__container__input" [label]="field.label"
+                      [formControlName]="field.name"></bds-form-field>
+                  </div>
+                  }
+                </div>
+              </mat-expansion-panel>
+            </ng-container>
+            }
+          </ng-container>
+        </div>
       </ng-template>
     </bds-smart-stepper>
   </div>

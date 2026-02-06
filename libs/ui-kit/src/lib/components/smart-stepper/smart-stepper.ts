@@ -133,6 +133,7 @@ export class SmartStepperComponent implements OnDestroy {
   }
 
   onStepHeaderClick(index: number) {
+
     const previousIndex = this.activeIndex();
     if (index === previousIndex) return;
 
@@ -142,21 +143,23 @@ export class SmartStepperComponent implements OnDestroy {
       this.stepChange.emit({ previousIndex, currentIndex: index });
       return;
     }
+    console.log('Index');
+    console.log(index);
 
-    console.log('onStepHeaderClick')
-    console.log(this.allowInvalidAdvance())
 
-    // Para avanzar, exigir que el paso actual esté válido (o permitir si se habilita)
-    if (this.allowInvalidAdvance() && (this.activeFormStatus() === 'INVALID' ||
-      this.lastActiveFormStatus === 'INVALID')) {
-      this.activeIndex.set(index);
-      this.stepChange.emit({ previousIndex, currentIndex: index });
-    }
+    const status = this.activeFormStatus();
+    console.log('status');
+    console.log(status);
+    const isValid = status === 'VALID' || this.lastActiveFormStatus === 'VALID';
 
-    // if (this.activeFormStatus() === 'VALID' || this.lastActiveFormStatus === 'VALID') {
-    //   this.activeIndex.set(index);
-    //   this.stepChange.emit({ previousIndex, currentIndex: index });
-    // }
+    const canAdvance = this.allowInvalidAdvance() || isValid;
+    console.log('canAdvance');
+    console.log(canAdvance);
+
+    if (!canAdvance) return;
+
+    this.activeIndex.set(index);
+    this.stepChange.emit({ previousIndex, currentIndex: index });
   }
 
   getSubStepTone(subStepIndex: number): 'default' | 'success' | 'warning' | 'error' {

@@ -1,71 +1,16 @@
-<div class="top-bar" [class.sidebar-closed]="sidebarClosed">
-  <div class="left-section">
-    <div class="breadcrumb-container">
-      <bds-breadcrumb [items]="breadcrumbItems"></bds-breadcrumb>
-    </div>
-    
-    <div class="title-container">
-      @if (title) {
-        <h1 class="page-title">{{ title }}</h1>
-      }
-      @if (subtitle) {
-        <span class="page-subtitle">{{ subtitle }}</span>
-      }
-    </div>
-  </div>
-
-  <div class="right-section">
-    <div class="actions">
-      @if (tertiaryAction) {
-        <bds-button 
-          [label]="tertiaryAction.label" 
-          [variant]="tertiaryAction.variant || 'text'"
-          [icon]="tertiaryAction.icon || null"
-          [disabled]="!!tertiaryAction.disabled"
-          (action)="tertiaryAction.onClick()"
-          class="action-btn">
-        </bds-button>
-      }
-      
-      @if (secondaryAction) {
-        <bds-button 
-          [label]="secondaryAction.label" 
-          [variant]="secondaryAction.variant || 'outlined'"
-          [icon]="secondaryAction.icon || null"
-          [disabled]="!!secondaryAction.disabled"
-          (action)="secondaryAction.onClick()"
-          class="action-btn">
-        </bds-button>
-      }
-
-      @if (primaryAction) {
-        <bds-button 
-          [label]="primaryAction.label" 
-          [variant]="primaryAction.variant || 'filled'"
-          [icon]="primaryAction.icon || null"
-          [disabled]="!!primaryAction.disabled"
-          (action)="primaryAction.onClick()"
-          class="action-btn">
-        </bds-button>
-      }
-    </div>
-
-    @if ((primaryAction || secondaryAction || tertiaryAction) && profileImage) {
-      <div class="divider"></div>
-    }
-
-    @if (profileImage) {
-      <div class="profile-wrapper">
-        <div class="profile-container" (click)="toggleProfile($event)">
-          <img class="profile-img" [src]="profileImage" alt="Perfil" />
+<div class="top-bar">
+    <div class="top-bar-content">
+        <div class="top-bar-left">
+            <div>Breadcrumb</div>
+            <div>Volver</div>
         </div>
-        
-        @if (isProfileOpen) {
-          <div class="profile-popover" (click)="$event.stopPropagation()">
-            <ng-content select="[profile-content]"></ng-content>
-          </div>
-        }
-      </div>
-    }
-  </div>
+        <div class="top-bar-center">
+            <div>Botones</div>
+            <div>Botones</div>
+            <div>Botones</div>
+        </div>
+        <div class="top-bar-right">
+            <div>Profile</div>
+        </div>
+    </div>
 </div>

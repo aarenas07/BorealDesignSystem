@@ -14,7 +14,7 @@ export interface TopBarAction {
 }
 
 @Component({
-  selector: 'app-top-bar',
+  selector: 'bds-top-bar',
   standalone: true,
   imports: [CommonModule, BreadcrumbComponent, ButtonComponent],
   templateUrl: './top-bar.component.html',

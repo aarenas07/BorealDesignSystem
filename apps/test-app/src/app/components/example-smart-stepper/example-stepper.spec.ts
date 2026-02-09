@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ExampleSmartStepper } from './example-stepper';
+import { ExampleSmartStepper } from './example-smart-stepper';
 
 describe('ExampleSmartStepper', () => {
   let component: ExampleSmartStepper;

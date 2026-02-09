@@ -66,6 +66,14 @@ export class SmartStepperComponent implements OnDestroy {
     return `Sub paso ${current} de ${subSteps.length}`;
   });
 
+  subTitleSubStep = computed(() => {
+    const step = this.activeStep();
+    const subSteps = step?.subSteps ?? [];
+    if (!subSteps.length) return '';
+    const current = this.activeIndexSubStep() + 1;
+    return `Sub ${this.activeIndexSubStep()}`
+  });
+
   activeStepTemplate = computed(() => {
     const contents = this.stepContents();
     return contents.find(t => Number(t.index) === this.activeIndex())?.template ?? null;
@@ -95,8 +103,6 @@ export class SmartStepperComponent implements OnDestroy {
       const step = this.activeStep();
       if (!step?.form) return;
       const status = this.activeFormStatus();
-      console.log('Active form status');
-      console.log(this.activeFormStatus())
       const prevStatus = this.lastActiveFormStatus;
       if (status === 'VALID' && prevStatus !== 'VALID') {
         this.automaticNextStep(this.activeIndex());
@@ -144,6 +150,7 @@ export class SmartStepperComponent implements OnDestroy {
     if (!canAdvance) return;
 
     this.activeIndex.set(index);
+    this.activeIndexSubStep.set(0);
     this.stepChange.emit({ previousIndex, currentIndex: index });
   }
 
@@ -173,8 +180,6 @@ export class SmartStepperComponent implements OnDestroy {
 
   isStepCompleted(step: SmartStepperStep, index: number): boolean {
     if (step.completed !== undefined) return step.completed;
-    console.log('FormValid');
-    if (step.form) console.log(step.form.value);
     if (step.form) return step.form.valid;
 
     return index < this.activeIndex();
@@ -195,7 +200,9 @@ export class SmartStepperComponent implements OnDestroy {
     const nextIndex = index + 1;
     if (nextIndex >= this.steps().length) return;
     this.activeIndex.set(nextIndex);
+    console.log('automaticNextStep');
     this.stepChange.emit({ previousIndex, currentIndex: nextIndex });
+    this.setSubActiveIndex(nextIndex, 0)
   };
 
   isSubStepCompleted(stepIndex: number, subStepIndex: number): boolean {
@@ -300,7 +307,9 @@ export class SmartStepperComponent implements OnDestroy {
   }
 
   private setSubActiveIndex(stepIndex: number, subStepIndex: number) {
-    this.subActiveIndexOverrides.set(stepIndex, subStepIndex);
+    console.log('From Automatic');
+    console.log(stepIndex, subStepIndex);
+    this.activeIndexSubStep.set(0)
   }
 
   private watchActiveStepControls(stepIndex: number) {
@@ -404,6 +413,7 @@ export class SmartStepperComponent implements OnDestroy {
 
   goToStep(index: number): void {
     const stepIndex = this.activeIndex();
+    this.setSubActiveIndex(stepIndex, 0)
 
     if (this.isSubStepDisabled(stepIndex, index) || this.isSubStepLocked(stepIndex, index)) {
       return;

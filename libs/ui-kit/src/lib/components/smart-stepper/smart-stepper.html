@@ -40,11 +40,21 @@
       @if (subSteps().length > 0) {
       <div class="bds-smart-stepper__substepper-top">
         @for(subStep of subSteps(); track $index){
-        <button mat-stroked-button class="bds-smart-stepper__substepper-button" (click)="goToStep($index)"
-          [class.active]="$index === activeIndexSubStep() || isSubStepCompleted(activeIndex(), $index)"
-          [attr.data-tone]="getSubStepTone($index)"
-          [disabled]="isSubStepDisabled(activeIndex(), $index) || isSubStepLocked(activeIndex(), $index)">
-        </button>
+        <div class="bds-smart-stepper__substepper-container" (click)="goToStep($index)">
+          <button mat-stroked-button class="bds-smart-stepper__substepper-button"
+            [class.active]="$index === activeIndexSubStep() || isSubStepCompleted(activeIndex(), $index)"
+            [attr.data-tone]="getSubStepTone($index)"
+            [disabled]="isSubStepDisabled(activeIndex(), $index) || isSubStepLocked(activeIndex(), $index)">
+          </button>
+          <div class="bds-smart-stepper__substepper-label"
+            [class.is-complete]="isSubStepCompleted(activeIndex(), $index)"
+            [class.is-active]="$index === activeIndexSubStep() ">
+            @if(isSubStepCompleted(activeIndex(), $index)){
+            <mat-icon class="bds-smart-stepper__substepper-label-icon">check</mat-icon>
+            }
+            <label>Sub {{$index +1 }}</label>
+          </div>
+        </div>
         }
       </div>
       }

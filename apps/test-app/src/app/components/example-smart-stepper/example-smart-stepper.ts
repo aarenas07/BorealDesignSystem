@@ -29,8 +29,8 @@ type PanelsByTab = {
     MatStepper,
     MatStep,
   ],
-  templateUrl: './example-stepper.html',
-  styleUrl: './example-stepper.scss',
+  templateUrl: './example-smart-stepper.html',
+  styleUrl: './example-smart-stepper.scss',
 })
 
 export class ExampleSmartStepper {
@@ -489,27 +489,4 @@ export class ExampleSmartStepper {
     return this.redYEstructuraForm.get('codigoCregYOtros') as FormGroup;
   }
 
-  // nextFromUbicacion() {
-  //   if (this.ubicacionForm.invalid) {
-  //     this.ubicacionForm.markAllAsTouched();
-  //     return;
-  //   }
-  //   this.activeIndex = 1;
-  // }
-
-  // nextFromDocumentos() {
-  //   if (this.documentosForm.invalid) {
-  //     this.documentosForm.markAllAsTouched();
-  //     return;
-  //   }
-  //   this.activeIndex = 2;
-  // }
-
-  // backToUbicacion() {
-  //   this.activeIndex = 0;
-  // }
-
-  // backToDocumentos() {
-  //   this.activeIndex = 1;
-  // }
 }

@@ -1,0 +1,25 @@
+<div class="top-bar" [class.sidebar-closed]="sidebarClosed">
+  <div class="breadcrumb">
+    <!--     <app-custom-breadcrumb [items]="breadcrumbItems" [config]="breadcrumbConfig">
+    </app-custom-breadcrumb> -->
+  </div>
+
+  <div class="actions">
+    @if (showClock) {}
+    @if (showDocs) {}
+    @if (showHelp) {
+      <bds-button label="Label" variant="elevated" icon="add" color="secondary" size="md"> </bds-button>
+      <bds-button label="Label" variant="outlined" icon="add" color="primary" size="md"> </bds-button>
+      <bds-button label="Label" variant="filled" icon="add" color="primary" size="md"> </bds-button> |
+    }
+    @if (showNotifications) {}
+    @if (profileImage) {
+      <div class="profile-container">
+        <img class="profile-img" src="{{ profileImage }}" alt="Perfil" />
+      </div>
+    }
+    @if (logout) {
+      <span (click)="logoutClick.emit()" class="material-symbols-rounded"> logout </span>
+    }
+  </div>
+</div>

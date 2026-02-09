@@ -45,5 +45,14 @@
   <br />
 </main>
 <div class="panel-container">
+  <app-top-bar
+    [showClock]="true"
+    [showDocs]="true"
+    [showHelp]="true"
+    [showNotifications]="true"
+    [profileImage]="'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'"
+    [logout]="true"
+  ></app-top-bar>
+
   <app-example-panel-layout isPanelOpen="true" minWidth="360"></app-example-panel-layout>
 </div>

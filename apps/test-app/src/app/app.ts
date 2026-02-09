@@ -33,6 +33,7 @@ import { ExampleProgressBar } from './components/example-progress-bar/example-pr
 import { ExampleSearchbar } from './components/example-searchbar/example-searchbar';
 import { ExamplePanelLayoutComponent } from './components/example-panel-layout/example-panel-layout';
 import { ExampleProgressCircular } from './components/example-progress-circular/example-progress-circular';
+import { ExampleTopbar } from './components/example-topbar/example-topbar';
 
 @Component({
   selector: 'app-root',

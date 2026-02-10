@@ -1,32 +1,51 @@
 <div class="top-bar" [class.sidebar-closed]="sidebarClosed">
-  <div class="breadcrumb">
-    <!--     <app-custom-breadcrumb [items]="breadcrumbItems" [config]="breadcrumbConfig">
-    </app-custom-breadcrumb> -->
+  <div class="initial-content">
     <div>
-      <div>breadcrumb</div>
-      <div>
-        <span class="material-symbols-rounded"> arrow_back </span>
-        <span> Label </span>
+      @if (breadcrumb) {
+      <div class="breadcrumb">{{ breadcrumb }}</div>
+      }
+      <div class="initial-content-item">
+        @if (showBackButton) {
+        <span class="material-symbols-rounded back-button" (click)="backClick.emit()"> arrow_back </span>
+        }
+        @if (title) {
+        <span class="title">{{ title }}</span>
+        }
       </div>
+      @if (subtitle) {
+      <span class="subtitle">{{ subtitle }}</span>
+      }
     </div>
   </div>
 
   <div class="actions">
-    @if (showClock) {}
-    @if (showDocs) {}
-    @if (showHelp) {
-    <bds-button label="Label" variant="elevated" icon="add" color="secondary" size="md"> </bds-button>
-    <bds-button label="Label" variant="outlined" icon="add" color="primary" size="md"> </bds-button>
-    <bds-button label="Label" variant="filled" icon="add" color="primary" size="md"> </bds-button> |
+    @if (showClock) {
+    <span class="material-symbols-rounded" (click)="clockClick.emit()" title="Clock"> schedule </span>
     }
-    @if (showNotifications) {}
+    @if (showDocs) {
+    <span class="material-symbols-rounded" (click)="docsClick.emit()" title="Documentation"> description </span>
+    }
+
+    @for (action of actions; track action.id) {
+    <bds-button [label]="action.label" [variant]="action.variant || 'filled'" [icon]="action.icon || null"
+      [color]="action.color || 'primary'" [size]="action.size || 'md'" [disabled]="action.disabled || false"
+      (action)="onActionClick(action.id)">
+    </bds-button>
+    }
+
+    @if (showNotifications) {
+    <span class="material-symbols-rounded" (click)="notificationsClick.emit()" title="Notifications"> notifications
+    </span>
+    }
+
     @if (profileImage) {
-    <div class="profile-container">
-      <img class="profile-img" src="{{ profileImage }}" alt="Perfil" />
+    <div class="profile-container" (click)="profileClick.emit()">
+      <img class="profile-img" [src]="profileImage" alt="Profile" />
     </div>
     }
-    @if (logout) {
-    <span (click)="logoutClick.emit()" class="material-symbols-rounded"> logout </span>
+
+    @if (showLogout) {
+    <span (click)="logoutClick.emit()" class="material-symbols-rounded" title="Logout"> logout </span>
     }
   </div>
 </div>

@@ -1,28 +1,62 @@
 .top-bar {
-  width: 100%;
   height: 56px;
   background: var(--mat-sys-background);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 12px;
   padding: 0 1rem;
   transition: margin-left 0.3s ease, width 0.3s ease; // Transición suave
 
 
-  .breadcrumb {
+  .initial-content {
     display: flex;
     align-items: center;
     font-size: 14px;
     font-weight: 500;
     color: #333;
 
-    .breadcrumb-title {
-      font-weight: 600;
+    // Outer div wrapper styles if needed
+    >div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .breadcrumb-subtitle {
-      margin-left: 4px;
-      color: #555;
+    .breadcrumb {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 2px;
+    }
+
+    .initial-content-item {
+      display: flex;
+      align-items: center;
+      gap: 8px; // Increased gap for better spacing
+
+      .back-button {
+        cursor: pointer;
+        font-size: 24px;
+        color: var(--mat-sys-on-surface);
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+
+      .title {
+        color: var(--mat-sys-light-on-surface);
+        font-family: Roboto, sans-serif;
+        font-size: 20px; // Adjusted size for balance
+        font-weight: 500;
+        line-height: 1.2;
+      }
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #666;
+      margin-top: 2px;
     }
   }
 

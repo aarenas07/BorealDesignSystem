@@ -7,7 +7,6 @@
 
   // WARNING
   &.bds-color-warning {
-
     // Filled Button
     button.mat-mdc-unelevated-button {
       --mat-mdc-button-ripple-color: var(--mat-sys-on-warning);
@@ -271,12 +270,20 @@
       }
 
       &:hover:not([disabled]) {
-        background-color: color-mix(in srgb, var(--mat-sys-measurement-container) 92%, var(--mat-sys-on-measurement-container) 8%) !important;
+        background-color: color-mix(
+          in srgb,
+          var(--mat-sys-measurement-container) 92%,
+          var(--mat-sys-on-measurement-container) 8%
+        ) !important;
       }
 
       &:focus:not([disabled]),
       &:active:not([disabled]) {
-        background-color: color-mix(in srgb, var(--mat-sys-measurement-container) 88%, var(--mat-sys-on-measurement-container) 12%) !important;
+        background-color: color-mix(
+          in srgb,
+          var(--mat-sys-measurement-container) 88%,
+          var(--mat-sys-on-measurement-container) 12%
+        ) !important;
       }
     }
 

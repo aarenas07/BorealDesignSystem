@@ -1,7 +1,7 @@
-import { AbstractControl, FormGroup } from "@angular/forms";
+import { AbstractControl, FormGroup } from '@angular/forms';
 
 export interface SmartStepperStep {
-  index: number
+  index: number;
   label: string;
   description?: string;
   disabled?: boolean;

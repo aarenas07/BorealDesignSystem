@@ -24,7 +24,7 @@ describe('UploaderComponent', () => {
     const mockEvent = {
       preventDefault: () => {},
       stopPropagation: () => {},
-      dataTransfer: { files: [mockFile] }
+      dataTransfer: { files: [mockFile] },
     } as any;
 
     component.onDrop(mockEvent);
@@ -34,10 +34,10 @@ describe('UploaderComponent', () => {
   it('should validate file size', () => {
     const largeFile = new File(['x'.repeat(100 * 1024 * 1024)], 'large.jpg', { type: 'image/jpeg' });
     const files = [largeFile];
-    
+
     let errorEmitted = false;
-    component.error.subscribe(() => errorEmitted = true);
-    
+    component.error.subscribe(() => (errorEmitted = true));
+
     component['processFiles'](files);
     expect(errorEmitted).toBe(true);
   });

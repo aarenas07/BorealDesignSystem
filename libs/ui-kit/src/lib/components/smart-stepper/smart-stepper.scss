@@ -1,5 +1,5 @@
-@use "sass:map";
-@use "../../styles/styles" as theme;
+@use 'sass:map';
+@use '../../styles/styles' as theme;
 
 @property --bds-substep-progress {
   syntax: '<percentage>';
@@ -12,7 +12,6 @@
   flex-direction: column;
   color: var(--mat-sys-on-surface);
 }
-
 
 .bds-smart-stepper__cdk {
   display: none;
@@ -97,7 +96,10 @@
   box-shadow: none;
   line-height: 0;
   cursor: pointer;
-  transition: background-color 200ms ease, transform 150ms ease, box-shadow 200ms ease;
+  transition:
+    background-color 200ms ease,
+    transform 150ms ease,
+    box-shadow 200ms ease;
 }
 
 .bds-smart-stepper__substepper-label {
@@ -142,8 +144,6 @@
   background: var(--mat-sys-error-container);
 }
 
-
-
 .bds-smart-stepper__substepper-label-icon {
   font-size: 1.25rem;
   width: 1.25rem;
@@ -186,7 +186,12 @@
   color: var(--mat-sys-on-surface);
   font-size: 0.875rem;
   cursor: pointer;
-  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
 }
 
 .bds-smart-stepper__mini-step-icon.is-complete {
@@ -216,7 +221,7 @@
 }
 
 .bds-smart-stepper__mini-step.is-complete {
-  background: #A6F2D1;
+  background: #a6f2d1;
   color: var(--mat-sys-on-primary);
   border-color: transparent;
   margin-right: 0.5rem !important;
@@ -250,7 +255,10 @@
   font-weight: 500;
   background: transparent;
   color: var(--mat-sys-on-surface);
-  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
 }
 
 .bds-smart-stepper__substep.is-active .bds-smart-stepper__substep-circle {
@@ -277,13 +285,11 @@
   overflow: hidden;
 }
 
-
 .bds-smart-stepper__substep-label {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  padding-bottom: .3rem;
-
+  padding-bottom: 0.3rem;
 }
 
 .bds-smart-stepper__substep-text {
@@ -336,7 +342,6 @@
   padding: 0.063rem 0.125rem;
   border-radius: 0.75rem;
   background: transparent;
-
 }
 
 @media (max-width: 900px) {
@@ -349,11 +354,8 @@
   position: relative;
   border: none;
   transition: --bds-substep-progress 250ms ease;
-  background:
-    conic-gradient(var(--mat-sys-primary) var(--bds-substep-progress, 0%),
-      var(--mat-sys-secondary-container) 0);
+  background: conic-gradient(var(--mat-sys-primary) var(--bds-substep-progress, 0%), var(--mat-sys-secondary-container) 0);
 }
-
 
 .bds-smart-stepper__substep-circle--progress::before {
   content: '';
@@ -459,7 +461,6 @@
   width: 2rem !important;
   border: 1px solid var(--mat-sys-outline-variant) !important;
   background-color: var(--mat-sys-surface-container) !important;
-
 }
 
 :host ::ng-deep .bds-smart-stepper__header__row-stepper .mat-step-icon-selected {
@@ -480,7 +481,7 @@
   visibility: visible;
   transform: none;
   height: auto;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 :host ::ng-deep .bds-smart-stepper__header__row-stepper .mat-horizontal-stepper-header {

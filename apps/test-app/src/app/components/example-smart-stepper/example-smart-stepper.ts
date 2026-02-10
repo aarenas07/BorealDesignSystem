@@ -1,12 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import {
-  SmartStepperComponent,
-  BdsStepContentDirective,
-  FormFieldComponent,
-  MenuOptionBds
-} from '@organizacion/ui-kit';
-import { MatStepper, MatStep } from "@angular/material/stepper";
+import { SmartStepperComponent, BdsStepContentDirective, FormFieldComponent, MenuOptionBds } from '@organizacion/ui-kit';
+import { MatStepper, MatStep } from '@angular/material/stepper';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { SmartStepperStep } from 'libs/ui-kit/src/lib/interfaces/bds-smart-stepper.interface';
 
@@ -21,18 +16,10 @@ type PanelsByTab = {
 };
 @Component({
   selector: 'app-example-smart-stepper',
-  imports: [
-    ReactiveFormsModule,
-    SmartStepperComponent,
-    BdsStepContentDirective,
-    FormFieldComponent,
-    MatStepper,
-    MatStep,
-  ],
+  imports: [ReactiveFormsModule, SmartStepperComponent, BdsStepContentDirective, FormFieldComponent, MatStepper, MatStep],
   templateUrl: './example-smart-stepper.html',
   styleUrl: './example-smart-stepper.scss',
 })
-
 export class ExampleSmartStepper {
   activeIndex = 0;
   activeIndexSubStep = 0;
@@ -211,7 +198,6 @@ export class ExampleSmartStepper {
     ],
   };
 
-
   constructor() {
     this.activoFullInfo = this._fb.group({
       ubicacionYRegistro: this._fb.group({
@@ -228,7 +214,7 @@ export class ExampleSmartStepper {
         carpetaAltitud: [''],
         nombrePlantilla: [''],
         fuente: [''],
-        descripcion: ['']
+        descripcion: [''],
       }),
 
       proyectoGestion: this._fb.group({
@@ -239,7 +225,7 @@ export class ExampleSmartStepper {
           tipoEnergia: [''],
           tipoConductor: [''],
           nodoAnterior: [''],
-          nodoActual: ['']
+          nodoActual: [''],
         }),
         responsableYContratos: this._fb.group({
           responsable: ['', [Validators.required]],
@@ -254,7 +240,7 @@ export class ExampleSmartStepper {
           tablaConciliacion: [''],
           tablaConcialiacion: [''],
           obsConciliacion: [''],
-          idGrupoConciliacion: ['']
+          idGrupoConciliacion: [''],
         }),
       }),
 
@@ -268,7 +254,7 @@ export class ExampleSmartStepper {
           valorMantenimiento: [''],
           finPoliza: [''],
           edadTipo: [''],
-          vidaRemanente: ['']
+          vidaRemanente: [''],
         }),
         caracteristicasDelEquipo: this._fb.group({
           tag: ['', [Validators.required]],
@@ -285,7 +271,7 @@ export class ExampleSmartStepper {
           edadAparente: [''],
           pcbs: [''],
           tipoAislamiento: [''],
-          tipoInstalacion: ['']
+          tipoInstalacion: [''],
         }),
       }),
 
@@ -302,7 +288,7 @@ export class ExampleSmartStepper {
           tipoEstructura: [''],
           ftoEstructura: [''],
           estadoEstructura: [''],
-          atributosApoyo: ['']
+          atributosApoyo: [''],
         }),
         conductorYRed: this._fb.group({
           nroFases: ['', [Validators.required]],
@@ -320,7 +306,7 @@ export class ExampleSmartStepper {
           cantConductorKm: [''],
           longitudCalcM: [''],
           concecutivo: [''],
-          atributosRed: ['']
+          atributosRed: [''],
         }),
         codigoCregYOtros: this._fb.group({
           codigoGreg: ['', [Validators.required]],
@@ -335,8 +321,8 @@ export class ExampleSmartStepper {
           valor12M: [''],
           municipioLev: [''],
           localidadLev: [''],
-          fechaLevantamiento: ['']
-        })
+          fechaLevantamiento: [''],
+        }),
       }),
     });
     this.steps = [
@@ -413,15 +399,14 @@ export class ExampleSmartStepper {
             index: 2,
             label: 'Código CREG y otros',
             formGroup: this.activoFullInfo.get('redYEstructura')?.get('codigoCregYOtros') as FormGroup,
-          }
+          },
         ],
       },
     ];
   }
 
-
   onStepChange(event: { previousIndex: number; currentIndex: number }) {
-    this.activeIndex = event.currentIndex
+    this.activeIndex = event.currentIndex;
   }
 
   getUbicacionPanels() {
@@ -440,13 +425,11 @@ export class ExampleSmartStepper {
     return this.panelsByTab.redYEstructura;
   }
 
-  onSubStepChange(
-    event?: StepperSelectionEvent,
-    stepInfo?: { stepIndex: number; subStepIndex: number }
-  ) {
-    if (event) { //solo para stepper de angular material
+  onSubStepChange(event?: StepperSelectionEvent, stepInfo?: { stepIndex: number; subStepIndex: number }) {
+    if (event) {
+      //solo para stepper de angular material
       this.activeIndexSubStep = event.selectedIndex;
-      return
+      return;
     }
     this.activeIndexSubStep = stepInfo?.subStepIndex ?? 0;
   }
@@ -489,5 +472,4 @@ export class ExampleSmartStepper {
   get codigoCregYOtrosForm(): FormGroup {
     return this.redYEstructuraForm.get('codigoCregYOtros') as FormGroup;
   }
-
 }

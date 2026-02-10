@@ -43,14 +43,20 @@
         <div class="bds-smart-stepper__substepper-container" (click)="goToStep($index)">
           <button mat-stroked-button class="bds-smart-stepper__substepper-button"
             [class.active]="$index === activeIndexSubStep() || isSubStepCompleted(activeIndex(), $index)"
-            [attr.data-tone]="getSubStepTone($index)"
+            [class.is-warning]="getSubStepTone($index) === 'warning'"
+            [class.is-error]="getSubStepTone($index) === 'error'"
+            [class.is-complete]="getSubStepTone($index) === 'complete'"
             [disabled]="isSubStepDisabled(activeIndex(), $index) || isSubStepLocked(activeIndex(), $index)">
           </button>
           <div class="bds-smart-stepper__substepper-label"
             [class.is-complete]="isSubStepCompleted(activeIndex(), $index)"
-            [class.is-active]="$index === activeIndexSubStep() ">
+            [class.is-warning]="getSubStepTone($index) === 'warning'"
+            [class.is-error]="getSubStepTone($index) === 'error'">
             @if(isSubStepCompleted(activeIndex(), $index)){
             <mat-icon class="bds-smart-stepper__substepper-label-icon">check</mat-icon>
+            }
+            @if(getSubStepTone($index) !== 'complete' && getSubStepTone($index)!== 'default'){
+            <mat-icon class="bds-smart-stepper__substepper-label-icon">error</mat-icon>
             }
             <label>Sub {{$index +1 }}</label>
           </div>

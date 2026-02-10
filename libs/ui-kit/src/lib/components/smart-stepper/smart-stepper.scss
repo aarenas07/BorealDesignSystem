@@ -110,32 +110,45 @@
   gap: 0.5rem;
 }
 
+// .bds-smart-stepper__substepper-label.is-complete {
+//   padding: 0.313rem 0 0.313rem 0;
+//   border-radius: 1rem;
+//   background: #A6F2D1 !important;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   gap: 0.5rem;
+// }
+
+// .bds-smart-stepper__substepper-label.is-active {
+//   padding: 0.313rem 0 0.313rem 0;
+//   border-radius: 1rem;
+//   background: var(--mat-sys-secondary-container) !important;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   gap: 0.5rem;
+// }
+
 .bds-smart-stepper__substepper-label.is-complete {
-  padding: 0.313rem 0 0.313rem 0;
-  border-radius: 1rem;
-  background: #A6F2D1 !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+  background: var(--mat-sys-positive-container);
 }
 
-.bds-smart-stepper__substepper-label.is-active {
-  padding: 0.313rem 0 0.313rem 0;
-  border-radius: 1rem;
-  background: var(--mat-sys-secondary-container) !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+.bds-smart-stepper__substepper-label.is-warning {
+  background: var(--mat-sys-warning-container);
 }
+
+.bds-smart-stepper__substepper-label.is-error {
+  background: var(--mat-sys-error-container);
+}
+
+
 
 .bds-smart-stepper__substepper-label-icon {
   font-size: 1.25rem;
   width: 1.25rem;
   height: 1.25rem;
   line-height: 1.25rem;
-  font-weight: 600;
 }
 
 .bds-smart-stepper__substepper-container {
@@ -373,19 +386,16 @@
 }
 
 /* Estados */
-.bds-smart-stepper__substep[data-tone="success"] {
-  --substep-accent: var(--md-extended-color-positive-color);
-  --substep-bg: var(--md-extended-color-positive-color-container);
+.bds-smart-stepper__substepper-button.is-completed {
+  background: var(--mat-sys-positive-container);
 }
 
-.bds-smart-stepper__substep[data-tone="warning"] {
-  --substep-accent: var(--md-extended-color-warning-color);
-  --substep-bg: var(--md-extended-color-warning-color-container);
+.bds-smart-stepper__substepper-button.is-warning {
+  background: var(--mat-sys-warning-container);
 }
 
-.bds-smart-stepper__substep[data-tone="error"] {
-  --substep-accent: var(--mat-sys-error);
-  --substep-bg: var(--mat-sys-error-container);
+.bds-smart-stepper__substepper-button.is-error {
+  background: var(--mat-sys-error-container);
 }
 
 .bds-smart-stepper__mini-steps .mat-stepper-horizontal-line {

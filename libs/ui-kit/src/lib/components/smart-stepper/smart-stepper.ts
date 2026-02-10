@@ -159,13 +159,10 @@ export class SmartStepperComponent implements OnDestroy {
     this.stepChange.emit({ previousIndex, currentIndex: index });
   }
 
-  getSubStepTone(subStepIndex: number): 'default' | 'success' | 'warning' | 'error' {
+  getSubStepTone(subStepIndex: number): 'default' | 'complete' | 'warning' | 'error' {
     const stepIndex = this.activeIndex();
     const step = this.steps()[stepIndex];
     const subStep = step?.subSteps?.[subStepIndex];
-
-
-
 
     if (!subStep) return 'default';
 
@@ -178,7 +175,7 @@ export class SmartStepperComponent implements OnDestroy {
     }
 
     if (this.isSubStepCompleted(stepIndex, subStepIndex)) {
-      return 'success';
+      return 'complete';
     }
     return 'default';
   }

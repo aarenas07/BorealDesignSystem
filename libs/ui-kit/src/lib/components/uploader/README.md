@@ -30,23 +30,23 @@ El componente `bds-uploader` es un uploader parametrizable para Angular, diseña
 
 ## Inputs
 
-| Input           | Tipo      | Descripción                                                      |
-|-----------------|-----------|------------------------------------------------------------------|
-| `accept`        | string    | Extensiones permitidas (ej: `.jpg,.png,.pdf`)                    |
-| `maxSize`       | number    | Tamaño máximo en bytes (default: 50MB)                           |
-| `multiple`      | boolean   | Permitir selección múltiple                                      |
-| `dragDropText`  | string    | Texto principal del área de drop                                 |
-| `buttonText`    | string    | Texto del botón de selección                                     |
-| `helperText`    | string    | Texto de ayuda debajo del botón                                  |
-| `disabled`      | boolean   | Deshabilita el uploader                                          |
+| Input          | Tipo    | Descripción                                   |
+| -------------- | ------- | --------------------------------------------- |
+| `accept`       | string  | Extensiones permitidas (ej: `.jpg,.png,.pdf`) |
+| `maxSize`      | number  | Tamaño máximo en bytes (default: 50MB)        |
+| `multiple`     | boolean | Permitir selección múltiple                   |
+| `dragDropText` | string  | Texto principal del área de drop              |
+| `buttonText`   | string  | Texto del botón de selección                  |
+| `helperText`   | string  | Texto de ayuda debajo del botón               |
+| `disabled`     | boolean | Deshabilita el uploader                       |
 
 ## Outputs
 
-| Output           | Tipo              | Descripción                                 |
-|------------------|-------------------|---------------------------------------------|
-| `filesSelected`  | UploadedFile[]    | Archivos seleccionados                      |
-| `fileRemoved`    | UploadedFile      | Archivo eliminado                           |
-| `error`          | string            | Mensaje de error de validación              |
+| Output          | Tipo           | Descripción                    |
+| --------------- | -------------- | ------------------------------ |
+| `filesSelected` | UploadedFile[] | Archivos seleccionados         |
+| `fileRemoved`   | UploadedFile   | Archivo eliminado              |
+| `error`         | string         | Mensaje de error de validación |
 
 ## Modelo `UploadedFile`
 
@@ -88,6 +88,7 @@ onError(msg: string) {
 ```
 
 ## Notas
+
 - El componente utiliza el sistema de variables de Material/Boreal para colores y estilos.
 - El botón usa el evento `(action)` para abrir el selector de archivos.
 - El preview solo se muestra para imágenes, otros archivos muestran un ícono.

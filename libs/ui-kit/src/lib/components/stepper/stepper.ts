@@ -12,8 +12,7 @@ import { StepperOrientationBds } from '../../interfaces/bds-stepper.enum';
   imports: [CommonModule, MatStepperModule],
   templateUrl: './stepper.html',
   styleUrl: './stepper.scss',
-  encapsulation: ViewEncapsulation.None
-
+  encapsulation: ViewEncapsulation.None,
 })
 export class StepperComponent {
   steps = input<StepperStepBds[]>([]);

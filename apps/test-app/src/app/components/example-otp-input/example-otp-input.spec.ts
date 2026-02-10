@@ -7,7 +7,7 @@ describe('ExampleOtpInput', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ExampleOtpInput]
+      imports: [ExampleOtpInput],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExampleOtpInput);

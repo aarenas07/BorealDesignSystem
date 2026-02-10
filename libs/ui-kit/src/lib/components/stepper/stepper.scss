@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "../../styles/styles" as theme;
+
 .bds-stepper {
   display: flex;
   flex-direction: column;

@@ -2,12 +2,12 @@
 <section class="component-section">
   <h2>Smart Stepper</h2>
   <div class="demo-row">
-    <bds-smart-stepper [steps]="steps" [allowInvalidAdvance]="false" [(activeIndex)]="activeIndex"
+    <bds-smart-stepper [steps]="steps" [allowInvalidAdvance]="allowInvalidAdvance" [(activeIndex)]="activeIndex"
       [(activeIndexSubStep)]="activeIndexSubStep" [linear]="true" (stepChange)="onStepChange($event)"
       (subStepClick)="onSubStepChange(undefined, $event)">
       <ng-template bdsStepContent="0">
         <mat-stepper class="bds-smart-stepper__inner-stepper" (selectionChange)="onSubStepChange($event)"
-          [selectedIndex]="activeIndexSubStep" linear #stepper>
+          [selectedIndex]="activeIndexSubStep" [linear]="!allowInvalidAdvance" #stepper>
           <mat-step [stepControl]="activoFullInfo.get('ubicacionYRegistro')!">
             <ng-template matStepLabel>Ubicacion</ng-template>
             <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem" [formGroup]="activoFullInfo">
@@ -29,7 +29,7 @@
       </ng-template>
 
       <ng-template bdsStepContent="1">
-        <mat-stepper class="bds-smart-stepper__inner-stepper" linear [selectedIndex]="activeIndexSubStep"
+        <mat-stepper class="bds-smart-stepper__inner-stepper" [linear]="!allowInvalidAdvance" [selectedIndex]="activeIndexSubStep"
           (selectionChange)="onSubStepChange($event)">
           <!-- PASO 1: Proyecto e infraestructura -->
           <mat-step [stepControl]="proyectoEInfrastructuraForm">
@@ -64,7 +64,7 @@
       </ng-template>
 
       <ng-template bdsStepContent="2">
-        <mat-stepper class="bds-smart-stepper__inner-stepper" linear [selectedIndex]="activeIndexSubStep"
+        <mat-stepper class="bds-smart-stepper__inner-stepper" [linear]="!allowInvalidAdvance" [selectedIndex]="activeIndexSubStep"
           (selectionChange)="onSubStepChange($event)">
           <mat-step [stepControl]="valoracionFinancieraForm">
             <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem">
@@ -100,7 +100,7 @@
       </ng-template>
 
       <ng-template bdsStepContent="3">
-        <mat-stepper class="bds-smart-stepper__inner-stepper" linear [selectedIndex]="activeIndexSubStep"
+        <mat-stepper class="bds-smart-stepper__inner-stepper" [linear]="!allowInvalidAdvance" [selectedIndex]="activeIndexSubStep"
           (selectionChange)="onSubStepChange($event)">
           <mat-step [stepControl]="apoyoYEstructuraForm">
             <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem">

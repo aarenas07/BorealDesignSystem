@@ -36,6 +36,7 @@ type PanelsByTab = {
 export class ExampleSmartStepper {
   activeIndex = 0;
   activeIndexSubStep = 0;
+  allowInvalidAdvance = true;
   steps: SmartStepperStep[] = [];
 
   private readonly _fb = inject(FormBuilder);

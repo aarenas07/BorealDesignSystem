@@ -103,7 +103,7 @@
   </div>
 
   @if (activeStepTemplate()) {
-  <div class="bds-smart-stepper__content">
+  <div class="bds-smart-stepper__content" #content>
     <ng-container *ngTemplateOutlet="activeStepTemplate()"></ng-container>
   </div>
   }

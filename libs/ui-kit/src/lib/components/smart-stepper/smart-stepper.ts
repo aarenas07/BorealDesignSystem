@@ -1,4 +1,4 @@
-import { Component, computed, contentChildren, effect, input, model, output, OnDestroy, ViewEncapsulation, signal } from '@angular/core';
+import { Component, computed, contentChildren, effect, ElementRef, input, model, OnDestroy, output, signal, ViewEncapsulation, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BdsStepContentDirective } from '../../directives/bds-step-content.directive';
 import { CdkStepperModule, StepperSelectionEvent } from '@angular/cdk/stepper';
@@ -41,6 +41,7 @@ export class SmartStepperComponent implements OnDestroy {
   private lastActiveFormStatus: string | null = null;
 
   stepContents = contentChildren(BdsStepContentDirective);
+  contentRef = viewChild<ElementRef<HTMLElement>>('content');
 
   activeStep = computed(() => this.steps()[this.activeIndex()] ?? null);
 
@@ -84,6 +85,10 @@ export class SmartStepperComponent implements OnDestroy {
       this.watchActiveStepControls(this.activeIndex());
     });
     effect(() => {
+      this.activeIndex();
+      queueMicrotask(() => this.playStepTransition());
+    });
+    effect(() => {
       const form = this.activeStep()?.form;
       this.activeFormStatusSub?.unsubscribe();
 
@@ -123,6 +128,7 @@ export class SmartStepperComponent implements OnDestroy {
     if (previouslySelectedIndex === selectedIndex) return;
 
     this.activeIndex.set(selectedIndex);
+    this.activeIndexSubStep.set(0);
     this.stepChange.emit({
       previousIndex: previouslySelectedIndex,
       currentIndex: selectedIndex,
@@ -150,7 +156,6 @@ export class SmartStepperComponent implements OnDestroy {
     if (!canAdvance) return;
 
     this.activeIndex.set(index);
-    this.activeIndexSubStep.set(0);
     this.stepChange.emit({ previousIndex, currentIndex: index });
   }
 
@@ -241,8 +246,7 @@ export class SmartStepperComponent implements OnDestroy {
   }
 
   getSubActiveIndex(stepIndex: number): number {
-    const step = this.steps()[stepIndex];
-    return this.subActiveIndexOverrides.get(stepIndex) ?? step?.index ?? 0;
+    return this.subActiveIndexOverrides.get(stepIndex) ?? 0;
   }
 
   getStepProgress(stepIndex: number): number {
@@ -307,9 +311,10 @@ export class SmartStepperComponent implements OnDestroy {
   }
 
   private setSubActiveIndex(stepIndex: number, subStepIndex: number) {
-    console.log('From Automatic');
-    console.log(stepIndex, subStepIndex);
-    this.activeIndexSubStep.set(0)
+    this.subActiveIndexOverrides.set(stepIndex, subStepIndex);
+    if (this.activeIndex() === stepIndex) {
+      this.activeIndexSubStep.set(subStepIndex);
+    }
   }
 
   private watchActiveStepControls(stepIndex: number) {
@@ -404,6 +409,23 @@ export class SmartStepperComponent implements OnDestroy {
     this.controlSubscriptions = [];
   }
 
+  private playStepTransition() {
+    const el = this.contentRef()?.nativeElement;
+    if (!el) return;
+    el.getAnimations().forEach(animation => animation.cancel());
+    el.animate(
+      [
+        { opacity: 0, transform: 'translateY(6px)' },
+        { opacity: 1, transform: 'translateY(0)' },
+      ],
+      {
+        duration: 220,
+        easing: 'ease-out',
+        fill: 'both',
+      }
+    );
+  }
+
   private getActiveSubStep(stepIndex: number): SmartSubStep | null {
     const step = this.steps()[stepIndex];
     if (!step?.subSteps?.length) return null;
@@ -413,11 +435,12 @@ export class SmartStepperComponent implements OnDestroy {
 
   goToStep(index: number): void {
     const stepIndex = this.activeIndex();
-    this.setSubActiveIndex(stepIndex, 0)
+    console.log('this.allowInvalidAdvance()');
+    console.log(this.allowInvalidAdvance())
 
-    if (this.isSubStepDisabled(stepIndex, index) || this.isSubStepLocked(stepIndex, index)) {
-      return;
-    }
+    // if (this.isSubStepDisabled(stepIndex, index) || this.isSubStepLocked(stepIndex, index)) {
+    //   return;
+    // }
 
     const currentSubStep = this.getActiveSubStep(stepIndex);
     if (!currentSubStep) return;
@@ -427,6 +450,7 @@ export class SmartStepperComponent implements OnDestroy {
       currentSubStep.formGroup?.valid;
 
     const canAdvance = this.allowInvalidAdvance() || isValid;
+
 
     if (!canAdvance) {
       currentSubStep.formGroup?.markAllAsTouched();

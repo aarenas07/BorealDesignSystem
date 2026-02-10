@@ -111,6 +111,13 @@
   @if (activeStepTemplate()) {
   <div class="bds-smart-stepper__content" #content>
     <ng-container *ngTemplateOutlet="activeStepTemplate()"></ng-container>
+    <div class="bds-smart-stepper__content__actions">
+      <button class="bds-smart-stepper__content__actions--next-button" type="button" (click)="nextStep()">
+        {{ nextStepLabel() }}
+      </button>
+    </div>
   </div>
   }
+
+
 </div>

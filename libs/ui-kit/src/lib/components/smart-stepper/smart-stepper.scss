@@ -110,25 +110,6 @@
   gap: 0.5rem;
 }
 
-// .bds-smart-stepper__substepper-label.is-complete {
-//   padding: 0.313rem 0 0.313rem 0;
-//   border-radius: 1rem;
-//   background: #A6F2D1 !important;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   gap: 0.5rem;
-// }
-
-// .bds-smart-stepper__substepper-label.is-active {
-//   padding: 0.313rem 0 0.313rem 0;
-//   border-radius: 1rem;
-//   background: var(--mat-sys-secondary-container) !important;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   gap: 0.5rem;
-// }
 
 .bds-smart-stepper__substepper-label.is-complete {
   background: var(--mat-sys-positive-container);
@@ -430,6 +411,22 @@
   border-color: var(--mat-sys-primary);
   color: var(--mat-sys-primary);
   background: var(--mat-sys-surface-container-lowest);
+}
+
+.bds-smart-stepper__content__actions {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  &--next-button {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    padding: 0.625rem;
+    background: var(--mat-sys-secondary-container);
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-weight: 500;
+  }
 }
 
 :host ::ng-deep .bds-smart-stepper__header__row-stepper .bds-smart-stepper__mini-steps .mat-step-icon-state-done {

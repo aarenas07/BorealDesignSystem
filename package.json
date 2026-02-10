@@ -61,7 +61,7 @@
     "@types/jest": "^29.5.12",
     "@types/node": "18.16.9",
     "angular-eslint": "latest",
-    "chromatic": "^13.3.4",
+    "chromatic": "^15.0.0",
     "eslint": "^9.8.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",

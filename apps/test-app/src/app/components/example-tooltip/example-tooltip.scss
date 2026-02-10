@@ -32,10 +32,10 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: #f0f0f0;
+  background-color: var(--mat-sys-primary-container);
   cursor: crosshair;
   transition: all 0.2s ease;
-  color: var(--mat-sys-secondary);
+  color: var(--mat-sys-primary);
 
   &:hover {
     background-color: var(--mat-sys-outline-variant);

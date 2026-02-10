@@ -13,7 +13,7 @@ import { BdsSnackbarService } from '../../services/bds-snackbar.service';
 })
 class SnackbarHostComponent {
   data = input.required<SnackbarDataBds>();
-  config = input<SnackbarConfigBds>();
+  config = input<SnackbarConfigBds>({ stacking: false });
 
   private readonly _snackbarService = inject(BdsSnackbarService);
 
@@ -82,6 +82,7 @@ export const Interactive: Story = {
           duration: args['duration'],
           horizontalPosition: args['horizontalPosition'],
           verticalPosition: args['verticalPosition'],
+          stacking: args['stacking'],
         },
       },
       template: `
@@ -93,53 +94,26 @@ export const Interactive: Story = {
 
 export const Stacking: Story = {
   render: args => {
-    const snackbarService = inject(BdsSnackbarService);
     return {
       props: {
         data: {
           message: args['message'],
           action: args['action'],
           icon: args['icon'],
+          longerAction: args['longerAction'],
           type: args['type'],
         },
         config: {
           duration: args['duration'],
           horizontalPosition: args['horizontalPosition'],
           verticalPosition: args['verticalPosition'],
-          stacking: true,
-        },
-        openMany: () => {
-          for (let i = 0; i < 3; i++) {
-            setTimeout(() => {
-              snackbarService.openSnackbar(
-                {
-                  message: `${args['message']} ${i + 1}`,
-                  action: args['action'],
-                  icon: args['icon'],
-                  type: i === 0 ? 'success' : i === 1 ? 'warning' : 'error',
-                },
-                {
-                  duration: args['duration'],
-                  horizontalPosition: args['horizontalPosition'],
-                  verticalPosition: args['verticalPosition'],
-                  stacking: true,
-                }
-              );
-            }, i * 200);
-          }
+          stacking: args['stacking'],
         },
       },
       template: `
-       <div style="display: flex; gap: 8px;">
-         <bds-snackbar-host [data]="data" [config]="config"></bds-snackbar-host>
-         <bds-button label="Abrir múltiples" (action)="openMany()"></bds-button>
-       </div>
+       <bds-snackbar-host [data]="data" [config]="config"></bds-snackbar-host>
+       <bds-snackbar-host [data]="data" [config]="config"></bds-snackbar-host>
       `,
-      styles: [
-        `
-        :host { display: block; }
-      `,
-      ],
     };
   },
 };

@@ -1,0 +1,17 @@
+<div class="bds-wavy-container">
+  <svg [attr.viewBox]="viewBox" class="bds-wavy-svg" preserveAspectRatio="xMidYMid meet">
+    <!-- 2. CAMINO INACTIVO (RECTA) -->
+    <!-- Se dibuja desde el gap hasta el final -->
+    <path [attr.d]="inactivePathD()" [attr.stroke-width]="strokeWidth()" class="bds-path-base bds-inactive-line"></path>
+
+    <!-- 1. CAMINO ACTIVO (ONDA) -->
+    <!-- Se dibuja solo hasta donde llega el porcentaje -->
+    <path [attr.d]="activePathD()" [attr.stroke-width]="strokeWidth()" class="bds-path-base bds-active-wave"></path>
+
+    @if (!removeDot() && !indeterminate()) {
+    <!-- 3. PUNTO FINAL (DOT) -->
+    <!-- Ubicado al final de la barra gris -->
+    <circle [attr.cx]="endDotX" [attr.cy]="CY" [attr.r]="endDotRadius()" class="bds-end-dot"></circle>
+    }
+  </svg>
+</div>

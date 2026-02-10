@@ -1,10 +1,594 @@
-// Componente Button - Estilos usando Angular Material Design 3
-
 :host {
   display: inline-block;
 
   // ============================================
-  // TAMAÑOS
+  // COLORES - VERSIÓN QUE SÍ FUNCIONA
+  // ============================================
+
+  // WARNING
+  &.bds-color-warning {
+
+    // Filled Button
+    button.mat-mdc-unelevated-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-warning);
+      background-color: var(--mat-sys-warning) !important;
+      color: var(--mat-sys-on-warning) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-warning);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-warning) 92%, var(--mat-sys-on-warning) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-warning) 88%, var(--mat-sys-on-warning) 12%) !important;
+      }
+    }
+
+    // Outlined Button
+    button.mat-mdc-outlined-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-warning);
+      border-color: var(--mat-sys-outline) !important;
+      color: var(--mat-sys-warning) !important;
+
+      &::before {
+        background-color: var(--mat-sys-warning);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-warning) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-warning) 12%, transparent) !important;
+      }
+    }
+
+    // Text Button
+    button.mat-mdc-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-warning);
+      color: var(--mat-sys-warning) !important;
+
+      &::before {
+        background-color: var(--mat-sys-warning);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-warning) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-warning) 12%, transparent) !important;
+      }
+    }
+
+    // Elevated/Raised Button
+    button.mat-mdc-raised-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-warning-container);
+      background-color: var(--mat-sys-warning-container) !important;
+      color: var(--mat-sys-on-warning-container) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-warning-container);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-warning-container) 92%, var(--mat-sys-on-warning-container) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-warning-container) 88%, var(--mat-sys-on-warning-container) 12%) !important;
+      }
+    }
+
+    // Icon Button
+    button.mat-mdc-icon-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-warning);
+      color: var(--mat-sys-warning) !important;
+
+      &::before {
+        background-color: var(--mat-sys-warning);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-warning) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-warning) 12%, transparent) !important;
+      }
+    }
+  }
+
+  // POSITIVE
+  &.bds-color-positive {
+    button.mat-mdc-unelevated-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-positive);
+      background-color: var(--mat-sys-positive) !important;
+      color: var(--mat-sys-on-positive) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-positive);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-positive) 92%, var(--mat-sys-on-positive) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-positive) 88%, var(--mat-sys-on-positive) 12%) !important;
+      }
+    }
+
+    button.mat-mdc-outlined-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-positive);
+      border-color: var(--mat-sys-outline) !important;
+      color: var(--mat-sys-positive) !important;
+
+      &::before {
+        background-color: var(--mat-sys-positive);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-positive) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-positive) 12%, transparent) !important;
+      }
+    }
+
+    button.mat-mdc-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-positive);
+      color: var(--mat-sys-positive) !important;
+
+      &::before {
+        background-color: var(--mat-sys-positive);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-positive) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-positive) 12%, transparent) !important;
+      }
+    }
+
+    button.mat-mdc-raised-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-positive-container);
+      background-color: var(--mat-sys-positive-container) !important;
+      color: var(--mat-sys-on-positive-container) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-positive-container);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-positive-container) 92%, var(--mat-sys-on-positive-container) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-positive-container) 88%, var(--mat-sys-on-positive-container) 12%) !important;
+      }
+    }
+
+    button.mat-mdc-icon-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-positive);
+      color: var(--mat-sys-positive) !important;
+
+      &::before {
+        background-color: var(--mat-sys-positive);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-positive) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-positive) 12%, transparent) !important;
+      }
+    }
+  }
+
+  // MEASUREMENT
+  &.bds-color-measurement {
+    button.mat-mdc-unelevated-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-measurement);
+      background-color: var(--mat-sys-measurement) !important;
+      color: var(--mat-sys-on-measurement) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-measurement);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-measurement) 92%, var(--mat-sys-on-measurement) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-measurement) 88%, var(--mat-sys-on-measurement) 12%) !important;
+      }
+    }
+
+    button.mat-mdc-outlined-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-measurement);
+      border-color: var(--mat-sys-outline) !important;
+      color: var(--mat-sys-measurement) !important;
+
+      &::before {
+        background-color: var(--mat-sys-measurement);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-measurement) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-measurement) 12%, transparent) !important;
+      }
+    }
+
+    button.mat-mdc-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-measurement);
+      color: var(--mat-sys-measurement) !important;
+
+      &::before {
+        background-color: var(--mat-sys-measurement);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-measurement) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-measurement) 12%, transparent) !important;
+      }
+    }
+
+    button.mat-mdc-raised-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-measurement-container);
+      background-color: var(--mat-sys-measurement-container) !important;
+      color: var(--mat-sys-on-measurement-container) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-measurement-container);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-measurement-container) 92%, var(--mat-sys-on-measurement-container) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-measurement-container) 88%, var(--mat-sys-on-measurement-container) 12%) !important;
+      }
+    }
+
+    button.mat-mdc-icon-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-measurement);
+      color: var(--mat-sys-measurement) !important;
+
+      &::before {
+        background-color: var(--mat-sys-measurement);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-measurement) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-measurement) 12%, transparent) !important;
+      }
+    }
+  }
+
+  // SECONDARY (Custom - No usa los tokens de Material)
+  &.bds-color-secondary {
+    button.mat-mdc-unelevated-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-secondary);
+      background-color: var(--mat-sys-secondary) !important;
+      color: var(--mat-sys-on-secondary) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-secondary);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-secondary) 92%, var(--mat-sys-on-secondary) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-secondary) 88%, var(--mat-sys-on-secondary) 12%) !important;
+      }
+    }
+
+    button.mat-mdc-outlined-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-secondary);
+      border-color: var(--mat-sys-outline) !important;
+      color: var(--mat-sys-secondary) !important;
+
+      &::before {
+        background-color: var(--mat-sys-secondary);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-secondary) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-secondary) 12%, transparent) !important;
+      }
+    }
+
+    button.mat-mdc-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-secondary);
+      color: var(--mat-sys-secondary) !important;
+
+      &::before {
+        background-color: var(--mat-sys-secondary);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-secondary) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-secondary) 12%, transparent) !important;
+      }
+    }
+
+    button.mat-mdc-raised-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-secondary-container);
+      background-color: var(--mat-sys-secondary-container) !important;
+      color: var(--mat-sys-on-secondary-container) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-secondary-container);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-secondary-container) 92%, var(--mat-sys-on-secondary-container) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-secondary-container) 88%, var(--mat-sys-on-secondary-container) 12%) !important;
+      }
+    }
+
+    button.mat-mdc-icon-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-secondary);
+      color: var(--mat-sys-secondary) !important;
+
+      &::before {
+        background-color: var(--mat-sys-secondary);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-secondary) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-secondary) 12%, transparent) !important;
+      }
+    }
+  }
+
+  // ACCENT
+  &.bds-color-accent {
+    button.mat-mdc-unelevated-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-accent);
+      background-color: var(--mat-sys-accent) !important;
+      color: var(--mat-sys-on-accent) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-accent);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-accent) 92%, var(--mat-sys-on-accent) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-accent) 88%, var(--mat-sys-on-accent) 12%) !important;
+      }
+    }
+
+    button.mat-mdc-outlined-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-accent);
+      border-color: var(--mat-sys-outline) !important;
+      color: var(--mat-sys-accent) !important;
+
+      &::before {
+        background-color: var(--mat-sys-accent);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-accent) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-accent) 12%, transparent) !important;
+      }
+    }
+
+    button.mat-mdc-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-accent);
+      color: var(--mat-sys-accent) !important;
+
+      &::before {
+        background-color: var(--mat-sys-accent);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-accent) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-accent) 12%, transparent) !important;
+      }
+    }
+
+    button.mat-mdc-raised-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-accent-container);
+      background-color: var(--mat-sys-accent-container) !important;
+      color: var(--mat-sys-on-accent-container) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-accent-container);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-accent-container) 92%, var(--mat-sys-on-accent-container) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-accent-container) 88%, var(--mat-sys-on-accent-container) 12%) !important;
+      }
+    }
+
+    button.mat-mdc-icon-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-accent);
+      color: var(--mat-sys-accent) !important;
+
+      &::before {
+        background-color: var(--mat-sys-accent);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-accent) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-accent) 12%, transparent) !important;
+      }
+    }
+  }
+
+  /* ERROR */
+  &.bds-color-error {
+    button.mat-mdc-unelevated-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-error);
+      background-color: var(--mat-sys-error) !important;
+      color: var(--mat-sys-on-error) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-error);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-error) 92%, var(--mat-sys-on-error) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-error) 88%, var(--mat-sys-on-error) 12%) !important;
+      }
+    }
+
+    button.mat-mdc-outlined-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-error);
+      border-color: var(--mat-sys-outline) !important;
+      color: var(--mat-sys-error) !important;
+
+      &::before {
+        background-color: var(--mat-sys-error);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-error) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-error) 12%, transparent) !important;
+      }
+    }
+
+    button.mat-mdc-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-error);
+      color: var(--mat-sys-error) !important;
+
+      &::before {
+        background-color: var(--mat-sys-error);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-error) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-error) 12%, transparent) !important;
+      }
+    }
+
+    button.mat-mdc-raised-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-on-error-container);
+      background-color: var(--mat-sys-error-container) !important;
+      color: var(--mat-sys-on-error-container) !important;
+
+      &::before {
+        background-color: var(--mat-sys-on-error-container);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-error-container) 92%, var(--mat-sys-on-error-container) 8%) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-error-container) 88%, var(--mat-sys-on-error-container) 12%) !important;
+      }
+    }
+
+    button.mat-mdc-icon-button {
+      --mat-mdc-button-ripple-color: var(--mat-sys-error);
+      color: var(--mat-sys-error) !important;
+
+      &::before {
+        background-color: var(--mat-sys-error);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-error) 8%, transparent) !important;
+      }
+
+      &:focus:not([disabled]),
+      &:active:not([disabled]) {
+        background-color: color-mix(in srgb, var(--mat-sys-error) 12%, transparent) !important;
+      }
+    }
+  }
+
+  // ============================================
+  // RESTO DE TU CÓDIGO (TAMAÑOS, ETC)
   // ============================================
 
   &.size-sm button {
@@ -43,7 +627,6 @@
     }
   }
 
-  // Tamaños para botones de solo icono
   &.variant-icon.size-sm button {
     width: 32px;
     height: 32px;
@@ -62,10 +645,6 @@
     padding: 0;
   }
 
-  // ============================================
-  // ANCHO COMPLETO
-  // ============================================
-
   &.full-width {
     display: block;
     width: 100%;
@@ -74,10 +653,6 @@
       width: 100%;
     }
   }
-
-  // ============================================
-  // CONTENIDO DEL BOTÓN
-  // ============================================
 
   .content-wrapper {
     display: flex;
@@ -100,16 +675,12 @@
     }
   }
 
-  // ============================================
-  // ESTADOS
-  // ============================================
-
   button {
     transition: all 0.2s ease-in-out;
-    border-radius: 8px; // Esquinas redondeadas según MD3
+    border-radius: 8px;
     font-weight: 500;
     letter-spacing: 0.5px;
-    text-transform: none; // Sin mayúsculas automáticas
+    text-transform: none;
 
     &:active:not([disabled]) {
       transform: scale(0.98);
@@ -117,6 +688,7 @@
 
     &[disabled] {
       cursor: not-allowed;
+      opacity: 0.38;
     }
   }
 }

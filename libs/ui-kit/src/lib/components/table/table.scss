@@ -40,7 +40,7 @@
   display: flex;
   gap: 16px;
   align-items: center;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
 
   .global-filter-container {
     width: 50%;
@@ -56,7 +56,6 @@
 
 /* Se modifican los colores de los iconos de accion de las tablas solo para este componente */
 ::ng-deep .mat-mdc-icon-button {
-
   .mdc-button__label,
   .mat-icon {
     color: var(--mat-sys-primary);
@@ -71,7 +70,7 @@
   margin: 8px 0;
   justify-content: space-between;
   width: 97%;
-  background-color: #fafafa;
+  background-color: var(--mat-sys-surface-container-highest);
   padding: 8px 20px;
 }
 
@@ -123,13 +122,13 @@ table {
 
 .mat-mdc-header-cell {
   font-weight: 500; // Ant Design uses regular/medium weight for headers
-  color: rgba(0, 0, 0, 0.88) !important; // Ant Design primary text color
-  border-bottom: 1px solid #f0f0f0 !important;
+  color: var(--mat-sys-on-surface);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
 }
 
 .mat-mdc-cell {
-  color: rgba(0, 0, 0, 0.88) !important;
-  border-bottom: 1px solid #f0f0f0 !important;
+  color: var(--mat-sys-on-surface);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
 }
 
 .sticky-column {
@@ -185,7 +184,6 @@ table {
 
 /* Density Variants */
 [data-density='compact'] {
-
   .mat-mdc-cell,
   .mat-mdc-header-cell {
     padding: 8px 12px;
@@ -193,7 +191,6 @@ table {
 }
 
 [data-density='comfortable'] {
-
   .mat-mdc-cell,
   .mat-mdc-header-cell {
     padding: 12px 16px;
@@ -201,7 +198,6 @@ table {
 }
 
 [data-density='spacious'] {
-
   .mat-mdc-cell,
   .mat-mdc-header-cell {
     padding: 16px 20px;

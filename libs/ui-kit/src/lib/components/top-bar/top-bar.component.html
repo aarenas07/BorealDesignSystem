@@ -2,19 +2,21 @@
   <div class="initial-content">
     <div>
       @if (breadcrumb.length > 0) {
-      <bds-breadcrumb [separator]="'>'" [items]="breadcrumb"></bds-breadcrumb>
+      <bds-breadcrumb [separator]="'❯'" [items]="breadcrumb"></bds-breadcrumb>
       }
       <div class="initial-content-item">
         @if (showBackButton) {
         <span class="material-symbols-rounded back-button" (click)="backClick.emit()"> arrow_back </span>
         }
         @if (title) {
-        <span class="title">{{ title }}</span>
+        <span class="title">{{ title }}
+          @if (subtitle) {
+          <span class="subtitle">{{ subtitle }}</span>
+          }
+        </span>
         }
       </div>
-      @if (subtitle) {
-      <span class="subtitle">{{ subtitle }}</span>
-      }
+
     </div>
   </div>
 

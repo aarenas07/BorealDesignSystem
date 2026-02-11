@@ -31,7 +31,7 @@
     .initial-content-item {
       display: flex;
       align-items: center;
-      gap: 8px; // Increased gap for better spacing
+      gap: 18px; // Increased gap for better spacing
 
       .back-button {
         cursor: pointer;
@@ -50,6 +50,8 @@
         font-style: normal;
         font-weight: 400;
         line-height: 36px;
+        display: flex;
+        flex-direction: column;
       }
     }
 

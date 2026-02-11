@@ -1,16 +1,51 @@
-<div class="top-bar">
-    <div class="top-bar-content">
-        <div class="top-bar-left">
-            <div>Breadcrumb</div>
-            <div>Volver</div>
-        </div>
-        <div class="top-bar-center">
-            <div>Botones</div>
-            <div>Botones</div>
-            <div>Botones</div>
-        </div>
-        <div class="top-bar-right">
-            <div>Profile</div>
-        </div>
+<div class="top-bar" [class.sidebar-closed]="sidebarClosed">
+  <div class="initial-content">
+    <div>
+      @if (breadcrumb) {
+      <div class="breadcrumb">{{ breadcrumb }}</div>
+      }
+      <div class="initial-content-item">
+        @if (showBackButton) {
+        <span class="material-symbols-rounded back-button" (click)="backClick.emit()"> arrow_back </span>
+        }
+        @if (title) {
+        <span class="title">{{ title }}</span>
+        }
+      </div>
+      @if (subtitle) {
+      <span class="subtitle">{{ subtitle }}</span>
+      }
     </div>
+  </div>
+
+  <div class="actions">
+    @if (showClock) {
+    <span class="material-symbols-rounded" (click)="clockClick.emit()" title="Clock"> schedule </span>
+    }
+    @if (showDocs) {
+    <span class="material-symbols-rounded" (click)="docsClick.emit()" title="Documentation"> description </span>
+    }
+
+    @for (action of actions; track action.id) {
+    <bds-button [label]="action.label" [variant]="action.variant || 'filled'" [icon]="action.icon || null"
+      [color]="action.color || 'primary'" [size]="action.size || 'md'" [disabled]="action.disabled || false"
+      (action)="onActionClick(action.id)">
+    </bds-button>
+    }
+
+    @if (showNotifications) {
+    <span class="material-symbols-rounded" (click)="notificationsClick.emit()" title="Notifications"> notifications
+    </span>
+    }
+
+    @if (profileImage) {
+    <div class="profile-container" (click)="profileClick.emit()">
+      <img class="profile-img" [src]="profileImage" alt="Profile" />
+    </div>
+    }
+
+    @if (showLogout) {
+    <span (click)="logoutClick.emit()" class="material-symbols-rounded" title="Logout"> logout </span>
+    }
+  </div>
 </div>

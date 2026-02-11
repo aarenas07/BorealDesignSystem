@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { ThemeService } from '@organizacion/ui-kit';
+import { ThemeService, TopBarComponent } from '@organizacion/ui-kit';
 import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { ExampleButton } from './components/example-button/example-button';
 import { ExampleCards } from './components/example-cards/example-cards';
@@ -73,7 +73,7 @@ import { ExampleTopbar } from './components/example-topbar/example-topbar';
     ExampleSearchbar,
     ExamplePanelLayoutComponent,
     ExampleProgressCircular,
-    ExampleTopbar
+    TopBarComponent,
   ],
 
   providers: [provideNativeDateAdapter()],

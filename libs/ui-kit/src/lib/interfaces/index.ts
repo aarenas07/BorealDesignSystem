@@ -23,3 +23,4 @@ export * from './bds-alert.interface';
 export * from './bds-chips.interface';
 export * from './bds-snackbar.interface';
 export * from './bds-stepper.inteface';
+export * from './bds-smart-stepper.interface';

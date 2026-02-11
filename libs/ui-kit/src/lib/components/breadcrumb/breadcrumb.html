@@ -10,7 +10,7 @@
         @if (home()?.icon) {
         <mat-icon>{{ home()?.icon }}</mat-icon>
         }
-        <span>{{home()?.label}}</span>
+        <span class="bds-breadcrumb-item-link-label">{{home()?.label}}</span>
       </a>
       }
       <!-- Router Link -->
@@ -20,7 +20,7 @@
         @if (home()?.icon) {
         <mat-icon>{{ home()?.icon }}</mat-icon>
         }
-        <span>{{home()?.label}}</span>
+        <span class="bds-breadcrumb-item-link-label">{{home()?.label}}</span>
       </a>
       }
       <!-- Plain Text -->
@@ -30,7 +30,7 @@
         @if (home()?.icon) {
         <mat-icon>{{ home()?.icon }}</mat-icon>
         } @if (home()?.label) {
-        <span>{{home()?.label}}</span>
+        <span class="bds-breadcrumb-item-link-label">{{home()?.label}}</span>
         }
       </a>
       }
@@ -42,12 +42,12 @@
     } @for (item of items(); track $index) {
     <!-- Item active or not -->
     @if (item.active) {
-    <li [class]="{ 'bds-breadcrumb-item': true, 'active': item.active}">
+    <li class="bds-breadcrumb-item" [class]="{ 'active': item.active}">
       <!-- Icon -->
       @if (item.icon) {
       <mat-icon>{{ item.icon }}</mat-icon>
       }
-      <span>{{item.label}}</span>
+      <span class="bds-breadcrumb-item-link-label">{{item.label}}</span>
     </li>
     } @else {
     <!-- Item not active -->
@@ -59,7 +59,7 @@
         @if (item.icon) {
         <mat-icon>{{ item.icon }}</mat-icon>
         }
-        <span>{{item.label}}</span>
+        <span class="bds-breadcrumb-item-link-label">{{item.label}}</span>
       </a>
       <span class="bds-breadcrumb-item-separator">{{separator()}}</span>
       }
@@ -70,7 +70,7 @@
         @if (item.icon) {
         <mat-icon>{{ item.icon }}</mat-icon>
         }
-        <span>{{item.label}}</span>
+        <span class="bds-breadcrumb-item-link-label">{{item.label}}</span>
       </a>
       <span class="bds-breadcrumb-item-separator">{{separator()}}</span>
       }
@@ -81,7 +81,7 @@
         @if (item.icon) {
         <mat-icon>{{ item.icon }}</mat-icon>
         }
-        <span>{{item.label}}</span>
+        <span class="bds-breadcrumb-item-link-label">{{item.label}}</span>
       </span>
       <span class="bds-breadcrumb-item-separator">{{separator()}}</span>
       }

@@ -19,7 +19,7 @@ nav {
 
         .bds-breadcrumb-item-link-label {
           margin-left: 0.4rem;
-          font-size: 1rem;
+          font-size: 16px;
           font-weight: 500;
         }
       }
@@ -38,7 +38,7 @@ nav {
 
       &.active {
         color: var(--mat-sys-on-surface);
-        font-size: 1rem;
+        font-size: 16px;
         font-weight: 600;
 
         .bds-breadcrumb-item-link-label {

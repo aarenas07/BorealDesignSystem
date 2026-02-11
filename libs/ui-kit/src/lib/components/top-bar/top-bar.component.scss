@@ -4,9 +4,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
-  padding: 0 1rem;
-  transition: margin-left 0.3s ease, width 0.3s ease; // Transición suave
+  padding: 18px;
+  transition: margin-left 0.3s ease, width 0.3s ease;
 
 
   .initial-content {
@@ -47,16 +46,21 @@
       .title {
         color: var(--mat-sys-light-on-surface);
         font-family: Roboto, sans-serif;
-        font-size: 20px; // Adjusted size for balance
-        font-weight: 500;
-        line-height: 1.2;
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 36px;
       }
     }
 
     .subtitle {
-      font-size: 12px;
-      color: #666;
-      margin-top: 2px;
+      color: var(--mat-sys-light-on-surface-variant);
+      font-family: Roboto, sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: 0.1px;
     }
   }
 
@@ -73,6 +77,11 @@
         color: black;
         transition: 0.4s;
       }
+    }
+
+    .divider {
+      height: 24px; // Adjust height as needed
+      margin: 0 8px; // Adjust spacing if needed
     }
   }
 }

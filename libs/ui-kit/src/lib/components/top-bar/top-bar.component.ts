@@ -14,10 +14,14 @@ export interface TopBarAction {
   disabled?: boolean;
 }
 
+import { MatDividerModule } from '@angular/material/divider';
+
+import { PopoverComponent } from '../popover/popover.component';
+
 @Component({
   selector: 'app-top-bar',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, ButtonComponent, MatDividerModule, PopoverComponent],
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.scss'],
 })
@@ -53,6 +57,8 @@ export class TopBarComponent {
   @Output() notificationsClick = new EventEmitter<void>();
   @Output() logoutClick = new EventEmitter<void>();
   @Output() profileClick = new EventEmitter<void>();
+  
+  profileOpen: boolean = false;
 
   sidebarClosed = true;
   private subscription?: Subscription;

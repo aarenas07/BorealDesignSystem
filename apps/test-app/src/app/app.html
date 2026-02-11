@@ -1,10 +1,22 @@
-<header class="app-header">
-  <h1>Angular Material Theming Demo</h1>
-</header>
+<app-top-bar [title]="'Angular Material Theming'" [showBackButton]="true" [subtitle]="'Demo Application'"
+  [showClock]="false" [showDocs]="false" [showNotifications]="false" [showLogout]="false"
+  [profileImage]="'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'"
+  [actions]="topBarActions" (backClick)="onBack()" (actionClick)="onActionClick($event)" (clockClick)="onClockClick()"
+  (docsClick)="onDocsClick()" (notificationsClick)="onNotificationsClick()" (logoutClick)="onLogoutClick()"
+  (profileClick)="onProfileClick()">
+  <div profile-content style="padding: 16px; min-width: 200px;">
+    <div style="font-weight: 600; margin-bottom: 8px;">User Name</div>
+    <div style="color: #666; font-size: 0.9em; margin-bottom: 12px;">user@example.com</div>
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 8px 0;" />
+    <div style="padding: 8px 0; cursor: pointer;">Profile Settings</div>
+    <div style="padding: 8px 0; cursor: pointer;">Account</div>
+  </div>
+</app-top-bar>
 <app-theme-toggle />
 <main class="app-content">
-  <!--   <app-example-collapsible-nav></app-example-collapsible-nav>
   <app-example-button></app-example-button>
+
+  <!--   <app-example-collapsible-nav></app-example-collapsible-nav>
   <app-example-cards></app-example-cards>
   <app-example-table></app-example-table>
   <app-example-expansion-panel></app-example-expansion-panel>
@@ -46,9 +58,7 @@
   <br />
 </main>
 <div class="panel-container">
-  <app-top-bar [showClock]="true" [showDocs]="true" [showHelp]="true" [showNotifications]="true"
-    [profileImage]="'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'"
-    [logout]="true"></app-top-bar>
+
 
   <app-example-panel-layout isPanelOpen="true" minWidth="360"></app-example-panel-layout>
 </div>

@@ -38,9 +38,16 @@
     </span>
     }
 
+    <mat-divider [vertical]="true" class="divider"></mat-divider>
+
     @if (profileImage) {
-    <div class="profile-container" (click)="profileClick.emit()">
-      <img class="profile-img" [src]="profileImage" alt="Profile" />
+    <div style="position: relative;">
+      <div class="profile-container" (click)="profileOpen = !profileOpen; profileClick.emit()">
+        <img class="profile-img" [src]="profileImage" alt="Profile" />
+      </div>
+      <bds-popover [(visible)]="profileOpen" align="right">
+        <ng-content select="[profile-content]"></ng-content>
+      </bds-popover>
     </div>
     }
 

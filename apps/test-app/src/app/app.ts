@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { ThemeService, TopBarComponent } from '@organizacion/ui-kit';
+import { ThemeService, TopBarComponent, TopBarAction } from '@organizacion/ui-kit';
 import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { ExampleButton } from './components/example-button/example-button';
 import { ExampleCards } from './components/example-cards/example-cards';
@@ -83,11 +83,63 @@ import { ExampleTopbar } from './components/example-topbar/example-topbar';
 export class App {
   private readonly themeService: ThemeService = inject(ThemeService);
 
+  topBarActions: TopBarAction[] = [
+    {
+      id: 'action1',
+      label: 'Action 1',
+      variant: 'elevated',
+      color: 'secondary',
+      icon: 'add',
+    },
+    {
+      id: 'action2',
+      label: 'Action 2',
+      variant: 'outlined',
+      color: 'secondary',
+      icon: 'edit',
+    },
+    {
+      id: 'action3',
+      label: 'Action 3',
+      variant: 'filled',
+      color: 'primary',
+      icon: '',
+    },
+  ];
+
   constructor() {
     this.themeService.setTheme({
       id: 'sicof-light',
       name: 'Sicof Light',
       className: 'sicof-theme-light',
     });
+  }
+
+  onBack() {
+    console.log('Back clicked');
+  }
+
+  onActionClick(actionId: string) {
+    console.log('Action clicked:', actionId);
+  }
+
+  onClockClick() {
+    console.log('Clock clicked');
+  }
+
+  onDocsClick() {
+    console.log('Docs clicked');
+  }
+
+  onNotificationsClick() {
+    console.log('Notifications clicked');
+  }
+
+  onLogoutClick() {
+    console.log('Logout clicked');
+  }
+
+  onProfileClick() {
+    console.log('Profile clicked');
   }
 }

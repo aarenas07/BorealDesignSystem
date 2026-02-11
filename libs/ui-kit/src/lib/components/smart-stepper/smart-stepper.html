@@ -1,0 +1,124 @@
+<div class="bds-smart-stepper" [class.vertical]="orientation() === 'vertical'">
+  <div
+    class="bds-smart-stepper__cdk"
+    cdkStepper
+    [linear]="linear()"
+    [selectedIndex]="activeIndex()"
+    (selectionChange)="onSelectionChange($event)"
+  >
+    @for (step of steps(); track $index) {
+    <cdk-step [completed]="isStepCompleted(step, $index)" [editable]="!step.disabled"></cdk-step>
+    }
+  </div>
+  <div class="bds-smart-stepper__header">
+    <div class="bds-smart-stepper__header-row">
+      <div class="bds-smart-stepper__mini-steps bds-smart-stepper__header__row-stepper" role="tablist">
+        @for (step of steps(); track $index) { @if(activeIndex() === $index && !isStepCompleted(step, $index)){
+        <span class="bds-smart-stepper__mini-steps-pill-text"
+          ><mat-icon>{{this.activeStep().stepIcon}}</mat-icon> {{this.activeStep().label}}</span
+        >
+        } @if(isStepCompleted(step, $index)){
+        <button
+          type="button"
+          class="bds-smart-stepper__mini-step"
+          [class.is-active]="$index === activeIndex()"
+          [class.is-complete]="isStepCompleted(step, $index)"
+          (click)="onStepHeaderClick($index)"
+          [disabled]="step.disabled"
+        >
+          <mat-icon [class.is-complete]="isStepCompleted(step, $index)" class="bds-smart-stepper__mini-step-icon">check</mat-icon>
+        </button>
+        } }
+      </div>
+      @if(this.steps()[0].completed){
+      <div>
+        <div class="bds-smart-stepper__mini-steps bds-smart-stepper__header__row-stepper" role="tablist">
+          @for (step of steps(); track $index) {
+          <button
+            type="button"
+            class="bds-smart-stepper__mini-step"
+            [class.is-active]="$index === activeIndex()"
+            [class.is-complete]="isStepCompleted(step, $index)"
+            (click)="onStepHeaderClick($index)"
+            [disabled]="step.disabled"
+          >
+            {{ $index + 1 }}
+          </button>
+          }
+        </div>
+      </div>
+      } @if (subSteps().length > 0) {
+      <div class="bds-smart-stepper__substepper-top">
+        @for(subStep of subSteps(); track $index){
+        <div class="bds-smart-stepper__substepper-container" (click)="goToStep($index)">
+          <button
+            mat-stroked-button
+            class="bds-smart-stepper__substepper-button"
+            [class.active]="$index === activeIndexSubStep() || isSubStepCompleted(activeIndex(), $index)"
+            [class.is-warning]="getSubStepTone($index) === 'warning'"
+            [class.is-error]="getSubStepTone($index) === 'error'"
+            [class.is-complete]="getSubStepTone($index) === 'complete'"
+            [disabled]="isSubStepDisabled(activeIndex(), $index) || isSubStepLocked(activeIndex(), $index)"
+          ></button>
+          <div
+            class="bds-smart-stepper__substepper-label"
+            [class.is-complete]="isSubStepCompleted(activeIndex(), $index)"
+            [class.is-warning]="getSubStepTone($index) === 'warning'"
+            [class.is-error]="getSubStepTone($index) === 'error'"
+          >
+            @if(isSubStepCompleted(activeIndex(), $index)){
+            <mat-icon class="bds-smart-stepper__substepper-label-icon">check</mat-icon>
+            } @if(getSubStepTone($index) !== 'complete' && getSubStepTone($index)!== 'default'){
+            <mat-icon class="bds-smart-stepper__substepper-label-icon">error</mat-icon>
+            }
+            <label>Sub {{$index +1 }}</label>
+          </div>
+        </div>
+        }
+      </div>
+      }
+
+      <div class="bds-smart-stepper__mini-steps bds-smart-stepper__header__row-stepper" role="tablist">
+        @for (step of steps(); track $index) { @if(!isStepCompleted(step, $index) && activeIndex() !== $index){
+        <button
+          type="button"
+          class="bds-smart-stepper__mini-step"
+          [class.is-active]="$index === activeIndex()"
+          [class.is-complete]="isStepCompleted(step, $index)"
+          (click)="onStepHeaderClick($index)"
+          [disabled]="step.disabled"
+        >
+          {{ $index + 1 }}
+        </button>
+        } }
+      </div>
+    </div>
+
+    @if (subSteps().length > 0) { @for (subStep of subSteps(); track $index) { @if ($index === activeIndexSubStep()) {
+    <div class="bds-smart-stepper__header-row bds-smart-stepper__header-row--secondary">
+      <div class="bds-smart-stepper__substep-label">
+        <span
+          class="bds-smart-stepper__substep-circle bds-smart-stepper__substep-circle--progress"
+          [style.--bds-substep-progress.%]="getSubStepProgress(activeIndexSubStep())"
+        >
+          <p class="bds-smart-stepper__substep-circle-number" style="z-index: 1000">{{ $index + 1 }}</p>
+        </span>
+        <div class="bds-smart-stepper__substep-text">
+          <span class="bds-smart-stepper__substep-title"> {{ subStep.label }} </span>
+          <span class="bds-smart-stepper__substep-caption">{{ subTitle() }}</span>
+        </div>
+      </div>
+      <div class="bds-smart-stepper__fields-status">
+        <span class="bds-smart-stepper__fields-label">Campos</span>
+        <span class="bds-smart-stepper__fields-count"> {{ getSubStepFieldCountLabel(activeIndexSubStep()) }} </span>
+      </div>
+    </div>
+    } } }
+  </div>
+
+  @if (activeStepTemplate()) {
+  <div class="bds-smart-stepper__content" #content>
+    <ng-container *ngTemplateOutlet="activeStepTemplate()"></ng-container>
+  </div>
+  }
+</div>

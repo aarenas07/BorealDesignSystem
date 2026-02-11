@@ -1,17 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ExampleSmartStepper } from './example-smart-stepper';
 
-import { FileAttachmentComponent } from './file-attachment.component';
-
-describe('FileAttachmentComponent', () => {
-  let component: FileAttachmentComponent;
-  let fixture: ComponentFixture<FileAttachmentComponent>;
+describe('ExampleSmartStepper', () => {
+  let component: ExampleSmartStepper;
+  let fixture: ComponentFixture<ExampleSmartStepper>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FileAttachmentComponent],
+      imports: [ExampleSmartStepper],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FileAttachmentComponent);
+    fixture = TestBed.createComponent(ExampleSmartStepper);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

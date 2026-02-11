@@ -7,6 +7,7 @@ import { ExampleCards } from './components/example-cards/example-cards';
 import { ExampleTable } from './components/example-table/example-table';
 import { ExampleExpansionPanel } from './components/example-expansion-panel/example-expansion-panel';
 import { ExampleStepper } from './components/example-stepper/example-stepper';
+import { ExampleSmartStepper } from './components/example-smart-stepper/example-smart-stepper';
 import { ExampleSideSheets } from './components/example-side-sheets/example-side-sheets';
 import { ExampleBreadcrumb } from './components/example-breadcrumb/example-breadcrumb';
 import { ExampleAlert } from './components/example-alert/example-alert';
@@ -45,6 +46,7 @@ import { ExampleTopbar } from './components/example-topbar/example-topbar';
     ExampleTable,
     ExampleExpansionPanel,
     ExampleStepper,
+    ExampleSmartStepper,
     ExampleSideSheets,
     ExampleBreadcrumb,
     ExampleAlert,

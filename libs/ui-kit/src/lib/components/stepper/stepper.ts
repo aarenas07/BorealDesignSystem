@@ -1,4 +1,4 @@
-import { Component, computed, contentChildren, input, model, output } from '@angular/core';
+import { Component, computed, contentChildren, input, model, output, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
@@ -12,6 +12,7 @@ import { StepperOrientationBds } from '../../interfaces/bds-stepper.enum';
   imports: [CommonModule, MatStepperModule],
   templateUrl: './stepper.html',
   styleUrl: './stepper.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class StepperComponent {
   steps = input<StepperStepBds[]>([]);

@@ -1,0 +1,176 @@
+<!-- Smart Stepper Section -->
+<section class="component-section">
+  <h2>Smart Stepper</h2>
+  <div class="demo-row">
+    <bds-smart-stepper
+      [steps]="steps"
+      [allowInvalidAdvance]="allowInvalidAdvance"
+      [(activeIndex)]="activeIndex"
+      [(activeIndexSubStep)]="activeIndexSubStep"
+      [linear]="true"
+      (stepChange)="onStepChange($event)"
+      (subStepClick)="onSubStepChange(undefined, $event)"
+    >
+      <ng-template bdsStepContent="0">
+        <mat-stepper
+          class="bds-smart-stepper__inner-stepper"
+          (selectionChange)="onSubStepChange($event)"
+          [selectedIndex]="activeIndexSubStep"
+          [linear]="!allowInvalidAdvance"
+          #stepper
+        >
+          <mat-step [stepControl]="activoFullInfo.get('ubicacionYRegistro')!">
+            <ng-template matStepLabel>Ubicacion</ng-template>
+            <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem" [formGroup]="activoFullInfo">
+              <ng-container formGroupName="ubicacionYRegistro">
+                @for (panel of getUbicacionPanels(); track panel; let first = $first) {
+                <div class="bds-smart-stepper__inner-stepper__container__form">
+                  @for (field of panel.fields; track field) {
+                  <div class="expansion-panel__container__full-info__field">
+                    <bds-form-field
+                      class="bds-smart-stepper__inner-stepper__container__form__input"
+                      [label]="field.label"
+                      [fullWidth]="true"
+                      [formControlName]="field.name"
+                    ></bds-form-field>
+                  </div>
+                  }
+                </div>
+                }
+              </ng-container>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </ng-template>
+
+      <ng-template bdsStepContent="1">
+        <mat-stepper
+          class="bds-smart-stepper__inner-stepper"
+          [linear]="!allowInvalidAdvance"
+          [selectedIndex]="activeIndexSubStep"
+          (selectionChange)="onSubStepChange($event)"
+        >
+          <!-- PASO 1: Proyecto e infraestructura -->
+          <mat-step [stepControl]="proyectoEInfrastructuraForm">
+            <ng-template matStepLabel>Proyecto e infraestructura</ng-template>
+            <div class="bds-smart-stepper__inner-stepper__container__form" [formGroup]="proyectoEInfrastructuraForm" style="padding: 1rem">
+              @for (panel of getProyectoPanels(); track panel) { @if (panel.groupName === 'proyectoEInfrastructura') { @for (field of
+              panel.fields; track field) {
+              <bds-form-field [label]="field.label" [fullWidth]="true" [formControlName]="field.name"> </bds-form-field>
+              } } }
+            </div>
+          </mat-step>
+          <mat-step [stepControl]="responsableYContratosForm">
+            <ng-template matStepLabel>Responsable y contratos</ng-template>
+            <div class="bds-smart-stepper__inner-stepper__container__form" [formGroup]="responsableYContratosForm" style="padding: 1rem">
+              @for (panel of getProyectoPanels(); track panel) { @if (panel.groupName === 'responsableYContratos') { @for (field of
+              panel.fields; track field) {
+              <bds-form-field [label]="field.label" [fullWidth]="true" [formControlName]="field.name"> </bds-form-field>
+              } } }
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </ng-template>
+
+      <ng-template bdsStepContent="2">
+        <mat-stepper
+          class="bds-smart-stepper__inner-stepper"
+          [linear]="!allowInvalidAdvance"
+          [selectedIndex]="activeIndexSubStep"
+          (selectionChange)="onSubStepChange($event)"
+        >
+          <mat-step [stepControl]="valoracionFinancieraForm">
+            <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem">
+              <div class="bds-smart-stepper__inner-stepper__container__form" [formGroup]="valoracionFinancieraForm">
+                @for (panel of getEquipoPanels(); track panel) { @if (panel.groupName === 'valoracionFinanciera') { @for (field of
+                panel.fields; track field) {
+                <bds-form-field
+                  class="bds-smart-stepper__inner-stepper__container__form__input"
+                  [fullWidth]="true"
+                  [label]="field.label"
+                  [formControlName]="field.name"
+                >
+                </bds-form-field>
+                } } }
+              </div>
+            </div>
+          </mat-step>
+          <mat-step [stepControl]="caracteristicasDelEquipoForm">
+            <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem">
+              <div class="bds-smart-stepper__inner-stepper__container__form" [formGroup]="caracteristicasDelEquipoForm">
+                @for (panel of getEquipoPanels(); track panel) { @if (panel.groupName === 'caracteristicasDelEquipo') { @for (field of
+                panel.fields; track field) {
+                <bds-form-field
+                  class="bds-smart-stepper__inner-stepper__container__form__input"
+                  [fullWidth]="true"
+                  [label]="field.label"
+                  [formControlName]="field.name"
+                >
+                </bds-form-field>
+                } } }
+              </div>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </ng-template>
+
+      <ng-template bdsStepContent="3">
+        <mat-stepper
+          class="bds-smart-stepper__inner-stepper"
+          [linear]="!allowInvalidAdvance"
+          [selectedIndex]="activeIndexSubStep"
+          (selectionChange)="onSubStepChange($event)"
+        >
+          <mat-step [stepControl]="apoyoYEstructuraForm">
+            <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem">
+              <div class="bds-smart-stepper__inner-stepper__container__form" [formGroup]="apoyoYEstructuraForm">
+                @for (panel of getRedPanels(); track panel) { @if (panel.groupName === 'apoyoYEstructura') { @for (field of panel.fields;
+                track field) {
+                <bds-form-field
+                  class="bds-smart-stepper__inner-stepper__container__form__input"
+                  [fullWidth]="true"
+                  [label]="field.label"
+                  [formControlName]="field.name"
+                >
+                </bds-form-field>
+                } } }
+              </div>
+            </div>
+          </mat-step>
+          <mat-step [stepControl]="conductorYRedForm">
+            <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem">
+              <div class="bds-smart-stepper__inner-stepper__container__form" [formGroup]="conductorYRedForm">
+                @for (panel of getRedPanels(); track panel) { @if (panel.groupName === 'conductorYRed') { @for (field of panel.fields; track
+                field) {
+                <bds-form-field
+                  class="bds-smart-stepper__inner-stepper__container__form__input"
+                  [fullWidth]="true"
+                  [label]="field.label"
+                  [formControlName]="field.name"
+                >
+                </bds-form-field>
+                } } }
+              </div>
+            </div>
+          </mat-step>
+          <mat-step [stepControl]="codigoCregYOtrosForm">
+            <div class="bds-smart-stepper__inner-stepper__container" style="padding: 1rem">
+              <div class="bds-smart-stepper__inner-stepper__container__form" [formGroup]="codigoCregYOtrosForm">
+                @for (panel of getRedPanels(); track panel) { @if (panel.groupName === 'codigoCregYOtros') { @for (field of panel.fields;
+                track field) {
+                <bds-form-field
+                  class="bds-smart-stepper__inner-stepper__container__form__input"
+                  [fullWidth]="true"
+                  [label]="field.label"
+                  [formControlName]="field.name"
+                >
+                </bds-form-field>
+                } } }
+              </div>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </ng-template>
+    </bds-smart-stepper>
+  </div>
+</section>

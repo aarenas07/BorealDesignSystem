@@ -1,6 +1,12 @@
 :host {
   display: inline-block;
 
+  ::ng-deep {
+    button {
+      border-radius: 100px !important;
+    }
+  }
+
   // ============================================
   // COLORES - VERSIÓN QUE SÍ FUNCIONA
   // ============================================

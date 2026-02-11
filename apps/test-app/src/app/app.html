@@ -1,9 +1,9 @@
 <app-top-bar [title]="'Angular Material Theming'" [showBackButton]="true" [subtitle]="'Demo Application'"
   [showClock]="false" [showDocs]="false" [showNotifications]="false" [showLogout]="false"
   [profileImage]="'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'"
-  [actions]="topBarActions" (backClick)="onBack()" (actionClick)="onActionClick($event)" (clockClick)="onClockClick()"
-  (docsClick)="onDocsClick()" (notificationsClick)="onNotificationsClick()" (logoutClick)="onLogoutClick()"
-  (profileClick)="onProfileClick()">
+  [actions]="topBarActions" [breadcrumb]="myBreadcrumbItems" (backClick)="onBack()"
+  (actionClick)="onActionClick($event)" (clockClick)="onClockClick()" (docsClick)="onDocsClick()"
+  (notificationsClick)="onNotificationsClick()" (logoutClick)="onLogoutClick()" (profileClick)="onProfileClick()">
   <div profile-content style="padding: 16px; min-width: 200px;">
     <div style="font-weight: 600; margin-bottom: 8px;">User Name</div>
     <div style="color: #666; font-size: 0.9em; margin-bottom: 12px;">user@example.com</div>

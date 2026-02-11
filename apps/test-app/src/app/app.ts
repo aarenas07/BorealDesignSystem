@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { ThemeService, TopBarComponent, TopBarAction } from '@organizacion/ui-kit';
+import { ThemeService, TopBarComponent, TopBarAction, MenuItem } from '@organizacion/ui-kit';
 import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { ExampleButton } from './components/example-button/example-button';
 import { ExampleCards } from './components/example-cards/example-cards';
@@ -105,6 +105,12 @@ export class App {
       color: 'primary',
       icon: '',
     },
+  ];
+
+  myBreadcrumbItems: MenuItem[] = [
+    { label: 'Home', routerLink: '/' },
+    { label: 'Section', routerLink: '/section' },
+    { label: 'Current Page', active: true },
   ];
 
   constructor() {

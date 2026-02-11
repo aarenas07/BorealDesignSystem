@@ -1,8 +1,8 @@
 <div class="top-bar" [class.sidebar-closed]="sidebarClosed">
   <div class="initial-content">
     <div>
-      @if (breadcrumb) {
-      <div class="breadcrumb">{{ breadcrumb }}</div>
+      @if (breadcrumb.length > 0) {
+      <bds-breadcrumb [separator]="'>'" [items]="breadcrumb"></bds-breadcrumb>
       }
       <div class="initial-content-item">
         @if (showBackButton) {

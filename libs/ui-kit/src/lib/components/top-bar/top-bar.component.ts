@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent, ButtonVariant, ButtonColor, ButtonSize } from '../button/button';
 import { SidebarStateService } from '../side-bar/services/sidebar-state.service';
@@ -17,11 +17,12 @@ export interface TopBarAction {
 import { MatDividerModule } from '@angular/material/divider';
 
 import { PopoverComponent } from '../popover/popover.component';
+import { BreadcrumbComponent, MenuItem } from '../breadcrumb/breadcrumb';
 
 @Component({
   selector: 'app-top-bar',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, MatDividerModule, PopoverComponent],
+  imports: [CommonModule, ButtonComponent, MatDividerModule, PopoverComponent, BreadcrumbComponent],
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.scss'],
 })
@@ -29,7 +30,7 @@ export class TopBarComponent {
   // Brand & Navigation Inputs
   @Input() title: string = '';
   @Input() subtitle: string = '';
-  @Input() breadcrumb: string = ''; // Can be expanded to an object/array if complex breadcrumbs are needed
+  @Input() breadcrumb: MenuItem[] = [];
   @Input() showBackButton: boolean = false;
 
   // Action Configuration
@@ -57,7 +58,7 @@ export class TopBarComponent {
   @Output() notificationsClick = new EventEmitter<void>();
   @Output() logoutClick = new EventEmitter<void>();
   @Output() profileClick = new EventEmitter<void>();
-  
+
   profileOpen: boolean = false;
 
   sidebarClosed = true;

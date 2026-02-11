@@ -4,40 +4,45 @@ nav {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
 
     .bds-breadcrumb-item {
-      color: var(--mat-sys-outline);
       display: flex;
       align-items: center;
 
       .bds-breadcrumb-item-link {
-        color: var(--mat-sys-primary);
+        color: var(--mat-sys-on-surface-variant);
         display: flex;
         align-items: center;
+        text-decoration: none;
 
-        span {
-          margin-left: 0.3rem;
+        .bds-breadcrumb-item-link-label {
+          margin-left: 0.4rem;
+          font-size: 16px;
+          font-weight: 500;
         }
       }
 
       .bds-breadcrumb-item-separator {
-        margin-left: 0.3rem;
-        margin-right: 0.3rem;
+        margin-left: 0.4rem;
+        margin-right: 0.4rem;
+        color: var(--mat-sys-on-surface-variant);
       }
 
       &:is(:hover, :active) {
         .bds-breadcrumb-item-link {
-          color: var(--mat-sys-secondary);
-          text-decoration: none;
+          color: var(--mat-sys-primary);
         }
       }
 
       &.active {
-        color: var(--mat-sys-outline);
+        color: var(--mat-sys-on-surface);
+        font-size: 16px;
+        font-weight: 600;
 
-        .bds-breadcrumb-item-link {
-          text-decoration: none;
-          cursor: initial;
+        .bds-breadcrumb-item-link-label {
+          margin-left: 0.4rem;
         }
       }
     }

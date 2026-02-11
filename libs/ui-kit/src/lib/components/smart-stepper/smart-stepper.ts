@@ -81,6 +81,8 @@ export class SmartStepperComponent implements OnDestroy {
     return contents.find(t => Number(t.index) === this.activeIndex())?.template ?? null;
   });
 
+  nextStepLabel = computed(() => (this.isLastSubStep() && this.isLastStep() ? 'Finalizar' : 'Siguiente'));
+
   constructor() {
     effect(() => {
       this.watchActiveStepControls(this.activeIndex());
@@ -202,7 +204,6 @@ export class SmartStepperComponent implements OnDestroy {
     const nextIndex = index + 1;
     if (nextIndex >= this.steps().length) return;
     this.activeIndex.set(nextIndex);
-    console.log('automaticNextStep');
     this.stepChange.emit({ previousIndex, currentIndex: nextIndex });
     this.setSubActiveIndex(nextIndex, 0);
   }
@@ -415,6 +416,35 @@ export class SmartStepperComponent implements OnDestroy {
     if (!step?.subSteps?.length) return null;
     const index = this.activeIndexSubStep();
     return step.subSteps[index] ?? null;
+  }
+
+  private isLastSubStep(): boolean {
+    const step = this.activeStep();
+    if (!step?.subSteps?.length) return true;
+    return this.activeIndexSubStep() >= step.subSteps.length - 1;
+  }
+
+  private isLastStep(): boolean {
+    return this.activeIndex() >= this.steps().length - 1;
+  }
+
+  nextStep(): void {
+    const stepIndex = this.activeIndex();
+    const step = this.steps()[stepIndex];
+    const subSteps = step?.subSteps ?? [];
+
+    if (!subSteps.length) {
+      this.automaticNextStep(stepIndex);
+      return;
+    }
+
+    const nextSubIndex = this.activeIndexSubStep() + 1;
+    if (nextSubIndex < subSteps.length) {
+      this.goToStep(nextSubIndex);
+      return;
+    }
+
+    this.automaticNextStep(stepIndex);
   }
 
   goToStep(index: number): void {

@@ -35,6 +35,7 @@ export class SmartStepperComponent implements OnDestroy {
   orientation = input<'horizontal' | 'vertical'>('horizontal');
   linear = input<boolean>(false);
   allowInvalidAdvance = input<boolean>(false);
+  finish = output<void>();
 
   stepChange = output<{ previousIndex: number; currentIndex: number }>();
   subStepClick = output<{ stepIndex: number; subStepIndex: number }>();
@@ -429,6 +430,11 @@ export class SmartStepperComponent implements OnDestroy {
   }
 
   nextStep(): void {
+    if (this.isLastStep() && this.isLastSubStep()) {
+      this.finish.emit();
+      return;
+    }
+
     const stepIndex = this.activeIndex();
     const step = this.steps()[stepIndex];
     const subSteps = step?.subSteps ?? [];

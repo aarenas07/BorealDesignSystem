@@ -33,3 +33,4 @@ export * from './lib/components/progress-bar/progress-bar';
 export * from './lib/components/searchbar/searchbar';
 export * from './lib/components/panel-layout/panel-layout';
 export * from './lib/components/progress-circular/progress-circular';
+export * from './lib/components/top-bar/top-bar.component';

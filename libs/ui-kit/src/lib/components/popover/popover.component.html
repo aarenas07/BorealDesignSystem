@@ -1,0 +1,4 @@
+<div class="popover-backdrop" *ngIf="visible" (click)="close()"></div>
+<div class="popover-content" *ngIf="visible" [ngClass]="['align-' + align]">
+    <ng-content></ng-content>
+</div>

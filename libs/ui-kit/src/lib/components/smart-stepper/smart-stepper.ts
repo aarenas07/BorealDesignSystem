@@ -1,4 +1,5 @@
 import {
+  afterNextRender,
   Component,
   computed,
   contentChildren,
@@ -44,6 +45,7 @@ export class SmartStepperComponent implements OnDestroy {
   private readonly subActiveIndexOverrides = new Map<number, number>();
   private controlSubscriptions: Subscription[] = [];
   private readonly autoAdvanceSubSteps = false;
+  private readonly validationStateReady = signal(false);
   private activeFormStatusSub?: Subscription;
   private readonly activeFormStatus = signal<string | null>(null);
   private lastActiveFormStatus: string | null = null;
@@ -85,6 +87,7 @@ export class SmartStepperComponent implements OnDestroy {
   nextStepLabel = computed(() => (this.isLastSubStep() && this.isLastStep() ? 'Finalizar' : 'Siguiente'));
 
   constructor() {
+    afterNextRender(() => this.validationStateReady.set(true));
     effect(() => {
       this.watchActiveStepControls(this.activeIndex());
     });
@@ -382,6 +385,7 @@ export class SmartStepperComponent implements OnDestroy {
   }
 
   private isControlInvalid(control: AbstractControl): boolean {
+    if (!this.validationStateReady()) return false;
     return control.invalid && (control.touched || control.dirty);
   }
 
@@ -455,8 +459,6 @@ export class SmartStepperComponent implements OnDestroy {
 
   goToStep(index: number): void {
     const stepIndex = this.activeIndex();
-    console.log('this.allowInvalidAdvance()');
-    console.log(this.allowInvalidAdvance());
 
     // if (this.isSubStepDisabled(stepIndex, index) || this.isSubStepLocked(stepIndex, index)) {
     //   return;

@@ -135,7 +135,7 @@ export class SmartStepperComponent implements OnDestroy {
     if (previouslySelectedIndex === selectedIndex) return;
 
     this.activeIndex.set(selectedIndex);
-    this.activeIndexSubStep.set(0);
+    this.setSubActiveIndex(selectedIndex, 0);
     this.stepChange.emit({
       previousIndex: previouslySelectedIndex,
       currentIndex: selectedIndex,
@@ -149,6 +149,7 @@ export class SmartStepperComponent implements OnDestroy {
     // Permitir volver siempre a pasos anteriores
     if (index < previousIndex) {
       this.activeIndex.set(index);
+      this.setSubActiveIndex(index, 0);
       this.stepChange.emit({ previousIndex, currentIndex: index });
       return;
     }
@@ -162,6 +163,7 @@ export class SmartStepperComponent implements OnDestroy {
     if (!canAdvance) return;
 
     this.activeIndex.set(index);
+    this.setSubActiveIndex(index, 0);
     this.stepChange.emit({ previousIndex, currentIndex: index });
   }
 

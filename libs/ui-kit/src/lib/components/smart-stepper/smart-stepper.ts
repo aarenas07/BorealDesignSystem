@@ -45,6 +45,8 @@ export class SmartStepperComponent implements OnDestroy {
   subStepClick = output<{ stepIndex: number; subStepIndex: number }>();
   subStepChange = output<{ stepIndex: number; subStepIndex: number }>();
   private visitedSteps = signal<Set<number>>(new Set());
+  headerTransitionActive = signal(false);
+  private headerTransitionTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
   finish = output<void>();
 
@@ -158,6 +160,7 @@ export class SmartStepperComponent implements OnDestroy {
   nextStepLabel = computed(() => (this.isLastSubStep() && this.isLastStep() ? 'Finalizar' : 'Siguiente'));
 
   constructor() {
+    this.markStepVisited(0);
     effect(() => {
       const step = this.activeStep();
       if (!step?.subSteps?.length) return;
@@ -188,6 +191,10 @@ export class SmartStepperComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.clearControlSubscriptions();
+    if (this.headerTransitionTimeoutId) {
+      clearTimeout(this.headerTransitionTimeoutId);
+      this.headerTransitionTimeoutId = null;
+    }
   }
 
   onSelectionChange(event: StepperSelectionEvent) {
@@ -203,14 +210,14 @@ export class SmartStepperComponent implements OnDestroy {
   }
 
   onStepHeaderClick(index: number) {
+    this.playHeaderTransition();
     const previousIndex = this.activeIndex();
-    if (index === previousIndex) return;
 
     // Permitir volver siempre
     if (index < previousIndex) {
-      this.markStepVisited(index);
       this.activeIndex.set(index);
       this.setSubActiveIndex(index, 0);
+      this.markStepVisited(index);
       this.stepChange.emit({ previousIndex, currentIndex: index });
       return;
     }
@@ -221,19 +228,24 @@ export class SmartStepperComponent implements OnDestroy {
     if (!canAdvance) return;
 
     this.activeIndex.set(index);
-    this.setSubActiveIndex(index, 0);
     this.markStepVisited(index);
-
+    this.setSubActiveIndex(index, 0);
     this.stepChange.emit({ previousIndex, currentIndex: index });
   }
 
   automaticNextStep(index: number) {
     const previousIndex = this.activeIndex();
     if (index !== previousIndex) return;
+
     const nextIndex = index + 1;
     if (nextIndex >= this.steps().length) return;
+
+    this.markStepVisited(previousIndex);
+
     this.activeIndex.set(nextIndex);
+
     this.markStepVisited(nextIndex);
+
     this.stepChange.emit({ previousIndex, currentIndex: nextIndex });
     this.setSubActiveIndex(nextIndex, 0);
   }
@@ -430,6 +442,20 @@ export class SmartStepperComponent implements OnDestroy {
         fill: 'both',
       }
     );
+  }
+
+  private playHeaderTransition() {
+    this.headerTransitionActive.set(false);
+    queueMicrotask(() => {
+      this.headerTransitionActive.set(true);
+      if (this.headerTransitionTimeoutId) {
+        clearTimeout(this.headerTransitionTimeoutId);
+      }
+      this.headerTransitionTimeoutId = setTimeout(() => {
+        this.headerTransitionActive.set(false);
+        this.headerTransitionTimeoutId = null;
+      }, 280);
+    });
   }
 
   private getActiveSubStep(stepIndex: number): SmartSubStep | null {

@@ -201,6 +201,11 @@
   background: var(--mat-sys-error-container);
 }
 
+.bds-smart-stepper__mini-steps.is-switching .bds-smart-stepper__mini-step,
+.bds-smart-stepper__mini-steps.is-switching .bds-smart-stepper__mini-steps-pill-text {
+  animation: bds-mini-step-switch 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 @keyframes bds-mini-step-pop {
   0% {
     transform: scale(0.96);
@@ -210,6 +215,20 @@
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes bds-mini-step-switch {
+  0% {
+    opacity: 0.45;
+    transform: translateY(0.25rem) scale(0.98);
+    filter: blur(0.063rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 }
 

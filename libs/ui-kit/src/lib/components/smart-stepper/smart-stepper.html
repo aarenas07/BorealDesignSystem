@@ -7,7 +7,8 @@
   </div>
   <div class="bds-smart-stepper__header">
     <div class="bds-smart-stepper__header-row">
-      <div class="bds-smart-stepper__mini-steps bds-smart-stepper__header__row-stepper" role="tablist">
+      <div class="bds-smart-stepper__mini-steps bds-smart-stepper__header__row-stepper"
+        [class.is-switching]="headerTransitionActive()" role="tablist">
         @for (step of steps(); track $index) {
         @let state = stepStates()[$index];
         @if(activeIndex() === $index){

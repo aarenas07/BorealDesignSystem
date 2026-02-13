@@ -18,11 +18,12 @@ import { MatDividerModule } from '@angular/material/divider';
 
 import { PopoverComponent } from '../popover/popover.component';
 import { BreadcrumbComponent, MenuItem } from '../breadcrumb/breadcrumb';
+import { ButtonAi } from '../AI/button-ai/button-ai';
 
 @Component({
-  selector: 'app-top-bar',
+  selector: 'bds-top-bar',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, MatDividerModule, PopoverComponent, BreadcrumbComponent],
+  imports: [CommonModule, ButtonComponent, MatDividerModule, PopoverComponent, BreadcrumbComponent, ButtonAi],
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.scss'],
 })

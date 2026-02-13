@@ -1,22 +1,16 @@
 <!-- Botón flotante trigger — visible cuando el input está cerrado -->
 @if (!isOpen()) {
 <button class="input-ai-trigger" (click)="open()">
-    <div class="blob-container">
-        <div class="blob"></div>
-        <svg class="blob-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-        </svg>
-    </div>
+
     <span class="trigger-label">{{ label() }}</span>
     <span class="trigger-shortcut">Ctrl+I</span>
 </button>
 }
 
-<!-- Overlay + Input expandido — visible cuando el input está abierto -->
+<!-- Input expandido inline — visible cuando el input está abierto -->
 @if (isOpen()) {
-<div class="input-ai-overlay" (click)="onBackdropClick()">
-    <div class="input-ai-container" (click)="$event.stopPropagation()">
+<div class="input-ai-inline" @expandCollapse>
+    <div class="input-ai-container">
         <!-- Botón acción izquierdo -->
         <button class="input-ai-action-btn" type="button">
             <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -24,28 +18,48 @@
             </svg>
         </button>
 
-        <!-- Ícono blob AI -->
-        <div class="input-ai-blob-wrapper">
-            <div class="blob active"></div>
-            <svg class="blob-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-            </svg>
-        </div>
 
         <!-- Campo de texto -->
         <input #queryInput type="text" class="input-ai-field" [placeholder]="placeholder()" [value]="query()"
             (input)="query.set($any($event.target).value)" (keydown)="handleKeydown($event)" autocomplete="off" />
 
         <!-- Botón enviar -->
-        <button class="input-ai-action-btn send-btn" type="button" (click)="submit()"
+
+
+        <span class="material-symbols-rounded" (click)="submit()" [class.has-text]="query().trim().length > 0">
+            search
+        </span>
+
+
+        <span (click)="submit()" [class.has-text]="query().trim().length > 0" class="material-symbols-rounded">
+            mic
+        </span>
+
+        <!--         <button class="input-ai-action-btn send-btn" type="button" (click)="submit()"
             [class.has-text]="query().trim().length > 0">
             <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                @if (query().trim().length > 0) {
+
                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                } @else {
+
+            </svg>
+        </button> -->
+
+    </div>
+    <div class="input-ai-actions">
+
+        <button class="input-ai-action-btn" type="button">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                }
+            </svg>
+        </button>
+        <button class="input-ai-action-btn" type="button">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+            </svg>
+        </button>
+        <button class="input-ai-action-btn" type="button">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
             </svg>
         </button>
     </div>

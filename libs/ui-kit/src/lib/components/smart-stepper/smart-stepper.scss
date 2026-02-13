@@ -189,6 +189,14 @@
   animation: bds-mini-step-pop 1000ms ease;
 }
 
+.bds-smart-stepper__mini-step.is-warning {
+  background: var(--mat-sys-warning-container);
+}
+
+.bds-smart-stepper__mini-step.is-error {
+  background: var(--mat-sys-error-container);
+}
+
 @keyframes bds-mini-step-pop {
   0% {
     transform: scale(0.96);

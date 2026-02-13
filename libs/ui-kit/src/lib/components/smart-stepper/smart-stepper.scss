@@ -240,6 +240,10 @@
     background 150ms ease,
     border-color 150ms ease,
     color 150ms ease;
+
+  &-number {
+    z-index: 1000;
+  }
 }
 
 .bds-smart-stepper__substep.is-active .bds-smart-stepper__substep-circle {

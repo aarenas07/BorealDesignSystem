@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { ThemeService, TopBarComponent, TopBarAction, MenuItem } from '@organizacion/ui-kit';
+import { ThemeService, TopBarComponent, TopBarAction, MenuItem, ButtonAi, InputAi } from '@organizacion/ui-kit';
 import { ThemeToggleComponent } from './components/toggle-theme/toggle-theme';
 import { ExampleButton } from './components/example-button/example-button';
 import { ExampleCards } from './components/example-cards/example-cards';
@@ -74,6 +74,8 @@ import { ExampleTopbar } from './components/example-topbar/example-topbar';
     ExamplePanelLayoutComponent,
     ExampleProgressCircular,
     TopBarComponent,
+    ButtonAi,
+    InputAi,
   ],
 
   providers: [provideNativeDateAdapter()],
@@ -147,5 +149,9 @@ export class App {
 
   onProfileClick() {
     console.log('Profile clicked');
+  }
+
+  onAiSubmit(query: string) {
+    console.log('AI Query submitted:', query);
   }
 }

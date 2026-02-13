@@ -1,4 +1,4 @@
-<app-top-bar [title]="'Angular Material Theming'" [showBackButton]="true" [subtitle]="'Demo Application'"
+<bds-top-bar [title]="'Angular Material Theming'" [showBackButton]="true" [subtitle]="'Demo Application'"
   [showClock]="false" [showDocs]="false" [showNotifications]="false" [showLogout]="false"
   [profileImage]="'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'"
   [actions]="topBarActions" [breadcrumb]="myBreadcrumbItems" (backClick)="onBack()"
@@ -11,12 +11,14 @@
     <div style="padding: 8px 0; cursor: pointer;">Profile Settings</div>
     <div style="padding: 8px 0; cursor: pointer;">Account</div>
   </div>
-</app-top-bar>
+</bds-top-bar>
 <app-theme-toggle />
 <main class="app-content">
-  <app-example-button></app-example-button>
 
-  <!--   <app-example-collapsible-nav></app-example-collapsible-nav>
+  <app-example-button></app-example-button>
+  <bds-input-ai></bds-input-ai>
+  <!-- 
+  <app-example-collapsible-nav></app-example-collapsible-nav>
   <app-example-cards></app-example-cards>
   <app-example-table></app-example-table>
   <app-example-expansion-panel></app-example-expansion-panel>

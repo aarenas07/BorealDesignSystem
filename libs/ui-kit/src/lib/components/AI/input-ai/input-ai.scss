@@ -1,0 +1,245 @@
+// ============================================
+// Input AI Flotante — Estilo Spotlight
+// ============================================
+
+// Paleta de colores (consistente con button-ai)
+$bg-color: #CEE5FF;
+$text-color: #2E4961;
+$text-color-light: #5b809d;
+$white: #FFFFFF;
+$overlay-bg: rgba(0, 0, 0, 0.35);
+$shadow-light: 0 8px 32px rgba(0, 0, 0, 0.12);
+$shadow-trigger: 0 4px 20px rgba(46, 73, 97, 0.15);
+
+// ============================================
+// Botón Flotante (Trigger)
+// ============================================
+.input-ai-trigger {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px 12px 14px;
+    border-radius: 50px;
+    border: none;
+    background-color: $bg-color;
+    color: $text-color;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    box-shadow: $shadow-trigger;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 6px 28px rgba(46, 73, 97, 0.25);
+        background-color: darken($bg-color, 3%);
+
+        .blob {
+            animation-play-state: running;
+        }
+    }
+
+    &:active {
+        transform: translateX(-50%) scale(0.97);
+    }
+
+    .trigger-label {
+        white-space: nowrap;
+        letter-spacing: 0.02em;
+    }
+
+    .trigger-shortcut {
+        font-size: 0.7rem;
+        font-weight: 400;
+        color: $text-color-light;
+        background: rgba(255, 255, 255, 0.6);
+        padding: 2px 8px;
+        border-radius: 4px;
+        letter-spacing: 0.04em;
+    }
+}
+
+// ============================================
+// Blob (shared entre trigger y container)
+// ============================================
+.blob-container,
+.input-ai-blob-wrapper {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.blob {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: $text-color;
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    animation: blob-morph 3s linear infinite alternate;
+    animation-play-state: paused;
+
+    &.active {
+        animation-play-state: running;
+        background: $text-color;
+    }
+}
+
+.blob-icon {
+    position: relative;
+    z-index: 1;
+    width: 14px;
+    height: 14px;
+    color: $white;
+}
+
+// ============================================
+// Overlay (Backdrop)
+// ============================================
+.input-ai-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: $overlay-bg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fade-in 0.2s ease-out;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+// ============================================
+// Container del Input
+// ============================================
+.input-ai-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 560px;
+    padding: 10px 14px;
+    background: $white;
+    border-radius: 56px;
+    box-shadow: $shadow-light;
+    animation: slide-up 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+// ============================================
+// Botones de acción circulares (+ / enviar)
+// ============================================
+.input-ai-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    border: 1.5px solid darken($bg-color, 8%);
+    background: $white;
+    color: $text-color;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, color 0.2s ease;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    &:hover {
+        background: $bg-color;
+        border-color: darken($bg-color, 12%);
+    }
+
+    &:active {
+        transform: scale(0.93);
+    }
+
+    // Estado con texto — botón enviar activo
+    &.has-text {
+        background: $text-color;
+        border-color: $text-color;
+        color: $white;
+
+        &:hover {
+            background: lighten($text-color, 8%);
+            border-color: lighten($text-color, 8%);
+        }
+    }
+}
+
+// ============================================
+// Campo de texto
+// ============================================
+.input-ai-field {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: $text-color;
+    padding: 8px 0;
+    min-width: 0;
+
+    &::placeholder {
+        color: $text-color-light;
+        font-weight: 400;
+        opacity: 0.7;
+    }
+}
+
+// ============================================
+// Animaciones
+// ============================================
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes blob-morph {
+    0% {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    }
+
+    33% {
+        border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+    }
+
+    66% {
+        border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+    }
+
+    100% {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    }
+}

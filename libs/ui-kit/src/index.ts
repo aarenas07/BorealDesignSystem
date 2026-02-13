@@ -34,3 +34,7 @@ export * from './lib/components/searchbar/searchbar';
 export * from './lib/components/panel-layout/panel-layout';
 export * from './lib/components/progress-circular/progress-circular';
 export * from './lib/components/top-bar/top-bar.component';
+
+/* Componentes para chat AI */
+export * from './lib/components/AI/button-ai/button-ai';
+export * from './lib/components/AI/input-ai/input-ai';

@@ -53,7 +53,6 @@ export class SmartStepperComponent implements OnDestroy {
   private readonly subActiveIndexOverrides = new Map<number, number>();
   private controlSubscriptions: Subscription[] = [];
   private readonly autoAdvanceSubSteps = false;
-  private readonly activeFormStatus = signal<string | null>(null);
 
   private readonly formTick = signal(0);
 

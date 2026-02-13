@@ -44,6 +44,10 @@
   cursor: pointer;
 }
 
+.bds-smart-stepper__mini-steps-pill-text.is-warning {
+  background: var(--mat-sys-warning-container);
+}
+
 .bds-smart-stepper__pill.has-error {
   background: #d6edeb;
 }

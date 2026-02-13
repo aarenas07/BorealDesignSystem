@@ -2,23 +2,27 @@
   <div class="bds-smart-stepper__cdk" cdkStepper [linear]="linear()" [selectedIndex]="activeIndex()"
     (selectionChange)="onSelectionChange($event)">
     @for (step of steps(); track $index) {
-    <cdk-step [completed]="isStepCompleted(step, $index)" [editable]="!step.disabled"></cdk-step>
+    <cdk-step [editable]="!step.disabled"></cdk-step>
     }
   </div>
   <div class="bds-smart-stepper__header">
     <div class="bds-smart-stepper__header-row">
       <div class="bds-smart-stepper__mini-steps bds-smart-stepper__header__row-stepper" role="tablist">
-        @for (step of steps(); track $index) { @if(activeIndex() === $index && !isStepCompleted(step, $index)){
-        <span class="bds-smart-stepper__mini-steps-pill-text"><mat-icon>{{this.activeStep()?.stepIcon}}</mat-icon>
+        @for (step of steps(); track $index) {
+        @let state = stepStates()[$index];
+        @if(activeIndex() === $index){
+        <span class="bds-smart-stepper__mini-steps-pill-text" [class.is-warning]="state.tone === 'warning'"
+          [class.is-complete]="state.tone === 'complete'"><mat-icon>{{this.activeStep()?.stepIcon}}</mat-icon>
           {{this.activeStep()?.label}}</span>
         }
-        @if(stepTouched($index)){
+        @if(stepVisited($index) && !(activeIndex() === $index)){
         <button type="button" class="bds-smart-stepper__mini-step" [class.is-active]="$index === activeIndex()"
-          [class.is-complete]="stepTone() === 'complete'" [class.is-warning]="stepTone() === 'warning'"
+          [class.is-complete]="state.tone  === 'complete'" [class.is-warning]="state.tone  === 'warning'"
           (click)="onStepHeaderClick($index)" [disabled]="step.disabled">
-          <mat-icon [class.is-complete]="isStepCompleted(step, $index)"
-            class="bds-smart-stepper__mini-step-icon">check</mat-icon>
-          @if(stepTone() === 'warning'){
+          @if(state.complete){
+          <mat-icon [class.is-complete]="state.complete" class="bds-smart-stepper__mini-step-icon">check</mat-icon>
+          }
+          @if(state.tone === 'warning'){
           <mat-icon class="bds-smart-stepper__substepper-label-icon">error</mat-icon>
           }
         </button>
@@ -29,9 +33,9 @@
       <div>
         <div class="bds-smart-stepper__mini-steps bds-smart-stepper__header__row-stepper" role="tablist">
           @for (step of steps(); track $index) {
+          @let state = stepStates()[$index];
           <button type="button" class="bds-smart-stepper__mini-step" [class.is-active]="$index === activeIndex()"
-            [class.is-complete]="isStepCompleted(step, $index)" (click)="onStepHeaderClick($index)"
-            [disabled]="step.disabled">
+            [class.is-complete]="state.complete" (click)="onStepHeaderClick($index)" [disabled]="step.disabled">
             {{ $index + 1 }}
           </button>
           }
@@ -61,10 +65,11 @@
       }
 
       <div class="bds-smart-stepper__mini-steps bds-smart-stepper__header__row-stepper" role="tablist">
-        @for (step of steps(); track $index) { @if(!isStepCompleted(step, $index) && activeIndex() !== $index){
+        @for (step of steps(); track $index) {
+        @let state = stepStates()[$index];
+        @if(!state.visited && activeIndex() !== $index){
         <button type="button" class="bds-smart-stepper__mini-step" [class.is-active]="$index === activeIndex()"
-          [class.is-complete]="isStepCompleted(step, $index)" (click)="onStepHeaderClick($index)"
-          [disabled]="step.disabled">
+          [class.is-complete]="state.complete" (click)="onStepHeaderClick($index)" [disabled]="step.disabled">
           {{ $index + 1 }}
         </button>
         } }

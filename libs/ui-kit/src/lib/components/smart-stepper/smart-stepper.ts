@@ -44,16 +44,55 @@ export class SmartStepperComponent implements OnDestroy {
   stepChange = output<{ previousIndex: number; currentIndex: number }>();
   subStepClick = output<{ stepIndex: number; subStepIndex: number }>();
   subStepChange = output<{ stepIndex: number; subStepIndex: number }>();
+  private visitedSteps = signal<Set<number>>(new Set());
+
   finish = output<void>();
 
   private readonly subActiveIndexOverrides = new Map<number, number>();
   private controlSubscriptions: Subscription[] = [];
   private readonly autoAdvanceSubSteps = false;
-  private activeFormStatusSub?: Subscription;
   private readonly activeFormStatus = signal<string | null>(null);
-  private lastActiveFormStatus: string | null = null;
 
   private readonly formTick = signal(0);
+
+  stepStates = computed(() => {
+    const steps = this.steps();
+    const visited = this.visitedSteps();
+    this.formTick(); // reactividad
+
+    return steps.map((step, index) => {
+      const isVisited = visited.has(index);
+      const subSteps = step.subSteps ?? [];
+
+      let valid = false;
+      let warning = false;
+
+      // Step sin subSteps
+      if (!subSteps.length) {
+        valid = !!step.form?.valid;
+        warning = isVisited && !!step.form?.invalid;
+      }
+      // Step con subSteps
+      else {
+        const forms = subSteps.map(s => s.formGroup).filter(Boolean);
+
+        if (forms.length) {
+          valid = forms.every(f => f!.valid);
+          warning = isVisited && forms.some(f => f!.invalid);
+        }
+      }
+
+      const tone: 'default' | 'warning' | 'complete' = valid ? 'complete' : warning ? 'warning' : 'default';
+
+      return {
+        visited: isVisited,
+        valid,
+        warning,
+        complete: valid,
+        tone,
+      };
+    });
+  });
   subStepTones = computed(() => {
     this.formTick(); // dependencia reactiva
 
@@ -84,22 +123,6 @@ export class SmartStepperComponent implements OnDestroy {
     });
   });
 
-  stepTone = computed<'default' | 'warning' | 'complete'>(() => {
-    const tones = this.subStepTones();
-
-    if (!tones.length) return 'default';
-
-    if (tones.some(t => t === 'warning')) {
-      return 'warning';
-    }
-
-    if (tones.every(t => t === 'complete')) {
-      return 'complete';
-    }
-
-    return 'default';
-  });
-
   activeStep = computed(() => {
     const steps = this.steps();
     const index = this.activeIndex();
@@ -109,11 +132,6 @@ export class SmartStepperComponent implements OnDestroy {
   });
 
   subSteps = computed(() => this.activeStep()?.subSteps ?? []);
-  completedHeaderSteps = computed(() => this.getCompletedSteps().filter(s => s.completed && !s.active));
-
-  activeHeaderStep = computed(() => this.getCompletedSteps().find(s => s.active) ?? null);
-
-  pendingHeaderSteps = computed(() => this.getCompletedSteps().filter(s => !s.completed && !s.active));
 
   subTitle = computed(() => {
     const step = this.activeStep();
@@ -166,42 +184,10 @@ export class SmartStepperComponent implements OnDestroy {
       this.activeIndex();
       queueMicrotask(() => this.playStepTransition());
     });
-    effect(() => {
-      const form = this.activeStep()?.form;
-      this.activeFormStatusSub?.unsubscribe();
-
-      if (!form) {
-        this.activeFormStatus.set(null);
-        this.lastActiveFormStatus = null;
-        return;
-      }
-
-      this.lastActiveFormStatus = form.status;
-      this.activeFormStatus.set(form.status);
-      this.activeFormStatusSub = form.statusChanges.subscribe(status => {
-        this.activeFormStatus.set(status);
-      });
-    });
-
-    effect(() => {
-      const step = this.activeStep();
-      if (!step?.form) return;
-      const status = this.activeFormStatus();
-      const prevStatus = this.lastActiveFormStatus;
-      if (status === 'VALID' && prevStatus !== 'VALID' && this.automaticCompletedStep()) {
-        queueMicrotask(() => {
-          this.automaticNextStep(this.activeIndex());
-        });
-      }
-      if (status !== prevStatus) {
-        this.lastActiveFormStatus = status;
-      }
-    });
   }
 
   ngOnDestroy() {
     this.clearControlSubscriptions();
-    this.activeFormStatusSub?.unsubscribe();
   }
 
   onSelectionChange(event: StepperSelectionEvent) {
@@ -220,41 +206,25 @@ export class SmartStepperComponent implements OnDestroy {
     const previousIndex = this.activeIndex();
     if (index === previousIndex) return;
 
-    // Permitir volver siempre a pasos anteriores
+    // Permitir volver siempre
     if (index < previousIndex) {
+      this.markStepVisited(index);
       this.activeIndex.set(index);
       this.setSubActiveIndex(index, 0);
       this.stepChange.emit({ previousIndex, currentIndex: index });
       return;
     }
 
-    const status = this.activeFormStatus();
-
-    const isValid = status === 'VALID' || this.lastActiveFormStatus === 'VALID';
-
-    const canAdvance = this.allowInvalidAdvance() || isValid;
+    const currentState = this.stepStates()[previousIndex];
+    const canAdvance = this.allowInvalidAdvance() || currentState.complete;
 
     if (!canAdvance) return;
 
     this.activeIndex.set(index);
     this.setSubActiveIndex(index, 0);
+    this.markStepVisited(index);
+
     this.stepChange.emit({ previousIndex, currentIndex: index });
-  }
-
-  isStepCompleted(step: SmartStepperStep, index: number): boolean {
-    if (step.completed !== undefined) return step.completed;
-    if (step.form) return step.form.valid;
-
-    return index < this.activeIndex();
-  }
-
-  isStepError(step: SmartStepperStep, index: number): boolean {
-    if (step.error !== undefined) return step.error;
-    if (step.errorControl) return this.isControlInvalid(step.errorControl);
-
-    const prev = this.steps()[index - 1];
-    if (prev?.form) return this.isControlInvalid(prev.form);
-    return false;
   }
 
   automaticNextStep(index: number) {
@@ -263,6 +233,7 @@ export class SmartStepperComponent implements OnDestroy {
     const nextIndex = index + 1;
     if (nextIndex >= this.steps().length) return;
     this.activeIndex.set(nextIndex);
+    this.markStepVisited(nextIndex);
     this.stepChange.emit({ previousIndex, currentIndex: nextIndex });
     this.setSubActiveIndex(nextIndex, 0);
   }
@@ -354,15 +325,6 @@ export class SmartStepperComponent implements OnDestroy {
     const total = controls.length;
     const completed = controls.filter(control => control.valid).length;
     return { completed, total };
-  }
-
-  getCompletedSteps() {
-    return this.steps().map((step, index) => ({
-      step,
-      index,
-      completed: this.isStepCompleted(step, index),
-      active: index === this.activeIndex(),
-    }));
   }
 
   private setSubActiveIndex(stepIndex: number, subStepIndex: number) {
@@ -557,5 +519,17 @@ export class SmartStepperComponent implements OnDestroy {
     }
 
     return control.touched || control.dirty;
+  }
+
+  private markStepVisited(index: number) {
+    this.visitedSteps.update(set => {
+      const newSet = new Set(set);
+      newSet.add(index);
+      return newSet;
+    });
+  }
+
+  stepVisited(stepIndex: number): boolean {
+    return this.visitedSteps().has(stepIndex);
   }
 }
